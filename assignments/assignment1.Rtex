@@ -84,9 +84,10 @@ knitr::opts_chunk$set(size = "small")
 
 \section{Gradient Descent, Stochastic Gradient Descent and Adam}
 
-In this assignment we will study different ways to optimize the objective functions that is common in many areas of Machine Learning, namely Stochastic gradient descent. Here we will test to implement these optimizers for a well known approach, logistic regression.
+In this assignment, we will study different ways to optimize common objective functions in many areas of Machine Learning, namely Stochastic gradient descent. Here we will test to implement these optimizers for a well-known model, logistic regression.
 
 We are going to work with this data as at test case:
+
 <<echo=TRUE,eval=FALSE>>=
 bin_data <- read.csv("https://stats.idre.ucla.edu/stat/data/binary.csv")
 
@@ -165,14 +166,15 @@ l <- function(y, X, theta){
 <<echo=TRUE,eval=TRUE>>=
 l(y, X, theta = c(-1,0.5,0.5))
 @
-\item Run logistic regression in R to get a MLE estimate.
+\item Run logistic regression in R to get an MLE estimate.
 \item Implement the following gradient descent algorithms:
 \begin{enumerate}
 \item ordinary (full/batch) gradient descent
 \item stochastic gradient descent
 \item mini-batch (stochastic) gradient descent using 10 samples to estimate the gradient
 \end{enumerate}
-\item Try different learning parameters $\eta$ when do the algorithm converge or diverge? Visualize the iterations (x-axis) and the log likelihood (y-axis). Show at least one plot per algorithm that converge. Describe your conclusions. Show the code (loop) you use.
+\item Try different learning parameters $\eta$. When does the algorithm converge or diverge? Visualize the iterations (x-axis) and the log-likelihood (y-axis). Show at least one plot per algorithm that converges. Describe your conclusions. Show the code (loop) you use.
+\item Try to run Stochastic or mini-batch Gradient Descent with a fix $\eta$. Try to judge when the algorithm roughly has converged and visualize 500 iterations of $\theta_t$ after the algorithm has roughly converged. Visualize these estimates as an histogram.
 \end{enumerate}
 
 \end{document}
