@@ -1,5 +1,5 @@
 ---
-title: "MLBDAI: Assignment X"
+title: "MLBDAI: Assignment Template and Formating Instructions"
 author: "Anonymous student"
 output: 
   pdf_document: 
@@ -9,13 +9,13 @@ output:
 
 # Introduction
 
-This is a template with format instructions for Assignments in the Machine learning course at Uppsala University. R markdown is a convenient way of writing exercise reports by combining text and R code using markdown syntax. To create your assignment, remove the formatting instructions and use this file as a template. Keep the header (the first lines of this file between two lines of ---) as it sets the author name to be anonymous, and you can set the title to match the assignment number.
+This is a template with format instructions for Assignments in the Machine learning course at Uppsala University. R markdown is a convenient way of writing exercise reports by combining text and R code using markdown syntax. To create your assignment, remove the formatting instructions, and use this file as a template. Keep the header (the first lines of this file between two lines of ---) as it sets the author's name to be anonymous, and you can set the title to match the assignment number.
 
-R markdown makes it easy to make a structured document with section and subsection titles, textual explanations, equations, code and figures in logical order. When you make changes to the code and re-run the notebook or "knit" (render) it to PDF, the relevant code is re-run and the figures and results are updated without need to copy and past (which is probe to errors).
+R markdown makes it easy to make a structured document with section and subsection titles, textual explanations, equations, code, and figures in a logical order. When you make changes to the code and re-run the notebook or "knit" (render) it to PDF, the relevant code is re-run, and the figures and results are updated without the need to copy and paste (which is prone to errors).
 
 More information on how to use markdown, see [**this**](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) and more information on R markdown can be found [**here**](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf).
 
-Also, _R Markdown: The Definite Guide_, an extensive book on R Markdown can be found [**here**](https://bookdown.org/yihui/rmarkdown/).
+Also, _R Markdown: The Definite Guide_, an extensive book on R Markdown, can be found [**here**](https://bookdown.org/yihui/rmarkdown/).
 
 
 ```{r setup, include=FALSE}
@@ -37,9 +37,9 @@ library(ggplot2)
 
 Try to avoid printing an excessive amount of code and think about what is essential for showing how did you get the result.
 
-Write clear code. The code is also part of your report and clarity of the report affects your score. If the code is not self-explanatory, add comments. In a notebook, you can interleave explaining text and code.
+Write clear code. The code is also part of your report, and the clarity of the report affects if you pass the assignment. If the code is not self-explanatory, add comments. In a notebook, you can interleave explaining text and code.
 
-If in doubt additional source code can be included in an appendix. 
+If in doubt, additional source code can be included in an appendix. 
 
 # Format instructions
 
@@ -47,11 +47,11 @@ All exercises in the assignment should start with a header fully specifying that
 
 # Exercise 1)
 
-Subtasks in each assignments should be numbered and use header (in rmd use ##).
+Subtasks in each assignment should be numbered and use header (in rmd use ##).
 
 ## a)
 
-For each subtask include necessary textual explanation, equations, code and figures so that the answer to the question flows naturally. You can think what kind of report would you like to review, and what kind of information would make it easier where there is error (if there are errors).
+For each subtask, include a necessary textual explanation, equations, code, and figures so that the answer to the question flows naturally. You can think about what kind of report you would like to review.
 
 # Code
 
@@ -63,13 +63,13 @@ We can easily add R code as chunks in the following way:
 
 This R code is evaluated when running the notebook or when rendering to PDF.
 
-If you want to show and run the code, but the output is very long or messy and you prefer to hide the output from the rendered report you can use option results='hide'. This is useful especially later as Stan may output many lines.
+If you want to show and run the code, but the output is very long or messy, and you prefer to hide the output from the rendered report, you can use option results='hide'. 
 
 ```{r, results='hide'}
 5 + 5
 ```
 
-If you want to use some code in the notebook, but think it's not helpful for the reviewers you can exclude it from the generated PDF with option `include=FALSE`. You will see the next block in rmd, but not in the generated PDF.
+If you want to use some code in the notebook, but think it's not helpful for the teacher that grade your assignment, you can exclude it from the generated PDF with option `include=FALSE`. You will see the next block in rmd, but not in the generated PDF.
 ```{r, include=FALSE}
 5 + 5
 ```
@@ -97,7 +97,7 @@ ggplot(data=faithful, aes(x=eruptions, y=waiting)) + geom_point() +
 
 # Images
 
-You can include an existing image (e.g. scanned copy of pen and paper equations)
+You can include an existing image (e.g., scanned copy of pen and paper equations)
 
 ![Uppsala University](uu_logo.png){ width=120}
 
@@ -120,7 +120,7 @@ x_{21} & x_{22} & x_{23}.
 \end{array}
 $$
 
-The above example illustrated also multicolumn 'array'. Alternative way to make multiline equations with alignment is to use 'aligned' as follows;
+The above example also illustrated multicolumn 'array'. An alternative way to make multiline equations with alignment is to use 'aligned' as follows;
 $$
 \begin{aligned}
 y & \sim \mathrm{normal}(\mu,1) \\
@@ -140,5 +140,4 @@ The language used in the course is English. Hence the report needs to be written
 
 # Jupyter Notebook and other report formats
 
-You are allowed to use any format to produce your report, such as Jupyter Notebook, as long as you obide by the instructions in this template.
-
+You are allowed to use any format to produce your report, such as Jupyter Notebooks, as long as you abide by the instructions in this template.
