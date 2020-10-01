@@ -8,4 +8,5 @@
 *.toc
 *.snm
 *.Rproj
+assignments/*.tex
 TODO.tdl
