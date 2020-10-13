@@ -7,6 +7,14 @@ output:
     toc_depth: 1
 ---
 
+### General Information
+
+Here general information is included that is needed for administrative/course purposes. **If this information is missing, the assignment will be failed**.
+
+- **Name**: [Write your name here]
+- **Student-ID**: [Write your student ID here]
+- **Time use**: [How long time did the assignment took (in hours)]
+
 # Introduction
 
 This is a template with format instructions for Assignments in the Machine learning course at Uppsala University. R markdown is a convenient way of writing exercise reports by combining text and R code using markdown syntax. To create your assignment, remove the formatting instructions, and use this file as a template. Keep the header (the first lines of this file between two lines of ---) as it sets the author's name to be anonymous, and you can set the title to match the assignment number.
