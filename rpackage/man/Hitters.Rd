@@ -7,6 +7,9 @@
 \format{
 An object of class \code{data.frame} with 322 rows and 20 columns.
 }
+\source{
+The ISLR R package.
+}
 \usage{
 Hitters
 }
