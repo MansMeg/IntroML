@@ -84,7 +84,14 @@ knitr::opts_chunk$set(size = "small")
 
 \section{Regularized Regression}
 
-The files \texttt{prob2-training.csv} and \texttt{prob2-test.csv} contains simulated data with 240 explanatory variables (\texttt{V1-V240}) and 1 numerical response variable (\texttt{y}). As per the file names, the first file contains training data and the second contains test data for this problem.
+The datasets \texttt{prob2\_train} and \texttt{prob2\_test} contains simulated data with 240 explanatory variables (\texttt{V1-V240}) and 1 numerical response variable (\texttt{y}). As per the dataset names, the first dataset contains training data and the second contains test data for this problem. To access the data, just run:
+
+<<eval=TRUE>>=
+library(uuml)
+data("prob2_train")
+data("prob2_test")
+dim(prob2_train)
+@
 
 
 You should do the following and present the results in your report:
@@ -99,7 +106,7 @@ You should do the following and present the results in your report:
 \pagebreak
 
 \section{A simple Spam filter}
-The purpose of this task is to design an email filter to classify email messages as either \emph{spam} or \emph{not spam} (i.e. ham). The data consists of variables derived from 4601 emails, available in the file \texttt{Email.txt}. There are 58 columns in the file. The first 57 columns are predictors, while the last column is a binary
+The purpose of this task is to design an email filter to classify email messages as either \emph{spam} or \emph{not spam} (i.e. ham). The data consists of variables derived from 4601 emails, available in the dataset \texttt{Email}. There are 58 columns in the file. The first 57 columns are predictors, while the last column is a binary
 response variable with 1 indicating \emph{spam} and 0 \emph{not spam}. The 57 predictors can be divided into three
 types. Predictors 1-48 are the proportion of certain words. For example, the first column is
 \texttt{make}, which shows the proportion of the word ``make'' in the email.
@@ -110,8 +117,16 @@ Predictors 55-57 are concerned with capital letters in the email. The 55th colum
 56th column is \texttt{longest}, which shows the length of the longest uninterrupted sequences of capital
 letters. The 57th column is \texttt{sum}, which shows the total number of capital letters in the email.
 
+To access the data, use:
+
+<<echo=TRUE,eval=FALSE>>=
+library(uuml)
+data("Email")
+@
+
+
 \begin{enumerate}
-\item First, split the data into a training set (90 \% of the data) and a test set (10 \% of the data) by randomly assignment. Set the test data aside so it will be used only once.
+\item First, split the data into a training set (90 \% of the data) and a test set (10 \% of the data) by randomly assignment. Set the test data aside so it will be used only for model assesment.
 \item You should fit a logistic regularized regression model to the training data and compare the performance of these five models using the test data. Handcraft features you might think would be good, based on the training data) Use the training set to produce as a good predictive model as possible.
 \item Identify the observations that are missclassified in the training set. Can you find a way to improve the model by handling the missclassified observations?
 \item Evaluate your final trained model on the test data \emph{one}.
