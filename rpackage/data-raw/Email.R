@@ -1,0 +1,5 @@
+# zip("data-raw/files/Email.txt.zip", files = "data-raw/files/Email.txt")
+unzip("data-raw/files/Email.txt.zip")
+Email <- read.csv("data-raw/files/Email.txt")
+file.remove("data-raw/files/Email.txt")
+usethis::use_data(Email, overwrite = TRUE)

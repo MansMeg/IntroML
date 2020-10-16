@@ -44,3 +44,27 @@
 
 #' @rdname prob2_train
 "prob2_test"
+
+
+#' The Email Dataset
+#'
+#' @description
+#' The data consists of 4601 emails.
+#' There are 58 columns in the file.
+#' The first 57 columns are predictors, while the last column is a binary
+#' response variable with 1 indicating \emph{spam} and 0 \emph{not spam}.
+#' The 57 predictors can be divided into three types.
+#' Predictors 1-48 are the proportion of certain words.
+#' For example, the first column is \code{make}, which shows the proportion of
+#' the word ``make'' in the email.
+#'
+#' Predictors 49-54 are the proportion of characters. For example, the 49th column is
+#' \code{semi.colon}, which shows the proportion of the character ``;'' in the email.
+#'
+#' Predictors 55-57 are concerned with capital letters in the email. The 55th column is
+#' \code{average}, which shows the average length of uninterrupted sequences of capital letters. The
+#' 56th column is \code{longest}, which shows the length of the longest uninterrupted sequences of capital
+#' letters. The 57th column is \code{sum}, which shows the total number of capital letters in the email.
+#'
+"Email"
+
