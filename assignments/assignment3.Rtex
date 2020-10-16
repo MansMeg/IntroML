@@ -1,0 +1,189 @@
+\documentclass[11pt,a4paper,english]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+% Normal latex T1-fonts
+\usepackage[T1]{fontenc}
+
+% Figures
+%\usepackage{graphicx,fancybox,subfigure}
+
+ % AMS-stuff
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsbsy}
+
+ % Misc
+\usepackage{verbatim}
+\usepackage{url}
+
+% Page size
+\addtolength{\hoffset}{-1cm}
+\addtolength{\textwidth}{2cm}
+\addtolength{\voffset}{-1cm}
+\addtolength{\textheight}{2cm}
+
+% Paragraph
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+
+% Horizontal line
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+% No page numbers
+\pagestyle{empty}
+
+% New commands:
+\DeclareMathOperator{\var}{var}
+\DeclareMathOperator{\cov}{cov}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+
+\begin{document}
+
+\begin{titlepage}
+
+\center
+\textsc{\LARGE Uppsala University}\\[1.5cm] % Name of your university/college
+\includegraphics[scale=.2]{files/uu_logo.png}\\[1cm]
+\textsc{\Large Introduction to Machine Learning, Big Data, and AI}\\[0.5cm]
+\textsc{\large }\\[0.5cm]
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Assignment 3}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+
+\vfill
+
+\end{titlepage}
+
+
+\HRule
+
+\input{general_info.tex}
+
+% General Knitr options
+% (this cannot be input since the file runs knitr before LaTeX)
+<<echo=FALSE,eval=TRUE>>=
+options(continue="  ", prompt="> ")
+knitr::opts_chunk$set(size = "small")
+@
+
+\HRule
+
+\newpage
+
+
+
+\section{Decision Trees}
+
+The dataset Hitters contain data on the salary of Baseball players and additional information on years in the baseball league (\texttt{Years}) and the number of hits (\texttt{Hits}). To access the data, just use
+
+<<echo=TRUE, eval=TRUE>>=
+library(uuml)
+data("Hitters")
+@
+
+We are now going to build an algorithm to grow decision trees. The algorithm below is based on the algorithm explained in Chapter 9.2.2 in ESL.
+
+\begin{enumerate}
+\item Create a test set by setting aside the 30 first observations. Remove those observations from your training set. We will ignore the  \texttt{NA} values when evaluating.
+<<echo=TRUE, eval=TRUE>>=
+X_test <- Hitters[1:30, c("Years", "Hits")]
+y_test <- Hitters[1:30, c("Salary")]
+X_train <- Hitters[31:ncol(Hitters), c("Years", "Hits")]
+y_train <- Hitters[31:ncol(Hitters), c("Salary")]
+@
+\item Implement an R function to split observations binary greedily (ignore \texttt{NA} values). Here we use the algorithm in ESL  The function should take a design matrix \texttt{X}, an \texttt{y} variable and a minimal leaf size \texttt{l}. The function should return a list with the index set of the observations in \texttt{R1}, \texttt{R2}, the split value \texttt{s} and the covariate used for the split \texttt{j}. See below for an example.
+
+<<echo = FALSE>>=
+tree_split <- function(X,y,l){
+  list(j = 1,
+       s = 5,
+       R1 = c(2,7 , 8 ,10 ,11 ,14 ,17),
+       R2 = c(1 , 3 , 4,  5,  6 , 9, 12 ,13 ,15 ,16 ,18, 19 ,20))
+}
+@
+
+<<echo=TRUE, eval=TRUE>>=
+X <- Hitters[31:50, c("Years", "Hits")]
+y <- Hitters[31:50, c("Salary")]
+tree_split(y, X, l = 5)
+@
+\item What is the first split based on the whole training data \texttt{X\_train} and \texttt{y\_train}?
+\item Use the function \texttt{tree\_split()} to create a function \texttt{grow\_tree()} that takes the arguments \texttt{X}, \texttt{y}, and \texttt{l} and then build a decision tree. The returned tree can return a \texttt{data.frame} as follows. Although, you are free to implement this however you want.
+
+<<echo = FALSE>>=
+grow_tree <- function(X,y,l){
+  data.frame(j = c(1, NA, 2, NA, NA),
+             s = c(5, NA, 84, NA, NA),
+             R1_i = c(2, NA, 4, NA, NA),
+             R2_i = c(3, NA, 5, NA, NA),
+             gamma = c(NA, 132.5, NA, 256.6667, 420))
+}
+@
+
+<<echo=TRUE, eval=TRUE>>=
+X <- Hitters[31:50, c("Years", "Hits")]
+y <- Hitters[31:50, c("Salary")]
+tr <- grow_tree(y, X, l = 5)
+tr
+@
+\item Finally implement a function \texttt{predict\_with\_tree(new\_data, tree)} to use the tree to predict new observations $X_{new}$ as follows:
+<<echo = FALSE>>=
+predict_with_tree <- function(new_data, tree){
+  c(420.0, 132.5)
+}
+@
+
+<<echo=FALSE,eval=FALSE>>=
+X_new <- Hitters[51:52, c("Years", "Hits")]
+X_new
+y_new <- Hitters[51:52, c("Salary")]
+y_new
+predict_with_tree(new_data = X_new, tree = tr)
+@
+\item What is the mean squared error on the testset for a tree trained on the whole training data \texttt{X\_train} and \texttt{y\_train}?
+\end{enumerate}
+
+\subsection{Bagging}
+
+Now we can use our regression tree to do a Bagged Tree regression model. The main difference from the tree is that we now will draw $B$ boostrap samples from our datatset, then train $B$ trees, use them for for a combined bagged prediction.
+
+See Section 8.7 in ESL, and especially (8.51) for details.
+
+\begin{enumerate}
+\item Implement a bagged tree regression model using \texttt{grow\_tree()} and \texttt{predict\_with\_tree()}.
+\item Train your bagged tree regression model on the training data and predict on the test data. What is the RMSE of your predictions on the test set?
+\end{enumerate}
+
+
+\section{Running standard tools for boosting and random forests}
+
+The last part of the assignment consist of using Random Forest and XGBoost (Boosted regression trees).
+
+\begin{enumerate}
+\item Use the \texttt{randomForest} R package to fit a random forest regression to the training data using the \texttt{randomForest} function. Note you would need to handle \texttt{NA}s and reformulate the data slightly.
+\item How many variables are used at each split. Why do you get this number?
+\item Use the trained random forest to predict the test set and compute the RMSE of your predictions. Compare your \texttt{randomForest} to your bagged tree algorithm.
+\item Next, use the \texttt{xgboost} R package to fit a boosted regression tree model to the training data using the \texttt{xgboost} function. Note you would need to handle \texttt{NA}s and reformulate the data slightly.
+\item What is the RMSE of the predictions using the boosted regression tree model? How does that compare to the random forest regression model?
+
+\end{enumerate}
+
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
