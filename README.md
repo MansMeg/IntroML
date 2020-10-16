@@ -15,13 +15,14 @@ See course syllabus [here](https://www.uu.se/en/admissions/freestanding-courses/
 A rough course plan with reading instructions can be found  [here](https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing).
 
 
-## Course Literature
+## Course Literature and Video Material
 Below are the main references for the course. All books are available free online. Some articles may need access from a Uppsala University network.
+
+### Literature
 
 - ESL: Hastie, Trevor, Robert Tibshirani, and Jerome Friedman. The elements of statistical learning: data mining, inference, and prediction. Springer Science & Business Media, 2009. [online access](https://web.stanford.edu/~hastie/ElemStatLearn/)
 - DL: Goodfellow, Ian, Yoshua Bengio, and Aaron Courville. Deep learning. MIT Press, 2017. [online access](https://web.stanford.edu/~hastie/ElemStatLearn/)
 - DLR: Chollet, François, and Joseph J. Allaire. Deep Learning with R. Manning, 2018.  [online access](https://www.manning.com/books/deep-learning-with-r#toc)
-
 
 In addition, the following material will also be included (note that you might need to access the material through the Uppsala University network):
 
@@ -32,6 +33,12 @@ In addition, the following material will also be included (note that you might n
 - Precision and Recall at [Wikipedia](https://en.wikipedia.org/wiki/Precision_and_recall).
 
 Additional literature might show up during the course.
+
+### Video material
+
+- Chen, T. (2016) XGBoost: A scalable Tree Boosting System  [online](https://www.youtube.com/watch?v=Vly8xGnNiWs)
+- ISLV: Hastie and Tibshirani, Introduction to Statistical Learning (Video material) [online access](http://auapps.american.edu/alberto/www/analytics/ISLRLectures.html)
+
 
 ## Course practicalities
 
