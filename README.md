@@ -21,7 +21,7 @@ Below are the main references for the course. All books are available free onlin
 ### Literature
 
 - ESL: Hastie, Trevor, Robert Tibshirani, and Jerome Friedman. The elements of statistical learning: data mining, inference, and prediction. Springer Science & Business Media, 2009. [online access](https://web.stanford.edu/~hastie/ElemStatLearn/)
-- DL: Goodfellow, Ian, Yoshua Bengio, and Aaron Courville. Deep learning. MIT Press, 2017. [online access](https://web.stanford.edu/~hastie/ElemStatLearn/)
+- DL: Goodfellow, Ian, Yoshua Bengio, and Aaron Courville. Deep learning. MIT Press, 2017. [online access](https://www.deeplearningbook.org/)
 - DLR: Chollet, François, and Joseph J. Allaire. Deep Learning with R. Manning, 2018.  [online access](https://www.manning.com/books/deep-learning-with-r#toc)
 
 In addition, the following material will also be included (note that you might need to access the material through the Uppsala University network):
