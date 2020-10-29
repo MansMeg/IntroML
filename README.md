@@ -38,6 +38,7 @@ Additional literature might show up during the course.
 
 - Chen, T. (2016) XGBoost: A scalable Tree Boosting System  [online](https://www.youtube.com/watch?v=Vly8xGnNiWs)
 - ISLV: Hastie and Tibshirani, Introduction to Statistical Learning (Video material) [online access](http://auapps.american.edu/alberto/www/analytics/ISLRLectures.html)
+- 3B1B: Three Blue One Brown on Neural Networks [online access](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)
 
 
 ## Course practicalities
