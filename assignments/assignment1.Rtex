@@ -84,9 +84,9 @@ knitr::opts_chunk$set(size = "small")
 \newpage
 
 
-\section{Gradient Descent, Stochastic Gradient Descent and Adam}
+\section{Gradient Descent, Stochastic Gradient Descent, and Adam}
 
-In this assignment, we will study different ways to optimize common objective functions in many areas of Machine Learning, namely Stochastic gradient descent. Here we will test to implement these optimizers for a well-known model, logistic regression.
+This assignment will study different ways to optimize common objective functions in many areas of Machine Learning, namely, stochastic gradient descent. Here we will test to implement these optimizers for a well-known model, logistic regression.
 
 We are going to work with this data as at test case:
 
@@ -148,7 +148,7 @@ l_grad(y, X, theta = c(-1,0.5,0.5))
 
 \subsection{Implement Gradient Descent}
 
-We now have the main tool for implementing gradient descent and stochastic gradient descent.
+We now have the primary tool for implementing gradient descent and stochastic gradient descent.
 
 \begin{enumerate}
 \item Implement the log likelihood $l$ or the negative log likelihood NLL in R.
@@ -174,10 +174,10 @@ l(y, X, theta = c(-1,0.5,0.5))
 \begin{enumerate}
 \item ordinary (full/batch) gradient descent
 \item stochastic gradient descent
-\item mini-batch (stochastic) gradient descent using 10 samples to estimate the gradient
+\item mini-batch (stochastic) gradient descent using ten samples to estimate the gradient
 \end{enumerate}
 \item Try different learning parameters $\eta$. When does the algorithm converge or diverge? Visualize the iterations (x-axis) and the log-likelihood (y-axis). Show at least one plot per algorithm that converges. Describe your conclusions. Show the code (loop) you use.
-\item Try to run Stochastic or mini-batch Gradient Descent with a fix $\eta$. Try to judge when the algorithm roughly has converged and visualize 500 iterations of $\theta_t$ after the algorithm has roughly converged. Visualize these estimates as an histogram.
+\item Try to run Stochastic or mini-batch Gradient Descent with a fixed $\eta$. Try to judge when the algorithm roughly has converged and visualize 500 iterations of $\theta_t$ after the algorithm has roughly converged. Visualize these estimates as a histogram.
 \end{enumerate}
 
 \end{document}
