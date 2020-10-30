@@ -98,7 +98,7 @@ You should do the following and present the results in your report:
 \begin{enumerate}
 \item Fit a linear model to the training data. What are the results? Why does this happen?
 \item Use \texttt{cv.glmnet} from the \texttt{glmnet} package to fit a linear lasso regression to the training data. Describe what the function does. Include the plot showing the MSE for different values of $\lambda$ in your report and describe how to interpret it.
-\item Have a look at the coefficients that you get from the $\lambda_{min}$ and $\lambda_{1se}$ models. Describe the resulting models, e.g. if any variables have been removed from the model, in the report (but please do not print all 240 coefficients!).
+\item Have a look at the coefficients you get from the $\lambda_{min}$ and $\lambda_{1se}$ models. Describe the resulting models in the report, e.g., if any variables have been removed from the model. But please do not print all 240 coefficients!
 \item Use \texttt{cv.glmnet} from the \texttt{glmnet} package to fit a linear ridge regression to the training data.
 \item Use the four models (lasso/ridge, $\lambda_{min}$ or $\lambda_{1se}$) from (b) and (d) to make predictions for the test data. Present the MAE and RMSE of the four models in a table in your report. Discuss the results, comparing the interpretability and predictive performance of the models.
 \end{enumerate}
@@ -106,16 +106,14 @@ You should do the following and present the results in your report:
 \pagebreak
 
 \section{A simple Spam filter}
-The purpose of this task is to design an email filter to classify email messages as either \emph{spam} or \emph{not spam} (i.e. ham). The data consists of variables derived from 4601 emails, available in the dataset \texttt{Email}. There are 58 columns in the file. The first 57 columns are predictors, while the last column is a binary
-response variable with 1 indicating \emph{spam} and 0 \emph{not spam}. The 57 predictors can be divided into three
+The purpose of this task is to design an email filter to classify email messages as either \emph{spam} or \emph{not spam} (i.e., ham). The data consists of variables derived from 4601 emails, available in the dataset \texttt{Email}. There are 58 columns in the file. The first 57 columns are predictors, while the last column is a binary
+response variable with one (1) indicating \emph{spam} and zero (0) \emph{not spam}. The 57 predictors can be divided into three
 types. Predictors 1-48 are the proportion of certain words. For example, the first column is
 \texttt{make}, which shows the proportion of the word ``make'' in the email.
 Predictors 49-54 are the proportion of characters. For example, the 49th column is
 \texttt{semi.colon}, which shows the proportion of the character ``;'' in the email.
 Predictors 55-57 are concerned with capital letters in the email. The 55th column is
-\texttt{average}, which shows the average length of uninterrupted sequences of capital letters. The
-56th column is \texttt{longest}, which shows the length of the longest uninterrupted sequences of capital
-letters. The 57th column is \texttt{sum}, which shows the total number of capital letters in the email.
+\texttt{average}, which shows the average length of uninterrupted sequences of capital letters. The 56th column is \texttt{longest}, which shows the length of the longest uninterrupted sequences of capital letters. The 57th column is \texttt{sum}, which shows the total number of capital letters in the email.
 
 To access the data, use:
 
@@ -126,19 +124,17 @@ data("Email")
 
 
 \begin{enumerate}
-\item First, split the data into a training set (90 \% of the data) and a test set (10 \% of the data) by randomly assignment. Set the test data aside so it will be used only for model assesment.
-\item You should fit a logistic regularized regression model to the training data and compare the performance of these five models using the test data. Handcraft features you might think would be good, based on the training data) Use the training set to produce as a good predictive model as possible.
-\item Identify the observations that are missclassified in the training set. Can you find a way to improve the model by handling the missclassified observations?
+\item First, split the data into a training set (90 \% of the data) and a test set (10 \% of the data) by random assignment. Set the test data aside so it will be used only for model assessment.
+\item You should fit a logistic regularized regression model to the training data and compare the performance of these five models using the test data. Handcraft features you might think would be good, based on the training data) Use the training set to produce a good predictive model as possible.
+\item Identify the observations that are misclassified in the training set. Can you find a way to improve the model by handling the misclassified observations?
 \item Evaluate your final trained model on the test data \emph{one}.
 In your report, you should present the following:
 \begin{enumerate}
 \item Confusion matrices for train and test data.
-\item Estimate the accuracy, precision, recall and $F_1$ for your classifier.
-\item Is it important that the spam filter is interpretable or is it OK to use a black box-model in this case?
+\item Estimate the accuracy, precision, recall, and $F_1$ for your classifier.
+\item Is it important that the spam filter is interpretable, or is it OK to use a black box-model in this case?
 \end{enumerate}
 \end{enumerate}
-
-
 
 
 \end{document}
