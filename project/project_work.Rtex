@@ -77,16 +77,19 @@ knitr::opts_chunk$set(size = "small")
 
 The last two weeks will be focused on a course project where a group of 2-3 students choose data and create a supervised machine learning predictor for a real-world dataset.
 
+\subsection{Project Group and Expected Workload}
 It is possible to have only one student in a group, although this is not recommended. One student group will, in practice, mean additional work due to the requirements of the project.
-
-Students need to turn in a half-page project and data description by the end of block six and get approval for the proposed project.
 
 The project is expected to take 40h per student in the group. Hence a 3 group project should be the equivalent of a 120h project.
 
 \subsection{Data Sets and Methods Recommendations}
 
-We recommend that you find a dataset you are interested in using yourself. If you have a hard time finding a dataset to use, there are a lot of available datasets at the UCI Machine Learning repository:
-\url{https://archive.ics.uci.edu/ml/index.php}
+We recommend that you find a dataset you are interested in using yourself. If you have a hard time finding a dataset to use, there are a lot of available datasets (and problems) at:
+
+\begin{itemize}
+\item the UCI Machine Learning repository: \href{https://archive.ics.uci.edu/ml/index.php}{[here]}
+\item the machine learning competition site Kaggle: \href{https://www.kaggle.com/}{[here]}
+\end{itemize}
 
 Some data sets should not be used in the project:
 \begin{itemize}
@@ -99,21 +102,65 @@ Modeling requirements and recommendations:
 \item Your project should be a supervised learning project.
 \end{itemize}
 
+\subsection{Project Proposal}
+Students need to turn in a half-page project and data description by the end of block six and get approval for the proposed project. The project proposal must include the following pieces.
 
-\subsection{Project Report}
-
-The Project outcome is an R or Python notebook/markdown report. Both the R-markdown and the final PDF should be supplied.
-
-The submitted notebooks need to illustrate the knowledge of the
-  Bayesian workflow. It has to include:
 \begin{itemize}
   \item Description of the problem.
   \item Description of the data.
-  \item Description of the method used and motivation.
-  \item Detailed description of how the evaluation was conducted and metrics that were computed.
-  \item Discussion of problems and potential improvements.
-  \item Discussion of potential ethical problems (in light of the guest lecture).
+  \item A first idea on potential methods and evaluation.
 \end{itemize}
+
+To minimize the project work's total workload, I suggest you see the proposal as a first draft of Section 1 and 2 of the project report (see below). Then the first part of your project report will already be written.
+
+\subsection{Project Report}
+
+The Project outcome is a report in the ICML paper format that can be found \href{https://icml.cc/Conferences/2020/StyleAuthorInstructions}{[here]}.
+The ICML format is also available in overleaf here: \href{https://www.overleaf.com/latex/templates/icml-2019-submission-template/vkqjjvzjvhdc}{[here]}
+
+The paper should consist of \emph{four (4) pages}, excluding references and eventual appendices. The paper should include the following four (4) sections:
+\begin{enumerate}
+  \item Introduction (roughly 0.5 pages)
+  \begin{itemize}
+    \item Description of the problem.
+  \end{itemize}
+  \item Data and Methods (roughly 1 pages)
+  \begin{itemize}
+    \item Description of the data.
+    \item Description and motivation of the method
+    \item Description of how the evaluation was conducted
+  \end{itemize}
+  \item Results (roughly 1.5-2 pages)
+  \begin{itemize}
+    \item Results of the proposed methods
+    \item Evaluation of the proposed method
+  \end{itemize}
+  \item Conclusions (roughly 0.5-1 pages)
+  \begin{itemize}
+    \item Conclusions from the results. Did the method work as expected?
+    \item Discussion of problems and potential improvements
+    \item Discussion of potential ethical issues (in light of the guest lecture).
+  \end{itemize}
+\end{enumerate}
+
+
+\subsection{Project Review}
+
+Each student will review one other group's project report. The project review should consist of a written report of 1-2 pages that contain the following parts--roughly one to two paragraphs per part.
+
+\begin{enumerate}
+\item Summary and contributions: \\ Briefly summarize the project report and its contributions in one paragraph.
+\item Strengths: \\ Describe the strengths of the work. Examples can be a clever use of the method. An interesting and non-trivial problem.Comparisons of more than one method.
+\item Weaknesses: \\ Describe the weaknesses of the work. Examples can be a lack of reproducibility, poorly chosen method, or evaluation.
+\item Correctness: \\ Are the claims and methods correct? Is the empirical methodology correct?
+\item Clarity: \\ Is the paper well written? Is it easy to follow or understand the report?
+\item Formatting: \\ Is the paper correctly formated, and are the required content included in the project report?
+\item Ethical considerations: \\ Does the report raise potential ethical concerns? This includes methods, applications, or data that create or reinforce unfair bias or have a primary purpose of harm or injury. If so, please explain briefly.
+\end{enumerate}
+
+
+\emph{Note} Reviewing other's work is an essential part of the scientific process. These reviewer guidelines have been in large part been taken from the NeurIPS reviewer guidelines that can be found here:
+\href{https://nips.cc/Conferences/2020/PaperInformation/ReviewerGuidelines}{NeurIPS reviewer guidelines}
 
 
 \subsection{Project Presentations}
@@ -126,8 +173,8 @@ Presentation details:
   \item For 1-2 person groups, the presentation should be 10 minutes
   \item For three-person groups, the presentation should be 15 minutes
   \item Afterwards, questions will be asked first by other students and then by attending teachers.
-  \item Each group will be responsible for (critically) discussing one other project report.
-  \item Grading of the presentation will be done by the attending teachers using standardized grading instructions 8see below).
+  \item Each student will be responsible for (critically) discussing/commenting on one other project report.
+  \item Grading of the presentation will be done by the attending teachers using standardized grading instructions.
   \item Presenters' ID cards will be checked to ensure the right persons are presenting
 \end{itemize}
 
@@ -135,9 +182,8 @@ Specific presentation recommendations:
 \begin{itemize}
   \item The first slide needs to include the project title and names of the group members.
   \item The chosen methods(s) should be explained and justified (you are \textit{not} holding this presentation for a hypothetical customer who doesn't care about the details of your methods).
-  \item Big enough font size for text and figure labels should be used to make it easy to read the slides for the audience.
+  \item Big enough font size for text and figure labels should be used to make it easy for the audience to read slides.
   \item The last slide needs to include to conclusion and names of the group members.
-    \item The best presentations we have seen were groups who discussed with teachers and showed intermediate results to get feedback on improving. So we recommend you visiting the computer labs.
 \end{itemize}
 
 
