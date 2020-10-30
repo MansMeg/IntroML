@@ -85,7 +85,7 @@ knitr::opts_chunk$set(size = "small")
 
 \section{Decision Trees}
 
-The dataset Hitters contain data on the salary of Baseball players and additional information on years in the baseball league (\texttt{Years}) and the number of hits (\texttt{Hits}). To access the data, just use
+The dataset Hitters contain data on the salary of Baseball players and additional information on years in the baseball league (\texttt{Years}) and the number of hits (\texttt{Hits}). To access the data, use
 
 <<echo=TRUE, eval=TRUE>>=
 library(uuml)
@@ -151,12 +151,12 @@ y_new <- Hitters[51:52, c("Salary")]
 y_new
 predict_with_tree(new_data = X_new, tree = tr)
 @
-\item What is the mean squared error on the testset for a tree trained on the whole training data \texttt{X\_train} and \texttt{y\_train}?
+\item What is the mean squared error on the test set for a tree trained on the whole training data \texttt{X\_train} and \texttt{y\_train}?
 \end{enumerate}
 
 \subsection{Bagging}
 
-Now we can use our regression tree to do a Bagged Tree regression model. The main difference from the tree is that we now will draw $B$ boostrap samples from our datatset, then train $B$ trees, use them for for a combined bagged prediction.
+Now we can use our regression tree to do a Bagged Tree regression model. The main difference from the previous tree is that we now will draw $B$ bootstrap samples from our dataset, then train $B$ trees, use them for a combined bagged prediction.
 
 See Section 8.7 in ESL, and especially (8.51) for details.
 
@@ -168,7 +168,7 @@ See Section 8.7 in ESL, and especially (8.51) for details.
 
 \section{Running standard tools for boosting and random forests}
 
-The last part of the assignment consist of using Random Forest and XGBoost (Boosted regression trees).
+The last part of the assignment consists of using Random Forest and XGBoost (Boosted regression trees).
 
 \begin{enumerate}
 \item Use the \texttt{randomForest} R package to fit a random forest regression to the training data using the \texttt{randomForest} function. Note you would need to handle \texttt{NA}s and reformulate the data slightly.
