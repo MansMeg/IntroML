@@ -44,7 +44,11 @@ Additional literature might show up during the course.
 
 ## Course practicalities
 
-Online course discussions will be held through Slack. Send a message to Andreas or Måns to get access.
+Online course discussions will be held through Slack. See Studium for details on how to log in.
+
+### Zoom
+
+The course will most likely be taught partly through Zoom. Information and support for students can be found [here](https://mp.uu.se/c/perm/link?p=267521030). 
 
 ## Teachers
 
