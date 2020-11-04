@@ -68,3 +68,18 @@
 #'
 "Email"
 
+
+
+#' The Mixture Example Data
+#'
+#' @description
+#' The data consists of a matrix with 20 different values, given in
+#' Table 8.1 in Hastie, Tibshirani and Friedman (2009)
+#'
+#' @references
+#' Hastie, Trevor, Tibshirani, Robert, and Friedman, Jerome.
+#' The elements of statistical learning: data mining, inference, and prediction.
+#' 2nd Edition. Springer Science & Business Media, 2009.
+#'
+"mixture_data"
+
