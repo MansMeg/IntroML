@@ -143,6 +143,11 @@ The paper should consist of \emph{four (4) pages}, excluding references and even
   \end{itemize}
 \end{enumerate}
 
+Additional requirements for the report:
+\begin{enumerate}
+\item All Figures using color should have a color-blind friendly color palette. See \href{http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette}{here} and \href{https://rdrr.io/cran/ggthemes/man/colorblind.html}{here}.
+\end{enumerate}
+
 
 \subsection{Project Review}
 
