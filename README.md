@@ -32,6 +32,7 @@ In addition, the following material will also be included (note that you might n
 - Salganik, M. J. et al. Measuring the predictability of life outcomes with a scientific mass collaboration. Proceedings of the National Academy of Sciences Apr 2020, 117 (15) 8398-8403; DOI: 10.1073/pnas.1915006117 [online access](https://www.pnas.org/content/117/15/8398)
 - Precision and Recall at [Wikipedia](https://en.wikipedia.org/wiki/Precision_and_recall).
 - Kingma D.P. and Welling M. An Introduction to Variational Autoencoders, 2019. [online access](https://arxiv.org/pdf/1906.02691.pdf)
+- Smyth, P. The EM algorithm for Gaussian Mixtures, 2020. [online access](https://www.ics.uci.edu/~smyth/courses/cs274/notes/EMnotes.pdf)
 
 Additional literature might show up during the course.
 
