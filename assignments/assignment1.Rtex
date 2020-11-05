@@ -84,7 +84,7 @@ knitr::opts_chunk$set(size = "small")
 \newpage
 
 
-\section{Gradient Descent, Stochastic Gradient Descent, and Adam}
+\section{Gradient Descent, Stochastic Gradient Descent, and Mini-Batch Gradient Descent}
 
 This assignment will study different ways to optimize common objective functions in many areas of Machine Learning, namely, stochastic gradient descent. Here we will test to implement these optimizers for a well-known model, logistic regression.
 
@@ -125,7 +125,7 @@ Although, in our case we instead want to minimize the negative log likelihood NL
 
 \begin{enumerate}
 \item Derive the the gradient for NLL$(\theta, \mathbf{y}, \mathbf{X})$ with respect to $\theta$.
-\item Implement the gradient as a function in R. Below are two examples of how it should work. Note, this is the gradient of $(1/n) l(\theta, \mathbf{y}, \mathbf{X})$
+\item Implement the gradient as a function in R. Below are two examples of how it should work. Note, \texttt{l\_grad(y, X, theta)} return the gradient of $(1/n) l(\theta, \mathbf{y}, \mathbf{X})$.
 <<echo=FALSE,eval=TRUE>>=
 l_grad <- function(y, X, theta){
 c("(Intercept)" = -0.1825, "gre_sd" = 0.0857, "gpa_sd" = 0.0829)
