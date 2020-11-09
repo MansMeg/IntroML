@@ -13,6 +13,9 @@ Here general information is included that is needed for administrative/course pu
 
 - **Name**: [Write your name here]
 - **Time use**: [How long time did the assignment took (in hours)]
+- **Good with lab**: [Write one-two sentences of what you liked with the assignment/what parts made you feel that you learned something new.]
+- **Things to improve in the lab**: [Write one-two sentences of what you think can be improved in the assignment. Can something be clarified further? Did you get stuck on stuff that is not related to the content of the assignment etc.]
+
 
 # Introduction
 
