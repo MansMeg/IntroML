@@ -1,0 +1,149 @@
+\documentclass[11pt,a4paper,english]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+% Normal latex T1-fonts
+\usepackage[T1]{fontenc}
+
+% Figures
+%\usepackage{graphicx,fancybox,subfigure}
+
+ % AMS-stuff
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsbsy}
+
+ % Misc
+\usepackage{verbatim}
+\usepackage{url}
+
+\usepackage[round]{natbib}
+\bibliographystyle{unsrtnat}
+
+% Page size
+\addtolength{\hoffset}{-1cm}
+\addtolength{\textwidth}{2cm}
+\addtolength{\voffset}{-1cm}
+\addtolength{\textheight}{2cm}
+
+% Paragraph
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+
+% Horizontal line
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+% No page numbers
+\pagestyle{empty}
+
+% New commands:
+\DeclareMathOperator{\var}{var}
+\DeclareMathOperator{\cov}{cov}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+
+\begin{document}
+
+\begin{titlepage}
+
+\center
+\textsc{\LARGE Uppsala University}\\[1.5cm] % Name of your university/college
+\includegraphics[scale=.2]{files/uu_logo.png}\\[1cm]
+\textsc{\Large Introduction to Machine Learning, Big Data, and AI}\\[0.5cm]
+\textsc{\large }\\[0.5cm]
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Assignment 4}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+
+\vfill
+
+\end{titlepage}
+
+
+\HRule
+
+\input{general_info.tex}
+
+% General Knitr options
+% (this cannot be input since the file runs knitr before LaTeX)
+<<echo=FALSE,eval=TRUE>>=
+options(continue="  ", prompt="> ")
+knitr::opts_chunk$set(size = "small")
+@
+
+\HRule
+
+\newpage
+
+
+
+\section{Neural Network Basics}
+
+As a first step, we want to implement one of the most straightforward neural networks possible.
+
+\begin{enumerate}
+\item Implement the neural network in \citet[][Ch. 6.1]{Goodfellow-et-al-2016} as a function that takes as an input a $2 \times 2$ weight matrix \texttt{W}. It should work as in Ch. 6.1.
+\item Now test changing the value $W_{1,1}$ to 0. What do you get for the results of the network?
+\item Is the network output function reasonable? Do you have any other output function that might be better?
+\end{enumerate}
+
+
+
+\section{Feed-Forward Neural Network using TensorFlow}
+
+As a first step, you need to install  \texttt{tensorflow} and \texttt{keras} on your local computer. You can find detailed information on how to install Tensorflow and \texttt{keras} \href{https://tensorflow.rstudio.com/installation/}{here}. Details on different architecture components can be found in the \texttt{keras} reference found \href{https://keras.rstudio.com/index.html}{here}
+
+If you have installed \texttt{keras}, you can load the MNIST dataset. This dataset contains data on handwritten digits that we want to classify. To access the data, we use \texttt{keras} as follows.
+
+<<echo=TRUE,eval=FALSE>>=
+library(keras)
+mnist <- dataset_mnist()
+mnist$train$x <- mnist$train$x/255
+mnist$test$x <- mnist$test$x/255
+@
+
+
+\begin{enumerate}
+\item As a first step, we visualize a couple of digits. Below is an example.
+<<echo=TRUE,eval=FALSE>>=
+idx <- 3
+im <- mnist$train$x[idx,,]
+# Transpose the image
+im <- t(apply(im, 2, rev))
+image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
+        xaxt='n', yaxt='n', main=paste(mnist$train$y[idx]))
+@
+\item How large is the training and test set?
+\item Implement a feed-forward neural network in R using TensorFlow and Keras. Start by following the introduction \href{https://tensorflow.rstudio.com/tutorials/beginners/}{here}. Start with one hidden layer with 16 units and the sigmoid as the activation function. Do not use any regularization. What do you get as classification accuracy? Include the validation error per epoch figure that is automatically generated.
+\item Now, we are going to play around with the essential concepts in feed-forward networks. Do the steps below, and report the \emph{validation} set accuracy and the validation error per epoch figures for each step.
+\begin{enumerate}
+\item Increase the number of hidden units to 128.
+\item Change the activation function to reLU.
+\item Change the optimizer to RMSprop.
+\item Try to run the net for ten epochs. If you would use early stopping for regularization, what would you do?
+\item Add a second layer with 128 hidden units. How many parameters do you have in the net right now?
+\item Add dropout with 0.2 and 0.5 dropout probability. You can choose what layers you would like to introduce the dropout.
+\item Add batch normalization. You can choose where you want to add it.
+\end{enumerate}
+\item Now try to improve the network architecture yourself (but still only use a feed-forward network). How good validation set accuracy can you get? What is the architecture used for the best model?
+\item Use your model to compute the accuracy, precision, and recall on the hold-out test set included with the MNIST data. If you get a lower accuracy than on the validation set, why is this the case?
+\end{enumerate}
+
+
+\bibliography{bibliography}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
