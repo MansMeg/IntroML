@@ -100,7 +100,7 @@ You should do the following and present the results in your report:
 \item Use \texttt{cv.glmnet} from the \texttt{glmnet} package to fit a linear lasso regression to the training data. Describe what the function does. Include the plot showing the MSE for different values of $\lambda$ in your report and describe how to interpret it.
 \item Have a look at the coefficients you get from the $\lambda_{min}$ and $\lambda_{1se}$ models. Describe the resulting models in the report, e.g., if any variables have been removed from the model. But please do not print all 240 coefficients!
 \item Use \texttt{cv.glmnet} from the \texttt{glmnet} package to fit a linear ridge regression to the training data.
-\item Use the four models (lasso/ridge, $\lambda_{min}$ or $\lambda_{1se}$) from (b) and (d) to make predictions for the test data. Present the MAE and RMSE of the four models in a table in your report. Discuss the results, comparing the interpretability and predictive performance of the models.
+\item Use the models (lasso/ridge, $\lambda_{min}$ or $\lambda_{1se}$) to make predictions for the test data. Present the MAE and RMSE of the four models in a table in your report. Discuss the results, comparing the interpretability and predictive performance of the models.
 \end{enumerate}
 
 \pagebreak
@@ -125,9 +125,9 @@ data("Email")
 
 \begin{enumerate}
 \item First, split the data into a training set (90 \% of the data) and a test set (10 \% of the data) by random assignment. Set the test data aside so it will be used only for model assessment.
-\item You should fit a logistic regularized regression model to the training data and compare the performance of these five models using the test data. Handcraft features you might think would be good, based on the training data) Use the training set to produce a good predictive model as possible.
+\item You should fit a logistic regularized regression model to the training data and compare the performance of the models using the test data. Handcraft features you might think would be good, based on the training data. Use the training set to produce a good predictive model as possible.
 \item Identify the observations that are misclassified in the training set. Can you find a way to improve the model by handling the misclassified observations?
-\item Evaluate your final trained model on the test data \emph{one}.
+\item Evaluate your final trained model on the test data \emph{once}.
 In your report, you should present the following:
 \begin{enumerate}
 \item Confusion matrices for train and test data.
