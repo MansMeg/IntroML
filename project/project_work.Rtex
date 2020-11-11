@@ -77,6 +77,14 @@ knitr::opts_chunk$set(size = "small")
 
 The last two weeks will be focused on a course project where a group of 2-3 students choose data and create a supervised machine learning predictor for a real-world dataset.
 
+\subsection{Suggested Reading}
+
+The project will be a practical project in supervised Machine learning. Suggested reading (before starting the project) is:
+
+\begin{itemize}
+\item Chapter 11 in Ian Goodfellow, Yoshua Bengio, and Aaron Courville. 2016. \emph{Deep Learning}. The MIT Press.
+\end{itemize}
+
 \subsection{Project Group and Expected Workload}
 It is possible to have only one student in a group, although this is not recommended. One student group will, in practice, mean additional work due to the requirements of the project.
 
@@ -87,8 +95,8 @@ The project is expected to take 40h per student in the group. Hence a 3 group pr
 We recommend that you find a dataset you are interested in using yourself. If you have a hard time finding a dataset to use, there are a lot of available datasets (and problems) at:
 
 \begin{itemize}
-\item the UCI Machine Learning repository: \href{https://archive.ics.uci.edu/ml/index.php}{[here]}
-\item the machine learning competition site Kaggle: \href{https://www.kaggle.com/}{[here]}
+\item The UCI Machine Learning repository: \href{https://archive.ics.uci.edu/ml/index.php}{[here]}
+\item The machine learning competition site Kaggle: \href{https://www.kaggle.com/}{[here]}
 \end{itemize}
 
 Some data sets should not be used in the project:
