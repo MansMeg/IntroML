@@ -9,5 +9,6 @@
 *.snm
 *.Rproj
 assignments/*.tex
+assignments/*.bbl
 TODO.tdl
 sandbox/*
