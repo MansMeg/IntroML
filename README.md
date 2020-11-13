@@ -33,6 +33,11 @@ In addition, the following material will also be included (note that you might n
 - Precision and Recall at [Wikipedia](https://en.wikipedia.org/wiki/Precision_and_recall).
 - Kingma D.P. and Welling M. An Introduction to Variational Autoencoders, 2019. [online access](https://arxiv.org/pdf/1906.02691.pdf)
 - Smyth, P. The EM algorithm for Gaussian Mixtures, 2020. [online access](https://www.ics.uci.edu/~smyth/courses/cs274/notes/EMnotes.pdf)
+- Alammar, J. The illustrated Transformer, 2018a. [online](http://jalammar.github.io/illustrated-transformer/)
+- Alammar, J. The Illustrated BERT, ELMo, and co. (How NLP Cracked Transfer Learning), 2018b. [online](http://jalammar.github.io/illustrated-bert/)
+- Devlin, J., Chang, M.W., Lee, K. and Toutanova, K., 2018. Bert: Pre-training of deep bidirectional transformers for language understanding. arXiv preprint arXiv:1810.04805. [online](https://arxiv.org/abs/1810.04805)
+- Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A.N., Kaiser, Ł. and Polosukhin, I., 2017. Attention is all you need. In Advances in neural information processing systems (pp. 5998-6008). [online](https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html)
+
 
 Additional literature might show up during the course.
 
@@ -41,7 +46,7 @@ Additional literature might show up during the course.
 - Chen, T. (2016) XGBoost: A scalable Tree Boosting System  [online](https://www.youtube.com/watch?v=Vly8xGnNiWs)
 - ISLV: Hastie and Tibshirani, Introduction to Statistical Learning (Video material) [online access](http://auapps.american.edu/alberto/www/analytics/ISLRLectures.html)
 - 3B1B: Three Blue One Brown on Neural Networks [online access](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)
-
+- Dirac, L. (2019) LSTM is dead! Long live Transformers. [online access](https://www.youtube.com/watch?v=S27pHKBEp30) 
 
 ## Course practicalities
 
