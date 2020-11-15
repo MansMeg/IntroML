@@ -1,12 +1,11 @@
 Package: uuml
 Title: R Content for the Introduction to Machine Learning Course at Uppsala University
-Version: 0.1
+Version: 0.2.0
 Authors@R: 
     person(given = "Mans",
            family = "Magnusson",
            role = c("aut", "cre"),
-           email = "mans.magnusson@statistik.uu.se",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           email = "mans.magnusson@statistik.uu.se")
 Description: The packge contain data and functionality to use in the 'Introduction to Machine Learning' course at Uppsala University.
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -15,3 +14,5 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Depends: 
     R (>= 2.10)
+Imports: 
+  checkmate

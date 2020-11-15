@@ -83,3 +83,11 @@
 #'
 "mixture_data"
 
+
+#' MNIST example digits
+#'
+#' @description
+#' The first 0-9 digits of the MNIST training dataset.
+#'
+"mnist_example"
+
