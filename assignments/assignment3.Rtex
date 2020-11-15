@@ -144,7 +144,7 @@ predict_with_tree <- function(new_data, tree){
 }
 @
 
-<<echo=FALSE,eval=FALSE>>=
+<<echo=TRUE,eval=TRUE>>=
 X_new <- Hitters[51:52, c("Years", "Hits")]
 X_new
 y_new <- Hitters[51:52, c("Salary")]
