@@ -1,0 +1,246 @@
+\documentclass[11pt,a4paper,english]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+% Normal latex T1-fonts
+\usepackage[T1]{fontenc}
+
+% Figures
+%\usepackage{graphicx,fancybox,subfigure}
+
+ % AMS-stuff
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsbsy}
+
+ % Misc
+\usepackage{verbatim}
+\usepackage{url}
+
+% Page size
+\addtolength{\hoffset}{-1cm}
+\addtolength{\textwidth}{2cm}
+\addtolength{\voffset}{-1cm}
+\addtolength{\textheight}{2cm}
+
+% Paragraph
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+
+% Horizontal line
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+% No page numbers
+\pagestyle{empty}
+
+% New commands:
+\DeclareMathOperator{\var}{var}
+\DeclareMathOperator{\cov}{cov}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+
+\begin{document}
+
+\begin{titlepage}
+
+\center
+\textsc{\LARGE Uppsala University}\\[1.5cm] % Name of your university/college
+\includegraphics[scale=.2]{files/uu_logo.png}\\[1cm]
+\textsc{\Large Introduction to Machine Learning, Big Data, and AI}\\[0.5cm]
+\textsc{\large }\\[0.5cm]
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Assignment 5}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+
+\vfill
+
+\end{titlepage}
+
+
+\HRule
+
+\input{general_info.tex}
+
+% General Knitr options
+% (this cannot be input since the file runs knitr before LaTeX)
+<<echo=FALSE,eval=TRUE>>=
+options(continue="  ", prompt="> ")
+knitr::opts_chunk$set(size = "small")
+@
+
+\HRule
+
+\newpage
+
+
+
+\section{Convolutional Neural Networks}
+
+\subsection{A convolutional layer}
+
+As a first step we are going to implement a layer of a convolutional neural network with one filter. We will here not train the layer, just implement it to understand the inner workings.
+
+\emph{Reading}: Some good material for this exercise is Figure 9.1 in Goodfellow et al (2017) and the video Ng (2020).
+
+Start by importing examples from the MNIST dataset as follows.
+
+<<eval = TRUE>>=
+library(uuml)
+data("mnist_example")
+@
+
+To visualize an image use:
+
+<<eval = FALSE>>=
+im <- mnist_example[["5"]]
+image(1:ncol(im), 1:nrow(im), im,
+      xlab = "", ylab = "",
+      xaxt='n', yaxt='n', main="4")
+@
+
+<<echo = FALSE>>=
+convolution <- function(X,K){
+  matrix(c(56, 490, 260,
+           0,  438, 294,
+           0,  341, 391), byrow = TRUE, ncol = 3)
+}
+convolutional_layer <- function(X,K,b,activation){
+      matrix(c(52,  0,
+               14, 14), byrow = TRUE, ncol = 2)
+}
+maxpool_layer <- function(X){
+  matrix(c(250, 144,
+           198, 241), byrow = TRUE, ncol = 2)
+}
+@
+
+
+\begin{enumerate}
+\item Visualize the the MNIST example digit 4.
+\item Implement a convolution function called \texttt{convolution(X, K)} that takes an imput MNIST image (\texttt{X}), an arbitrary large square kernel (\texttt{K}) and returns a valid feature map. Below is an example of how it should work.
+<<>>=
+X <- mnist_example[["4"]][12:15,12:15]
+X
+K <- matrix(c(1, 1, 0, 0), nrow = 2)
+K
+convolution(X, K)
+@
+\item Visualize the feature map of MNIST example digit 4 using the above 2 by 2 kernel \texttt{K}.
+\item Now implement all steps in a \texttt{convolutional\_layer(X, K, b, activation)} function that takes the kernel, bias and activation function. It should work as follows.
+<<>>=
+relu <- function(x) max(0, x)
+X <- mnist_example[["4"]][12:15,12:15]
+K <- matrix(c(1, 1, 1,
+              0, 0, 0,
+              0, 0, 0), nrow = 3, byrow = TRUE)
+convolutional_layer(X, K, -370, relu)
+@
+\item Run your convolutional layer on MNIST example digit 4 with bias -400. Visualize the feature map as you visualized the original image. What does the filter seem to capture?
+\item Now transpose your filter and run your convolutional layer on MNIST example digit 4 with bias -450. Visualize the feature map. What does that transposed filter seem to capture?
+\item As the last step in our convolutional layer, implement a 2 by 2, two stride maxpooling layer. It should work as follows.
+<<>>=
+X <- mnist_example[["4"]][12:15,12:15]
+maxpool_layer(X)
+@
+\item Now put it all together and visualize the final output of your own convolutional layer. Visualize the feature map.
+<<eval=FALSE>>=
+X <- mnist_example[["4"]]
+relu <- function(x) max(0, x)
+K <- matrix(c(1, 1, 1,
+              0, 0, 0,
+              0, 0, 0), nrow = 3, byrow = TRUE)
+output <- maxpool_layer(convolutional_layer(X, K, -370, relu))
+@
+
+\end{enumerate}
+
+
+
+
+\subsection{Convolutional neural networks using Keras}
+
+We are now going to implement a convolutional neural network using Keras. Here Ch. 5.1 in Chollet and Allarie (2018) and the \href{https://tensorflow.rstudio.com/tutorials/advanced/images/cnn/}{following tutorial} might be useful. Remember to load the \texttt{tesorflow} R package before loading ther \texttt{keras} R package. If you get stuck, ask for help from you fellow students in Slack.
+
+\begin{enumerate}
+\item Implement a Convolutional Neural Network for the MNIST dataset. The network should have two convolutional layers as follows.
+<<>>=
+## _______________________________________________________________________
+## Layer (type)                     Output Shape                Param #
+## =======================================================================
+## conv2d (Conv2D)                  (None, 26, 26, 32)          320
+## _______________________________________________________________________
+## max_pooling2d (MaxPooling2D)     (None, 13, 13, 32)          0
+## _______________________________________________________________________
+## conv2d (Conv2D)                  (None, 11, 11, 32)          9248
+## _______________________________________________________________________
+## flatten (Flatten)                (None, 3872)                0
+## _______________________________________________________________________
+## dense (Dense)                    (None, 64)                  247872
+## _______________________________________________________________________
+## dense (Dense)                    (None, 10)                  650
+## =======================================================================
+## Total params: 258,090
+## Trainable params: 258,090
+## Non-trainable params: 0
+@
+\item Explain why there is 320 parameters in the first layer. How many are kernel weights (and why) and how many biases.
+\item Train the network using Keras. What is your loss and accuracy on the MNIST dataset?
+\item As the next step we are going to implement a similar network for the CIFAR-10 dataset using \texttt{dataset\_cifar10()}. See the \href{https://tensorflow.rstudio.com/tutorials/advanced/images/cnn/}{tutorial} for details on how to load data. Implement a similar CNN as in the tutorial, that is:
+<<>>=
+## Model: "sequential"
+## ___________________________________________________________________________
+## Layer (type)                     Output Shape                  Param #
+## ===========================================================================
+## conv2d (Conv2D)                  (None, 30, 30, 32)            896
+## ___________________________________________________________________________
+## max_pooling2d (MaxPooling2D)     (None, 15, 15, 32)            0
+## ___________________________________________________________________________
+## conv2d_1 (Conv2D)                (None, 13, 13, 64)            18496
+## ___________________________________________________________________________
+## max_pooling2d_1 (MaxPooling2D)   (None, 6, 6, 64)              0
+## ___________________________________________________________________________
+## conv2d_2 (Conv2D)                (None, 4, 4, 64)              36928
+## ___________________________________________________________________________
+## flatten (Flatten)                (None, 1024)                  0
+## ___________________________________________________________________________
+## dense (Dense)                    (None, 64)                    65600
+## ___________________________________________________________________________
+## dense_1 (Dense)                  (None, 10)                    650
+## ===========================================================================
+## Total params: 122,570
+## Trainable params: 122,570
+## Non-trainable params: 0
+## ___________________________________________________________________________
+
+@
+\item Why do we now have 896 parameters in the first convolutional layer?
+\item Try out at least 3 different networks, describe the networks, why you chose it and the keras model output. For example, you can try to add a \texttt{dropout\_layer} (see Chollet and Allaire, 2018, Ch. 5.3). Can you improve over the previous network with respect to accuracy? You can also use techniques from the previous lab.
+\end{enumerate}
+
+\subsection{Transfer learning using VGG16}
+
+As a last step we will look into using transfer learning as a quick way of improving the prediction accuracy on the cifar-10 dataset. Here Ch. 5.3 in Chollet and Allaire (2018) or \href{https://blogs.rstudio.com/ai/posts/2017-12-14-image-classification-on-small-datasets/}{this tutorial} might be helpful.
+
+\begin{enumerate}
+\item Using keras, download the VGG16 convolutional neural network. Just download the covolutional base. We are going to use the network on the cifar-10 dataset so change the \texttt{input\_size} to \texttt{c(32, 32, 3)}.
+\item Now add a dense layer with 64 hidden nodes (as in the previous exercise). Include the keras model output in the assignment report. How many parameters do you have in the top dense layer (compared to the CNN in the previous part).
+\item Now, freeze the convolutional base and train the top dense layer of your network on the cifar-10 dataset. Run it for 5 epochs. \emph{Note!} This will take time. Don't be surprised if you need roughly 200s per epoch.
+\item Report your final accuracy. How does this compare to the previous model for the cifar data?
+\end{enumerate}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
