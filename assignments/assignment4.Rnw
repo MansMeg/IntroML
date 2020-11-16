@@ -98,7 +98,7 @@ As a first step, we want to implement one of the most straightforward neural net
 
 
 
-\section{Feed-Forward Neural Network using TensorFlow}
+\section{Feed-Forward Neural Network using Keras and TensorFlow}
 
 As a first step, you need to install  \texttt{tensorflow} and \texttt{keras} on your local computer. You can find detailed information on how to install Tensorflow and \texttt{keras} \href{https://tensorflow.rstudio.com/installation/}{here}. Details on different architecture components can be found in the \texttt{keras} reference found \href{https://keras.rstudio.com/index.html}{here}
 
