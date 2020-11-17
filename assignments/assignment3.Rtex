@@ -92,7 +92,7 @@ library(uuml)
 data("Hitters")
 @
 
-We are now going to build an algorithm to grow decision trees. The algorithm below is based on the algorithm explained in Chapter 9.2.2 in ESL.
+We are now going to build an algorithm to grow decision trees. The algorithm used below is based on the algorithm explained in Chapter 9.2.2 in ESL.
 
 \begin{enumerate}
 \item Create a test set by setting aside the 30 first observations. Remove those observations from your training set. We will ignore the  \texttt{NA} values when evaluating.
@@ -102,7 +102,7 @@ y_test <- Hitters[1:30, c("Salary")]
 X_train <- Hitters[31:ncol(Hitters), c("Years", "Hits")]
 y_train <- Hitters[31:ncol(Hitters), c("Salary")]
 @
-\item Implement an R function to split observations binary greedily (ignore \texttt{NA} values). Here we use the algorithm in ESL  The function should take a design matrix \texttt{X}, an \texttt{y} variable and a minimal leaf size \texttt{l}. The function should return a list with the index set of the observations in \texttt{R1}, \texttt{R2}, the split value \texttt{s} and the covariate used for the split \texttt{j}. See below for an example.
+\item Implement an R function to split observations binary greedily (ignore \texttt{NA} values). Here we use the algorithm in ESL. The function should take a design matrix \texttt{X}, an \texttt{y} variable and a minimal leaf size \texttt{l}. The function should return a list with the index set of the observations in \texttt{R1}, \texttt{R2}, the split value \texttt{s} and the covariate used for the split \texttt{j}. See below for an example.
 
 <<echo = FALSE>>=
 tree_split <- function(X,y,l){
@@ -119,7 +119,7 @@ y <- Hitters[31:50, c("Salary")]
 tree_split(y, X, l = 5)
 @
 \item What is the first split based on the whole training data \texttt{X\_train} and \texttt{y\_train}?
-\item Use the function \texttt{tree\_split()} to create a function \texttt{grow\_tree()} that takes the arguments \texttt{X}, \texttt{y}, and \texttt{l} and then build a decision tree. The returned tree can return a \texttt{data.frame} as follows. Although, you are free to implement this however you want.
+\item Use the function \texttt{tree\_split()} to create a function \texttt{grow\_tree()} that takes the arguments \texttt{X}, \texttt{y}, and \texttt{l} and then build a decision tree. The returned tree can be a \texttt{data.frame} that looks as follows. Note that \texttt{R1\_i} and \texttt{R2\_i} indicates the row of the \texttt{data.frame} where to go next. This is just one example implementation, you are free to implement this however you want.
 
 <<echo = FALSE>>=
 grow_tree <- function(X,y,l){
@@ -158,7 +158,7 @@ predict_with_tree(new_data = X_new, tree = tr)
 
 Now we can use our regression tree to do a Bagged Tree regression model. The main difference from the previous tree is that we now will draw $B$ bootstrap samples from our dataset, then train $B$ trees, use them for a combined bagged prediction.
 
-See Section 8.7 in ESL, and especially (8.51) for details.
+See Section 8.7 in ESL, and especially Eq. 8.51 for details.
 
 \begin{enumerate}
 \item Implement a bagged tree regression model using \texttt{grow\_tree()} and \texttt{predict\_with\_tree()}.
@@ -174,7 +174,7 @@ The last part of the assignment consists of using Random Forest and XGBoost (Boo
 \item Use the \texttt{randomForest} R package to fit a random forest regression to the training data using the \texttt{randomForest} function. Note you would need to handle \texttt{NA}s and reformulate the data slightly.
 \item How many variables are used at each split. Why do you get this number?
 \item Use the trained random forest to predict the test set and compute the RMSE of your predictions. Compare your \texttt{randomForest} to your bagged tree algorithm.
-\item Next, use the \texttt{xgboost} R package to fit a boosted regression tree model to the training data using the \texttt{xgboost} function. Note you would need to handle \texttt{NA}s and reformulate the data slightly.
+\item Next, use the \texttt{xgboost} R package to fit a boosted regression tree model to the training data using the \texttt{xgboost} function. Note. Again, you would need to handle \texttt{NA}s and reformulate the data slightly.
 \item What is the RMSE of the predictions using the boosted regression tree model? How does that compare to the random forest regression model?
 
 \end{enumerate}
