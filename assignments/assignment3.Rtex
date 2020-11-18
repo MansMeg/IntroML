@@ -110,10 +110,20 @@ y_train <- Hitters[31:nrow(Hitters), c("Salary")]
 
 <<echo = FALSE>>=
 tree_split <- function(X,y,l){
+  if(l == 5){
   list(j = 1,
        s = 6,
        R1 = c(1,  2,  3,  5, 6,  9, 13, 16, 18, 19),
-       R2 = c(4,  7,  8, 10, 11, 12, 14, 15, 17, 20))
+       R2 = c(4,  7,  8, 10, 11, 12, 14, 15, 17, 20),
+       SS = 1346633)
+  } else if(l == 1){
+      list(j = 2,
+       s = 139,
+       R1 = c(1,  2,  3,  4,  5,  6,  8,  9, 11, 12, 13, 14, 16, 17, 18, 19),
+       R2 = c(7, 10, 15, 20),
+       SS = 904383.4)
+    }
+
 }
 @
 
@@ -125,6 +135,8 @@ y_check <- Hitters[31:50, c("Salary")]
 rownames(Hitters)[31:50]
 # This is how it should work
 tree_split(X_check, y_check, l = 5)
+# We can also make a split without any limit on leaf size
+tree_split(X_check, y_check, l = 1)
 @
 \item What is the first split based on the whole training data \texttt{X\_train} and \texttt{y\_train}?
 \item Use the function \texttt{tree\_split()} to create a function \texttt{grow\_tree()} that takes the arguments \texttt{X}, \texttt{y}, and \texttt{l} and then build a decision tree. The returned tree can be a \texttt{data.frame} that looks as follows. Note that \texttt{R1\_i} and \texttt{R2\_i} indicates the row of the \texttt{data.frame} where to go next. This is just one example implementation, you are free to implement this however you want.
@@ -163,7 +175,7 @@ predict_with_tree(new_data = X_new, tree = tr)
 
 \subsection{Bagging}
 
-Now we can use our regression tree to do a Bagged Tree regression model. The main difference from the previous tree is that we now will draw $B$ bootstrap samples from our dataset, then train $B$ trees, use them for a combined bagged prediction.
+Now we can use our regression tree to do a Bagged Tree regression model. The main difference from the previous tree is that we now will draw $B$ bootstrap samples of size $N$ \emph{with replacement} from our dataset, then train $B$ trees, use them for a combined bagged prediction.
 
 See Section 8.7 in ESL, and especially Eq. 8.51 for details.
 
