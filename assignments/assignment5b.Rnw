@@ -48,7 +48,6 @@
 \newcommand{\Prob}{\mathbb{P}}
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
 
 \begin{titlepage}
 
@@ -81,10 +80,9 @@ knitr::opts_chunk$set(size = "small")
 \HRule
 
 \newpage
-
 \section{Recurrent Neural Networks}
 
-As a first step we will try using recurrent Neural Networks for two different applications, on text classification task, and one regression task (time series prediction). Here Chapter 6 - 6.2 in Chollet and Allaire (2018) will be the main reference.
+As a first step, we will try using Recurrent Neural Networks on a text classification task. Here Chapter 6 - 6.2 in Chollet and Allaire (2018) will be the primary reference.
 
 \subsection{Text classification using Keras}
 
@@ -100,23 +98,24 @@ input_test <- pad_sequences(input_test, maxlen = maxlen)
 @
 
 \begin{enumerate}
-\item Create a simple ordinary neural network for text classification in Keras using an embedding layer of dimension 16 and a hidden layer with 32 hidden states (and an output layer with one unit). Use a validation split of 20\% observations in the validation set and a batch size of 128. Train your network using rmsprop and use binary crossentropy as the loss function. Print the model and return your validation accuracy after 10 epochs. Most of these settings we will reuse later in the assignments.
+\item Create a simple ordinary neural network for text classification in Keras using an embedding layer of dimension 16 and a hidden layer with 32 hidden states (and an output layer with one unit). Use a validation split of 20\% observations in the validation set and a batch size of 128. Train your network using rmsprop and use binary cross-entropy as the loss function. Print the model and return your validation accuracy after ten epochs. Most of these settings we will reuse later in the assignments.
 \item Explain what the embedding layer is doing.
-\item Now implement a simple Recurrent Neural Network with 32 hidden units based on the same embedding layer. Print the model and present your result.
-\item The model you have implemented now. Which recurrent network does best describe your model you have now implemented out of Fig. 10.3 and 10.5 in Goodfellow et al (2017)? Motivate why.
-\item Explain the role of the parameters $U$, $W$ in the recurrent net (see Goodfellow et al, 2017 Section 10.2). How large are these parameters in your model specified above and where are they included in the Keras output?
-\item Now, explain the role of the parameters $V$ (see Goodfellow et al, 2017 Section 10.2). How many parameter are included in $V$ and where are the  included in the Keras output?
-\item We are now going to implement a LSTM network. Implement a standard LSTM network with 32 hidden units using Keras. Print your model and your validation accuracy.
-\item Extend your network in ways you think fit. Report at least two other extentions/modifications of your network and why you chose them. Report the Keras model output and the validation accuracy.
-\item Reason why we cannot get as good performance as we could get with the MNIST dataset. Is the problem, bias, variance or the bayes error? Why?
+\item Now setup a simple Recurrent Neural Network with 32 hidden units based on the same embedding layer. Print the model and present your result.
+\item The model you have implemented now. Which recurrent network does best describes your model you have now implemented out of Fig. 10.3 and 10.5 in Goodfellow et al. (2017)? Motivate why.
+\item Explain the role of the parameters $U$, $W$ in the recurrent net (see Goodfellow et al., 2017 Section 10.2). How large are these parameters in your model specified above, and where are they included in the Keras output?
+\item Now, explain the role of the parameters $V$ (see Goodfellow et al., 2017 Section 10.2). How many parameters are included in $V$, and where are they included in the Keras output?
+\item We are now going to implement an LSTM network. Implement a standard LSTM network with 32 hidden units using Keras. Print your model and your validation accuracy.
+\item Extend your network in ways you think fit. Report at least two other extensions/modifications of your network and why you chose them. Report the Keras model output and validation accuracy.
+\item Reason why we cannot get as good performance as we could get with the MNIST dataset. Is the problem bias, variance, or the Bayes error? Why?
 \end{enumerate}
+
 
 
 \section{Transformers and Attention}
 
-In this assignment we will implement a multi-head attention transformer layer that is currently used within all transformer based models, such as different GPT and different flavors of BERT. A good read for this assignment is the Illustrated transformer by Jay Alammar that can be found [here](http://jalammar.github.io/illustrated-transformer/).
+In this assignment, we will implement a multi-head attention transformer layer. These layers are currently used within all transformer based models, such as GPT and different BERT-models. A good read for this assignment is the Illustrated transformer by Jay Alammar, which can be found [here](http://jalammar.github.io/illustrated-transformer/).
 
-Start out by loading the parameters that we are going to use for the implementation as follows.
+Start by loading the parameters that we are going to use for the implementation as follows.
 <<>>=
 library(uuml)
 data("transformer_example")
@@ -130,7 +129,7 @@ Wq <- transformer_example$Wq[,,1]
 Wk <- transformer_example$Wk[,,1]
 Wv <- transformer_example$Wv[,,1]
 
-# Pickout the first three words and their embeddings
+# Pick out the first three words and their embeddings
 X <- transformer_example$embeddings[1:3,]
 
 qkv(X, Wq, Wk, Wv)
@@ -183,20 +182,20 @@ multi_head_self_attention(X,
 @
 \end{enumerate}
 
+
+
 \section{Taking BERT out for a spin (Optional assignment)}
 
-Unfortunately there is no simple way to run BERT directly from R, yet. There are two ways you can try to use BERT. There are two ways you can try BERT using Keras.
+Unfortunately, there is no simple way to run BERT directly from R yet. There are two ways you can try to use BERT. There are two ways you can try BERT using Keras.
 
 \begin{enumerate}
 \item Using reticulate in R. \href{https://blogs.rstudio.com/ai/posts/2019-09-30-bert-r/}{Here is a tutorial.}
 \item Run BERT using Python in Colab \href{https://colab.research.google.com/github/dipanjanS/nlp_workshop_odsc19/blob/master/Module05%20-%20NLP%20Applications/Project07E%20-%20Text%20Classification%20with%20BERT%20Deep%20Transfer%20Learning.ipynb}{here}.
 \end{enumerate}
 
-The seconda approach is probably easier and there you could try out running BERT using a GPU. In both cases it is built upon Keras and you will most likely understand most parts.
+The second approach is probably more straightforward, and there you could try out running BERT using a GPU. In both cases, it is built upon Keras, and you will understand most parts.
 
-The (optional) assignment is to run through the tutorial and summarize your experience of the preffered method and your thoughts of using BERT.
-
-
+The (optional) assignment is to run through the tutorial and summarize your preferred method's experience and thoughts on using BERT.
 
 \end{document}
 
