@@ -1,0 +1,202 @@
+\documentclass[11pt,a4paper,english]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+% Normal latex T1-fonts
+\usepackage[T1]{fontenc}
+
+% Figures
+%\usepackage{graphicx,fancybox,subfigure}
+
+ % AMS-stuff
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsbsy}
+
+ % Misc
+\usepackage{verbatim}
+\usepackage{url}
+
+% Page size
+\addtolength{\hoffset}{-1cm}
+\addtolength{\textwidth}{2cm}
+\addtolength{\voffset}{-1cm}
+\addtolength{\textheight}{2cm}
+
+% Paragraph
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+
+% Horizontal line
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+% No page numbers
+\pagestyle{empty}
+
+% New commands:
+\DeclareMathOperator{\var}{var}
+\DeclareMathOperator{\cov}{cov}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\begin{titlepage}
+
+\center
+\textsc{\LARGE Uppsala University}\\[1.5cm] % Name of your university/college
+\includegraphics[scale=.2]{files/uu_logo.png}\\[1cm]
+\textsc{\Large Introduction to Machine Learning, Big Data, and AI}\\[0.5cm]
+\textsc{\large }\\[0.5cm]
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Assignment 4}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+
+\vfill
+
+\end{titlepage}
+
+
+\HRule
+
+\input{general_info.tex}
+
+% General Knitr options
+% (this cannot be input since the file runs knitr before LaTeX)
+<<echo=FALSE,eval=TRUE>>=
+options(continue="  ", prompt="> ")
+knitr::opts_chunk$set(size = "small")
+@
+
+\HRule
+
+\newpage
+
+\section{Recurrent Neural Networks}
+
+As a first step we will try using recurrent Neural Networks for two different applications, on text classification task, and one regression task (time series prediction). Here Chapter 6 - 6.2 in Chollet and Allaire (2018) will be the main reference.
+
+\subsection{Text classification using Keras}
+
+Start by downloading the IMBD dataset and preprocess it as follows.
+
+<<eval=FALSE>>=
+library(tensorflow)
+library(keras)
+imdb <- dataset_imdb(num_words = max_features)
+c(c(input_train, y_train), c(input_test, y_test)) %<-% imdb
+input_train <- pad_sequences(input_train, maxlen = maxlen)
+input_test <- pad_sequences(input_test, maxlen = maxlen)
+@
+
+\begin{enumerate}
+\item Create a simple ordinary neural network for text classification in Keras using an embedding layer of dimension 16 and a hidden layer with 32 hidden states (and an output layer with one unit). Use a validation split of 20\% observations in the validation set and a batch size of 128. Train your network using rmsprop and use binary crossentropy as the loss function. Print the model and return your validation accuracy after 10 epochs. Most of these settings we will reuse later in the assignments.
+\item Explain what the embedding layer is doing.
+\item Now implement a simple Recurrent Neural Network with 32 hidden units based on the same embedding layer. Print the model and present your result.
+\item The model you have implemented now. Which recurrent network does best describe your model you have now implemented out of Fig. 10.3 and 10.5 in Goodfellow et al (2017)? Motivate why.
+\item Explain the role of the parameters $U$, $W$ in the recurrent net (see Goodfellow et al, 2017 Section 10.2). How large are these parameters in your model specified above and where are they included in the Keras output?
+\item Now, explain the role of the parameters $V$ (see Goodfellow et al, 2017 Section 10.2). How many parameter are included in $V$ and where are the  included in the Keras output?
+\item We are now going to implement a LSTM network. Implement a standard LSTM network with 32 hidden units using Keras. Print your model and your validation accuracy.
+\item Extend your network in ways you think fit. Report at least two other extentions/modifications of your network and why you chose them. Report the Keras model output and the validation accuracy.
+\item Reason why we cannot get as good performance as we could get with the MNIST dataset. Is the problem, bias, variance or the bayes error? Why?
+\end{enumerate}
+
+
+\section{Transformers and Attention}
+
+In this assignment we will implement a multi-head attention transformer layer that is currently used within all transformer based models, such as different GPT and different flavors of BERT. A good read for this assignment is the Illustrated transformer by Jay Alammar that can be found [here](http://jalammar.github.io/illustrated-transformer/).
+
+Start out by loading the parameters that we are going to use for the implementation as follows.
+<<>>=
+library(uuml)
+data("transformer_example")
+@
+
+\begin{enumerate}
+\item Start out by computing the query, key and value matrices for one attention head by implementing it in a function you call \texttt{qkv()}. The function should work like this.
+<<eval=FALSE, >>=
+# Pick out the matrix for the first attention head
+Wq <- transformer_example$Wq[,,1]
+Wk <- transformer_example$Wk[,,1]
+Wv <- transformer_example$Wv[,,1]
+
+# Pickout the first three words and their embeddings
+X <- transformer_example$embeddings[1:3,]
+
+qkv(X, Wq, Wk, Wv)
+
+## $Q
+##            [,1]        [,2]       [,3]
+## the    0.4722259  0.04995783 -0.5350845
+## quick -0.3662435  0.12144160  0.3454785
+## brown -0.1029677 -0.12728414  0.1817097
+##
+## $K
+##               [,1]         [,2]       [,3]
+## the    0.094360579 -0.203807092 -0.1851229
+## quick -0.033313240  0.279012100  0.2530560
+## brown -0.004457052  0.001013468  0.0133802
+##
+## $V
+##               [,1]        [,2]        [,3]
+## the    0.317318525 -0.35023010  0.13284078
+## quick  0.009929565  0.04208206 -0.15412097
+## brown -0.316413241  0.27717408  0.02725089
+@
+\item Now, based on your query, key and value, compute the attention of that given attention head for the three chosen tokens.
+<<eval=FALSE>>=
+attention(res$Q, res$K, res$V)
+## $Z
+##               [,1]          [,2]         [,3]
+## the    0.012395453 -0.0212420459  0.009404870
+## quick -0.003759269 -0.0008360029 -0.005108890
+## brown  0.002412222 -0.0088974612  0.001147999
+##
+## $attention
+##             the     quick     brown
+## the   0.3601932 0.3080896 0.3317172
+## quick 0.3088780 0.3582373 0.3328847
+## brown 0.3300375 0.3360583 0.3339042
+@
+\item Interpret the attention values. What does the second row mean?
+\item Now we have everything in place for implementing it all as a multi-head attention layer. The layer will take in embeddings and then return a 3-dimensional embedding per word. Run your code on all words in the included example.
+<<eval=FALSE>>=
+multi_head_self_attention(X,
+                          transformer_example$Wq,
+                          transformer_example$Wk,
+                          transformer_example$Wv,
+                          transformer_example$W0)
+##               [,1]          [,2]         [,3]
+## the   -0.014189613 -0.0040299008 -0.006756286
+## quick -0.009963516 -0.0010724342 -0.001996524
+## brown -0.006394562 -0.0006626115 -0.002219108
+@
+\end{enumerate}
+
+\section{Taking BERT out for a spin (Optional assignment)}
+
+Unfortunately there is no simple way to run BERT directly from R, yet. There are two ways you can try to use BERT. There are two ways you can try BERT using Keras.
+
+\begin{enumerate}
+\item Using reticulate in R. \href{https://blogs.rstudio.com/ai/posts/2019-09-30-bert-r/}{Here is a tutorial.}
+\item Run BERT using Python in Colab \href{https://colab.research.google.com/github/dipanjanS/nlp_workshop_odsc19/blob/master/Module05%20-%20NLP%20Applications/Project07E%20-%20Text%20Classification%20with%20BERT%20Deep%20Transfer%20Learning.ipynb}{here}.
+\end{enumerate}
+
+The seconda approach is probably easier and there you could try out running BERT using a GPU. In both cases it is built upon Keras and you will most likely understand most parts.
+
+The (optional) assignment is to run through the tutorial and summarize your experience of the preffered method and your thoughts of using BERT.
+
+
+
+\end{document}
+
