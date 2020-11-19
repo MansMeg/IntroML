@@ -177,32 +177,31 @@ where $N_m$ is the number of observations in region $R_m$.\pause
 \frame{\frametitle{Growing a Decision Tree: Greedy Algorithm}
 
 
-Let $\mathcal{S}$ be the set of all observations $\{1,...,N\}$ and $\mathcal{S}_m$ be the set of observation in $R_m$ and $l$ is the minimal number of leafs per node.
+Let $\mathcal{S}$ be the set of all observations $\{1,...,N\}$ and \texttt{S[[m]]} be the set of observation indecies in $R_m$ and \texttt{l} is the minimal number of leafs per node.
 
-Input: $\mathcal{S}, \mathbf{X}, \mathbf{y}, l$
+Input: $\mathcal{S}, \texttt{X}, \texttt{y}, \texttt{l}$
 
 \begin{enumerate}
-\item $\mathcal{S}_1 = \mathcal{S}$,$M$ = 1
-\item While $m <= M$ then do:
+\item \texttt{S[[1]]} = $\mathcal{S}$,\texttt{M = 1}, \texttt{m = 1}
+\item \texttt{while m <= M} then do:
 \begin{enumerate}
-\item $m$ = $m$ + 1
-\item if($|\mathcal{S}_m| \geq 2l$)
+\item \texttt{if(size(S[[m]]) >= 2*l)}
 \begin{enumerate}
-\item $\mathcal{S}_{M+1}, \mathcal{S}_{M+2}, j, s$ = split\_tree$(\mathbf{X}_{\mathcal{S}_m}, y_{\mathcal{S}_m},l)$
-\item $M$ = $M$ + 2
+\item \texttt{S[[M+1]]}, \texttt{S[[M+2]]}, \texttt{j[m]}, \texttt{s[m]} = \\ \texttt{split\_tree(X[S[[m]],], y[S[[m]],],l)}
+\item \texttt{M = M + 2}
 \end{enumerate}
-\item else
+\item \texttt{else}
 \begin{enumerate}
-\item compute $\gamma$ for $S_m$
+\item compute $\hat{\gamma}$ for \texttt{S[[m]]}
 \end{enumerate}
+\item \texttt{m = m + 1}
 \end{enumerate}
 \end{enumerate}
 
-Output: $\mathbf{j}, \mathbf{s}, \gamma$
+Output: $\texttt{j}, \texttt{s}, \gamma$
 
 Example:
-$\mathbf{j} = \{\text{Years}, \text{Hits}\}$
-$\mathbf{s} = \{4.5, 117.5\}$
+\texttt{j = \{Years, Hits\}}, \texttt{s = \{4.5, 117.5\}}, $\hat{\gamma} = \{122, 317, 245\}$
 
 }
 
