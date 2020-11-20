@@ -139,7 +139,7 @@ tree_split(X_check, y_check, l = 5)
 tree_split(X_check, y_check, l = 1)
 @
 \item What is the first split based on the whole training data \texttt{X\_train} and \texttt{y\_train}?
-\item Use the function \texttt{tree\_split()} to create a function \texttt{grow\_tree()} that takes the arguments \texttt{X}, \texttt{y}, and \texttt{l} and then build a decision tree. The returned tree can be a \texttt{data.frame} that looks as follows. Note that \texttt{R1\_i} and \texttt{R2\_i} indicates the row of the \texttt{data.frame} where to go next. This is just one example implementation, you are free to implement this however you want.
+\item Use the function \texttt{tree\_split()} to create a function \texttt{grow\_tree()} that takes the arguments \texttt{X}, \texttt{y}, and \texttt{l} and then build a decision tree. The returned tree can be a \texttt{data.frame} that looks as follows. Note that \texttt{R1\_i} and \texttt{R2\_i} indicates the row of the \texttt{data.frame} where to go next. This is just one example implementation, you are free to implement this however you want. \emph{Hint!} Use a list in R to store the set of indecies you are splitting up.
 
 <<echo = FALSE>>=
 grow_tree <- function(X,y,l){
