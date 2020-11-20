@@ -6,17 +6,30 @@
 \title{The Binary Dataset}
 \format{
 An object of class \code{data.frame} with 400 rows and 4 columns.
+
+An object of class \code{data.frame} with 400 rows and 4 columns.
 }
 \source{
 \url{https://stats.idre.ucla.edu/r/dae/logit-regression/}
 }
 \usage{
 binary
+
+binary
 }
 \description{
 A hypothetical Admission dataset.
+
+A list with toy parameters and toy embeddings to implement.
+That is, embeddings of dimension 5 for a couple of tokens, and the
+parameter arrays Wk, Wq, Wv and W0 respectively. The last dimension
+of Wk, Wq and Wv make up the different attention heads.
 }
 \details{
 The dataset is a generated dataset used to fit logistic regression models.
+}
+\seealso{
+The Illustrated Transformer
+\url{http://jalammar.github.io/illustrated-transformer/}
 }
 \keyword{datasets}

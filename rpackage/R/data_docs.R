@@ -91,3 +91,20 @@
 #'
 "mnist_example"
 
+
+
+
+#' Example Parameters to use for implementing multi-head self-attention
+#'
+#' @description
+#' A list with toy parameters and toy embeddings to implement.
+#' That is, embeddings of dimension 5 for a couple of tokens, and the
+#' parameter arrays Wk, Wq, Wv and W0 respectively. The last dimension
+#' of Wk, Wq and Wv make up the different attention heads.
+#'
+#'
+#' @seealso
+#' The Illustrated Transformer
+#' \url{http://jalammar.github.io/illustrated-transformer/}
+#'
+"binary"
