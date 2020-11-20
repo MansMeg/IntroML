@@ -102,6 +102,13 @@ data("mixture_data")
 
 For a more indepth description of the datasets, just run \texttt{?iris}, \texttt{?faithful}, or \texttt{?mixture\_data} in R.
 
+\subsection{Latent variables}
+
+\begin{enumerate}
+\item As a first step, describe what a latent variable is.
+\item Give an example of a latent variable that we might be interested in.
+\end{enumerate}
+
 
 \subsection{The k-means Algorithm}
 
@@ -214,6 +221,17 @@ theta_em <- em_uni_two_comp(y, theta0)
 \end{enumerate}
 
 
+
+\subsection{PCA}
+
+As a last part of the assignment, we will look into the probabilistic Principal Component analysis model. Here, Ch. 14 - 14.1 in Goodfellow et al. is recommended reading.
+
+\begin{enumerate}
+\item Setup the model for the probabilistic PCA model.
+\item Describe the different parts of the model. What are the parameters? What are the latent variables?
+\item Simulate values $\mathbf{x}$ of dimension 3 probabilistic for a given choice of parameters. Choose the parameter values so that the latent variable is of larger dimension than $\mathbf{x}$. Note, only the noise should be simulated, all other parameters you choose yourself. Describe all your paremeter in matrix notation.
+\end{enumerate}
+
 % BELOW ARE POTENTIAL ADDITIONAL ASSIGNMENTS
 
 %\subsubsection{Univariare Three Component Normal Mixture}
@@ -257,10 +275,6 @@ theta_em <- em_uni_two_comp(y, theta0)
 %\end{enumerate}
 
 
-
-%\subsection{PCA}
-
-%Simulate a probabilistic PCA model here. See DL book.
 
 
 \bibliography{bibliography}
