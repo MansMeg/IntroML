@@ -102,13 +102,11 @@ data("mixture_data")
 
 For a more indepth description of the datasets, just run \texttt{?iris}, \texttt{?faithful}, or \texttt{?mixture\_data} in R.
 
-\subsection{Latent variables}
+\subsection{Unsupervised learning}
 
 \begin{enumerate}
-\item As a first step, describe what a latent variable is.
-\item Give an example of a latent variable that we might be interested in.
+\item As a first step, describe, with your own words what unsupervised learning, and give relevant references to the course literature for this description.
 \end{enumerate}
-
 
 \subsection{The k-means Algorithm}
 
@@ -222,9 +220,9 @@ theta_em <- em_uni_two_comp(y, theta0)
 
 
 
-\subsection{PCA}
+\subsection{Probabilistic PCA}
 
-As a last part of the assignment, we will look into the probabilistic Principal Component analysis model. Here, Ch. 14 - 14.1 in Goodfellow et al. is recommended reading.
+As a last part of the assignment, we will look into the probabilistic Principal Component analysis model. Here, Ch. 14 - 14.1 in Goodfellow et al. is useful.
 
 \begin{enumerate}
 \item Setup the model for the probabilistic PCA model.
