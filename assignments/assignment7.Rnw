@@ -227,7 +227,7 @@ As a last part of the assignment, we will look into the probabilistic Principal 
 \begin{enumerate}
 \item Setup the model for the probabilistic PCA model.
 \item Describe the different parts of the model. What are the parameters? What are the latent variables?
-\item Simulate values $\mathbf{x}$ of dimension 3 probabilistic for a given choice of parameters. Choose the parameter values so that the latent variable is of larger dimension than $\mathbf{x}$. Note, only the noise should be simulated, all other parameters you choose yourself. Describe all your paremeter in matrix notation.
+\item Simulate values $\mathbf{x}$ of dimension five from a probabilistic PCA model for a given choice of parameters. You are free to choose the parameter values yourself. The latent variables is of should be of dimension two. Note,  the noise as well as the hidden state should be simulated, all other parameters are fixed. Describe all your parameters in matrix notation.
 \end{enumerate}
 
 % BELOW ARE POTENTIAL ADDITIONAL ASSIGNMENTS
