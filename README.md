@@ -38,7 +38,7 @@ In addition, the following material will also be included (note that you might n
 - Devlin, J., Chang, M.W., Lee, K. and Toutanova, K., 2018. Bert: Pre-training of deep bidirectional transformers for language understanding. arXiv preprint arXiv:1810.04805. [online](https://arxiv.org/abs/1810.04805)
 - Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A.N., Kaiser, Ł. and Polosukhin, I., 2017. Attention is all you need. In Advances in neural information processing systems (pp. 5998-6008). [online](https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html)
 - Olah, C. 2015. Understanding LSTM Networks. [online](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)
-
+- Ng, A. 2019. The EM algorithm. CS229, Lecture Notes [online](https://see.stanford.edu/materials/aimlcs229/cs229-notes8.pdf)
 
 Additional literature might show up during the course.
 
