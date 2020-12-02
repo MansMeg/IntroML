@@ -39,6 +39,7 @@ In addition, the following material will also be included (note that you might n
 - Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A.N., Kaiser, Ł. and Polosukhin, I., 2017. Attention is all you need. In Advances in neural information processing systems (pp. 5998-6008). [online](https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html)
 - Olah, C. 2015. Understanding LSTM Networks. [online](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)
 - Ng, A. 2019. The EM algorithm. CS229, Lecture Notes [online](https://see.stanford.edu/materials/aimlcs229/cs229-notes8.pdf)
+- Griffiths and Steyvers. 2004. Finding Scientific topics [online](https://www.pnas.org/content/pnas/101/suppl_1/5228.full.pdf)
 
 Additional literature might show up during the course.
 
