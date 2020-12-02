@@ -133,3 +133,13 @@
 #' \code{prideprejudice} in the \code{janeaustenr} R package.
 #'
 "pride_and_prejudice"
+
+
+#' Stopwords from three lexicons
+#'
+#' @description
+#' A \code{data.frame} with stop words from three lexicons.
+#' The dataset is taken from the \code{tidytext} R package.
+#'
+#'
+"stopwords"
