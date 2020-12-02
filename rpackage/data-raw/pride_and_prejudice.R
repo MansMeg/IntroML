@@ -20,7 +20,15 @@ dat <- dat[!chapter_indication,]
 
 # Tidy data
 tidy_pride <- unnest_tokens(dat, word, text)
+
+# Cleanup
+tidy_pride$word <- stringr::str_replace_all(tidy_pride$word, pattern = "_", replacement = "")
+tidy_pride <- tidy_pride[tidy_pride$chapter>0,]
+tidy_pride$paragraph <- as.integer(as.factor(tidy_pride$paragraph))
+tidy_pride$word <- as.factor(tidy_pride$word)
+
 rownames(tidy_pride) <- NULL
 pride_and_prejudice <- tidy_pride
+
 usethis::use_data(pride_and_prejudice, overwrite = TRUE)
 
