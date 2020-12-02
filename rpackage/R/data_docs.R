@@ -91,9 +91,6 @@
 #'
 "mnist_example"
 
-
-
-
 #' Example Parameters to use for implementing multi-head self-attention
 #'
 #' @description
@@ -108,3 +105,18 @@
 #' \url{http://jalammar.github.io/illustrated-transformer/}
 #'
 "binary"
+
+
+
+
+#' Pride and Prejudice (tokenized)
+#'
+#' @description
+#' A \code{tibble} with the chapter, paragraph and word for each token.
+#' All word has been turned to lower case and punctuation has been removed.
+#'
+#'
+#' @seealso
+#' \code{prideprejudice} in the \code{janeaustenr} R package.
+#'
+"pride_and_prejudice"
