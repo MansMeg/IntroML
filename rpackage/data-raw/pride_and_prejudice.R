@@ -32,3 +32,5 @@ pride_and_prejudice <- tidy_pride
 
 usethis::use_data(pride_and_prejudice, overwrite = TRUE)
 
+stopwords <- tibble::as_tibble(readLines("data-raw/files/stops_en.txt"))
+usethis::use_data(stopwords, overwrite = TRUE)
