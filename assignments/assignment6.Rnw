@@ -48,6 +48,7 @@
 \newcommand{\Prob}{\mathbb{P}}
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 
 \begin{titlepage}
 
@@ -91,7 +92,7 @@ Start by downloading the IMBD dataset and preprocess it as follows.
 <<eval=FALSE>>=
 library(tensorflow)
 library(keras)
-imdb <- dataset_imdb(num_words = max_features)
+imdb <- dataset_imdb(num_words = 10000)
 c(c(input_train, y_train), c(input_test, y_test)) %<-% imdb
 input_train <- pad_sequences(input_train, maxlen = maxlen)
 input_test <- pad_sequences(input_test, maxlen = maxlen)
