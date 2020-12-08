@@ -35,6 +35,7 @@ Also, _R Markdown: The Definite Guide_, a comprehensive book on R Markdown, can 
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
 # Loading R packages
 
 Below are examples of how to load packages that are used in the assignment
@@ -50,6 +51,18 @@ Try to avoid printing an excessive amount of code and think about what is essent
 Write clear code. The code is also part of your report, and the clarity of the report affects if you pass the assignment. If the code is not self-explanatory, add comments. In a notebook, you can interleave explaining text and code.
 
 If in doubt, additional source code can be included in an appendix. 
+
+
+# Including output
+
+Sometimes, the code can be heavy to run. In those situations it is often much simpler to run the code in ordinary R and the copy the output into markdown. This can be done by simply add the argument `eval=FALSE`.
+
+```{r, eval=FALSE}
+> 1 + 1
+[1] 2
+```
+
+
 
 # Format instructions
 

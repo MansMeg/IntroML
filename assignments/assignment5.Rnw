@@ -1,3 +1,5 @@
+% !Rnw weave = knitr
+
 \documentclass[11pt,a4paper,english]{article}
 \usepackage[latin1]{inputenc}
 \usepackage{hyperref}
@@ -169,6 +171,9 @@ output <- maxpool_layer(convolutional_layer(X, K, -370, relu))
 \subsection{Convolutional neural networks using Keras}
 
 We are now going to implement a convolutional neural network using Keras. Here Ch. 5.1 in Chollet and Allarie (2018) and the \href{https://tensorflow.rstudio.com/tutorials/advanced/images/cnn/}{following tutorial} might be useful. Remember to load the \texttt{tesorflow} R package before loading the \texttt{keras} R package. If you get stuck, ask for help from your fellow students in Slack.
+
+\emph{Note!} Running Keras can be computationally heavy and I suggest not to run the code in \texttt{markdown}. Instead, run the code in R and copy in the results as output (see the assignment template for an example).
+
 
 \begin{enumerate}
 \item Implement a Convolutional Neural Network for the MNIST dataset. The network should have two convolutional layers as follows.

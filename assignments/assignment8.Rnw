@@ -1,3 +1,5 @@
+% !Rnw weave = knitr
+
 \documentclass[11pt,a4paper,english]{article}
 \usepackage[latin1]{inputenc}
 \usepackage{hyperref}
@@ -51,8 +53,9 @@
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Prob}{\mathbb{P}}
 
+
+
 \begin{document}
-\SweaveOpts{concordance=TRUE}
 
 \begin{titlepage}
 
@@ -73,14 +76,14 @@
 
 \HRule
 
-\input{general_info.tex}
-
 % General Knitr options
 % (this cannot be input since the file runs knitr before LaTeX)
 <<echo=FALSE,eval=TRUE>>=
-options(continue="  ", prompt="> ")
+#options(continue="  ", prompt="> ")
 knitr::opts_chunk$set(size = "small")
 @
+
+\input{general_info.tex}
 
 \HRule
 
@@ -89,6 +92,8 @@ knitr::opts_chunk$set(size = "small")
 \section{Variational Autoencoders}
 
 We are now going to implement a variational autoencoder in R using Tensorflow. A lot of the code needed for this assignment can be found \href{https://keras.rstudio.com/articles/examples/variational_autoencoder.html}{\textbf{here}}.
+
+\emph{Note!} Running Keras can be computationally heavy and I suggest not to run the code in \texttt{markdown}. Instead, run the code in R and copy in the results as output (see the assignment template for an example).
 
 \begin{enumerate}
 \item Start out by loading in the MNIST data in R.

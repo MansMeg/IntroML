@@ -1,3 +1,5 @@
+% !Rnw weave = knitr
+
 \documentclass[11pt,a4paper,english]{article}
 \usepackage[latin1]{inputenc}
 \usepackage{hyperref}
@@ -48,7 +50,6 @@
 \newcommand{\Prob}{\mathbb{P}}
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
 
 \begin{titlepage}
 
@@ -97,6 +98,8 @@ c(c(input_train, y_train), c(input_test, y_test)) %<-% imdb
 input_train <- pad_sequences(input_train, maxlen = maxlen)
 input_test <- pad_sequences(input_test, maxlen = maxlen)
 @
+
+\emph{Note!} Running Keras can be computationally heavy and I suggest not to run the code in \texttt{markdown}. Instead, run the code in R and copy in the results as output (see the assignment template for an example).
 
 \begin{enumerate}
 \item Create a simple ordinary neural network for text classification in Keras using an embedding layer of dimension 16 and a hidden layer with 32 hidden states (and an output layer with one unit). Use a validation split of 20\% observations in the validation set and a batch size of 128. Train your network using rmsprop and use binary cross-entropy as the loss function. Print the model and return your validation accuracy after ten epochs. Most of these settings we will reuse later in the assignments.

@@ -1,3 +1,5 @@
+% !Rnw weave = knitr
+
 \documentclass[11pt,a4paper,english]{article}
 \usepackage[latin1]{inputenc}
 \usepackage{hyperref}
@@ -80,6 +82,8 @@ options(continue="  ", prompt="> ")
 knitr::opts_chunk$set(size = "small")
 @
 
+
+
 \HRule
 
 \newpage
@@ -117,6 +121,8 @@ mini_net(X, W*0.9, c, w)
 \section{Feed-Forward Neural Network using Keras and TensorFlow}
 
 As a first step, you need to install  \texttt{tensorflow} and \texttt{keras} on your local computer. You can find detailed information on how to install \texttt{tensorflow} and \texttt{keras} \textbf{\href{https://tensorflow.rstudio.com/installation/}{[here]}}. Details on different architecture components can be found in the \texttt{keras} reference found \textbf{\href{https://keras.rstudio.com/index.html}{[here]}}.
+
+\emph{Note!} Running Keras can be computationally heavy and I suggest not to run the code in \texttt{markdown}. Instead, run the code in R and copy in the results as output (see the assignment template for an example).
 
 If you have installed \texttt{keras}, you can load the MNIST dataset. This dataset contains data on handwritten digits that we want to classify. To access the data, we use \texttt{keras} as follows.
 
