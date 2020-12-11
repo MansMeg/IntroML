@@ -41,6 +41,7 @@ In addition, the following material will also be included (note that you might n
 - Ng, A. 2019. The EM algorithm. CS229, Lecture Notes [online](https://see.stanford.edu/materials/aimlcs229/cs229-notes8.pdf)
 - Griffiths, M. and Steyvers. 2004. Finding Scientific topics [online](https://www.pnas.org/content/pnas/101/suppl_1/5228.full.pdf)
 - Blei, D. 2012. Probabilistic Topic Models [online](http://www.cs.columbia.edu/~blei/papers/Blei2012.pdf)
+- Rocca, J. 2019. Understanding Variational Autoencoders [online](https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73).
 
 Additional literature might show up during the course.
 
