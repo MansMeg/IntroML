@@ -129,7 +129,7 @@ m
 ## [2,] 2  3.571106 71.44706
 ## [3,] 3  3.487659 70.72727
 @
-\item Next, implement the second step in Algorithm 14.1 of \citet{hastie2009elements} and call the function \texttt{compute\_cluster\_encoding(X, m)}. The function should take a $n\times p$ (design) matrix \texttt{X} and a $K\times p$ matrix \texttt{m} with one cluster mean per row. The function should return a $p \times 1$ vector of cluster assignments.
+\item Next, implement the second step in Algorithm 14.1 of \citet{hastie2009elements} and call the function \texttt{compute\_cluster\_encoding(X, m)}. The function should take a $n\times p$ (design) matrix \texttt{X} and a $K\times p$ matrix \texttt{m} with one cluster mean per row. The function should return a $n \times 1$ vector of cluster assignments.
 <<eval=FALSE>>=
 C <- compute_cluster_encoding(X, m)
 C[1:10]
@@ -174,12 +174,13 @@ y <- mixture_data
 \item Visualize the density for the mixture model above over the interval -4 to 4 (by steps of 0.01).
 \item Visualize the \texttt{eruptions} variable in the \texttt{faithful} dataset using a histogram.
 \item Manually choose values for $\mu_1$, $\mu_2$, $\sigma_1$, $\sigma_2$ and $\pi$ that gives a density you think is a good fit for the \texttt{eruptions} variable.
-\item Implement a function called \texttt{e\_uni\_two\_comp(X, theta)} that returns a $n \times 2$ matrix of gamma for each row in \texttt{X}. Note that the row of the gamma should contain the expectation for both components. This function should implement the expectation step in algorithm 8.1 in \citet{hastie2009elements}.
+\item Implement a function called \texttt{e\_uni\_two\_comp(X, theta)} that returns a  vector of gamma values for each row in \texttt{X} (for component 2).  This function should implement the expectation step in algorithm 8.1 in \citet{hastie2009elements}.
 <<eval = FALSE>>=
 gamma <- e_uni_two_comp(y, theta0)
 head(gamma)
 ## [1]  0.9106339 0.8716861 0.7797225 0.6645640 0.6484311 0.5178799
 @
+\emph{Note!} Gamma values for component 1 is essentially just 1 - \texttt{gamma}.
 \item How can we interpret $\gamma$ here?
 \item Implement a function called \texttt{max\_uni\_two\_comp(X, gamma)} that returns a list with parameters \texttt{mu1}, \texttt{mu2}, \texttt{sigma1}, \texttt{sigma2} and \texttt{pi}. This function should implement the maximization step in algorithm 8.1 in \citet{hastie2009elements}.
 <<eval = FALSE>>=
