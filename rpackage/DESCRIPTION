@@ -1,6 +1,6 @@
 Package: uuml
 Title: R Content for the Introduction to Machine Learning Course at Uppsala University
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: 
     person(given = "Mans",
            family = "Magnusson",

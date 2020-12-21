@@ -5,7 +5,6 @@
 #' @param r_wait see Sutton and Barto (2017, Example 3.7)
 #' @param r_search see Sutton and Barto (2017, Example 3.7)
 #'
-#'
 #' @export
 recycling_mdp <- function(alpha, beta, r_wait, r_search){
   checkmate::assert_number(alpha, lower = 0, upper = 1)
