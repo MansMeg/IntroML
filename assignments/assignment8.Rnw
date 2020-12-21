@@ -88,32 +88,31 @@ knitr::opts_chunk$set(size = "small")
 \HRule
 
 \newpage
-
 \section{Variational Autoencoders}
 
 We are now going to implement a variational autoencoder in R using Tensorflow. A lot of the code needed for this assignment can be found \href{https://keras.rstudio.com/articles/examples/variational_autoencoder.html}{\textbf{here}}.
 
-\emph{Note!} Running Keras can be computationally heavy and I suggest not to run the code in \texttt{markdown}. Instead, run the code in R and copy in the results as output (see the assignment template for an example).
+\emph{Note!} Running Keras can be computationally heavy, and I suggest not to run the code in \texttt{markdown}. Instead, run the code in R and copy in the results as output (see the assignment template for an example).
 
 \begin{enumerate}
-\item Start out by loading in the MNIST data in R.
-\item Now implement the a one-layer (encoder and decoder) feed-forward variational autoencoder with two latent dimensions. Both the encoder layer and the decoder layer should have 200 hidden units. You should end up with a variational autoencoder with roughly 316 000 parameters.
+\item Start by loading in the MNIST data in R.
+\item Now, implement a one-layer (encoder and decoder) feed-forward variational autoencoder with two latent dimensions. Both the encoder layer and the decoder layer should have 200 hidden units. You should end up with a variational autoencoder with roughly 310 000 - 320 000 parameters.
 \item Print the model and include it in your report. How many weights are used to compute $\mu$ and $\sigma^2$ for the latent variables? What layer represent the latent variables?
 \item Now train your variational autoencoder on the MNIST data for 50 epochs. Visualize the latent state for the different numbers. How do you interpret this result? What numbers are better represented by the latent state?
-\item Finally, encode all the 2:s in the MNIST test dataset to the latent state using your decoder (Hint!, see \texttt{y\_test} for numbers). What is the mean of the digits "2" in the two latent dimensions?
-\item Now visualize this value of the latent state as a 28 by 28 pixel image using your decoder.
+\item Finally, encode all the 2:s in the MNIST test dataset to the latent state using your encoder. What is the mean of the digits "2" in the two latent dimensions? \emph{Hint!} See \texttt{y\_test} for the MNIST numbers.
+\item Visualize this value of the latent state as a 28 by 28-pixel image using your decoder.
 \end{enumerate}
 
 \section{Variational Autoencoders using Convolutional Neural Networks}
 
-As we have seen previously, for images we can get better performance using Convolutional Neural Networks. Hence we are going to repeat the exercise above using convolutional neural network as encoder and decoder. You can find detailed code \href{https://keras.rstudio.com/articles/examples/variational_autoencoder_deconv.html}{\textbf{here}}.
+As we have seen previously, for images, we can get better performance using Convolutional Neural Networks. Hence we are going to repeat the exercise above using a convolutional neural network as encoder and decoder. You can find detailed code \href{https://keras.rstudio.com/articles/examples/variational_autoencoder_deconv.html}{\textbf{here}}.
 
 \begin{enumerate}
-\item Now implement the a four layer (encoder and decoder) convolutional neural network with two latent dimensions. There should be a 50 filters in each convolutional layer. In addition a dense layer should be included as the last step in the encoder and the first step in the decoder. These layers should have 100 hidden units. You should end up with a variational autoencoder with roughly 2M parameters.
+\item Now implement a four-layer (encoder and decoder) convolutional neural network with two latent dimensions. There should be 50 filters in each convolutional layer. Also, a dense layer should be included as the last step in the encoder and the first step in the decoder. These layers should have 100 hidden units. You should end up with a variational autoencoder with roughly 2M parameters.
 \item Print the model and include in your report. How many weights are used to compute $\mu$ and $\sigma^2$ for the latent variables? What layer represent the latent variables?
-\item Now train your CNN variational autoencoder on the MNIST data for 5 epochs. Visualize the latent state for the different numbers. How do you interpret this result? Compare these result with the results from the feed-forward autoencoder.
+\item Now train your CNN variational autoencoder on the MNIST data for five epochs. Visualize the latent state for the different numbers. How do you interpret this result? Compare these result with the results from the feed-forward autoencoder.
 \item Finally, encode all the 2:s in the MNIST test dataset to the latent state using your decoder (Hint!, see \texttt{y\_test} for numbers). What is the mean of the digits "2" in the two latent dimensions?
-\item Now, again, visualize this the mean value of the digit 2 of the latent state as a 28 by 28 pixel image using your decoder.
+\item Visualize the mean value of the digit 2 of the latent state as a 28 by 28-pixel image using your decoder.
 \end{enumerate}
 
 
@@ -121,10 +120,9 @@ As we have seen previously, for images we can get better performance using Convo
 
 We are now going to analyze the classical book Pride and Prejudice by Jane Austen using a probabilistic topic model. If you have not read the book, \href{https://en.wikipedia.org/wiki/Pride_and_Prejudice}{\textbf{here}} you can read up on the story of this classical book.
 
+\paragraph{Reading instructions}. For this part of the assignment, Griffith and Steyvers (2004) is the main reference. I would also recommend reading Blei (2012) before starting with the assignment.
 
-Reading instructions. For this part of the assignment, Griffith and Steyvers (2004) is the main reference. I would also recommend reading Blei (2012) before starting with the assignment.
-
-We are now going to implement a Gibbs sampler to estimate 10 different topics occurring in Pride and Prejudice and study where they occur. A tokenized version of the book and a \texttt{data.frame} with stopwords can be loaded as follows:
+We are now going to implement a Gibbs sampler to estimate ten different topics occurring in Pride and Prejudice and study where they occur. A tokenized version of the book and a \texttt{data.frame} with stopwords can be loaded as follows:
 
 <<>>=
 library(uuml)
@@ -141,7 +139,7 @@ pap <- pride_and_prejudice
 pap <- anti_join(pap, y = stopwords[stopwords$lexicon == "snowball",])
 @
 
-\item Then we will remove rare words. Here we remove words that occur less than 5 times.
+\item Then we will remove rare words. Here we remove words that occur less than five times.
 <<>>=
 word_freq <- table(pap$word)
 rare_words <- data.frame(word = names(word_freq[word_freq <= 5]), stringsAsFactors = FALSE)
@@ -171,8 +169,8 @@ theta <- extract_theta(tm)
 phi <- extract_phi(tm)
 @
 \item As a first step, check that the model has converged by visualizing the log-likelihood over epochs/iterations. Does it seem like the model have converged?
-\item Extract the 20 top words for each topic (i.e. the words with highest probability in each topic). Choose two topics you find to be coherent/best (the top words seem to belong together). Interpret these two topics based on the storyline of the book. What has these two topics captured?
-\item Now visualize these two topics evolve over the paragraphs in the books by plotting the $\theta$ parameters for that topic over time (paragraphs) in the book. How does these two topic evolve over time? If you want you can take a rolling mean of the theta parameters to more easyly show the changes in the topic over the book.
+\item Extract the 20 top words for each topic (i.e. the words with the highest probability in each topic). Choose two topics you find to be coherent/best (the top words seem to belong together). Interpret these two topics based on the storyline of the book. What have these two topics captured?
+\item Visualize these two topics evolve over the paragraphs in the books by plotting the $\theta$ parameters for that topic over time (paragraphs) in the book. How do these two topics evolve? If you want, you can take a rolling mean of the theta parameters to more easily show the changes in the topic over the book.
 \end{enumerate}
 
 \bibliography{bibliography}
