@@ -91,11 +91,11 @@ knitr::opts_chunk$set(size = "small")
 
 \section{Introduction to Reinforcement Learning}
 
-In this assignment we will look into the basics of Reinforcement learning. The Suggested reading for the following assignment is Sutton and Barto (2017), Chapter 2 and 3.
+In this assignment, we will look into the basics of Reinforcement Learning. The Suggested reading for the following work is Sutton and Barto (2017), Chapter 2 and 3.
 
 \subsection{Bandits}
 
-In the first part we will study the $k$-armed bandit problems more in detail.
+In the first part, we will study the $k$-armed bandit problems more in detail.
 
 \begin{enumerate}
 \item Implement a stationary 5-armed bandit reward function that generates a reward $R$ for a given category according to a true underlying (stationary) reward. Implement a function \texttt{stationary\_bandit(a)} that takes an action $\mathcal{A} = (1,...,5)$. The reward function should return a reward according to
@@ -113,7 +113,7 @@ set.seed(4711)
 stationary_bandit(2)
 stationary_bandit(1)
 @
-\item In addition we will also implement a non-stationary reward function. For all actions $\mathcal{A} = (2,...,5)$ the non-stationary should work as the stationary reward function. Although for action $a=1$ the function should return a reward based on the iteration according to
+\item Also, we will also implement a non-stationary reward function. For all actions $\mathcal{A} = (2,...,5)$ the non-stationary should work as the stationary reward function. Although for action $a=1$ the function should return a reward based on the iteration according to
 \[
 R \sim N(-3 + 0.01t, 1)\,.
 \]
@@ -131,7 +131,7 @@ nonstationary_bandit(2, t = 1)
 nonstationary_bandit(1, t = 1)
 nonstationary_bandit(1, t = 1000)
 @
-\item Now implement a greedy policy algorithm that always chooses the greedy action according to Eq. (2.2). The function called \texttt{greedy\_algorithm(Q1, bandit)} should input a vector of initial estimates of the value of the five actions and a reward function, then run the bandit for 1000 steps and return the mean reward over all the 1000 steps, the value estimates $Q_t(a)$ and the total number of choices of each action $N_t(a)$. Here is an example how it could work.
+\item Implement a greedy policy algorithm that always chooses the greedy action, according to Eq. (2.2). The function called \texttt{greedy\_algorithm(Q1, bandit)} should input a vector of initial estimates of the value of the five actions and a reward function, then run the bandit for 1000 steps and return the mean reward over all the 1000 steps, the value estimates $Q_t(a)$ and the total number of choices of each action $N_t(a)$. Here is an example of how it could work.
 <<eval = FALSE>>=
 Q1 <- rep(0, 5)
 set.seed(4711)
@@ -187,14 +187,14 @@ ucb_algorithm(Q1, bandit_stationary, c = 2)
 ## $R_bar
 ## [1] 1.946474
 @
-\item Now run each algorithm 100 times and compute the mean of the mean rewards for each of the algorithm for both the stationary and non-stationary bandit. For the non-stationary algorithm, try $\alpha=0.5$ and $\alpha=0.9$ and for the UCB, try $c=0.5$ and $c=2$. Summarize all the results in a table. Also try optimistic initialization.
-\item What are your conclusions from these results? Which algorithm seem to be the best one, and why?
+\item Run each algorithm 100 times and compute the mean of the mean rewards for each of the algorithm. Do this for both the stationary and non-stationary bandit. For the non-stationary algorithm, try $\alpha=0.5$ and $\alpha=0.9$ and for the UCB, try $c=0.5$ and $c=2$. Summarize all the results in a table. Also, try optimistic initialization.
+\item What are your conclusions from these results? Which algorithm seems to be the best one, and why?
 \item For the best and worse algorithm, plot the average reward over 100 runs, such as in Figure 2.2. in Sutton and Barto (2017).
 \end{enumerate}
 
 \subsection{Markov Decision Processes}
 
-Now we are going to go implement a Markoc Decision Process (MDP) where the agent make a decision, $A_t$ based on the current state $S_t$ and a reward $R_t$ that will, in turn, return a new state $S_{t+1}$ and a reward $R_{t+1}$. In this part of the assignment we are going to use the recycling robot example (Example 3.7 in Sutton and Barto, 2017).
+Now we are going to implement a Markov Decision Process (MDP) where the agent makes a decision, $A_t$ based on the current state $S_t$ and a reward $R_t$ that will, in turn, return a new state $S_{t+1}$ and a reward $R_{t+1}$. In this part of the assignment, we are going to use the recycling robot example (Example 3.7 in Sutton and Barto, 2017).
 
 % TODO (later): Instead implement a full MDP
 \begin{enumerate}
@@ -203,7 +203,7 @@ Now we are going to go implement a Markoc Decision Process (MDP) where the agent
 library(uuml)
 recycling_mdp(0.5, 0.8, 0.1, 1)
 @
-\item Now implement a function \texttt{always\_search\_policy(mdp)} that takes an MPD specified above and run the MDP for 1000 steps/actions. The policy should be that the agent always choose to search, irrespective of the state. The function should return the return divided with the number of time steps and the number of times in each state. The robut should start in the state \texttt{high}. Below is an example how it should work. Note again, since this is a random algorithm, you might get a slightly different answer.
+\item Now implement a function \texttt{always\_search\_policy(mdp)} that takes an MPD specified above and run the MDP for 1000 steps/actions. The policy should be that the agent always chooses to search, irrespective of the state. The function should return the return divided with the number of time steps and the number of times in each state. The robot should start in the state \texttt{high}. Below is an example of how it should work. Note again, since this is a random algorithm, you might get a slightly different answer.
 <<eval=FALSE>>=
 set.seed(4711)
 always_search_policy(mdp)
@@ -214,10 +214,10 @@ always_search_policy(mdp)
 ## $R_bar
 ## [1] 0.452
 @
-\item Now implement a function \texttt{charge\_when\_low\_policy(mdp)} that takes an MPD specified above and run the MDP for 1000 steps. The policy should be that the agent always choose to recharge, if the energy level is low and always search if the energy level is high. The function should return the same thing as above.
-\item Compare the two policies for MDP with $\alpha = \beta = 0.9$ and $\alpha = \beta = 0.4$ with $r_\text{wait} = 0.1 \text{ and } r_\text{search} = 1$. Run at least 10 times per policy and compute the mean reward. What policy is prefered in the two MDPs?
-\item Now compute the optimal value function for the states for the two different MDP above with a discount of $\gamma=0.5$. What are the optimal value for the two different states? Hint, see Example 3.11. in Sutton and Barto (2017). % TODO: give an example how to compute example
-\item Now implement a policy function called \texttt{optimal\_greed(mdp)} that uses a \emph{greedy} policy using the optimal values. Run the algorithm at least 10 times for 1000 steps and compare with the two previous policies. What are your conclusions?
+\item Now implement a function \texttt{charge\_when\_low\_policy(mdp)} that takes an MPD specified above and run the MDP for 1000 steps. The policy should be that the agent always chooses to recharge if the energy level is low and always search if the energy level is high. The function should return the same thing as above.
+\item Compare the two policies for MDP with $\alpha = \beta = 0.9$ and $\alpha = \beta = 0.4$ with $r_\text{wait} = 0.1 \text{ and } r_\text{search} = 1$. Run at least ten times per policy and compute the mean reward. What policy is prefered in the two MDPs?
+\item Compute the optimal value function for the states for the two different MDP above with a discount of $\gamma=0.5$. What is the optimal value for the two different states? Hint, see Example 3.11. in Sutton and Barto (2017). % TODO: give an example how to compute example
+\item Implement a policy function called \texttt{optimal\_greed(mdp)} that uses a \emph{greedy} policy using the optimal values. Run the algorithm at least ten times for 1000 steps and compare with the two previous policies. What are your conclusions?
 \end{enumerate}
 
 
