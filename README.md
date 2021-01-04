@@ -23,12 +23,12 @@ Below are the main references for the course. All books are available free onlin
 - ESL: Hastie, Trevor, Tibshirani, Robert, and Friedman, Jerome. The elements of statistical learning: data mining, inference, and prediction. 2nd Edition. Springer Science & Business Media, 2009. [online access](https://web.stanford.edu/~hastie/ElemStatLearn/)
 - DL: Goodfellow, Ian, Bengio, Yoshua, and Courville, Aaron. Deep learning. MIT Press, 2017. [online access](https://www.deeplearningbook.org/)
 - DLR: Chollet, François, and Joseph J. Allaire. Deep Learning with R. Manning, 2018.  [online access](https://www.manning.com/books/deep-learning-with-r#toc)
+- Sutton, R. S., and Barto, A. G.. Reinforcement learning: An introduction. MIT Press, 2020. [online access](http://incompleteideas.net/book/RLbook2020.pdf)
 
 In addition, the following material will also be included (note that you might need to access the material through the Uppsala University network):
 
 - Efron, B. (2020). Prediction, Estimation, and Attribution. Journal of the American Statistical Association, 115(530), 636-655. [online access](https://www.tandfonline.com/doi/full/10.1080/01621459.2020.1762613)
 - Ruder, S., 2016. An overview of gradient descent optimization algorithms. arXiv preprint arXiv:1609.04747. [online access](https://arxiv.org/abs/1609.04747)
-- Sutton, R. S., and Barto, A. G.. Reinforcement learning: An introduction. MIT Press, 2020.[online access](http://incompleteideas.net/book/RLbook2020.pdf)
 - Salganik, M. J. et al. Measuring the predictability of life outcomes with a scientific mass collaboration. Proceedings of the National Academy of Sciences Apr 2020, 117 (15) 8398-8403; DOI: 10.1073/pnas.1915006117 [online access](https://www.pnas.org/content/117/15/8398)
 - Precision and Recall at [Wikipedia](https://en.wikipedia.org/wiki/Precision_and_recall).
 - Kingma D.P. and Welling M. An Introduction to Variational Autoencoders, 2019. [online access](https://arxiv.org/pdf/1906.02691.pdf)
