@@ -216,7 +216,7 @@ always_search_policy(mdp)
 @
 \item Now implement a function \texttt{charge\_when\_low\_policy(mdp)} that takes an MPD specified above and run the MDP for 1000 steps. The policy should be that the agent always chooses to recharge if the energy level is low and always search if the energy level is high. The function should return the same thing as above.
 \item Compare the two policies for MDP with $\alpha = \beta = 0.9$ and $\alpha = \beta = 0.4$ with $r_\text{wait} = 0.1 \text{ and } r_\text{search} = 1$. Run at least ten times per policy and compute the mean reward. What policy is prefered in the two MDPs?
-\item Compute the optimal value function for the states for the two different MDP above with a discount of $\gamma=0.5$. What is the optimal value for the two different states? Hint, see Example 3.11. in Sutton and Barto (2017). % TODO: give an example how to compute example
+\item Compute the optimal value function for the states for the two different MDP above with a discount of $\gamma=0.5$. What is the optimal value for the two different states? Hint, see Example 3.11 (Bellman Optimality Equations for the Recycling Robot) in Sutton and Barto (2017). % TODO: give an example how to compute example
 \item Implement a policy function called \texttt{optimal\_greed(mdp)} that uses a \emph{greedy} policy using the optimal values. Run the algorithm at least ten times for 1000 steps and compare with the two previous policies. What are your conclusions?
 \end{enumerate}
 
