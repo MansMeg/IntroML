@@ -71,9 +71,9 @@ Teaching assistant: Andreas Östling
 
 ### Main part
 The course consists of 8 blocks (weeks) of material. Each week consists of the following (expected workload in parenthesis):
-- Two combined lectures/computer labs (approx. 4h per week)
-- Online video material and reading assignments (approx. 2-4 h per week)
-- An individual computer assignment (approx. 12-16 h per week)
+- Two combined lectures/computer labs (approx. 2-4h per week)
+- Online video material and reading assignments (approx. 2-6 h per week)
+- An individual computer assignment (approx. 10-16 h per week)
 
 ### Computer assignments
 Each week an individual computer assignment is done with focus in implementation of the main part of the material. Each assignment is completed individually and should follow the computer assignment template.
