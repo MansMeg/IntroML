@@ -1,19 +1,17 @@
 # Introduction Course in Machine Learning at Uppsala University
 
-Welcome to the github repo for the introduction course in Machine Learning at Uppsala University. This repo contain all necessary material and information for the course.
+Welcome to the github repo for the introduction course in Introduction to Machine Learning at Uppsala University. This repo contain all necessary material and information for the course.
 
 ## Course Background 
 The course is given to second-year master students in the Statistics masters program.
 
-## Prerequisites
-See course syllabus [here](https://www.uu.se/en/admissions/freestanding-courses/course-syllabus/?kKod=2IS074&lasar=).
 
-## Course Goals
-See course syllabus [here](https://www.uu.se/en/admissions/freestanding-courses/course-syllabus/?kKod=2IS074&lasar=).
+## Prerequisites and Course Goals
+See course syllabus [here](https://www.uu.se/en/admissions/freestanding-courses/course-syllabus/?kpid=39843&type=1).
+
 
 ## (Rough) Course Plan
 A rough course plan with reading instructions can be found  [here](https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing).
-
 
 ## Course Literature and Video Material
 Below are the main references for the course. All books are available free online. Some articles may need access from a Uppsala University network.
