@@ -2,7 +2,7 @@
 
 # Introduction Course in Machine Learning at Uppsala University
 
-Welcome to the github repo for the introduction course in Introduction to Machine Learning at Uppsala University. This repo contain all necessary material and information for the course.
+Welcome to the GitHub repo for the introduction course in Introduction to Machine Learning at Uppsala University. This repo contains all necessary material and information for the course.
 
 ## Course Background 
 The course is given to second-year master students in the Statistics masters program.
@@ -13,21 +13,21 @@ See course syllabus [here](https://www.uu.se/en/admissions/freestanding-courses/
 
 
 ## (Rough) Course Plan
-A rough course plan with reading instructions can be found  [here](https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing).
+You can find a rough course plan with reading instructions [here](https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing).
 
 ## Schedule
-The course schedule can be found on TimeEdit [here](https://cloud.timeedit.net/uu/web/schema/) (search for course code 2ST122).
+You can find the course schedule on TimeEdit [here](https://cloud.timeedit.net/uu/web/schema/) (search for course code 2ST122).
 
 ## Grading
 The course is graded with U (Underkänd/Fail), G (Godkänd/Pass), VG (väl godkänd/Pass with distinction).
 
-To pass, all assignments and the projects should be passed. 
+To pass, you should pass all assignments and the mini-project. 
 
-To get VG on the course a total of 7 or more VG-points is needed. Each assignment has an additional task needed to be completed to get VG on the assignment (and one VG-point). If the final mini-project gets VG, all students are awarded 2 VG-points for the project.
+To get the grade VG on the course, a total of 7 or more VG points is needed. Each assignment has an additional task to complete to get VG on the assignment (and one VG-point). If the final mini-project gets VG, the students are awarded 2 VG points for the mini-project.
 
 
 ## Course Literature and Video Material
-Below are the main references for the course. All books are available free online. Some articles may need access from a Uppsala University network.
+Below are the main references for the course. All books are available free online. Some articles may need access from an Uppsala University network.
 
 ### Literature
 
@@ -42,10 +42,10 @@ In addition, the following material will also be included (note that you might n
 - Ruder, S., 2016. An overview of gradient descent optimization algorithms. arXiv preprint arXiv:1609.04747. [online access](https://arxiv.org/abs/1609.04747)
 - Salganik, M. J. et al. Measuring the predictability of life outcomes with a scientific mass collaboration. Proceedings of the National Academy of Sciences Apr 2020, 117 (15) 8398-8403; DOI: 10.1073/pnas.1915006117 [online access](https://www.pnas.org/content/117/15/8398)
 - Precision and Recall at [Wikipedia](https://en.wikipedia.org/wiki/Precision_and_recall).
-- Kingma D.P. and Welling M. An Introduction to Variational Autoencoders, 2019. [online access](https://arxiv.org/pdf/1906.02691.pdf)
+- Kingma DP and Welling M. An Introduction to Variational Autoencoders, 2019. [online access](https://arxiv.org/pdf/1906.02691.pdf)
 - Smyth, P. The EM algorithm for Gaussian Mixtures, 2020. [online access](https://www.ics.uci.edu/~smyth/courses/cs274/notes/EMnotes.pdf)
-- Alammar, J. The illustrated Transformer, 2018a. [online](http://jalammar.github.io/illustrated-transformer/)
-- Alammar, J. The illustrated BERT, ELMo, and co. (How NLP Cracked Transfer Learning), 2018b. [online](http://jalammar.github.io/illustrated-bert/)
+- Alamar, J. The illustrated Transformer, 2018a. [online](http://jalammar.github.io/illustrated-transformer/)
+- Alamar, J. The illustrated BERT, Elmo, and co. (How NLP Cracked Transfer Learning), 2018b. [online](http://jalammar.github.io/illustrated-bert/)
 - Devlin, J., Chang, M.W., Lee, K. and Toutanova, K., 2018. Bert: Pre-training of deep bidirectional transformers for language understanding. arXiv preprint arXiv:1810.04805. [online](https://arxiv.org/abs/1810.04805)
 - Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A.N., Kaiser, Ł. and Polosukhin, I., 2017. Attention is all you need. In Advances in neural information processing systems (pp. 5998-6008). [online](https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html)
 - Olah, C. 2015. Understanding LSTM Networks. [online](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)
@@ -72,7 +72,7 @@ Online course discussions will be held through Slack. See Studium for details on
 
 ### Location
 
-The course will have 1-2 guest lectures that will be given through Zoom, otherwise the course will be taken place on campus. Information and support for students on Zoom can be found [here](https://mp.uu.se/c/perm/link?p=267521030). 
+The course will have 1-2 guest lectures that the guest lecturers will give through Zoom. Otherwise, the course will be held on campus. You can find information and support for students on Zoom [here](https://mp.uu.se/c/perm/link?p=267521030). 
 
 ## Teachers
 
@@ -89,17 +89,17 @@ The course consists of 8 blocks (weeks) of material. Each week consists of the f
 - An individual computer assignment (approx. 10-16 h per week)
 
 ### Computer assignments
-Each week an individual computer assignment is done with focus in implementation of the main part of the material. Each assignment is completed individually and should follow the computer assignment template.
+Each week an individual computer assignment is done with a focus on implementing the main part of the material. Each assignment is completed individually and should follow the computer assignment template.
 
-The computer assignments should be returned no later than **Sunday 23.59 each week**. A second possibility to turn in assignments is possible at the end of the course. For a detailed list of deadlines see the [rough course plan](https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing).
+Students should return the computer assignments no later than **Sunday 23.59 each week**. A second possibility to turn in assignments is possible at the end of the course. For a detailed list of deadlines, see the [rough course plan](https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing).
 
 ### Machine Learning, AI and ethics
 A guest lecture will be given on AI and ethics by [Karim Jebari](https://www.iffs.se/en/research/researchers/karim-jebari/).
 
 ## Course Project
-The last two weeks will be focused on a course project where a group of 2-3 students choose a data and create a supervised machine learning predictor for a real-world dataset. 
+The last two weeks will focus on a course project where 2-3 students choose their data and create a supervised machine learning predictor for a real-world dataset. 
 
-Details and instructions on the project work can be found [here](https://github.com/MansMeg/IntroML/blob/master/project/).
+You can find details and instructions on the project work [here](https://github.com/MansMeg/IntroML/blob/master/project/).
 
 
 ## Frequently Asked Questions (FAQ)
