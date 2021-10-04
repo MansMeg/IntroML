@@ -1,3 +1,5 @@
+# Note! The course is currently being updated for the 2021 version! The information will change!
+
 # Introduction Course in Machine Learning at Uppsala University
 
 Welcome to the github repo for the introduction course in Machine Learning at Uppsala University. This repo contain all necessary material and information for the course.
@@ -14,6 +16,8 @@ See course syllabus [here](https://www.uu.se/en/admissions/freestanding-courses/
 ## (Rough) Course Plan
 A rough course plan with reading instructions can be found  [here](https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing).
 
+## Schedule
+The course schedule can be found on TimeEdit [here](https://cloud.timeedit.net/uu/web/schema/) (search for course code 2ST122).
 
 ## Course Literature and Video Material
 Below are the main references for the course. All books are available free online. Some articles may need access from a Uppsala University network.
@@ -34,7 +38,7 @@ In addition, the following material will also be included (note that you might n
 - Kingma D.P. and Welling M. An Introduction to Variational Autoencoders, 2019. [online access](https://arxiv.org/pdf/1906.02691.pdf)
 - Smyth, P. The EM algorithm for Gaussian Mixtures, 2020. [online access](https://www.ics.uci.edu/~smyth/courses/cs274/notes/EMnotes.pdf)
 - Alammar, J. The illustrated Transformer, 2018a. [online](http://jalammar.github.io/illustrated-transformer/)
-- Alammar, J. The Illustrated BERT, ELMo, and co. (How NLP Cracked Transfer Learning), 2018b. [online](http://jalammar.github.io/illustrated-bert/)
+- Alammar, J. The illustrated BERT, ELMo, and co. (How NLP Cracked Transfer Learning), 2018b. [online](http://jalammar.github.io/illustrated-bert/)
 - Devlin, J., Chang, M.W., Lee, K. and Toutanova, K., 2018. Bert: Pre-training of deep bidirectional transformers for language understanding. arXiv preprint arXiv:1810.04805. [online](https://arxiv.org/abs/1810.04805)
 - Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A.N., Kaiser, Ł. and Polosukhin, I., 2017. Attention is all you need. In Advances in neural information processing systems (pp. 5998-6008). [online](https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html)
 - Olah, C. 2015. Understanding LSTM Networks. [online](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)
@@ -43,7 +47,7 @@ In addition, the following material will also be included (note that you might n
 - Blei, D. 2012. Probabilistic Topic Models [online](http://www.cs.columbia.edu/~blei/papers/Blei2012.pdf)
 - Rocca, J. 2019. Understanding Variational Autoencoders [online](https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73).
 
-Additional literature might show up during the course.
+The literature list might change slightly during the course.
 
 ### Video material
 
@@ -59,9 +63,9 @@ Additional literature might show up during the course.
 
 Online course discussions will be held through Slack. See Studium for details on how to log in.
 
-### Zoom
+### Location
 
-The course will most likely be taught partly through Zoom. Information and support for students can be found [here](https://mp.uu.se/c/perm/link?p=267521030). 
+The course will have 1-2 guest lectures that will be given through Zoom, otherwise the course will be taken place on campus. Information and support for students on Zoom can be found [here](https://mp.uu.se/c/perm/link?p=267521030). 
 
 ## Teachers
 
