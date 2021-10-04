@@ -18,6 +18,14 @@ A rough course plan with reading instructions can be found  [here](https://docs.
 ## Schedule
 The course schedule can be found on TimeEdit [here](https://cloud.timeedit.net/uu/web/schema/) (search for course code 2ST122).
 
+## Grading
+The course is graded with U (Underkänd/Fail), G (Godkänd/Pass), VG (väl godkänd/Pass with distinction).
+
+To pass, all assignments and the projects should be passed. 
+
+To get VG on the course a total of 7 or more VG-points is needed. Each assignment has an additional task needed to be completed to get VG on the assignment (and one VG-point). If the final mini-project gets VG, all students are awarded 2 VG-points for the project.
+
+
 ## Course Literature and Video Material
 Below are the main references for the course. All books are available free online. Some articles may need access from a Uppsala University network.
 
