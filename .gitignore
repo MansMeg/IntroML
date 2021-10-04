@@ -9,6 +9,9 @@
 *.snm
 *.Rproj
 assignments/*.tex
+project/*.tex
 assignments/*.bbl
 TODO.tdl
 sandbox/*
+rpackage/data-raw/*
+rpackage/.gitignore
