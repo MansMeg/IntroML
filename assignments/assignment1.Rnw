@@ -1,0 +1,298 @@
+\documentclass[11pt,a4paper,english]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+% Normal latex T1-fonts
+\usepackage[T1]{fontenc}
+
+% Figures
+%\usepackage{graphicx,fancybox,subfigure}
+
+ % AMS-stuff
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsbsy}
+
+ % Misc
+\usepackage{verbatim}
+\usepackage{url}
+
+% Page size
+\addtolength{\hoffset}{-1cm}
+\addtolength{\textwidth}{2cm}
+\addtolength{\voffset}{-1cm}
+\addtolength{\textheight}{2cm}
+
+% Paragraph
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+
+% Horizontal line
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+% No page numbers
+\pagestyle{empty}
+
+% New commands:
+\DeclareMathOperator{\var}{var}
+\DeclareMathOperator{\cov}{cov}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+
+\begin{document}
+
+\begin{titlepage}
+
+\center
+\textsc{\LARGE Uppsala University}\\[1.5cm] % Name of your university/college
+\includegraphics[scale=.2]{files/uu_logo.png}\\[1cm]
+\textsc{\Large Introduction to Machine Learning, Big Data, and AI}\\[0.5cm]
+\textsc{\large }\\[0.5cm]
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Assignment 1}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+
+\vfill
+
+\end{titlepage}
+
+
+\HRule
+
+\input{general_info.tex}
+
+\HRule
+
+% General Knitr options
+% (this cannot be input since the file runs knitr before LaTeX)
+
+<<echo=FALSE, eval=TRUE>>=
+options(continue="  ", prompt="> ")
+knitr::opts_chunk$set(size = "small")
+@
+
+
+\newpage
+
+
+\section{Gradient Descent, Stochastic Gradient Descent, and Mini-Batch Gradient Descent}
+
+This assignment will study different ways to optimize common objective functions in many areas of Machine Learning, namely, stochastic gradient descent. Here we will test to implement these optimizers for a well-known model, logistic regression.
+
+We are going to work with this data as a test case:
+
+<<echo=TRUE,eval=FALSE>>=
+library(uuml)
+data("binary")
+
+binary$gre_sd <- (binary$gre - mean(binary$gre))/sd(binary$gre)
+binary$gpa_sd <- (binary$gpa - mean(binary$gpa))/sd(binary$gpa)
+X <- model.matrix(admit ~ gre_sd + gpa_sd, binary)
+y <- binary$admit
+@
+
+
+\subsection{Implement the gradient for logistic regression}
+
+
+The likelihood function for logistic regression is
+\[
+L(\theta, \mathbf{y}, \mathbf{X}) = \prod^n_{i=1} p_i^{y_i} (1 - p_i)^{1-y_i} \,,
+\]
+where
+\[
+\log \frac{p_i}{1-p_i} = \mathbf{x}_i \theta  \,,
+\]
+and $\mathbf{x}_i$ is the $i$th row from the design matrix $\mathbf{X}$ and $\theta \in \mathbb{R}^P$ is a $1 \times P$ matrix with the parameters of interest.
+
+Commonly, to find maximum likelihood estimates of $\theta$, we usually use the log-likelihood as the objective function we want to optimize, i.e.
+\begin{align}
+l(\theta, \mathbf{y}, \mathbf{X}) = & \sum_{i=1}^n y_i \log(p_i) + (1 - y_i) \log(1-p_i)\\
+ = & \sum_{i=1}^n y_i \mathbf{x}_i\theta + \log(1-p_i)\\
+ = & \sum_{i=1}^n y_i \mathbf{x}_i\theta - \log(1+\exp(\mathbf{x}_i\theta))\,.
+\end{align}
+
+Although, in our case we instead want to minimize the negative log likelihood NLL$(\theta, \mathbf{y}, \mathbf{X})=-l(\theta, \mathbf{y}, \mathbf{X})$.
+
+\begin{enumerate}
+\item Derive the the gradient for NLL$(\theta, \mathbf{y}, \mathbf{X})$ with respect to $\theta$.
+\item Implement the gradient as a function in R. Below are two examples of how it should work. Note, \texttt{l\_grad(y, X, theta)} return the gradient of $(1/n) l(\theta, \mathbf{y}, \mathbf{X})$.
+<<echo=FALSE,eval=TRUE>>=
+l_grad <- function(y, X, theta){
+c("(Intercept)" = -0.1825, "gre_sd" = 0.0857, "gpa_sd" = 0.0829)
+}
+@
+<<echo=TRUE,eval=TRUE>>=
+l_grad(y, X, theta = c(0,0,0))
+@
+
+<<echo=FALSE,eval=TRUE>>=
+l_grad <- function(y, X, theta){
+c("(Intercept)" = 0.0217, "gre_sd" = -0.0395, "gpa_sd" = -0.0426)
+}
+@
+<<echo=TRUE,eval=TRUE>>=
+l_grad(y, X, theta = c(-1,0.5,0.5))
+@
+
+\end{enumerate}
+
+\subsection{Implement Gradient Descent}
+We now have the primary tool for implementing gradient descent and stochastic gradient descent.
+
+\begin{enumerate}
+\item Implement the log-likelihood $l$ or the negative log-likelihood NLL in R. Note that you will have to do gradient ascent if you use the log-likelihood.
+<<echo=FALSE,eval=TRUE>>=
+l <- function(y, X, theta){
+-277.2589
+}
+@
+<<echo=TRUE,eval=TRUE>>=
+l(y, X, theta = c(0,0,0))
+@
+
+<<echo=FALSE,eval=TRUE>>=
+l <- function(y, X, theta){
+-244.5342
+}
+@
+<<echo=TRUE,eval=TRUE>>=
+l(y, X, theta = c(-1,0.5,0.5))
+@
+\item Run logistic regression in R to get an MLE estimate of \texttt{theta} using the \texttt{glm()} function. Print the three parameter estimates.
+\item Implement the following gradient descent algorithms:
+\begin{enumerate}
+\item ordinary (full/batch) gradient descent
+\item stochastic gradient descent
+\item mini-batch (stochastic) gradient descent using ten samples to estimate the gradient
+\end{enumerate}
+\item Try different learning parameters $\eta$ and for roughly 500 epochs. When does the algorithm converge or diverge? Visualize the epochs (full data iterations, x-axis) and the log-likelihood value \emph{for all observations} (y-axis).  Show at least one plot per algorithm that converges for each parameter $\theta$ (i.e. three Figures), also include the true values you got from using the \texttt{glm()} function above. Describe your conclusions. Show the code (loop) you use.
+\end{enumerate}
+
+\newpage
+
+\section{Regularized Regression}
+
+The datasets \texttt{prob2\_train} and \texttt{prob2\_test} contains simulated data with 240 explanatory variables (\texttt{V1-V240}) and 1 numerical response variable (\texttt{y}). As per the dataset names, the first dataset contains training data and the second contains test data for this problem. To access the data, just run:
+
+<<eval=TRUE>>=
+library(uuml)
+data("prob2_train")
+data("prob2_test")
+dim(prob2_train)
+@
+
+
+You should do the following and present the results in your report:
+\begin{enumerate}
+\item Fit a linear model to the training data. What are the results? Why does this happen?
+\item Use \texttt{cv.glmnet} from the \texttt{glmnet} package to fit a linear lasso regression to the training data. Describe what the function does. Include the plot showing the MSE for different values of $\lambda$ in your report and describe how to interpret it.
+\item Have a look at the coefficients you get from the $\lambda_{min}$ and $\lambda_{1se}$ models. Describe the resulting models in the report, e.g., if any variables have been removed from the model. But please do not print all 240 coefficients!
+\item Use \texttt{cv.glmnet} from the \texttt{glmnet} package to fit a linear ridge regression to the training data.
+\item Use the models (lasso/ridge, $\lambda_{min}$ or $\lambda_{1se}$) to make predictions for the test data. Present the MAE and RMSE of the four models in a table in your report. Discuss the results, comparing the interpretability and predictive performance of the models.
+\end{enumerate}
+
+\newpage
+
+\section{*Gradient Descent for penalized logistic regression}
+
+This assignment is the VG point assignment. If you do not want to get a VG-point, you can ignore this assignment. Here we use the same data as in task 1 above, namely
+
+<<echo=TRUE,eval=FALSE>>=
+library(uuml)
+data("binary")
+
+binary$gre_sd <- (binary$gre - mean(binary$gre))/sd(binary$gre)
+binary$gpa_sd <- (binary$gpa - mean(binary$gpa))/sd(binary$gpa)
+X <- model.matrix(admit ~ gre_sd + gpa_sd, binary)
+y <- binary$admit
+@
+
+
+In ridge regression we penalize the regression coefficients by $\lambda$. This gives the likelihood function for logistic regression with ridge penalty as
+\begin{align}
+l_r(\theta, \mathbf{y}, \mathbf{X}, \lambda) = l(\theta, \mathbf{y}, \mathbf{X}) + \lambda \sum_{i=1}^P \theta_i^2\,,
+\end{align}
+where $l(\theta, \mathbf{y}, \mathbf{X})$ is defined as in task 1 above. We also want to minimize the negative log likelihood $\text{NLL}_r(\theta, \mathbf{y}, \mathbf{X}, \lambda)=-l(\theta, \mathbf{y}, \mathbf{X}, \lambda)$ here as well.
+
+\begin{enumerate}
+\item Derive the the gradient for $\text{NLL}_r(\theta, \mathbf{y}, \mathbf{X},\lambda)$ with respect to $\theta$.
+\item Implement the gradient as a function in R. Below are two examples of how it should work. Note, \texttt{lr\_grad(y, X, theta, lambda)} return the gradient of $(1/n) l(\theta, \mathbf{y}, \mathbf{X}, \lambda)$.
+<<echo=FALSE,eval=TRUE>>=
+lr_grad <- function(y, X, theta, lambda){
+c("(Intercept)" = -0.1825, "gre_sd" = 0.0857, "gpa_sd" = 0.0829)
+}
+@
+<<echo=TRUE,eval=TRUE>>=
+lr_grad(y, X, theta = c(0,0,0), lambda = 0)
+@
+
+<<echo=FALSE,eval=TRUE>>=
+lr_grad <- function(y, X, theta, lambda){
+c("(Intercept)" = -0.1825, "gre_sd" = 0.0857, "gpa_sd" = 0.0829)
+}
+@
+<<echo=TRUE,eval=TRUE>>=
+lr_grad(y, X, theta = c(0,0,0), lambda = 1)
+@
+
+<<echo=FALSE,eval=TRUE>>=
+lr_grad <- function(y, X, theta, lambda){
+    c("(Intercept)" = -1.978, "gre_sd" = 0.960, "gpa_sd" = 0.957)
+}
+@
+<<echo=TRUE,eval=TRUE>>=
+lr_grad(y, X, theta = c(-1,0.5,0.5), lambda = 1)
+@
+\item Implement the log-likelihood $lr$ or the negative log-likelihood $\text{NLL}_r$ in R.
+<<echo=FALSE,eval=TRUE>>=
+lr <- function(y, X, theta, lambda){
+-277.2589
+}
+@
+<<echo=TRUE,eval=TRUE>>=
+lr(y, X, theta = c(0,0,0), lambda = 0)
+@
+
+<<echo=FALSE,eval=TRUE>>=
+lr <- function(y, X, theta, lambda){
+-277.2589
+}
+@
+<<echo=TRUE,eval=TRUE>>=
+lr(y, X, theta = c(0,0,0), lambda = 1)
+@
+
+<<echo=FALSE,eval=TRUE>>=
+lr <- function(y, X, theta, lambda){
+-243.0342
+}
+@
+<<echo=TRUE,eval=TRUE>>=
+lr(y, X, theta = c(-1,0.5,0.5), lambda = 1)
+@
+\item Run logistic regression with ridge penalty in R using \texttt{glmnet} estimate of \texttt{theta}. Set \texttt{lambda} to 1 and \texttt{alpha} to 0 to run a penalized logistic regression. You also need to remove the intercept from \texttt{X}. \emph{Note that \texttt{glmnet} does not penalize/regularize the intercept, hence your results might differ slightly}.
+\item Implement the following gradient descent algorithms for the penalized logistic objective:
+\begin{enumerate}
+\item ordinary (full/batch) gradient descent
+\item mini-batch (stochastic) gradient descent using ten samples to estimate the gradient
+\end{enumerate}
+\item Try different learning parameters $\eta$ and different $\lambda$. When does the algorithm converge or diverge? Visualize the iterations (x-axis) and the log-likelihood (y-axis). Show at least one plot per algorithm that converges.
+\end{enumerate}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
