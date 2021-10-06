@@ -75,11 +75,11 @@ knitr::opts_chunk$set(size = "small")
 
 \section{Project Instructions}
 
-The last two weeks will be focused on a course project where a group of 2-3 students choose data and create a supervised machine learning predictor for a real-world dataset.
+The last two weeks will focus on a course project where 2-3 students choose data and create a supervised machine learning predictor for a real-world dataset.
 
 \subsection{Suggested Reading}
 
-The project will be a practical project in supervised Machine learning. Suggested reading (before starting the project) is:
+The project will be a small practical exercise in supervised machine learning. Suggested reading (before starting the project) is:
 
 \begin{itemize}
 \item Chapter 11 in Ian Goodfellow, Yoshua Bengio, and Aaron Courville. 2016. \emph{Deep Learning}. The MIT Press.
@@ -99,13 +99,13 @@ We recommend that you find a dataset you are interested in using yourself. If yo
 \item The machine learning competition site Kaggle: \href{https://www.kaggle.com/}{[here]}
 \end{itemize}
 
-Some data sets should not be used in the project:
+The following data sets should not be used in the project:
 \begin{itemize}
 \item Titanic (R data set)
 \item mtcars (R data set)
 \end{itemize}
 
-Modeling requirements and recommendations:
+Modelling requirements and recommendations:
 \begin{itemize}
 \item Your project should be a supervised learning project.
 \end{itemize}
@@ -119,7 +119,7 @@ Students need to turn in a half-page project and data description by the end of 
   \item A first idea on potential methods and evaluation.
 \end{itemize}
 
-To minimize the project work's total workload, I suggest you see the proposal as a first draft of Section 1 and 2 of the project report (see below). Then the first part of your project report will already be written.
+To minimize the project work's total workload, I suggest you see the proposal as a first draft of Sections 1 and 2 of the project report (see below). Then you will already have written the first part of your project report.
 
 \subsection{Project Report}
 
@@ -159,7 +159,7 @@ Additional requirements for the report:
 
 \subsection{Project Review}
 
-Each student will review one other group's project report. The project review should consist of a written report of 1-2 pages using the ICML paper format that can be found \href{https://icml.cc/Conferences/2020/StyleAuthorInstructions}{[here]}. The review should that contain the following sections--roughly one to two paragraphs per section.
+Each student will review one other group's project report. The project review should consist of a written report of 1-2 pages using the ICML paper format that can be found \href{https://icml.cc/Conferences/2020/StyleAuthorInstructions}{[here]}. The review \emph{have to} contain the following sections with roughly one to two paragraphs per section.
 
 \begin{enumerate}
 \item Summary and contributions: \\ Briefly summarize the project report and its contributions in one paragraph.
@@ -168,11 +168,11 @@ Each student will review one other group's project report. The project review sh
 \item Correctness: \\ Are the claims and methods correct? Is the empirical methodology correct?
 \item Clarity: \\ Is the paper well written? Is it easy to follow or understand the report?
 \item Formatting: \\ Is the paper correctly formated, and are the required content included in the project report?
-\item Ethical considerations: \\ Does the report raise potential ethical concerns? This includes methods, applications, or data that create or reinforce unfair bias or have a primary purpose of harm or injury. If so, please explain briefly.
+\item Ethical considerations: \\ Does the report raise potential ethical concerns? Does methods, applications, or data create or reinforce unfair bias or have a primary purpose of harm or injury. If so, please explain briefly.
 \end{enumerate}
 
 
-\emph{Note} Reviewing other's work is an essential part of the scientific process. These reviewer guidelines have been in large part been taken from the NeurIPS reviewer guidelines that can be found here:
+\emph{Note} Reviewing others' work is an essential part of the scientific process. These reviewer guidelines have been in large part been taken from the NeurIPS reviewer guidelines that you can find here:
 \href{https://nips.cc/Conferences/2020/PaperInformation/ReviewerGuidelines}{NeurIPS reviewer guidelines}
 
 
@@ -188,7 +188,7 @@ Presentation details:
   \item Afterwards, questions will be asked first by other students and then by attending teachers.
   \item Each student will be responsible for (critically) discussing/commenting on one other project report.
   \item Grading of the presentation will be done by the attending teachers using standardized grading instructions.
-  \item Presenters' ID cards will be checked to ensure the right persons are presenting
+  \item Presenters' ID cards will be checked by the teacher to ensure the right persons are presenting
 \end{itemize}
 
 Specific presentation recommendations:
@@ -199,7 +199,5 @@ Specific presentation recommendations:
   \item The last slide needs to include to conclusion and names of the group members.
 \end{itemize}
 
-
 \end{document}
-
 
