@@ -141,6 +141,9 @@ Learning from data. -- Hastie, Tibshirani, Friedman (2009)
 \begin{itemize}
 \item Supervised learning
 \item Unsupervised learning
+\begin{itemize}
+\item Self-(un)supervised learning
+\end{itemize}
 \item Reinforcement learning
 \end{itemize}
 
@@ -189,10 +192,18 @@ Exact dates and details; see the course page.
 \begin{itemize}
 \item Two lectures/computer labs (approx. 4h)
 \item Online video material and reading assignments (approx. 4-6h, 50-90 pages a week)
-\item An individual computer assignment (approx. 12-16h). Deadline Sundays 23.59.
+\item \emph{Note!} There might be some overlap between reading instructions.
+\item An individual computer assignment (approx. 12-16h). Deadline Sundays 23.59.\pause
+\item Recommended workflow for each block
+\begin{itemize}
+\item Watch the videos (although, optional)
+\item Do the reading assignments
+\item Do the computer assignment
+\end{itemize}
 \end{itemize}
 
 \end{frame}
+
 
 \begin{frame}{Computer Assignments}
 
@@ -231,14 +242,14 @@ Exact dates and details; see the course page.
 \begin{itemize}
 \item Course page: Github -- please do a PR if something is wrong!\pause
 \item Communication: Course Slack\pause
-\item Acknowledgements: M{\aa}ns Thulin, Josef Wilzén\pause
+\item Acknowledgements: M{\aa}ns Thulin, Josef Wilzén, Anders Eklund\pause
 \item Schedule: Time Edit/Studium
 \item Assignments: Studium\pause
 \item Literature
 \begin{itemize}
 \item Hastie, Tibshirani \& Friedman (2009). \emph{Elements of Statistical Learning}. Springer. Available at\\\texttt{https://web.stanford.edu/$\sim$hastie/ElemStatLearn/}
 \item Chollet \& Allaire (2018). \emph{Deep Learning with R}. Manning. Available for reading at\\\texttt{https://www.manning.com/books/deep-learning-\\with-r}
-\item Ian Goodfellow and Yoshua Bengio and Aaron Courville (2017). \emph{Deep Learning}. Available at \\\texttt{https://www.deeplearningbook.org/}
+\item Goodfellow, Bengio \& Courville (2017). \emph{Deep Learning}. Available at \\\texttt{https://www.deeplearningbook.org/}
 \item Additional articles, tuturials, videos etc. posted on course (github) homepage
 \end{itemize}
 \end{itemize}
@@ -248,13 +259,10 @@ Exact dates and details; see the course page.
 \begin{frame}{Examination}
 
 \begin{enumerate}
-\item All labs need to be passed\pause
-\item The grade are set based on the project report and the review.\pause
-\item In borderline cases, I will look at:
-\begin{enumerate}
-\item How much have you been helping others on Slack (public channel)?
-\item Any improvements/bug fixes as Pull Requests?
-\end{enumerate}
+\item To pass (G): All labs, mini-project, and project review need to be passed\pause
+\item To pass with distinction (VG): 7/10 VG points\pause
+\item Each assignment has an extra (VG) task worth 1 VG point.\pause
+\item The mini-project is worth 2 VG-points (if it is passed with distinction).
 \end{enumerate}
 
 \end{frame}
@@ -415,7 +423,7 @@ Questions?
 \begin{frame}{Training of ML algorithms}
 
 \begin{enumerate}
-\item Training is usually done by minimizing the loss/cost function $L(\theta)$ for $\theta \in \mathbf{R}^P$.
+\item Training is usually done by minimizing the objective/loss/cost function $L(\theta)$ for $\theta \in \mathbf{R}^P$.
 \item Example: Logistic regression, here we can use the {\color{uured} negative} log-likelihood as loss function:
 \[
 L(\theta, \mathbf{y}, \mathbf{X}) = - \log \prod^N_{i=1} p_i^{y_i} (1 - p_i)^{1-y_i} \,,
