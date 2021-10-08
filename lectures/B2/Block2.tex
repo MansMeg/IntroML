@@ -616,6 +616,8 @@ CV(\hat{f},\alpha) = \frac{1}{N}\sum^N_{i=1} L(y_i,\hat{y}_{-\kappa(i)}(x_i,\alp
 \end{frame}
 
 
+% TODO: Add?
+
 %\begin{frame}{LOO-CV for large data}
 
 %\[
@@ -630,7 +632,26 @@ CV(\hat{f},\alpha) = \frac{1}{N}\sum^N_{i=1} L(y_i,\hat{y}_{-\kappa(i)}(x_i,\alp
 
 %\end{frame}
 
+\begin{frame}{The role of the data generating process}
 
+\begin{itemize}
+\item we assume that testset and train set are different observations from the same data generating process
+\[
+\mathbf{d} = \{(y_i, \mathbf{x}_i), i = 1, ..., n\} \,\sim P_{y,x}
+\]
+\item Things that can go wrong:
+\begin{itemize}
+\item temporal leak/concept drift
+\item duplicated observations
+\item non-randomized data
+\end{itemize}
+\pause
+\item Example: Evaluating prediction models for Elections
+% TODO: Add examples from the bachelor theses
+\end{itemize}
+
+
+\end{frame}
 
 \begin{frame}<handout:0>{Questions?}
 Questions?
