@@ -233,6 +233,8 @@ l_r(\theta, \mathbf{y}, \mathbf{X}, \lambda) = l(\theta, \mathbf{y}, \mathbf{X})
 \end{align}
 where $l(\theta, \mathbf{y}, \mathbf{X})$ is defined as in task 1 above. We also want to minimize the negative log likelihood $\text{NLL}_r(\theta, \mathbf{y}, \mathbf{X}, \lambda)=-l(\theta, \mathbf{y}, \mathbf{X}, \lambda)$ here as well.
 
+\emph{Note!} In general, we should not regularize the intercept (see Hastie et al., 2009, Ch. 3.4). Hence below the gradient and log-likelihood only regularize the parameters \texttt{gre\_sd} and \texttt{gpa\_sd}.
+
 \begin{enumerate}
 \item Derive the the gradient for $\text{NLL}_r(\theta, \mathbf{y}, \mathbf{X},\lambda)$ with respect to $\theta$.
 \item Implement the gradient as a function in R. Below are two examples of how it should work. Note, \texttt{lr\_grad(y, X, theta, lambda)} return the gradient of $(1/n) l(\theta, \mathbf{y}, \mathbf{X}, \lambda)$.
@@ -256,7 +258,7 @@ lr_grad(y, X, theta = c(0,0,0), lambda = 1)
 
 <<echo=FALSE,eval=TRUE>>=
 lr_grad <- function(y, X, theta, lambda){
-    c("(Intercept)" = -1.978, "gre_sd" = 0.960, "gpa_sd" = 0.957)
+    c("(Intercept)" = 0.0217, "gre_sd" = 0.960, "gpa_sd" = 0.957)
 }
 @
 <<echo=TRUE,eval=TRUE>>=
@@ -265,7 +267,7 @@ lr_grad(y, X, theta = c(-1,0.5,0.5), lambda = 1)
 \item Implement the log-likelihood $lr$ or the negative log-likelihood $\text{NLL}_r$ in R.
 <<echo=FALSE,eval=TRUE>>=
 lr <- function(y, X, theta, lambda){
--277.2589
+-277.26
 }
 @
 <<echo=TRUE,eval=TRUE>>=
@@ -274,7 +276,7 @@ lr(y, X, theta = c(0,0,0), lambda = 0)
 
 <<echo=FALSE,eval=TRUE>>=
 lr <- function(y, X, theta, lambda){
--277.2589
+-277.26
 }
 @
 <<echo=TRUE,eval=TRUE>>=
@@ -283,13 +285,13 @@ lr(y, X, theta = c(0,0,0), lambda = 1)
 
 <<echo=FALSE,eval=TRUE>>=
 lr <- function(y, X, theta, lambda){
--243.0342
+-244.03
 }
 @
 <<echo=TRUE,eval=TRUE>>=
 lr(y, X, theta = c(-1,0.5,0.5), lambda = 1)
 @
-\item Run logistic regression with ridge penalty in R using \texttt{glmnet} estimate of \texttt{theta}. Set \texttt{lambda} to 1 and \texttt{alpha} to 0 to run a penalized logistic regression. You also need to remove the intercept from \texttt{X}. \emph{Note that \texttt{glmnet} does not penalize/regularize the intercept, hence your results might differ slightly}.
+\item Run logistic regression with ridge penalty in R using \texttt{glmnet} estimate of \texttt{theta}. Set \texttt{lambda} to 1 and \texttt{alpha} to 0 to run a penalized logistic regression. You also need to remove the intercept from \texttt{X}. \emph{Note that \texttt{glmnet}. Note! Your results might differ slightly due to a different implementation}.
 \item Implement the following gradient descent algorithms for the penalized logistic objective:
 \begin{enumerate}
 \item ordinary (full/batch) gradient descent
