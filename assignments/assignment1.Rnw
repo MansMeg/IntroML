@@ -83,8 +83,17 @@ knitr::opts_chunk$set(size = "small")
 
 \newpage
 
+\section{General Questions}
 
-\section{Gradient Descent, Stochastic Gradient Descent, and Mini-Batch Gradient Descent}
+\begin{enumerate}
+\item Describe, with your own wards, what Efron (2020) see as the difference between the \emph{traditional regression methods} and the \emph{pure prediction algorithms}. (1-2 paragraphs)
+\item In many machine learning applications, we use Stochastic Gradient Descent, even though other optimization algorithms that uses second order derivatives usually is better. Why is this the case? Describe with your own words (max 1 paragraph)
+\item Goodfellow et al (2017) describe machine learning algorithms with tasks (T), performance (P) and experience (E). Describe these three concepts with your own words. (1-2 paragraphs)
+\item Describe the free lunch theorem with your own words? (max 1 paragraph)
+% \item Describe the the concept of model complexity/capacity with your own words? (max 1 paragraph)
+\end{enumerate}
+
+\section{Basic, Stochastic, and Mini-Batch Gradient Descent}
 
 This assignment will study different ways to optimize common objective functions in many areas of Machine Learning, namely, stochastic gradient descent. Here we will test to implement these optimizers for a well-known model, logistic regression.
 
