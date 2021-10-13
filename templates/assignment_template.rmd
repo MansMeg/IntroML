@@ -68,13 +68,13 @@ Sometimes, the code can be heavy to run. In those situations it is often much si
 
 # Format instructions
 
-All exercises in the assignment should start with a header fully specifying that it is exercise X, as (in rmd use #):
+All exercises in the assignment should start with a header fully specifying that it is exercise X and the question you are answering, as (in rmd use #):
 
-# Exercise 1)
+# Exercise 1) Describe the concept of machine learning.
 
-Subtasks in each assignment should be numbered and use header (in rmd use ##).
+Subtasks in each assignment should be numbered and use header (in rmd use ##). Also include the question here. As an example:
 
-## a)
+## a) What is supervised learning?
 
 For each subtask, include a necessary textual explanation, equations, code, and figures so that the answer to the question flows naturally. You can think about what kind of report you would like to review.
 
