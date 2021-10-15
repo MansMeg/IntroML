@@ -77,6 +77,13 @@ knitr::opts_chunk$set(size = "small")
 
 The last two weeks will focus on a course project where 2-3 students choose data and create a supervised machine learning predictor for a real-world dataset.
 
+Requirements for the project are:
+\begin{itemize}
+\item Your project should be a supervised learning project.
+\item Real data should be used (see below for details).
+\item Minimally two methods (or two different neural nets) should be compared and evaluated.
+\end{itemize}
+
 \subsection{Suggested Reading}
 
 The project will be a small practical exercise in supervised machine learning. Suggested reading (before starting the project) is:
@@ -105,10 +112,7 @@ The following data sets should not be used in the project:
 \item mtcars (R data set)
 \end{itemize}
 
-Modelling requirements and recommendations:
-\begin{itemize}
-\item Your project should be a supervised learning project.
-\end{itemize}
+
 
 \subsection{Project Proposal}
 Students need to turn in a half-page project and data description by the end of block six and get approval for the proposed project. The project proposal must include the following pieces.
