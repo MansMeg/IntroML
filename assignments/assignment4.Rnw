@@ -63,7 +63,7 @@
 \textsc{\large }\\[0.5cm]
 
 \HRule \\[0.4cm]
-{ \huge \bfseries Assignment 4}\\[0.4cm] % Title of your document
+{ \huge \bfseries Assignment 3}\\[0.4cm] % Title of your document
 \HRule \\[1.5cm]
 
 \vfill
@@ -88,35 +88,19 @@ knitr::opts_chunk$set(size = "small")
 
 \newpage
 
-
-
-\section{Neural Network Basics}
-
-As a first step, we want to implement one of the most straightforward neural networks possible.
+\section{General Questions}
 
 \begin{enumerate}
-\item Implement the neural network in \citet[][Ch. 6.1]{Goodfellow-et-al-2016} as a function that takes as an input a $2 \times 2$ weight matrix \texttt{W}. It should work as in Ch. 6.1. Here is an example of how it should work.
-<<eval = FALSE>>=
-mini_net(X, W, c, w)
-##      [,1]
-## [1,]    0
-## [2,]    1
-## [3,]    1
-## [4,]    0
-
-mini_net(X, W*0.9, c, w)
-##      [,1]
-## [1,]  0.0
-## [2,]  0.9
-## [3,]  0.9
-## [4,]  0.2
-@
-
-\item Now test changing the value $W_{1,1}$ to 0. What do you get for the results of the network?
-\item Is the network output function reasonable? Do you have any other output function that might be better?
+\item Describe the output layer in a neural network. What does it do? (max 1 paragraph)
+% \item Describe the input layer in a neural network. What does it do? (max 1 paragraph)
+%\item What is a tensor? (max 1 paragraph)
+\item What is the benefit of using (negative) log likelihood as loss functions according to Goodfellow et al (2017)? (max 1 paragraph)
+%\item What are the benefits with deeper neural networks compared to shallow ones according to Goodfellow et al (2017)? (max 1 paragraph)
+\item Describe early stopping regularization (max 1 paragraph).
+%\item Describe weight decay regularization (max 1 paragraph).
+%\item Describe dropout regularization (max 1 paragraph).
+\item Describe the relationship between bagging and dropout regularization (max 1 paragraph).
 \end{enumerate}
-
-
 
 \section{Feed-Forward Neural Network using Keras and TensorFlow}
 
@@ -145,8 +129,15 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
         xaxt='n', yaxt='n', main=paste(mnist$train$y[idx]))
 @
 \item How large is the training and test set?
-\item Implement a feed-forward neural network in R using TensorFlow and Keras. Start by following the introduction \href{https://tensorflow.rstudio.com/tutorials/beginners/}{here}. Start with one hidden layer with 16 units and the sigmoid as the activation function. Do not use any regularization for now. Print your \texttt{keras} model. What do you get as classification accuracy? Include the validation error per epoch figure that is automatically generated. \emph{Hint!} The classification accuracy should be around 0.85.
-\item Now, we are going to play around with the essential concepts in feed-forward networks. Do the steps below, and report the \emph{validation} set accuracy and the validation error per epoch figures for each step. Please change this sequantially, so you build a more and more complex network.
+\item Implement a feed-forward neural network in R using TensorFlow and Keras. Start by following the introduction \href{https://tensorflow.rstudio.com/tutorials/beginners/}{here}. Start with one hidden layer with 16 units and the sigmoid as the activation function. Do not use any regularization for now.
+\begin{enumerate}
+\item Print your \texttt{keras} model and include it in your report.
+\item How many parameters does your model have?
+\item What is the input layer in the model? How many parameters does the input layer have?
+\item What is the output layer in the model? How many parameters does the output layer have?
+\item What do you get as classification accuracy? Include the validation error per epoch figure/plot that is automatically generated. \emph{Hint!} The classification accuracy should be around 0.85. \emph{Hint!} In multi-class classification, if the model classify a digit to any other class than the true class, it is a false negative or a false positive. I.e. we can still use the same definition for accuracy, precision and recall as in the binary case in multi-class classification.
+\end{enumerate}
+\item Now, we are going to play around with the essential concepts in feed-forward networks. Do the steps below, and report the \emph{validation} set accuracy and the validation error per epoch for each step in a figure/plot. Please change this sequantially, so you build a more and more complex network.
 \begin{enumerate}
 \item Increase the number of hidden units to 128.
 \item Change the activation function to reLU.
@@ -157,7 +148,66 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
 \item Add batch normalization. You can choose where you want to add it.
 \end{enumerate}
 \item Now try to improve the network architecture yourself (but still only use a feed-forward network). How good validation set accuracy can you get? What is the architecture used for the best model?
+\item Identify two digits that the network has classified incorrectly. Visualize them. Why do you think the network made the classification mistake?
 \item Use your model to compute the accuracy, precision, and recall on the hold-out test set included with the MNIST data. If you get a lower accuracy than on the validation set, why is this the case?
+\end{enumerate}
+
+\section{* A simple neural network from scratch}
+
+This assignment is a VG point assignment. If you do not want to get a VG-point, you can ignore this assignment.
+
+We want to implement one of the most straightforward neural networks possible.
+
+\begin{enumerate}
+\item Implement the neural network in \citet[][Ch. 6.1]{Goodfellow-et-al-2016} as a function that takes as an input a $2 \times 2$ weight matrix \texttt{W}, a vector \texttt{c}, a vector \texttt{w} and the scalar $b$. It should work as in Ch. 6.1. Here is an example of how it should work.
+<<echo = FALSE>>=
+mini_net <- function(X, W, c, w, b){
+    matrix(c(0,1,1,0))
+}
+@
+
+<<echo=TRUE, eval=TRUE>>=
+W <- matrix(1, nrow = 2, ncol = 2)
+c <- matrix(c(0, -1), ncol = 2, nrow = 4, byrow = TRUE)
+X <- matrix(c(0,0,1,1,0,1,0,1), ncol = 2)
+w <- matrix(c(1, -2), ncol = 1)
+b <- 0
+
+mini_net(X, W, c, w, b)
+@
+
+<<echo = FALSE>>=
+mini_net <- function(X, W, c, w, b){
+    matrix(c(0,0.9,0.9,0.2))
+}
+@
+<<echo=TRUE,eval = TRUE>>=
+mini_net(X, W*0.9, c, w, b)
+@
+
+\item Now test changing the value $W_{1,1}$ to 0. What do you get for the results of the network?
+\item What is the current output function? Is the network output function reasonable? Do you have any other output function that might be better?
+\item Now implement a mean squared error loss function for the network. It should work as follows.
+<<echo = FALSE>>=
+mini_net_loss <- function(y, X, W, c, w, b){
+    return(0)
+}
+@
+<<eval = TRUE>>=
+y <- c(0,1,1,0)
+mini_net_loss(y, X, W, c, w, b)
+@
+
+<<echo = FALSE>>=
+mini_net_loss <- function(y, X, W, c, w, b){
+    return(0.015)
+}
+@
+<<eval = TRUE>>=
+mini_net_loss(y, X, 0.9*W, c, w, b)
+@
+
+\item Again, change the value $W_{1,1}$ to 0. What is the value of the loss function?
 \end{enumerate}
 
 
