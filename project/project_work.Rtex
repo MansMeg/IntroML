@@ -77,12 +77,14 @@ knitr::opts_chunk$set(size = "small")
 
 The last two weeks will focus on a course project where 2-3 students choose data and create a supervised machine learning predictor for a real-world dataset.
 
-Requirements for the project are:
+Requirements for the projects are:
 \begin{itemize}
 \item Your project should be a supervised learning project.
 \item Real data should be used (see below for details).
 \item Minimally two methods (or two different neural nets) should be compared and evaluated.
 \end{itemize}
+
+\emph{For PhD students}: You can choose to make a small project related to your research interest instead. Although, it should still be a 4 page paper output.
 
 \subsection{Suggested Reading}
 
