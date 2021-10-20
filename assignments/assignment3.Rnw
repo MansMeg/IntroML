@@ -90,6 +90,8 @@ knitr::opts_chunk$set(size = "small")
 
 \section{General Questions}
 
+You will be able to answer the following questions based on the reading assignments for this assignment. See the course plan for detailed reading  \href{https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing}{\textbf{here}}.
+
 \begin{enumerate}
 \item Describe the output layer in a neural network. What does it do? (max 1 paragraph)
 % \item Describe the input layer in a neural network. What does it do? (max 1 paragraph)
