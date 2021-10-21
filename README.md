@@ -1,7 +1,7 @@
 # Note! 
 The course is currently being updated for the 2021 version. Some of the information might change until the start of the course. 
 
-Now assignment 1-3 (block 1-4) has been updated to the 2021 version.
+Now assignment 1-6 (block 1-6) has been updated to the 2021 version.
 
 # Introduction Course in Machine Learning at Uppsala University
 
