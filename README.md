@@ -46,8 +46,9 @@ In addition, the following material will also be included (note that you might n
 - Precision and Recall at [Wikipedia](https://en.wikipedia.org/wiki/Precision_and_recall).
 - Kingma DP and Welling M. An Introduction to Variational Autoencoders, 2019. [online access](https://arxiv.org/pdf/1906.02691.pdf)
 - Smyth, P. The EM algorithm for Gaussian Mixtures, 2020. [online access](https://www.ics.uci.edu/~smyth/courses/cs274/notes/EMnotes.pdf)
-- Alamar, J. The illustrated Transformer, 2018a. [online](http://jalammar.github.io/illustrated-transformer/)
-- Alamar, J. The illustrated BERT, Elmo, and co. (How NLP Cracked Transfer Learning), 2018b. [online](http://jalammar.github.io/illustrated-bert/)
+- Alamar, J. Visualizing neural machine translation mechanics, 2018a. [online](https://jalammar.github.io/visualizing-neural-machine-translation-mechanics-of-seq2seq-models-with-attention/)
+- Alamar, J. The illustrated Transformer, 2018b. [online](http://jalammar.github.io/illustrated-transformer/)
+- Alamar, J. The illustrated BERT, Elmo, and co. (How NLP Cracked Transfer Learning), 2018c. [online](http://jalammar.github.io/illustrated-bert/)
 - Devlin, J., Chang, M.W., Lee, K. and Toutanova, K., 2018. Bert: Pre-training of deep bidirectional transformers for language understanding. arXiv preprint arXiv:1810.04805. [online](https://arxiv.org/abs/1810.04805)
 - Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A.N., Kaiser, Ł. and Polosukhin, I., 2017. Attention is all you need. In Advances in neural information processing systems (pp. 5998-6008). [online](https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html)
 - Olah, C. 2015. Understanding LSTM Networks. [online](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)
