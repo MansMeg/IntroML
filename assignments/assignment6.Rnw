@@ -60,7 +60,7 @@
 \textsc{\large }\\[0.5cm]
 
 \HRule \\[0.4cm]
-{ \huge \bfseries Assignment 6}\\[0.4cm] % Title of your document
+{ \huge \bfseries Assignment 5}\\[0.4cm] % Title of your document
 \HRule \\[1.5cm]
 
 \vfill
@@ -82,6 +82,19 @@ knitr::opts_chunk$set(size = "small")
 \HRule
 
 \newpage
+
+\section{General questions}
+
+You will be able to answer the following questions based on the reading assignments for this assignment. See the course plan for detailed reading \href{https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing}{\textbf{here}}
+
+\begin{enumerate}
+\item What is the difference between a recurrent neural network and an ordinary feed-forward neural network? (max 1 paragraph)
+\item What is LSTM neural network and  why does it work better on  long sequences than  a  naive  RNN? (max 1 paragraph)
+\item What is the main difference between a GRU and LSTM neural network? (max 1 paragraph)
+\item Name at least one difference between the BERT model and the original transformer model? (max 1 paragraph)
+\end{enumerate}
+
+
 \section{Recurrent Neural Networks}
 
 As a first step, we will try using Recurrent Neural Networks on a text classification task. Here Chapter 6 - 6.2 in Chollet and Allaire (2018) will be the primary reference.
@@ -186,6 +199,81 @@ multi_head_self_attention(X,
 @
 \end{enumerate}
 
+
+\section{* Implementing a simple RNN}
+
+This assignment is a VG point assignment. If you do not want to get a VG-point, you can ignore this assignment.
+
+We are going to implement a one layer recurrent neural network based on the \texttt{rnn\_example} data. We are going to implement a simple layer described in Section 10.2.0 in Goodfellow et al. (2017). See this section for details.
+
+We will set the dimensionality of the hidden state to 4 and the output dimension to 3. In this assignment we will set $h_0$, the initial starting state, to a zero-vector. The input will be the embeddings in the \texttt{rnn\_example} data.
+
+
+<<>>=
+library(uuml)
+data("rnn_example")
+@
+
+\begin{enumerate}
+\item We start out by implementing a simple RNN linear unit that takes the parameters \texttt{W}, \texttt{U}, \texttt{b}, the previous hidden state \texttt{h\_t\_minus\_one} and an input embedding \texttt{x\_t} and return the activation input $a_t$. It should work as follows.
+<<eval=FALSE, >>=
+X <- rnn_example$embeddings[1,,drop=FALSE]
+h_t_minus_one <- matrix(0, nrow = hidden_dim, ncol = 1)
+a_t <- rnn_unit(h_t_minus_one, X,
+                W = rnn_example$W,
+                U = rnn_example$U,
+                b = rnn_example$b)
+a_t
+##
+##             the
+## [1,]  0.5819145
+## [2,] -2.2686535
+## [3,] -0.6410312
+## [4,]  1.4891931
+##
+@
+\item Now implement the \texttt{tanh()} activation function.
+<<eval=FALSE, >>=
+h_t <- activation(a_t)
+h_t
+##
+##             the
+## [1,]  0.5240555
+## [2,] -0.9788223
+## [3,] -0.5656013
+## [4,]  0.9031762
+##
+@
+\item As the next step, implement the output function and the softmax function. These functions should work in the following way.
+<<eval=FALSE, >>=
+yhat_t <- softmax(output_rnn(h_t, rnn_example$V, rnn_example$c))
+yhat_t
+##
+##            the
+## [1,] 0.3063613
+## [2,] 0.2930885
+## [3,] 0.4005502
+##
+@
+\item Now we are ready to implement the full recurrent layer. It should take an input matrix X and the neural network parameters and return the hidden states and the softmax output as follows.
+<<eval=FALSE, >>=
+X <- rnn_example$embeddings[1:3,,drop=FALSE]
+rnn_layer(X, W = rnn_example$W, V = rnn_example$V, U = rnn_example$U, rnn_example$b, rnn_example$c)
+##
+## $ht
+##              [,1]        [,2]       [,3]       [,4]
+## the    0.52405551 -0.97882227 -0.5656013  0.9031762
+## quick -0.05951368  0.03988226  0.8241800 -0.6562744
+## brown -0.08984008  0.92822217 -0.1563247 -0.6657626
+##
+## $yhat
+##            [,1]      [,2]      [,3]
+## the   0.3063613 0.2930885 0.4005502
+## quick 0.2838013 0.3490452 0.3671536
+## brown 0.2878002 0.3666877 0.3455121
+@
+\item Now, what is the value of the hidden state \texttt{h\_t} for the token \texttt{dog}?
+\end{enumerate}
 
 
 \section{Taking BERT out for a spin (Optional assignment)}
