@@ -62,7 +62,7 @@
 \textsc{\large }\\[0.5cm]
 
 \HRule \\[0.4cm]
-{ \huge \bfseries Assignment 7}\\[0.4cm] % Title of your document
+{ \huge \bfseries Assignment 6}\\[0.4cm] % Title of your document
 \HRule \\[1.5cm]
 
 \vfill
@@ -85,7 +85,7 @@ knitr::opts_chunk$set(size = "small")
 
 \newpage
 
-\section{Introduction to Unsupervised Learning}
+\section*{Introduction to Unsupervised Learning}
 
 In this computer assignment we will look into three very common algorithms for unsupervised learning and will study the algorithms on three different datasets.
 
@@ -101,17 +101,16 @@ data("mixture_data")
 @
 
 For a more indepth description of the datasets, just run \texttt{?iris}, \texttt{?faithful}, or \texttt{?mixture\_data} in R.
-
 \section{General questions}
 
 \begin{enumerate}
 \item As a first step, describe, with your own words, what unsupervised learning is, and give relevant references to the course literature. (max 1 paragraph)
-%\item What is the difference in meaning of data augmentation in the EM sense and in the CNN sense?
+%\item What is the difference in the meaning of data augmentation in the EM and CNN senses?
 \item Describe the two steps of the EM algorithm. (max 1 paragraph)
 \item Describe the difference between a Gaussian mixture model and the k-means clustering model. (max 1 paragraph)
-%Describe the gap statistic, what is the main idea?
+%Describe the gap statistic. What is the main idea?
 %What is a principal component?
-\item What is the difference betwen Principal Component Analysis (PCA) and probabilistic PCA? (max 1 paragraph)
+\item What is the difference between Principal Component Analysis (PCA) and probabilistic PCA? (max 1 paragraph)
 \end{enumerate}
 
 \section{The k-means Algorithm}
@@ -151,13 +150,13 @@ k_means_W(X, C)
 ## [1] 4601439
 @
 \item Now run your k-means a couple of times for both \texttt{faithful} with $K=2$ and \texttt{iris} with $K=3$ using the two variables used above.
-\item Visualize the clustering for the worst and the best clustering according to the within-point scatter (if there are any differences between the runs).
+\item Visualize the clustering for the worst and the best clustering according to the within-point scatter (WPS). \emph{Note!} There might be some runs with the same WPS.
 \item Describe and discuss the results you get.
 \end{enumerate}
 
 \section{Probabilistic PCA}
 
-As a last part of the assignment, we will look into the probabilistic Principal Component analysis model. Here, Ch. 14 - 14.1 in Goodfellow et al. (2017) is useful.
+As a last part of the assignment, we will look into the probabilistic Principal Component analysis model. Here, Ch. 14 - 14.1 in Goodfellow et al. (2017) is helpful.
 
 \begin{enumerate}
 \item Implement a function \texttt{pPCA(W, b, sigma2)} and that simulated data from a probabilistic PCA model with $h \sim N(0,I)$ and $\sigma^2 = 1$
@@ -175,8 +174,8 @@ As a last part of the assignment, we will look into the probabilistic Principal 
 pr <- prcomp(X, center = TRUE, scale. = FALSE)
 @
 Multiply the first \texttt{stdev} with the first principal component (\texttt{rotation}).
-\item What parameters in your pPCA does this correspond to. \emph{Note!} You might have to multiply your result with -1.
-\item Finally, simulate values $\mathbf{x}$ of dimension five from a probabilistic PCA model for a given choice of parameters. The latent variables $H$ should be of dimension two, i.e. $H \in \mathbb{R}^{300 \times 2}$. You are free to choose the parameter values $W$, $b$ and $\sigma$ yourself, but the resulting distribution should have one at least one negative and one positive correlation between the $X$s. Visualize the variables using a pair-wise scatterplot using \texttt{pairs(X)}.
+\item What parameters in your pPCA model do these results correspond to. \emph{Note!} You might have to multiply your result with -1.
+\item Finally, simulate values $\mathbf{x}$ of dimension five from a probabilistic PCA model for a given choice of parameters. The latent variables $H$ should be of dimension two, i.e. $H \in \mathbb{R}^{300 \times 2}$. You are free to choose the parameter values $W$, $b$ and $\sigma$ yourself, but the resulting distribution should have at least one negative and one positive correlation between the $X$s. Visualize the variables using a pair-wise scatterplot using \texttt{pairs(X)}.
 \end{enumerate}
 
 \section{* The EM-algorithm for soft clustering: Univariate Two-Component Normal Mixture}
@@ -184,7 +183,7 @@ Multiply the first \texttt{stdev} with the first principal component (\texttt{ro
 
 This assignment is a VG point assignment. If you do not want to get a VG-point, you can ignore this assignment.
 
-In the next step we will implement the EM algorithm, that is conceptually very similar to k-means clustering.We are going to implement the EM by testing at the mixture data of \citet{hastie2009elements}. This has been added to the course R package.
+In the next step, we will implement the EM algorithm conceptually similar to k-means clustering. We are going to implement the EM by testing at the mixture data of \citet{hastie2009elements}. This dataset has been added to the course R package.
 
 <<>>=
 library(uuml)
@@ -241,12 +240,10 @@ theta_em <- em_uni_two_comp(y, theta0)
 ## Log Lik:  -41.11211
 ## Log Lik:  -40.48348
 @
-\item Test your algorithm on the \texttt{mixture\_example} for 20 iterations. Do you get the same results as in \citet[p. 275]{hastie2009elements}? Note that you might get slightly different results (at the second decimal place). Also compare your log likelihoods with Figure 8.6 in \citet{hastie2009elements}. Do you have a similar result?
+\item Test your algorithm on the \texttt{mixture\_example} for 20 iterations. Do you get the same results as in \citet[p. 275]{hastie2009elements}? Note that you might get slightly different results (at the second decimal place). Also, compare your log-likelihoods with Figure 8.6 in \citet{hastie2009elements}. Do you have a similar result?
 \item Run your EM algorithm on the \texttt{eruptions} variable of the \texttt{faithful} data and on the \texttt{Petal.Length} variable of the \texttt{iris} data. What are the estimated parameters for the two datasets?
 \item Visualize the density for the two datasets using the parameters estimated with your EM algorithm. \emph{Hint!} You should be able to use \texttt{d\_uni\_two\_comp(x, theta)}.
 \end{enumerate}
-
-
 
 
 
