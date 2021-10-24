@@ -101,7 +101,10 @@ data("mixture_data")
 @
 
 For a more indepth description of the datasets, just run \texttt{?iris}, \texttt{?faithful}, or \texttt{?mixture\_data} in R.
+
 \section{General questions}
+
+You will be able to answer the following questions based on the reading assignments for this assignment. See the course plan for detailed reading \href{https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing}{\textbf{here}}
 
 \begin{enumerate}
 \item As a first step, describe, with your own words, what unsupervised learning is, and give relevant references to the course literature. (max 1 paragraph)
