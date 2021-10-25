@@ -85,6 +85,10 @@ knitr::opts_chunk$set(size = "small")
 
 \newpage
 
+\tableofcontents
+
+\newpage
+
 \section*{Introduction to Unsupervised Learning}
 
 In this computer assignment we will look into three very common algorithms for unsupervised learning and will study the algorithms on three different datasets.
@@ -102,9 +106,9 @@ data("mixture_data")
 
 For a more indepth description of the datasets, just run \texttt{?iris}, \texttt{?faithful}, or \texttt{?mixture\_data} in R.
 
-\section{General questions}
+\section{General Questions}
 
-You will be able to answer the following questions based on the reading assignments for this assignment. See the course plan for detailed reading \href{https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing}{\textbf{here}}
+\input{general_questions_info.tex}
 
 \begin{enumerate}
 \item As a first step, describe, with your own words, what unsupervised learning is, and give relevant references to the course literature. (max 1 paragraph)
@@ -159,7 +163,7 @@ k_means_W(X, C)
 
 \section{Probabilistic PCA}
 
-As a last part of the assignment, we will look into the probabilistic Principal Component analysis model. Here, Ch. 14 - 14.1 in Goodfellow et al. (2017) is helpful.
+As a last part of the assignment, we will look into the probabilistic Principal Component analysis model. Here, Ch. 14 - 14.1 in \citet{Goodfellow-et-al-2016} is helpful.
 
 \begin{enumerate}
 \item Implement a function \texttt{pPCA(W, b, sigma2)} and that simulated data from a probabilistic PCA model with $h \sim N(0,I)$ and $\sigma^2 = 1$
@@ -184,7 +188,7 @@ Multiply the first \texttt{stdev} with the first principal component (\texttt{ro
 \section{* The EM-algorithm for soft clustering: Univariate Two-Component Normal Mixture}
 \label{uni_two_comp}
 
-This assignment is a VG point assignment. If you do not want to get a VG-point, you can ignore this assignment.
+\input{distinction_task.tex}
 
 In the next step, we will implement the EM algorithm conceptually similar to k-means clustering. We are going to implement the EM by testing at the mixture data of \citet{hastie2009elements}. This dataset has been added to the course R package.
 
