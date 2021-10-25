@@ -25,6 +25,9 @@
 \usepackage{verbatim}
 \usepackage{url}
 
+\usepackage[round]{natbib}
+\bibliographystyle{unsrtnat}
+
 % Page size
 \addtolength{\hoffset}{-1cm}
 \addtolength{\textwidth}{2cm}
@@ -81,9 +84,13 @@ knitr::opts_chunk$set(size = "small")
 
 \newpage
 
+\tableofcontents
+
+\newpage
+
 \section{General Questions}
 
-You will be able to answer the following questions based on the reading assignments for this assignment. See the course plan for detailed reading  \href{https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing}{\textbf{here}}.
+\input{general_questions_info.tex}
 
 \begin{enumerate}
 \item Describe bagging and boosting with your own words, whats the difference between the two approaches? (1-2 paragraphs)
@@ -100,7 +107,7 @@ library(uuml)
 data("Hitters")
 @
 
-We are now going to build an algorithm to grow decision trees. The algorithm used below is based on the algorithm explained in Chapter 9.2.2 in ESL. To split a tree, see Eq. (9.13) in ESL.
+We are now going to build an algorithm to grow decision trees. The algorithm used below is based on the algorithm explained in Chapter 9.2.2 in \citet{hastie2009elements}. To split a tree, see Eq. (9.13).
 
 \begin{enumerate}
 \item Create a test set by setting aside the 30 first observations. Remove those observations from your training set.
@@ -114,7 +121,7 @@ y_test <- Hitters[1:30, c("Salary")]
 X_train <- Hitters[31:nrow(Hitters), c("Years", "Hits")]
 y_train <- Hitters[31:nrow(Hitters), c("Salary")]
 @
-\item Implement an R function to split observations binary greedily (ignore \texttt{NA} values). Here we use the algorithm in ESL. The function should take a design matrix \texttt{X}, an \texttt{y} variable and a minimal leaf size \texttt{l}. The function should return a list with the index set of the observations in \texttt{R1}, \texttt{R2}, the split value \texttt{s} and the covariate used for the split \texttt{j}. See below for an example.
+\item Implement an R function to split observations binary greedily (ignore \texttt{NA} values). Here we use the algorithm in \citet{hastie2009elements}. The function should take a design matrix \texttt{X}, an \texttt{y} variable and a minimal leaf size \texttt{l}. The function should return a list with the index set of the observations in \texttt{R1}, \texttt{R2}, the split value \texttt{s} and the covariate used for the split \texttt{j}. See below for an example.
 
 <<echo = FALSE>>=
 tree_split <- function(X,y,l){
@@ -225,11 +232,11 @@ xgb <- xgboost(as.matrix(X_train), as.matrix(y_train), nrounds = 200)
 
 \section{*Bagged tree implementation}
 
-This assignment is a VG point assignment. If you do not want to get a VG-point, you can ignore this assignment.
+\input{distinction_task.tex}
 
 Now we can use our regression tree to do a Bagged Tree regression model. The main difference from the previous tree is that we now will draw $B$ bootstrap samples of size $N$ \emph{with replacement} from our dataset, then train $B$ trees, use them for a combined bagged prediction.
 
-See Section 8.7 in ESL, and especially Eq. 8.51 for details.
+See Section 8.7 in \citet{hastie2009elements}, and especially Eq. (8.51) for details.
 
 \begin{enumerate}
 \item Implement a bagged tree regression model training function called \texttt{train\_bagged\_trees(X, y, l, B)} using the \texttt{grow\_tree()} function that return an R list of $B$ grown trees.
@@ -240,11 +247,11 @@ See Section 8.7 in ESL, and especially Eq. 8.51 for details.
 
 \section{*Random forest implementation}
 
-This assignment is a VG point assignment. If you do not want to get a VG-point, you can ignore this assignment.
+\input{distinction_task.tex}
 
 Using our previous functions we can now build our own random forest regression model using our previous functions \texttt{grow\_tree()} and \texttt{predict\_with\_tree()}. Based on the bagged tree regression model, we only need to add the parameter $m$.
 
-See Section 15.2 in ESL, and especially Alg. 15.1 for details.
+See Section 15.2 in \citet{hastie2009elements}, and especially Algorithm 15.1 for details.
 
 \begin{enumerate}
 \item Create a new function \texttt{grow\_tree\_m()} with the additional argument $m$. The function should grow a tree, but at every split, it should draw a sample of size $m$ of the covariates to make the split.
@@ -253,6 +260,9 @@ See Section 15.2 in ESL, and especially Alg. 15.1 for details.
 \end{enumerate}
 
 
+\newpage
+
+\bibliography{bibliography}
 
 
 \end{document}
