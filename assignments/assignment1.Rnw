@@ -93,6 +93,7 @@ knitr::opts_chunk$set(size = "small")
 \section{General Questions}
 
 \input{general_questions_info.tex}
+
 \begin{enumerate}
 \item Describe, with your own words, what \citet{efron2020prediction} see as the difference between the \emph{traditional regression methods} and the \emph{pure prediction algorithms}. (1-2 paragraphs)
 \item In many machine learning applications, we use Stochastic Gradient Descent, even though other optimization algorithms that use second-order derivatives are better. Why is this the case? Describe with your own words (max 1 paragraph)
@@ -220,9 +221,11 @@ You should do the following and present the results in your report:
 
 \newpage
 
-\section{*Gradient Descent for penalized logistic regression}
+\section{* Gradient Descent for penalized logistic regression}
 
-This assignment is the VG point assignment. If you do not want to get a VG-point, you can ignore this assignment. Here we use the same data as in task 1 above.
+\input{distinction_task.tex}
+
+Here we use the same data as in task 1 above.
 
 <<echo=TRUE,eval=FALSE>>=
 library(uuml)
@@ -233,7 +236,6 @@ binary$gpa_sd <- (binary$gpa - mean(binary$gpa))/sd(binary$gpa)
 X <- model.matrix(admit ~ gre_sd + gpa_sd, binary)
 y <- binary$admit
 @
-
 
 In ridge regression we penalize the regression coefficients by $\lambda$. This gives the likelihood function for logistic regression with ridge penalty as
 \begin{align}
