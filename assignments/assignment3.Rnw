@@ -88,9 +88,13 @@ knitr::opts_chunk$set(size = "small")
 
 \newpage
 
+\tableofcontents
+
+\newpage
+
 \section{General Questions}
 
-You will be able to answer the following questions based on the reading assignments for this assignment. See the course plan for detailed reading  \href{https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing}{\textbf{here}}.
+\input{general_questions_info.tex}
 
 \begin{enumerate}
 \item Describe the output layer in a neural network. What does it do? (max 1 paragraph)
@@ -156,7 +160,7 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
 
 \section{* A simple neural network from scratch}
 
-This assignment is a VG point assignment. If you do not want to get a VG-point, you can ignore this assignment.
+\input{distinction_task.tex}
 
 We want to implement one of the most straightforward neural networks possible.
 
@@ -212,7 +216,7 @@ mini_net_loss(y, X, 0.9*W, c, w, b)
 \item Again, change the value $W_{1,1}$ to 0. What is the value of the loss function?
 \end{enumerate}
 
-
+\newpage
 \bibliography{bibliography}
 
 \end{document}
