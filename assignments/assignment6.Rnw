@@ -91,9 +91,9 @@ knitr::opts_chunk$set(size = "small")
 
 \section*{Introduction to Unsupervised Learning}
 
-In this computer assignment we will look into three very common algorithms for unsupervised learning and will study the algorithms on three different datasets.
+This computer assignment will look into two to three widespread algorithms for unsupervised learning.
 
-The dataset \texttt{iris} contain data on petal and sepal length and width for three different speices of iris flowers. In addition we will also use the \texttt{faithful} data on the Old Faithful Geyser in Yellowstone. The data consists of the eruption time (in minutes) and the waiting time (in minutes) until the next eruption. Finally we will also use the \texttt{mixture\_data} from Table 8.1 in  \citet{hastie2009elements}.
+The dataset \texttt{iris} contain data on petal and sepal length and width for three different species of iris flowers. In addition, we will also use the \texttt{faithful} data on the Old Faithful Geyser in Yellowstone. The data consists of the eruption time (in minutes) and the waiting time (in minutes) until the next eruption. Finally we will also use the \texttt{mixture\_data} from Table 8.1 in  \citet{hastie2009elements}.
 
 To access the data, just use:
 
@@ -298,7 +298,7 @@ theta_em <- em_uni_two_comp(y, theta0)
 
 
 
-
+\newpage
 \bibliography{bibliography}
 
 
