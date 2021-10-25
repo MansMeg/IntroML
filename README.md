@@ -1,19 +1,16 @@
-# Note! 
-The course is currently being updated for the 2021 version. Some of the information might change until the start of the course. 
-
-Now assignment 1-7 (block 1-8) has been updated to the 2021 version.
-
 # Introduction Course in Machine Learning at Uppsala University
 
 Welcome to the GitHub repo for the introduction course in Introduction to Machine Learning at Uppsala University. This repo contains all necessary material and information for the course.
 
 ## Course Background 
-The course is given to second-year master students in the Statistics masters program.
-
+The course is given to second-year master students in the Statistics masters program. 
+## Expected workload
+The course takes roughly 15-25h per week, partly depending on wether the student aims for VG or not. In total the course should take roughly 200h.
 
 ## Prerequisites and Course Goals
 See course syllabus [here](https://www.uu.se/en/admissions/freestanding-courses/course-syllabus/?kpid=39843&type=1).
 
+Roughly the course assumes basic knowledge in linear algebra, calculus, probability theory and programming (with R or Python).
 
 ## (Rough) Course Plan
 You can find a rough course plan with reading instructions [here](https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing).
@@ -68,9 +65,9 @@ The literature list might change slightly during the course.
 - Ng, Andrew (2020) One convolutional layer. [online access](https://www.youtube.com/watch?v=jPOAS7uCODQ&list=PLkDaE6sCZn6Gl29AoE31iwdVwSG-KnDzF&index=7) 
 - Hand, Paul, Variational Autoencoders [online](https://www.youtube.com/watch?app=desktop&v=c27SHdQr4lw)
 
-## Recommended workflow for each block
+## Recommended workflow for each block/assignment
 
-1. Watch the videos (although, optional)
+1. Watch the videos to get more indepth knwoledge (although, optional)
 2. Read the literature according to the rough course plan
 3. Do the assignment
 
@@ -85,14 +82,13 @@ The course will have 1-2 guest lectures that the guest lecturers will give throu
 ## Teachers
 
 Main Teacher: Måns Magnusson
-
 Teaching assistant: Andreas Östling
 
 ## Course structure
 
 ### Main part
-The course consists of 8 blocks (weeks) of material. Each week consists of the following (expected workload in parenthesis):
-- Two combined lectures/computer labs (approx. 2-4h per week)
+The course consists of rougly 8 blocks (weeks) of material. Each week consists of the following (expected workload in parenthesis):
+- Two lectures/computer labs (approx. 2-4h per week)
 - Online video material and reading assignments (approx. 2-6 h per week)
 - An individual computer assignment (approx. 10-16 h per week)
 
@@ -100,6 +96,8 @@ The course consists of 8 blocks (weeks) of material. Each week consists of the f
 Each week an individual computer assignment is done with a focus on implementing the main part of the material. Each assignment is completed individually and should follow the computer assignment template.
 
 Students should return the computer assignments no later than **Sunday 23.59 each week**. A second possibility to turn in assignments is possible at the end of the course. For a detailed list of deadlines, see the [rough course plan](https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing).
+
+After the last (second) possible time to turn in the assignment no more chances will be given. In this case, you will be failed on the course and you will need to retake the course next year.
 
 ### Machine Learning, AI and ethics
 A guest lecture will be given on AI and ethics by [Karim Jebari](https://www.iffs.se/en/research/researchers/karim-jebari/).
