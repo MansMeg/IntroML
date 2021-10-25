@@ -94,10 +94,9 @@ knitr::opts_chunk$set(size = "small")
 \section{General Questions}
 
 \input{general_questions_info.tex}
-
 \begin{enumerate}
 \item What is the difference between a recurrent neural network and an ordinary feed-forward neural network? (max 1 paragraph)
-\item What is LSTM neural network and  why does it work better on  long sequences than  a  naive  RNN? (max 1 paragraph)
+\item What is LSTM neural network, and why does it work better on long sequences than a  naive  RNN? (max 1 paragraph)
 \item What is the main difference between a GRU and LSTM neural network? (max 1 paragraph)
 \item Name at least one difference between the BERT model and the original transformer model? (max 1 paragraph)
 \end{enumerate}
@@ -120,25 +119,25 @@ input_train <- pad_sequences(input_train, maxlen = maxlen)
 input_test <- pad_sequences(input_test, maxlen = maxlen)
 @
 
-\emph{Note!} Running Keras can be computationally heavy and I suggest not to run the code in \texttt{markdown}. Instead, run the code in R and copy in the results as output (see the assignment template for an example).
+\emph{Note!} Running Keras can be computationally heavy, and I suggest not to run the code in \texttt{markdown}. Instead, run the code in R and copy the results as output (see the assignment template for an example).
 
 \begin{enumerate}
 \item Create a simple ordinary neural network for text classification in Keras using an embedding layer of dimension 16 and a hidden layer with 32 hidden states (and an output layer with one unit). Use a validation split of 20\% observations in the validation set and a batch size of 128. Train your network using rmsprop and use binary cross-entropy as the loss function. Print the model and return your validation accuracy after ten epochs. Most of these settings we will reuse later in the assignments.
 \item Explain what the embedding layer is doing.
 \item Now setup a simple Recurrent Neural Network with 32 hidden units based on the same embedding layer. Print the model and present your result.
-\item The model you have implemented now. Which recurrent network does best describes your model you have now implemented out of Fig. 10.3 and 10.5 in \citet{Goodfellow-et-al-2016}? Motivate why.
+\item The model you have implemented now. Which recurrent network does best describes the model you have now implemented out of Fig. 10.3 and 10.5 in \citet{Goodfellow-et-al-2016}? Motivate why.
 \item Explain the role of the parameters $U$, $W$ in the recurrent net (see Goodfellow et al., 2017 Section 10.2). How large are these parameters in your model specified above, and where are they included in the Keras output?
 \item Now, explain the role of the parameters $V$ (see Goodfellow et al., 2017 Section 10.2). How many parameters are included in $V$, and where are they included in the Keras output?
 \item We are now going to implement an LSTM network. Implement a standard LSTM network with 32 hidden units using Keras. Print your model and your validation accuracy.
 \item Extend your network in ways you think fit. Report at least two other extensions/modifications of your network and why you chose them. Report the Keras model output and validation accuracy.
-\item Reason why we cannot get as good performance as we could get with the MNIST dataset. Is the problem bias, variance, or the Bayes error? Why?
+\item Reason why we cannot get as good performance as with the MNIST dataset. Is the problem bias, variance, or the Bayes error? Why?
 \end{enumerate}
 
 
 
 \section{Transformers and Attention}
 
-In this assignment, we will implement a multi-head attention transformer layer. These layers are currently used within all transformer based models, such as GPT and different BERT-models. A good read for this assignment is the Illustrated transformer by Jay Alammar, which can be found [here](http://jalammar.github.io/illustrated-transformer/).
+In this assignment, we will implement a multi-head attention transformer layer. These layers are currently used within all transformer-based models, such as GPT and different BERT models. A good read for this assignment is the Illustrated transformer by Jay Alammar, which you can find [here](http://jalammar.github.io/illustrated-transformer/).
 
 Start by loading the parameters that we are going to use for the implementation as follows.
 <<>>=
@@ -212,9 +211,9 @@ multi_head_self_attention(X,
 
 \input{distinction_task.tex}
 
-We are going to implement a one layer recurrent neural network based on the \texttt{rnn\_example} data. We are going to implement a simple layer described in Section 10.2.0 in \citet{Goodfellow-et-al-2016}. See this section for details.
+We are going to implement a one-layer recurrent neural network based on the \texttt{rnn\_example} data. We are going to implement a simple layer described in Section 10.2.0 in \citet{Goodfellow-et-al-2016}. See this section for details.
 
-We will set the dimensionality of the hidden state to 4 and the output dimension to 3. In this assignment we will set $h_0$, the initial starting state, to a zero-vector. The input will be the embeddings in the \texttt{rnn\_example} data.
+We will set the dimensionality of the hidden state to 4 and the output dimension to 3. In this task, we will set $h_0$, the initial starting state, to a zero-vector. The input will be the embeddings in the \texttt{rnn\_example} data.
 
 
 <<>>=

@@ -34,7 +34,7 @@ Below are the main references for the course. All books are available free onlin
 - ESL: Hastie, Trevor, Tibshirani, Robert, and Friedman, Jerome. The elements of statistical learning: data mining, inference, and prediction. 2nd Edition. Springer Science & Business Media, 2009. [online access](https://web.stanford.edu/~hastie/ElemStatLearn/)
 - DL: Goodfellow, Ian, Bengio, Yoshua, and Courville, Aaron. Deep learning. MIT Press, 2017. [online access](https://www.deeplearningbook.org/)
 - DLR: Chollet, François, and Joseph J. Allaire. Deep Learning with R. Manning, 2018.  [online access](https://www.manning.com/books/deep-learning-with-r#toc)
-- Sutton, R. S., and Barto, A. G.. Reinforcement learning: An introduction. MIT Press, 2020. [online access](http://incompleteideas.net/book/RLbook2020.pdf)
+- Sutton, R. S., and Barto, A. G. Reinforcement learning: An introduction. MIT Press, 2020. [online access](http://incompleteideas.net/book/RLbook2020.pdf)
 
 In addition, the following material will also be included (note that you might need to access the material through the Uppsala University network):
 
@@ -62,7 +62,7 @@ The literature list might change slightly during the course.
 - ISLV: Hastie and Tibshirani, Introduction to Statistical Learning (Video material) [online access](http://auapps.american.edu/alberto/www/analytics/ISLRLectures.html)
 - 3B1B: Three Blue One Brown on Neural Networks [online access](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)
 - Dirac, L. (2019) LSTM is dead! Long live Transformers. [online access](https://www.youtube.com/watch?v=S27pHKBEp30) 
-- Ng, Andrew (2020) One convolutional layer. [online access](https://www.youtube.com/watch?v=jPOAS7uCODQ&list=PLkDaE6sCZn6Gl29AoE31iwdVwSG-KnDzF&index=7) 
+- Ng, Andrew (2017) One convolutional layer. [online access](https://www.youtube.com/watch?v=jPOAS7uCODQ&list=PLkDaE6sCZn6Gl29AoE31iwdVwSG-KnDzF&index=7) 
 - Hand, Paul, Variational Autoencoders [online](https://www.youtube.com/watch?app=desktop&v=c27SHdQr4lw)
 
 ## Recommended workflow for each block/assignment
