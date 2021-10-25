@@ -63,7 +63,7 @@
 \textsc{\large }\\[0.5cm]
 
 \HRule \\[0.4cm]
-{ \huge \bfseries Assignment 5}\\[0.4cm] % Title of your document
+{ \huge \bfseries Assignment 4}\\[0.4cm] % Title of your document
 \HRule \\[1.5cm]
 
 \vfill
@@ -101,14 +101,14 @@ knitr::opts_chunk$set(size = "small")
 \item Reason about when to gather more data in an ML application? (1-2 paragraphs)
 %\item What hyperparameter does \citet{Goodfellow-et-al-2016} find to be the most important to tune, and why? (max 1 paragraph)
 %\item What automatic hyperparameter search is recommended by \citet{Goodfellow-et-al-2016}, grid search or random search. Why? (max 1 paragraph)
-\item Describe a good debugging test for a ML algorithm. (max 1 paragraph)
+\item Describe a good debugging test for an ML algorithm. (max 1 paragraph)
 %\item Describe data augmentation in the context of image data and convnets. (max 1 paragraph)
-\item Describe why we primarily focus on fine tuning layers higher up in neural networks when finetuning large pre-trained neural networks. (1-2 paragraphs)
+\item Describe why we primarily focus on fine-tuning layers higher up in neural networks when fine-tuning large pre-trained neural networks. (1-2 paragraphs)
 \end{enumerate}.
 
 \section{Implementing a convolutional layer}
 
-As a first step, we will implement a layer of a convolutional neural network with one filter. We will here not train the layer, just implement it to understand the inner workings. You are not allowed to use \texttt{convolve()} in R in the final solution, but you can use it to debug your code if you want to.
+As a first step, we will implement a layer of a convolutional neural network with one filter. We will here not train the layer, only implement it to understand the inner workings. You are not allowed to use \texttt{convolve()} in R in the final solution, but you can use it to debug your code if you want to.
 
 Some good material for this exercise is Figure 9.1 in \citet{Goodfellow-et-al-2016} and the video \citet{ng2017}.
 
@@ -165,7 +165,7 @@ K <- matrix(c(1, 1, 1,
               0, 0, 0), nrow = 3, byrow = TRUE)
 convolutional_layer(X, K, -370, relu)
 @
-\item Run your convolutional layer on MNIST example digit 4 with bias -400. Visualize the feature map as you visualized the original image. What does the filter seem to capture?
+\item Run your convolutional layer on MNIST example digit 4 with bias -400. Visualize the feature map as you visualize the original image. What does the filter seem to capture?
 \item Now transpose your filter and run your convolutional layer on MNIST example digit 4 with bias -450. Visualize the feature map. What does that transposed filter seem to capture?
 \item As the last step in our convolutional layer, implement a two by two, two stride max-pooling layer. It should work as follows.
 <<>>=
@@ -189,11 +189,11 @@ output <- maxpool_layer(convolutional_layer(X, K, -370, relu))
 
 \section{Convolutional neural networks using Keras}
 
-\emph{Note!} This assignment can be a little heavy computationally. If your own an old computer, you might want to run this task in the computer room at the Department.
+\emph{Note!} This assignment can be a little heavy computationally. If your own an old computer, you might want to run this task in the computer room in the Department.
 
 We are now going to implement a convolutional neural network using Keras. Here Ch. 5.1-5.3 in \citet{chollet2018deep} and the \href{https://tensorflow.rstudio.com/tutorials/advanced/images/cnn/}{following tutorial} might be useful, especially for details on how to load the data. Remember to load the \texttt{tesorflow} R package before loading the \texttt{keras} R package.
 
-\emph{Note!} Running Keras can be computationally heavy and I suggest not to run the code in \texttt{markdown}. Instead, run the code in R and copy in the results as output (see the assignment template for an example).
+\emph{Note!} Running Keras can be computationally heavy, and I suggest not to run the code in \texttt{markdown}. Instead, run the code in R and copy the results as output (see the assignment template for an example).
 
 
 \begin{enumerate}
@@ -248,9 +248,9 @@ We are now going to implement a convolutional neural network using Keras. Here C
 ## ___________________________________________________________________________
 
 @
-\emph{Note!} This problem is much harder than the MNIST problem, so don't be surprised if you get lower accuracy than you got on the MNIST dataset.
+\emph{Note!} This problem is more complex than the MNIST problem, so don't be surprised if you get lower accuracy than you got on the MNIST dataset.
 \item Why do we now have 896 parameters in the first convolutional layer?
-\item Try out at least three different networks, describe the networks, why you chose it, and the Keras model output. Reading Ch. 11-11.5 in \citet{Goodfellow-et-al-2016} might give some good inspiration and guidance. For example, you can add a \texttt{dropout\_layer} \citep[see ][, Ch. 5.3]{chollet2018deep}.
+\item Try out at least three different networks, describe the networks, why you chose them, and the Keras model output. Reading Ch. 11-11.5 in \citet{Goodfellow-et-al-2016} might give some good inspiration and guidance. For example, you can add a \texttt{dropout\_layer} \citep[see ][, Ch. 5.3]{chollet2018deep}.
 \item Can you improve over the previous network concerning accuracy? You can also use regularization techniques and batch normalization from the previous lab.
 \end{enumerate}
 
@@ -258,17 +258,17 @@ We are now going to implement a convolutional neural network using Keras. Here C
 
 \input{distinction_task.tex}
 
-\emph{Note!} This assignment can be a little heavy computationally. If your own an old computer, you might want to run this task in the computer room at the Department.
+\emph{Note!} This assignment can be a little heavy computationally. If your own an old computer, you might want to run this task in the computer room in the Department.
 
-\emph{Note!} This problem is much harder than the MNIST problem, so don't be surprised if you get lower accuracy than you got on the MNIST dataset.
+\emph{Note!} This problem is more complex than the MNIST problem, so don't be surprised if you get lower accuracy than you got on the MNIST dataset.
 
 As the last step, we will look into using transfer learning as a quick way of improving the prediction accuracy on the cifar-10 dataset. Here Ch. 5.3 in \citet{chollet2018deep} or \href{https://blogs.rstudio.com/ai/posts/2017-12-14-image-classification-on-small-datasets/}{this tutorial} might be helpful.
 
-You can find the current state-of-the-art neural networks for the cifar-10 dataset \href{https://benchmarks.ai/cifar-10}{here.} Feel free to read some of the papers and be inspired on how to improve your own neural networks.
+You can find the current state-of-the-art neural networks for the cifar-10 dataset \href{https://benchmarks.ai/cifar-10}{here.} Feel free to read some of the papers and be inspired on how to improve your neural networks.
 
 \begin{enumerate}
 \item Using Keras, download the VGG16 convolutional neural network. Just download the convolutional base. We are going to use the network on the cifar-10 dataset so change the \texttt{input\_size} to \texttt{c(32, 32, 3)}.
-\item Now add a dense layer with 64 hidden nodes (as in the previous exercise). Include the Keras model output in the assignment report. How many parameters do you have in the dense top layer (compared to the CNN in the previous part).
+\item Now add a dense layer with 64 hidden nodes (as in the previous exercise). Include the Keras model output in the assignment report. How many parameters do you have in the dense top layer (compared to the CNN in the previous part)?
 \item Now, freeze the convolutional base and train the dense top layer of your network on the cifar-10 dataset. Run it for five epochs. \emph{Note!} This will take time. Don't be surprised if you need roughly 200s per epoch or more.
 \item Report your final accuracy. How does this compare to the previous model for the cifar data?
 \end{enumerate}
