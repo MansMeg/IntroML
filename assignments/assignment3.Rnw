@@ -100,8 +100,8 @@ knitr::opts_chunk$set(size = "small")
 \item Describe the output layer in a neural network. What does it do? (max 1 paragraph)
 % \item Describe the input layer in a neural network. What does it do? (max 1 paragraph)
 %\item What is a tensor? (max 1 paragraph)
-\item What is the benefit of using (negative) log likelihood as loss functions according to Goodfellow et al (2017)? (max 1 paragraph)
-%\item What are the benefits with deeper neural networks compared to shallow ones according to Goodfellow et al (2017)? (max 1 paragraph)
+\item What is the benefit of using (negative) log-likelihood as loss functions according to \citet{Goodfellow-et-al-2016}? (max 1 paragraph)
+%\item What are the benefits with deeper neural networks compared to shallow ones according to \citet{Goodfellow-et-al-2016}? (max 1 paragraph)
 \item Describe early stopping regularization (max 1 paragraph).
 %\item Describe weight decay regularization (max 1 paragraph).
 %\item Describe dropout regularization (max 1 paragraph).
@@ -112,7 +112,7 @@ knitr::opts_chunk$set(size = "small")
 
 As a first step, you need to install  \texttt{tensorflow} and \texttt{keras} on your local computer. You can find detailed information on how to install \texttt{tensorflow} and \texttt{keras} \textbf{\href{https://tensorflow.rstudio.com/installation/}{[here]}}. Details on different architecture components can be found in the \texttt{keras} reference found \textbf{\href{https://keras.rstudio.com/index.html}{[here]}}.
 
-\emph{Note!} Running Keras can be computationally heavy and I suggest not to run the code in \texttt{markdown}. Instead, run the code in R and copy in the results as output (see the assignment template for an example).
+\emph{Note!} Running Keras can be computationally heavy, and I suggest not to run the code in \texttt{markdown}. Instead, run the code in R and copy the results as output (see the assignment template for an example).
 
 If you have installed \texttt{keras}, you can load the MNIST dataset. This dataset contains data on handwritten digits that we want to classify. To access the data, we use \texttt{keras} as follows.
 
@@ -138,24 +138,24 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
 \item Implement a feed-forward neural network in R using TensorFlow and Keras. Start by following the introduction \href{https://tensorflow.rstudio.com/tutorials/beginners/}{here}. Start with one hidden layer with 16 units and the sigmoid as the activation function. Do not use any regularization for now.
 \begin{enumerate}
 \item Print your \texttt{keras} model and include it in your report.
-\item How many parameters does your model have?
+\item How many parameters do your model have?
 \item What is the input layer in the model? How many parameters does the input layer have?
 \item What is the output layer in the model? How many parameters does the output layer have?
-\item What do you get as classification accuracy? Include the validation error per epoch figure/plot that is automatically generated. \emph{Hint!} The classification accuracy should be around 0.85. \emph{Hint!} In multi-class classification, if the model classify a digit to any other class than the true class, it is a false negative or a false positive. I.e. we can still use the same definition for accuracy, precision and recall as in the binary case in multi-class classification.
+\item What do you get as classification accuracy? Include the validation error per epoch figure/plot that is automatically generated. \emph{Hint!} The classification accuracy should be around 0.85. \emph{Hint!} In multi-class classification, if the model classifies a digit to any other class than the valid class, it is a false negative or a false positive. I.e. we can still use the same definition for accuracy, precision and recall as in the binary case in multi-class classification.
 \end{enumerate}
-\item Now, we are going to play around with the essential concepts in feed-forward networks. Do the steps below, and report the \emph{validation} set accuracy and the validation error per epoch for each step in a figure/plot. Please change this sequantially, so you build a more and more complex network.
+\item Now, we are going to play around with the essential concepts in feed-forward networks. Do the steps below, and report the \emph{validation} set accuracy and the validation error per epoch for each step in a figure/plot. Please change this sequentially so you build a more and more complex network.
 \begin{enumerate}
 \item Increase the number of hidden units to 128.
 \item Change the activation function to reLU.
 \item Change the optimizer to RMSprop.
-\item Try to run the net for ten epochs. If you would use early stopping for regularization, what would you do? \emph{Note!} You only need to describe what you would do, not actually do it.
+\item Try to run the net for ten epochs. If you would use early stopping for regularization, what would you do? \emph{Note!} You only need to describe what you would do, not do it.
 \item Add a second layer with 128 hidden units. How many parameters do you have in the net right now?
 \item Add dropout with 0.2 and 0.5 dropout probability. You can choose what layers you would like to introduce the dropout.
 \item Add batch normalization. You can choose where you want to add it.
 \end{enumerate}
 \item Now try to improve the network architecture yourself (but still only use a feed-forward network). How good validation set accuracy can you get? What is the architecture used for the best model?
 \item Identify two digits that the network has classified incorrectly. Visualize them. Why do you think the network made the classification mistake?
-\item Use your model to compute the accuracy, precision, and recall on the hold-out test set included with the MNIST data. If you get a lower accuracy than on the validation set, why is this the case?
+\item Use your model to compute the accuracy, precision and recall on the hold-out test set included with the MNIST data. If you get a lower accuracy than on the validation set, why is this the case?
 \end{enumerate}
 
 \section{* A simple neural network from scratch}
