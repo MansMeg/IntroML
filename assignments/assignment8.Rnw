@@ -89,9 +89,13 @@ knitr::opts_chunk$set(size = "small")
 
 \newpage
 
-\section{General questions}
+\tableofcontents
 
-You will be able to answer the following questions based on the reading assignments for this assignment. See the course plan for detailed reading \href{https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing}{\textbf{here}}
+\newpage
+
+\section{General Questions}
+
+\input{general_questions_info.tex}
 
 \begin{enumerate}
 \item What is reinforcement learning? (max 1 paragraph)
@@ -269,7 +273,7 @@ always_search_policy(mdp)
 
 \section{* Some additional bandit algorithms}
 
-This assignment is a VG point assignment. If you do not want to get a VG-point, you can ignore this assignment.
+\input{distinction_task.tex}
 
 We are here going to implement two additional bandits and compare them to the previous implementations above.
 
@@ -349,6 +353,7 @@ gradient_bandit_algorithm(stationary_bandit, alpha = 0.1)
 
 % TODO (later): Instead implement a full MDP
 
+\newpage
 \bibliography{bibliography}
 
 % Maybe future assignments
