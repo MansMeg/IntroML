@@ -89,9 +89,13 @@ knitr::opts_chunk$set(size = "small")
 
 \newpage
 
-\section{General questions}
+\tableofcontents
 
-You will be able to answer the following questions based on the reading assignments for this assignment. See the course plan for detailed reading \href{https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing}{\textbf{here}}
+\newpage
+
+\section{General Questions}
+
+\input{general_questions_info.tex}
 
 \begin{enumerate}
 \item What is the relationship between PCA and linear autoencoders? (max 1 paragraph)
@@ -133,7 +137,7 @@ We are now going to implement a variational autoencoder in R using Tensorflow. A
 
 We will now analyze the classical book Pride and Prejudice by Jane Austen using a probabilistic topic model. If you have not read the book, \href{https://en.wikipedia.org/wiki/Pride_and_Prejudice}{\textbf{here}} you can read up on the story of this classical book.
 
-For this part of the assignment, Griffith and Steyvers (2004) is the primary reference. I would also recommend reading Blei (2012) before starting with the assignment.
+For this part of the assignment, \citet{griffiths2004finding} is the primary reference. I would also recommend reading \citet{blei2012probabilistic} before starting with the assignment.
 
 We will use a Gibbs sampler to estimate ten different topics occurring in Pride and Prejudice and study where they occur. A tokenized version of the book and a \texttt{data.frame} with stopwords can be loaded as follows:
 
@@ -174,7 +178,7 @@ K <- 10
 control <- list(keep = 1, delta = 0.1, alpha = 1, iter = 2000)
 tm <- LDA(m, k = K, method = "Gibbs", control)
 @
-\item In the \texttt{uuml} R package you have three convenience functions to extract $\Theta$, $\Phi$ and the log-likelihood values at each iteration. This is the parameter notation used in Griffiths and Steyvers (2004).
+\item In the \texttt{uuml} R package you have three convenience functions to extract $\Theta$, $\Phi$ and the log-likelihood values at each iteration. This is the parameter notation used in \citet{griffiths2004finding}.
 <<eval=FALSE>>=
 library(uuml)
 lls <- extract_log_liks(tm)
@@ -189,7 +193,7 @@ phi <- extract_phi(tm)
 
 \section{* Variational Autoencoders using Convolutional Neural Networks}
 
-This assignment is a VG point assignment. If you do not want to get a VG-point, you can ignore this assignment.
+\input{distinction_task.tex}
 
 As we have seen previously, for images, we can get better performance using Convolutional Neural Networks. Hence we are going to repeat the exercise above using a convolutional neural network as encoder and decoder. You can find detailed code \href{https://keras.rstudio.com/articles/examples/variational_autoencoder_deconv.html}{\textbf{here}}.
 
@@ -201,6 +205,8 @@ As we have seen previously, for images, we can get better performance using Conv
 \item Visualize the mean value of the digit 2 of the latent state as a 28 by 28-pixel image using your decoder.
 \end{enumerate}
 
+
+\newpage
 \bibliography{bibliography}
 
 
