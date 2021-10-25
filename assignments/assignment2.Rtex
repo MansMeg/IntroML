@@ -93,14 +93,14 @@ knitr::opts_chunk$set(size = "small")
 \input{general_questions_info.tex}
 
 \begin{enumerate}
-\item Describe bagging and boosting with your own words, whats the difference between the two approaches? (1-2 paragraphs)
+\item Describe bagging and boosting with your own words. What is the difference between the two approaches? (1-2 paragraphs)
 \item When (and why) is random forests performing poorly with a small $m$? (max 1 paragraph)
-\item What is a learning ensamble? (max 1 paragraph)
+\item What is a learning ensemble? (max 1 paragraph)
 \end{enumerate}
 
 \section{Decision Trees}
 
-The dataset \texttt{Hitters} contain data on the salary of Baseball players and additional information on years in the baseball league (\texttt{Years}) and the number of hits (\texttt{Hits}). To access the data, use
+The dataset \texttt{Hitters} contain data on the salary of Baseball players and additional information on years in the baseball league (\texttt{Years}) and the number of hits (\texttt{Hits}). To access the data, use:
 
 <<echo=TRUE, eval=TRUE>>=
 library(uuml)
@@ -258,7 +258,6 @@ See Section 15.2 in \citet{hastie2009elements}, and especially Algorithm 15.1 fo
 \item Implement a random forest regression model using \texttt{grow\_tree\_m()} and \texttt{predict\_with\_tree()}.
 \item Train your random forest regression model on the training data with $m=1$, $B=100$ and predict on the test data. What is the RMSE of your predictions on the test set (using your \texttt{rmse} function)? \emph{Note!} Since we only have just two covariates in the test and train data, the difference is small (if any).
 \end{enumerate}
-
 
 \newpage
 
