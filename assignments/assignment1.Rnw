@@ -93,13 +93,12 @@ knitr::opts_chunk$set(size = "small")
 \section{General Questions}
 
 \input{general_questions_info.tex}
-
 \begin{enumerate}
-\item Describe, with your own wards, what \citet{efron2020prediction} see as the difference between the \emph{traditional regression methods} and the \emph{pure prediction algorithms}. (1-2 paragraphs)
-\item In many machine learning applications, we use Stochastic Gradient Descent, even though other optimization algorithms that uses second order derivatives usually is better. Why is this the case? Describe with your own words (max 1 paragraph)
-\item \citet{Goodfellow-et-al-2016} describe machine learning algorithms with tasks (T), performance (P) and experience (E). Describe these three concepts with your own words. (1-2 paragraphs)
+\item Describe, with your own words, what \citet{efron2020prediction} see as the difference between the \emph{traditional regression methods} and the \emph{pure prediction algorithms}. (1-2 paragraphs)
+\item In many machine learning applications, we use Stochastic Gradient Descent, even though other optimization algorithms that use second-order derivatives are better. Why is this the case? Describe with your own words (max 1 paragraph)
+\item \citet{Goodfellow-et-al-2016} describe machine learning algorithms with tasks (T), performance (P) and experience (E). Describe these three concepts in your own words. (1-2 paragraphs)
 \item Describe the free lunch theorem with your own words? (max 1 paragraph)
-% \item Describe the the concept of model complexity/capacity with your own words? (max 1 paragraph)
+% \item Describe the concept of model complexity/capacity with your own words? (max 1 paragraph)
 \end{enumerate}
 
 \section{Basic, Stochastic, and Mini-Batch Gradient Descent}
@@ -223,7 +222,7 @@ You should do the following and present the results in your report:
 
 \section{*Gradient Descent for penalized logistic regression}
 
-This assignment is the VG point assignment. If you do not want to get a VG-point, you can ignore this assignment. Here we use the same data as in task 1 above, namely
+This assignment is the VG point assignment. If you do not want to get a VG-point, you can ignore this assignment. Here we use the same data as in task 1 above.
 
 <<echo=TRUE,eval=FALSE>>=
 library(uuml)
@@ -306,7 +305,7 @@ lr(y, X, theta = c(-1,0.5,0.5), lambda = 1)
 \item ordinary (full/batch) gradient descent
 \item mini-batch (stochastic) gradient descent using ten samples to estimate the gradient
 \end{enumerate}
-\item Try different learning parameters $\eta$ and different $\lambda$. When does the algorithm converge or diverge? Visualize the iterations (x-axis) and the log-likelihood (y-axis). Show at least one plot per algorithm that converges.
+\item Try different learning parameters $\eta$ and $\lambda$. When does the algorithm converge or diverge? Visualize the iterations (x-axis) and the log-likelihood (y-axis). Show at least one plot per algorithm that converges.
 \end{enumerate}
 
 \newpage
