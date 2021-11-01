@@ -67,8 +67,8 @@ The literature list might change slightly during the course.
 
 ## Recommended workflow for each block/assignment
 
-1. Watch the videos to get more indepth knwoledge (although, optional)
-2. Read the literature according to the rough course plan
+1. Read the literature according to the rough course plan
+2. Watch the videos to get more indepth knowledge/understanding (however, optional)
 3. Do the assignment
 
 ## Course practicalities
@@ -98,6 +98,8 @@ Each week an individual computer assignment is done with a focus on implementing
 Students should return the computer assignments no later than **Sunday 23.59 each week**. A second possibility to turn in assignments is possible at the end of the course. For a detailed list of deadlines, see the [rough course plan](https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing).
 
 After the last (second) possible time to turn in the assignment no more chances will be given. In this case, you will be failed on the course and you will need to retake the course next year.
+
+Each assignment will be graded and evaluated within 10 working days.
 
 ### Machine Learning, AI and ethics
 A guest lecture will be given on AI and ethics by [Karim Jebari](https://www.iffs.se/en/research/researchers/karim-jebari/).
