@@ -41,7 +41,7 @@
 \setlength{\parskip}{3mm}
 \title[]{{\color{black}Machine learning, big data and artificial intelligence -- Block 1}}
 \author[]{M{\aa}ns Magnusson\\Department of Statistics, Uppsala University}
-\date{November 2020}
+\date{November 2021}
 
 
 \begin{document}
@@ -53,12 +53,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\begin{frame}{This week's lectures}
+\begin{frame}{This (two) week's lectures}
 \begin{itemize}
 \item What is AI and Machine Learning?
 \item Course Information and Practicalities
 \item Introduction to Supervised Learning
 \item (Stochastic) Gradient Descent
+\item Regularization
 \end{itemize}
 \end{frame}
 
@@ -176,12 +177,13 @@ The aims of this course are that you should:\\[3mm]\pause
 \begin{frame}{Course Outline}
 Two main parts:
 \begin{itemize}
-\item Core Content (8 blocks):
+\item Core Content (9 lecture blocks):
 \begin{itemize}
-\item Supervised learning (5 blocks)
+\item Supervised learning (6 blocks)
 \item Unsupervised learning (2 blocks)
-\item Reinforcement learning (1 block)
+\item Reinforcement learning (1 block)\pause
 \end{itemize}
+\item Assignments (8 individual assignments)\pause
 \item Mini-project on a supervised project (2-3 students)\pause
 \end{itemize}
 Exact dates and details; see the course page.
@@ -232,7 +234,7 @@ Exact dates and details; see the course page.
 \item Supply a half-page project proposal of data and problem at the end of block 6.\pause
 \item Project will last two weeks (half time) - but start earlier.
 \item Approximate 40 hours of work \emph{per student}.\pause
-\item The project should result in a 4 page report (PDF) using the ICML LaTeX template.
+\item The project should result in a 4 page report (PDF) using the ICML LaTeX template (see course page).
 \item Project oral presentation (10-15 minutes)\pause
 \item Each student will review one other project:
 \begin{enumerate}
@@ -526,7 +528,7 @@ where
 
 
 \begin{itemize}
-\item Many loss functions (and gradients) are a sum over $N$ observations.
+\item Many loss functions (and gradients) are a sum over $N$ observations (e.g. log-likelihoods).
 \item We can estimate $\nabla L(\theta, X_{i}, y_{i})$ by choosing a random observation (with index $i$)
 \[
 E(\nabla L(\theta, X_{i}, y_{i})) = \frac{1}{Z} \nabla L(\theta, \mathbf{X}, \mathbf{y})\,,
@@ -615,7 +617,7 @@ Example of SGD with momentum \href{https://distill.pub/2017/momentum/}{here}.
 \end{frame}
 
 
-\begin{frame}{Adam}
+\begin{frame}{Adam and RMSprop}
 
 \begin{itemize}
 \item Want the optimizer to adapt to the learning rate $\eta_t$ to individual parameters
