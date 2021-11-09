@@ -51,6 +51,7 @@
 \newcommand{\Prob}{\mathbb{P}}
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 
 \begin{titlepage}
 
@@ -301,7 +302,7 @@ lr <- function(y, X, theta, lambda){
 <<echo=TRUE,eval=TRUE>>=
 lr(y, X, theta = c(-1,0.5,0.5), lambda = 1)
 @
-\item Run logistic regression with ridge penalty in R using \texttt{glmnet} estimate of \texttt{theta}. Set \texttt{lambda} to 1 and \texttt{alpha} to 0 to run a penalized logistic regression. You also need to remove the intercept from \texttt{X}. \emph{Note that \texttt{glmnet}. Note! Your results might differ slightly due to a different implementation}.
+\item Run logistic regression with ridge penalty in R using \texttt{glmnet} estimate of \texttt{theta}. Set \texttt{lambda} to 1 and \texttt{alpha} to 0 to run a penalized logistic regression. You also need to remove the intercept from \texttt{X}. \emph{Note! Your results might differ slightly due to a different implementation than \texttt{glmnet}.}.
 \item Implement the following gradient descent algorithms for the penalized logistic objective:
 \begin{enumerate}
 \item ordinary (full/batch) gradient descent
