@@ -193,7 +193,12 @@ l(y, X, theta = c(-1,0.5,0.5))
 \item stochastic gradient descent
 \item mini-batch (stochastic) gradient descent using ten samples to estimate the gradient
 \end{enumerate}
-\item Try different learning parameters $\eta$ and for roughly 500 epochs. When does the algorithm converge or diverge? Visualize the epochs (full data iterations, x-axis) and the log-likelihood value \emph{for all observations} (y-axis).  Show at least one plot per algorithm that converges for each parameter $\theta$ (i.e. three Figures), also include the true values you got from using the \texttt{glm()} function above. Describe your conclusions. Show the code (loop) you use.
+\item Try different learning parameters $\eta$ and run the algorithm for roughly 500 epochs. Visualize your results in two plots per algorithm and choice of $\eta$:
+\begin{enumerate}
+\item The (negative) log-likelihood value \emph{for all observations} for the given $\theta$ (y-axis) and the epochs (full data iterations, x-axis).
+\item The value of one $\theta$ parameter of your choice (y-axis) and the epochs (full data iterations, x-axis). Also include the true values you got from using the \texttt{glm()} function above as a horizontal line in the figure.
+\end{enumerate}
+When do the algorithms converge or diverge? Describe your conclusions. Show the code (loop) you use.
 \end{enumerate}
 
 \newpage
