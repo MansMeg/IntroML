@@ -139,7 +139,7 @@ l(\theta, \mathbf{y}, \mathbf{X}) = & \sum_{i=1}^n y_i \log(p_i) + (1 - y_i) \lo
  = & \sum_{i=1}^n y_i \mathbf{x}_i\theta - \log(1+\exp(\mathbf{x}_i\theta))\,.
 \end{align}
 
-Although, in our case we instead want to minimize the negative log likelihood NLL$(\theta, \mathbf{y}, \mathbf{X})=-l(\theta, \mathbf{y}, \mathbf{X})$.
+Although, in our case we instead want to minimize the negative log likelihood NLL$(\theta, \mathbf{y}, \mathbf{X})=-l(\theta, \mathbf{y}, \mathbf{X})$, which is essentially the same as the cross-entropy loss.
 
 \begin{enumerate}
 \item Derive the the gradient for NLL$(\theta, \mathbf{y}, \mathbf{X})$ with respect to $\theta$.
@@ -244,15 +244,17 @@ y <- binary$admit
 
 In ridge regression we penalize the regression coefficients by $\lambda$. This gives the likelihood function for logistic regression with ridge penalty as
 \begin{align}
-l_r(\theta, \mathbf{y}, \mathbf{X}, \lambda) = l(\theta, \mathbf{y}, \mathbf{X}) + \lambda \sum_{i=1}^P \theta_i^2\,,
+l_r(\theta, \mathbf{y}, \mathbf{X}, \lambda) = \frac{1}{n} l(\theta, \mathbf{y}, \mathbf{X}) - \frac{\lambda}{2} \sum_{i=1}^P \theta_i^2\,,
 \end{align}
-where $l(\theta, \mathbf{y}, \mathbf{X})$ is defined as in task 1 above. We also want to minimize the negative log likelihood $\text{NLL}_r(\theta, \mathbf{y}, \mathbf{X}, \lambda)=-l(\theta, \mathbf{y}, \mathbf{X}, \lambda)$ here as well.
+where $l(\theta, \mathbf{y}, \mathbf{X})$ is defined as in task 1 above. We also want to minimize the negative penalized log likelihood $\text{NLL}_r(\theta, \mathbf{y}, \mathbf{X}, \lambda)=-l_r(\theta, \mathbf{y}, \mathbf{X}, \lambda)$ here as well.
 
-\emph{Note!} In general, we should not regularize the intercept \citep[see ][, Ch. 3.4]{hastie2009elements}. Hence below the gradient and log-likelihood only regularize the parameters \texttt{gre\_sd} and \texttt{gpa\_sd}.
+\emph{Note!} In general, we should not regularize the intercept \citep[see ][, Ch. 3.4]{hastie2009elements}. Hence below the gradient don't regularize intercept.
+
+\emph{Note!} The objective function above is the one used in the \texttt{glmnet} package. We can define this slightly different (for example not divide $l$ with $n$). This will give different estimates because $\lambda$ will have different meanings. More information on the \texttt{glmnet} objective function can be found \href{https://glmnet.stanford.edu/articles/glmnet.html#logistic-regression-family-binomial-}{here}.
 
 \begin{enumerate}
 \item Derive the the gradient for $\text{NLL}_r(\theta, \mathbf{y}, \mathbf{X},\lambda)$ with respect to $\theta$.
-\item Implement the gradient as a function in R. Below are two examples of how it should work. Note, \texttt{lr\_grad(y, X, theta, lambda)} return the gradient of $(1/n) l(\theta, \mathbf{y}, \mathbf{X}, \lambda)$.
+\item Implement the gradient as a function in R. Below are two examples of how it should work. Note, \texttt{l\_grad(y, X, theta, lambda)} return the gradient of $(1/n) l(\theta, \mathbf{y}, \mathbf{X}, \lambda)$.
 <<echo=FALSE,eval=TRUE>>=
 lr_grad <- function(y, X, theta, lambda){
 c("(Intercept)" = -0.1825, "gre_sd" = 0.0857, "gpa_sd" = 0.0829)
@@ -273,7 +275,7 @@ lr_grad(y, X, theta = c(0,0,0), lambda = 1)
 
 <<echo=FALSE,eval=TRUE>>=
 lr_grad <- function(y, X, theta, lambda){
-    c("(Intercept)" = 0.0217, "gre_sd" = 0.960, "gpa_sd" = 0.957)
+    c("(Intercept)" = 0.0217, "gre_sd" = -0.5395, "gpa_sd" = -0.5426)
 }
 @
 <<echo=TRUE,eval=TRUE>>=
@@ -300,7 +302,7 @@ lr(y, X, theta = c(0,0,0), lambda = 1)
 
 <<echo=FALSE,eval=TRUE>>=
 lr <- function(y, X, theta, lambda){
--244.03
+-244.78
 }
 @
 <<echo=TRUE,eval=TRUE>>=
