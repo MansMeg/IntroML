@@ -281,10 +281,10 @@ lr_grad <- function(y, X, theta, lambda){
 <<echo=TRUE,eval=TRUE>>=
 lr_grad(y, X, theta = c(-1,0.5,0.5), lambda = 1)
 @
-\item Implement the regularized log-likelihood $l_r$ or the negative log-likelihood $\text{NLL}_r$ in R.
+\item Implement the regularized log-likelihood $l_r$ or the negative log-likelihood $\text{NLL}_r$ in R. \emph{Note!} This differs from the log-likelihood above (where we used the sum over the observations).
 <<echo=FALSE,eval=TRUE>>=
 lr <- function(y, X, theta, lambda){
--277.26
+-0.6931
 }
 @
 <<echo=TRUE,eval=TRUE>>=
@@ -293,7 +293,7 @@ lr(y, X, theta = c(0,0,0), lambda = 0)
 
 <<echo=FALSE,eval=TRUE>>=
 lr <- function(y, X, theta, lambda){
--277.26
+-0.6931
 }
 @
 <<echo=TRUE,eval=TRUE>>=
@@ -302,7 +302,7 @@ lr(y, X, theta = c(0,0,0), lambda = 1)
 
 <<echo=FALSE,eval=TRUE>>=
 lr <- function(y, X, theta, lambda){
--244.78
+-0.1113
 }
 @
 <<echo=TRUE,eval=TRUE>>=
