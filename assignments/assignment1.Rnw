@@ -254,7 +254,7 @@ where $l(\theta, \mathbf{y}, \mathbf{X})$ is defined as in task 1 above. We also
 
 \begin{enumerate}
 \item Derive the the gradient for $\text{NLL}_r(\theta, \mathbf{y}, \mathbf{X},\lambda)$ with respect to $\theta$.
-\item Implement the gradient as a function in R. Below are two examples of how it should work. Note, \texttt{l\_grad(y, X, theta, lambda)} return the gradient of $(1/n) l(\theta, \mathbf{y}, \mathbf{X}, \lambda)$.
+\item Implement the gradient as a function in R. Below are two examples of how it should work. \emph{Note!} \texttt{l\_grad(y, X, theta, lambda)} implemented above return the gradient of $(1/n) l(\theta, \mathbf{y}, \mathbf{X}, \lambda)$.
 <<echo=FALSE,eval=TRUE>>=
 lr_grad <- function(y, X, theta, lambda){
 c("(Intercept)" = -0.1825, "gre_sd" = 0.0857, "gpa_sd" = 0.0829)
@@ -281,7 +281,7 @@ lr_grad <- function(y, X, theta, lambda){
 <<echo=TRUE,eval=TRUE>>=
 lr_grad(y, X, theta = c(-1,0.5,0.5), lambda = 1)
 @
-\item Implement the log-likelihood $lr$ or the negative log-likelihood $\text{NLL}_r$ in R.
+\item Implement the regularized log-likelihood $l_r$ or the negative log-likelihood $\text{NLL}_r$ in R.
 <<echo=FALSE,eval=TRUE>>=
 lr <- function(y, X, theta, lambda){
 -277.26
@@ -308,10 +308,10 @@ lr <- function(y, X, theta, lambda){
 <<echo=TRUE,eval=TRUE>>=
 lr(y, X, theta = c(-1,0.5,0.5), lambda = 1)
 @
-\item Run logistic regression with ridge penalty in R using \texttt{glmnet} estimate of \texttt{theta}. Set \texttt{lambda} to 1 and \texttt{alpha} to 0 to run a penalized logistic regression. You also need to remove the intercept from \texttt{X}. \emph{Note that \texttt{glmnet}. Note! Your results might differ slightly due to a different implementation}.
+\item Run logistic regression with ridge penalty in R using \texttt{glmnet} estimate of \texttt{theta}. Set \texttt{lambda} to 1 and \texttt{alpha} to 0 to run a penalized logistic regression. You also need to remove the intercept from \texttt{X}.
 \item Implement the following gradient descent algorithms for the penalized logistic objective:
 \begin{enumerate}
-\item ordinary (full/batch) gradient descent
+\item ordinary (full or batch) gradient descent
 \item mini-batch (stochastic) gradient descent using ten samples to estimate the gradient
 \end{enumerate}
 \item Try different learning parameters $\eta$ and $\lambda$. When does the algorithm converge or diverge? Visualize the iterations (x-axis) and the log-likelihood (y-axis). Show at least one plot per algorithm that converges.
