@@ -302,7 +302,7 @@ lr(y, X, theta = c(0,0,0), lambda = 1)
 
 <<echo=FALSE,eval=TRUE>>=
 lr <- function(y, X, theta, lambda){
--0.1113
+-0.8613
 }
 @
 <<echo=TRUE,eval=TRUE>>=
