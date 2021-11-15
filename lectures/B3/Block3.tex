@@ -38,7 +38,7 @@
 \setlength{\parskip}{3mm}
 \title[]{{\color{black}Machine learning, big data and artificial intelligence -- Block 3}}
 \author[]{M{\aa}ns Magnusson\\Department of Statistics, Uppsala University}
-\date{November 2020}
+\date{November 2021}
 
 
 \begin{document}
@@ -162,7 +162,7 @@ where $M$ is the total number of regions and $I(x \in R_m)$ is an indicator vari
 \begin{enumerate}
 \item A tree has two groups of parameters $\Theta = (\gamma, R)$ that we need to learn.\pause
 \item We want a tree that minimize $L(\theta) = (y_i - T_\Theta(x_i))^2$\pause
-\item Usually we estimate $\gamma$ as the mean of $y_i$ in the region as:
+\item Usually we estimate $\gamma_m$ as the mean of $y_i$ in the region as:
 \[
 \hat{\gamma}_m = \frac{1}{N_m} \sum_{x_i \in R_m}^{N_m} y_i\,,
 \]
@@ -205,28 +205,48 @@ Example:
 
 }
 
+\frame{\frametitle{How to do a split - the math.}
+
+Here we try to compute Eq. (9.12-9.14) in ESL:
+
+\[
+R_1(j,s) = \{X|X_j\leq s \}\text{ and } R_2(j,s) = \{X|X_j > s \}
+\]
+
+\[
+\min_{j,s} = \left(\min_{c_1} \sum_{x_i \in R_1(j,s)} (y_i - c_1)^2 + \min_{c_2} \sum_{x_i \in R_2(j,s)} (y_i - c_2)^2\right)
+\]
+
+Inner minimization is solved by:
+\[
+\hat{c}_m = \frac{1}{N_m} \sum_{x_i \in R_m}^{N_m} y_i\,,
+\]
+
+}
+
 \frame{\frametitle{How to do a split?}
 
-Here we try to compute Eq. (9.13) in ESL:
+
 
 Input: $\mathbf{X}, \mathbf{y}, l$
 
 \begin{enumerate}
-\item $SS$ = Inf \# Sum of Squares
-\item for $j \in \{1,...,P\}$
+\item $SS$ = Inf \# Store sum of squares in matrix of dim $P\times N_s$
+\item $S$ = Inf \# Store split point in matrix of dim $P\times N_s$
+\item for $j \in \{1,...,P\}$ \# all features
 \begin{enumerate}
-\item for $k \in \{1,...,N\}$
+\item for $k \in \{1,...,N_s\}$ \# all observations in set $s$
 \begin{enumerate}
-\item $s$ = $X_{k,j}$ \# Split point
+\item $s$ = $x_{k,j}$ \# Split point (use the value of x)
 \item if ($|R_1(s, j)| < l$ or $|R_2(s, j)| < l$) next \# Dont create too few leaves
-\item $c_1$ = $\frac{1}{|R_1(s, j)|} \sum_{x_i \in R_1(s, j)} y_i$
-\item $c_2$ = $\frac{1}{|R_2(s, j)|} \sum_{x_i \in R_2(s, j)} y_i$
-\item $SS_{i,j}$ = $\sum_{x_i \in R_1(s, j)} (y_i - c_1)^2 + \sum_{x_i \in R_2(s, j)} (y_i - c_2)^2$ \# Compute Sum of Squares
-\item $S_{i,j}$ = s
+\item $\hat{c}_1$ = $\frac{1}{|R_1(s, j)|} \sum_{x_i \in R_1(s, j)} y_i$
+\item $\hat{c}_2$ = $\frac{1}{|R_2(s, j)|} \sum_{x_i \in R_2(s, j)} y_i$
+\item $SS_{k,j}$ = $\sum_{x_i \in R_1(s, j)} (y_i - c_1)^2 + \sum_{x_i \in R_2(s, j)} (y_i - c_2)^2$ \# Compute Sum of Squares
+\item $S_{k,j}$ = s
 \end{enumerate}
 \end{enumerate}
-\item $i_{final}, j_{final} = \min_{i,j} SS$
-\item $s_{final} = S_{i_{final},j_{final}}$
+\item $k_{final}, j_{final} = \min_{k,j} SS$
+\item $s_{final} = S_{k_{final},j_{final}}$
 \item return $R_1(s_{final}, j_{final}), R_2(s_{final}, j_{final}), s_{final}, j_{final}$
 \end{enumerate}
 }
