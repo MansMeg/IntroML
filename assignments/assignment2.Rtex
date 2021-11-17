@@ -107,7 +107,7 @@ library(uuml)
 data("Hitters")
 @
 
-We are now going to build an algorithm to grow decision trees. The algorithm used below is based on the algorithm explained in Chapter 9.2.2 in \citet{hastie2009elements}. To split a tree, see Eq. (9.13).
+We are now going to build an algorithm to grow decision trees. The algorithm used below is based on the algorithm explained in Chapter 9.2.2 in \citet{hastie2009elements}. To split a tree, see Eq. (9.12-9.14).
 
 \begin{enumerate}
 \item Create a test set by setting aside the 30 first observations. Remove those observations from your training set.
@@ -121,22 +121,23 @@ y_test <- Hitters[1:30, c("Salary")]
 X_train <- Hitters[31:nrow(Hitters), c("Years", "Hits")]
 y_train <- Hitters[31:nrow(Hitters), c("Salary")]
 @
-\item Implement an R function to split observations binary greedily (ignore \texttt{NA} values). Here we use the algorithm in \citet{hastie2009elements}. The function should take a design matrix \texttt{X}, an \texttt{y} variable and a minimal leaf size \texttt{l}. The function should return a list with the index set of the observations in \texttt{R1}, \texttt{R2}, the split value \texttt{s} and the covariate used for the split \texttt{j}. See below for an example.
+\item Implement an R function to split observations binary greedily (ignore \texttt{NA} values). Here we use the \citet[][Eq. 9.12-9.14]{hastie2009elements}, but with the addition that we will keep at least $l$ leafs. The function should take a design matrix \texttt{X}, an \texttt{y} variable and a minimal leaf size \texttt{l}. The function should return a list with the index set of the observations in \texttt{R1}, \texttt{R2}, the split value \texttt{s} and the covariate used for the split \texttt{j}. See below for an example.
 
 <<echo = FALSE>>=
 tree_split <- function(X,y,l){
   if(l == 5){
   list(j = 1,
        s = 5,
-       R1 = c(1,  2,  3,  5,  9, 13, 16, 18, 19),
-       R2 = c(4,  6, 7,  8, 10, 11, 12, 14, 15, 17, 20),
+       R1 = c(1,  2,  3,  5, 6, 9, 13, 16, 18, 19),
+       R2 = c(4,  7,  8, 10, 11, 12, 14, 15, 17, 20),
        SS = 1346633)
   } else if(l == 1){
       list(j = 2,
-       s = 139,
-       R1 = c(1,  2,  3,  4,  6,  8,  9, 11, 12, 13, 14, 16, 17, 18, 19),
-       R2 = c(5, 7, 10, 15, 20),
+       s = 132,
+       R1 = c(1,  2,  3,  4, 5,  6,  8,  9, 11, 12, 13, 14, 16, 17, 18, 19),
+       R2 = c(7, 10, 15, 20),
        SS = 904383.4)
+
     }
 
 }
