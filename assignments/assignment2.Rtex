@@ -160,11 +160,11 @@ tree_split(X_check, y_check, l = 1)
 
 <<echo = FALSE>>=
 grow_tree <- function(X,y,l){
-  data.frame(j = c(1, NA, 2, NA, NA),
-             s = c(5, 0, 101, NA, NA),
-             R1_i = c(2, NA, 4, NA, NA),
-             R2_i = c(3, NA, 5,  NA, NA),
-             gamma = c(NA, 167.5, NA, 558.125, 358.2143))
+  data.frame(j = c(1, 1, 2, NA, NA, NA, NA),
+             s = c(5, 3, 101, NA, NA, NA, NA),
+             R1_i = c(2, 4, 6, NA, NA, NA, NA),
+             R2_i = c(3, 5, 7,  NA, NA, NA, NA),
+             gamma = c(NA, NA, NA, 317, 496, 274, 539))
 
 }
 @
@@ -176,7 +176,7 @@ tr
 \item Finally implement a function \texttt{predict\_with\_tree(new\_data, tree)} to use the tree to predict new observations $X_{new}$ as follows:
 <<echo = FALSE>>=
 predict_with_tree <- function(new_data, tree){
-  c(167.5, 167.5)
+  c(496, 496)
 }
 @
 
@@ -191,12 +191,12 @@ pred_y
 \item Implement a function \texttt{rmse(x,y)} that computes the root mean squared error between \texttt{x} and \texttt{y}. It should work like the following
 <<echo = FALSE>>=
 rmse <- function(x, y){
-  78.938
+  19.5
 }
 @
 
 <<echo=TRUE,eval=TRUE>>=
-rmse(y_new, pred_y)
+rmse(c(75, 105), c(102, 99))
 @
 \item What is the root mean squared error on the test set for a tree trained on the whole training data \texttt{X\_train} and \texttt{y\_train}?
 \end{enumerate}
