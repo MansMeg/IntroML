@@ -164,7 +164,7 @@ grow_tree <- function(X,y,l){
              s = c(5, 3, 101, NA, NA, NA, NA),
              R1_i = c(2, 4, 6, NA, NA, NA, NA),
              R2_i = c(3, 5, 7,  NA, NA, NA, NA),
-             gamma = c(NA, NA, NA, 317, 496, 274, 539))
+             gamma = c(NA, NA, NA, 106.5, 244.5, 509.3, 946))
 
 }
 @
@@ -176,7 +176,7 @@ tr
 \item Finally implement a function \texttt{predict\_with\_tree(new\_data, tree)} to use the tree to predict new observations $X_{new}$ as follows:
 <<echo = FALSE>>=
 predict_with_tree <- function(new_data, tree){
-  c(317, 496)
+  c(106.5, 244.5)
 }
 @
 
