@@ -176,7 +176,7 @@ tr
 \item Finally implement a function \texttt{predict\_with\_tree(new\_data, tree)} to use the tree to predict new observations $X_{new}$ as follows:
 <<echo = FALSE>>=
 predict_with_tree <- function(new_data, tree){
-  c(496, 496)
+  c(317, 496)
 }
 @
 
