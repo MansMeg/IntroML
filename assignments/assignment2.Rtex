@@ -257,7 +257,7 @@ See Section 15.2 in \citet{hastie2009elements}, and especially Algorithm 15.1 fo
 \begin{enumerate}
 \item Create a new function \texttt{grow\_tree\_m()} with the additional argument $m$. The function should grow a tree, but at every split, it should draw a sample of size $m$ of the covariates to make the split.
 \item Implement a random forest regression model using \texttt{grow\_tree\_m()} and \texttt{predict\_with\_tree()}.
-\item Train your random forest regression model on the training data with $m=1$, $B=100$ and predict on the test data. What is the RMSE of your predictions on the test set (using your \texttt{rmse} function)? \emph{Note!} Since we only have just two covariates in the test and train data, the difference is small (if any).
+\item Train your random forest regression model on the training data with $m=1$, $B=100$ and predict on the test data. What is the RMSE of your predictions on the test set (using your \texttt{rmse} function)? \emph{Note!} Since we only have just two covariates in the test and train data, the difference is small (if any) compared to the Bagging algorithm. Also, differences compared to the \texttt{randomForest} package probably comes from different way the \texttt{grow\_tree} functions are implemented in your code and the \texttt{randomForest} package.
 \end{enumerate}
 
 \newpage
