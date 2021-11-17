@@ -99,7 +99,7 @@ knitr::opts_chunk$set(size = "small")
 
 \begin{enumerate}
 \item What is reinforcement learning? (max 1 paragraph)
-\item Describe the exploitation-exploitation dilemma. (max 1 paragraph)
+\item Describe the exploration-exploitation dilemma. (max 1 paragraph)
 % Describe an rl policy
 % Describe an rl value function
 \item Explain the concept of reward signal. (max 1 paragraph)
