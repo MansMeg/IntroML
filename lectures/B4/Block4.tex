@@ -316,10 +316,19 @@ A feed-forward network for one observation ($x_i$).
 
 \begin{itemize}
 \item Sometimes use notation $\sigma$ as in $\sigma(W h + b)$\pause
-\item Historically $g(z)$ has been the sigmoid or or hyperbolic tangent (tanh)\pause
+\item Historically $g(z)$ has been the sigmoid or or hyperbolic tangent (tanh)
+\[
+g_\text{sigmoid}(z)={\frac {e^{z}}{e^{z}+1}}={\frac {1}{1+e^{-z}}}
+\]
+\[
+g_\text{tanh}(z)={\frac {\sinh z}{\cosh z}}={\frac {e^{2z}-1}{e^{2z}+1}}
+\]
+\pause
 \item Now, usually variants of Rectified linear unit (ReLU)
+\[
+g_\text{ReLU}(z)=\max({0,z})
+\]
 \begin{itemize}
-\item $g(z)=\max{0,z}$
 \item Easier to estimate with SGD
 \item Easier for deep models
 \end{itemize}
@@ -330,6 +339,8 @@ f(z_i)={\frac {e^{z_i}}{\sum _{j=1}^{J}e^{z_{j}}}}
 \end{itemize}
 
 }
+
+
 
 \frame{\frametitle{Activation functions ($g_l$)}
 
