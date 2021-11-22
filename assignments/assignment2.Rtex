@@ -156,7 +156,7 @@ tree_split(X_check, y_check, l = 1)
 @
 \item What is the first split based on the whole training data \texttt{X\_train} and \texttt{y\_train}?
 \item What is the Sum of Squares (SS) for this first split?
-\item Use the function \texttt{tree\_split()} to create a function \texttt{grow\_tree()} that takes the arguments \texttt{X}, \texttt{y}, and \texttt{l} and then build a decision tree. The returned tree can be a \texttt{data.frame} that looks as follows. Note that \texttt{R1\_i} and \texttt{R2\_i} indicates the row of the \texttt{data.frame} where to go next. This is just one example implementation, you are free to implement this however you want. \emph{Hint!} Use a list in R to store the set of indecies you are splitting up.
+\item Use the function \texttt{tree\_split()} to create a function \texttt{grow\_tree()} that takes the arguments \texttt{X}, \texttt{y}, and \texttt{l} and then build a decision tree. The returned tree can be a \texttt{data.frame} that looks as follows. Note that \texttt{R1\_i} and \texttt{R2\_i} indicates the row of the \texttt{data.frame} where to go next. This is just one example implementation, you are free to implement this however you want. \emph{Hint 1!} Use a list in R to store the set of indecies you are splitting up. \emph{Hint 2!} Remember that the indecies that \texttt{split\_tree()} returns are based on the data you put into that functions. Hence, you need to convert them to the full data indecies.
 
 <<echo = FALSE>>=
 grow_tree <- function(X,y,l){
@@ -242,7 +242,7 @@ See Section 8.7 in \citet{hastie2009elements}, and especially Eq. (8.51) for det
 \begin{enumerate}
 \item Implement a bagged tree regression model training function called \texttt{train\_bagged\_trees(X, y, l, B)} using the \texttt{grow\_tree()} function that return an R list of $B$ grown trees.
 \item Use \texttt{predict\_with\_tree()} to create a function \texttt{predict\_with\_bagged\_trees()} that takes a list of grown trees and produce one prediction per observation.
-\item Train your bagged tree regression model on the training data and predict on the test data. Try the values $B=\{100,500,1000\}$. What is the RMSE (using your \texttt{rmse} function) of your predictions on the test set?
+\item Train your bagged tree regression model on the training data and predict on the test data. Try the values $B=\{1, 10, 100, 500, 1000\}$. What is the RMSE (using your \texttt{rmse} function) of your predictions on the test set? \emph{Hint!} See Figure 15.1 in \citet{hastie2009elements}.
 \end{enumerate}
 
 
