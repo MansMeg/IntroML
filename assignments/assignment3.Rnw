@@ -153,9 +153,9 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
 \item Add dropout with 0.2 and 0.5 dropout probability. You can choose what layers you would like to introduce the dropout.
 \item Add batch normalization. You can choose where you want to add it.
 \end{enumerate}
-\item Now try to improve the network architecture yourself (but still only use a feed-forward network). How good validation set accuracy (or how low error) can you get? What is the architecture used for the best model?
-\item Identify two digits that the network has classified incorrectly. Visualize them. Why do you think the network made the classification mistake?
-\item Use your model to compute the accuracy, precision and recall on the hold-out test set included with the MNIST data. If you get a lower accuracy than on the validation set (or higher error), why is this the case?
+\item Now try to improve the network architecture yourself (but still only use a feed-forward network). You can either start with a new network from scrach or build upon the network from the previous assignment. How good validation set accuracy (or how low error) can you get? What is the architecture used for the best model you can get?
+\item Identify two digits that the in the best network in the previous task has classified incorrectly. Visualize them. Why do you think the network made the classification mistake?
+\item Use your model to compute the accuracy, precision and recall on the hold-out test set included with the MNIST data. If you get a lower accuracy (or higher error) than on the validation set (or higher error), why is this the case?
 \end{enumerate}
 
 \section{* A simple neural network from scratch}
