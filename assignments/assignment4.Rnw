@@ -106,7 +106,81 @@ knitr::opts_chunk$set(size = "small")
 \item Describe why we primarily focus on fine-tuning layers higher up in neural networks when fine-tuning large pre-trained neural networks. (1-2 paragraphs)
 \end{enumerate}.
 
+
+\section{Convolutional neural networks using Keras}
+
+\emph{Note!} This assignment can be a little heavy computationally. If your own an old computer, you might want to run this task in the computer room in the Department.
+
+We are now going to implement a convolutional neural network using Keras. Here Ch. 5.1-5.3 in \citet{chollet2018deep} and the \href{https://tensorflow.rstudio.com/tutorials/advanced/images/cnn/}{following tutorial} might be useful, especially for details on how to load the data. Remember to load the \texttt{tesorflow} R package before loading the \texttt{keras} R package.
+
+\emph{Note!} Running Keras can be computationally heavy, and I suggest not to run the code in \texttt{markdown}. Instead, run the code in R and copy the results as output (see the assignment template for an example).
+
+
+\begin{enumerate}
+\item Implement a Convolutional Neural Network for the MNIST dataset. The network should have two convolutional layers as follows.
+<<>>=
+## _______________________________________________________________________
+## Layer (type)                     Output Shape                Param #
+## =======================================================================
+## conv2d (Conv2D)                  (None, 26, 26, 32)          320
+## _______________________________________________________________________
+## max_pooling2d (MaxPooling2D)     (None, 13, 13, 32)          0
+## _______________________________________________________________________
+## conv2d (Conv2D)                  (None, 11, 11, 32)          9248
+## _______________________________________________________________________
+## flatten (Flatten)                (None, 3872)                0
+## _______________________________________________________________________
+## dense (Dense)                    (None, 64)                  247872
+## _______________________________________________________________________
+## dense (Dense)                    (None, 10)                  650
+## =======================================================================
+## Total params: 258,090
+## Trainable params: 258,090
+## Non-trainable params: 0
+@
+\item Explain why there are 320 parameters in the first layer. How many are kernel weights (and why), and how many biases?
+\item Train the network using Keras. What is your loss and accuracy on the MNIST dataset?
+\item As the next step, we will implement a similar network for the CIFAR-10 dataset using \texttt{dataset\_cifar10()}. See the \href{https://tensorflow.rstudio.com/tutorials/advanced/images/cnn/}{tutorial} for details on how to load data. Implement a similar CNN as in the tutorial. That is:
+<<>>=
+## Model: "sequential"
+## ___________________________________________________________________________
+## Layer (type)                     Output Shape                  Param #
+## ===========================================================================
+## conv2d (Conv2D)                  (None, 30, 30, 32)            896
+## ___________________________________________________________________________
+## max_pooling2d (MaxPooling2D)     (None, 15, 15, 32)            0
+## ___________________________________________________________________________
+## conv2d_1 (Conv2D)                (None, 13, 13, 64)            18496
+## ___________________________________________________________________________
+## max_pooling2d_1 (MaxPooling2D)   (None, 6, 6, 64)              0
+## ___________________________________________________________________________
+## conv2d_2 (Conv2D)                (None, 4, 4, 64)              36928
+## ___________________________________________________________________________
+## flatten (Flatten)                (None, 1024)                  0
+## ___________________________________________________________________________
+## dense (Dense)                    (None, 64)                    65600
+## ___________________________________________________________________________
+## dense_1 (Dense)                  (None, 10)                    650
+## ===========================================================================
+## Total params: 122,570
+## Trainable params: 122,570
+## Non-trainable params: 0
+## ___________________________________________________________________________
+
+@
+\emph{Note!} This problem is more complex than the MNIST problem, so don't be surprised if you get lower accuracy than you got on the MNIST dataset.
+\item Why do we now have 896 parameters in the first convolutional layer?
+\item Try out at least three different networks, describe the networks, why you chose them, and the Keras model output. Reading Ch. 11-11.5 in \citet{Goodfellow-et-al-2016} might give some good inspiration and guidance. For example, you can add a \texttt{dropout\_layer} \citep[see ][, Ch. 5.3]{chollet2018deep}.
+\item Can you improve over the previous network concerning accuracy? You can also use regularization techniques and batch normalization from the previous lab.
+\end{enumerate}
+
+
 \section{Implementing a convolutional layer}
+
+To get VG on this assignment, you can choose to make this task OR the task on transfer learning using VGG16 below.
+
+\input{distinction_task.tex}
+
 
 As a first step, we will implement a layer of a convolutional neural network with one filter. We will here not train the layer, only implement it to understand the inner workings. You are not allowed to use \texttt{convolve()} in R in the final solution, but you can use it to debug your code if you want to.
 
@@ -186,75 +260,9 @@ output <- maxpool_layer(convolutional_layer(X, K, -370, relu))
 
 
 
-
-\section{Convolutional neural networks using Keras}
-
-\emph{Note!} This assignment can be a little heavy computationally. If your own an old computer, you might want to run this task in the computer room in the Department.
-
-We are now going to implement a convolutional neural network using Keras. Here Ch. 5.1-5.3 in \citet{chollet2018deep} and the \href{https://tensorflow.rstudio.com/tutorials/advanced/images/cnn/}{following tutorial} might be useful, especially for details on how to load the data. Remember to load the \texttt{tesorflow} R package before loading the \texttt{keras} R package.
-
-\emph{Note!} Running Keras can be computationally heavy, and I suggest not to run the code in \texttt{markdown}. Instead, run the code in R and copy the results as output (see the assignment template for an example).
-
-
-\begin{enumerate}
-\item Implement a Convolutional Neural Network for the MNIST dataset. The network should have two convolutional layers as follows.
-<<>>=
-## _______________________________________________________________________
-## Layer (type)                     Output Shape                Param #
-## =======================================================================
-## conv2d (Conv2D)                  (None, 26, 26, 32)          320
-## _______________________________________________________________________
-## max_pooling2d (MaxPooling2D)     (None, 13, 13, 32)          0
-## _______________________________________________________________________
-## conv2d (Conv2D)                  (None, 11, 11, 32)          9248
-## _______________________________________________________________________
-## flatten (Flatten)                (None, 3872)                0
-## _______________________________________________________________________
-## dense (Dense)                    (None, 64)                  247872
-## _______________________________________________________________________
-## dense (Dense)                    (None, 10)                  650
-## =======================================================================
-## Total params: 258,090
-## Trainable params: 258,090
-## Non-trainable params: 0
-@
-\item Explain why there are 320 parameters in the first layer. How many are kernel weights (and why), and how many biases?
-\item Train the network using Keras. What is your loss and accuracy on the MNIST dataset?
-\item As the next step, we will implement a similar network for the CIFAR-10 dataset using \texttt{dataset\_cifar10()}. See the \href{https://tensorflow.rstudio.com/tutorials/advanced/images/cnn/}{tutorial} for details on how to load data. Implement a similar CNN as in the tutorial. That is:
-<<>>=
-## Model: "sequential"
-## ___________________________________________________________________________
-## Layer (type)                     Output Shape                  Param #
-## ===========================================================================
-## conv2d (Conv2D)                  (None, 30, 30, 32)            896
-## ___________________________________________________________________________
-## max_pooling2d (MaxPooling2D)     (None, 15, 15, 32)            0
-## ___________________________________________________________________________
-## conv2d_1 (Conv2D)                (None, 13, 13, 64)            18496
-## ___________________________________________________________________________
-## max_pooling2d_1 (MaxPooling2D)   (None, 6, 6, 64)              0
-## ___________________________________________________________________________
-## conv2d_2 (Conv2D)                (None, 4, 4, 64)              36928
-## ___________________________________________________________________________
-## flatten (Flatten)                (None, 1024)                  0
-## ___________________________________________________________________________
-## dense (Dense)                    (None, 64)                    65600
-## ___________________________________________________________________________
-## dense_1 (Dense)                  (None, 10)                    650
-## ===========================================================================
-## Total params: 122,570
-## Trainable params: 122,570
-## Non-trainable params: 0
-## ___________________________________________________________________________
-
-@
-\emph{Note!} This problem is more complex than the MNIST problem, so don't be surprised if you get lower accuracy than you got on the MNIST dataset.
-\item Why do we now have 896 parameters in the first convolutional layer?
-\item Try out at least three different networks, describe the networks, why you chose them, and the Keras model output. Reading Ch. 11-11.5 in \citet{Goodfellow-et-al-2016} might give some good inspiration and guidance. For example, you can add a \texttt{dropout\_layer} \citep[see ][, Ch. 5.3]{chollet2018deep}.
-\item Can you improve over the previous network concerning accuracy? You can also use regularization techniques and batch normalization from the previous lab.
-\end{enumerate}
-
 \section{* Transfer learning using VGG16}
+
+To get VG on this assignment, you can choose to make this task OR the task on implementing a convolutional layer above.
 
 \input{distinction_task.tex}
 
