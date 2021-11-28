@@ -38,7 +38,7 @@
 \setlength{\parskip}{3mm}
 \title[]{{\color{black}Machine learning, big data and artificial intelligence -- Block 5}}
 \author[]{M{\aa}ns Magnusson\\Department of Statistics, Uppsala University}
-\date{December 2020}
+\date{November 2020}
 
 
 \begin{document}
@@ -52,6 +52,7 @@
 
 \begin{frame}{This week's lecture}
 \begin{itemize}
+\item Previous assignments
 \item The Mini-Project and Master Thesis Projects
 \item Convolutional Neural Networks
 \item Transfer Learning
@@ -62,6 +63,29 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Previous assignments}
+
+\begin{frame}{Assignment 2}
+
+\begin{itemize}
+\item the difference in your RF comes from the CART algorithm
+\item remember to reuse your code!
+\item why do I not show my code?
+\item why focus on implementation?
+\item do not risk the course by plagiarize
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Assignment 3}
+
+\begin{itemize}
+\item R and Python for Keras/difficulties in installation - Python is stronger in NN
+\item The problem with seeds in Keras/TF
+\item Not super-clear instructions
+\end{itemize}
+
+\end{frame}
 
 
 \section{The Mini-Project}
@@ -73,25 +97,13 @@
 \item Time to start think about the project.\pause
 \item {\color{uured} Supervised} problem of choice on {\color{uured} real data}.\pause
 \item 2-3 students.\pause
-\item Supply a {\color{uured} project proposal} of data and problem at the end of \emph{16th of December 23.59}.
+\item Supply a {\color{uured} project proposal} of data and problem at the end of \emph{15th of December 23.59}.
 \item \emph{Hint!} Submit page 1-1.5 of the project as project proposal.
 \item Deadline is after all lectures on supervised learning\pause
 \item Feel free to combine it with your master thesis project.\pause
 \item Check with me if you have questions.
 \item The project should result in a 4 page report (PDF) using the {\color{uured} ICML LaTeX template}.
 \end{itemize}
-\end{frame}
-
-\begin{frame}{Master thesis proposals}
-
-\begin{itemize}
-\item Stochastic EM, probabilistic programming and Topic Models.\pause
-\item BERT for article segmentation/reconstruction.\pause
-\item CNN for newspaper segmentation.\pause
-\item BERT for legal predictions.\pause
-\item Send me a note if you are interested (of any) before Thursday 23.59!
-\end{itemize}
-
 \end{frame}
 
 
@@ -125,7 +137,7 @@ Acknowledgements: Anders Eklund, Link\"{o}ping University.
 \item 1D-grids: Time series
 \item 2D-grids: Gray-scale Images (pixels)
 \item 3D-grids: Color Images (pixels and chanels)
-\item 4D-grids: Color Video (pixels, chanels, frames)\pause
+\item 4D-grids: Color Video (pixels, chanels, frames)
 \end{enumerate}
 \end{itemize}
 
@@ -347,7 +359,7 @@ Y=
 \item How to choose filters?
 \begin{enumerate}
 \item Before: {\color{uured} manually handcrafted}
-\item Now: {\color{uured} learn the filters} using backpropagation $\rightarrow$ CNN
+\item Now: {\color{uured} learn the filters} using backpropagation and CNN
 \end{enumerate}
 
 \end{itemize}
@@ -524,6 +536,7 @@ Y=
 \begin{itemize}
 \item "{\color{uured} Transfer knowledge} between problems"
 \item In practice: Transfer/reuse {\color{uured} learned weights}\pause
+\item A Bayesian perspective: A strong prior
 \item Commonly: Use (large) pre-trained models for smaller problems
 \item One of the main reasons for the success of (convolutional) neural networks\pause
 \item Two types of transfer learning:
@@ -567,24 +580,6 @@ Y=
 \end{figure}
 
 }
-
-
-\frame{\frametitle{A short demo}
-
-
-A demo using Keras for the MNIST datset in R.
-
-}
-
-%\frame{\frametitle{In practice}
-%
-%
-% TODO: add freezing layers in keras
-% TODO: Use Pre-Trained models in Keras
-
-% }
-
-
 
 
 \end{document}
