@@ -106,6 +106,7 @@ knitr::opts_chunk$set(size = "small")
 \item Describe why we primarily focus on fine-tuning layers higher up in neural networks when fine-tuning large pre-trained neural networks. (1-2 paragraphs)
 \end{enumerate}.
 
+\newpage
 
 \section{Convolutional neural networks using Keras}
 
@@ -170,10 +171,11 @@ We are now going to implement a convolutional neural network using Keras. Here C
 @
 \emph{Note!} This problem is more complex than the MNIST problem, so don't be surprised if you get lower accuracy than you got on the MNIST dataset.
 \item Why do we now have 896 parameters in the first convolutional layer?
-\item Try out at least three different networks, describe the networks, why you chose them, and the Keras model output. Reading Ch. 11-11.5 in \citet{Goodfellow-et-al-2016} might give some good inspiration and guidance. For example, you can add a \texttt{dropout\_layer} \citep[see ][, Ch. 5.3]{chollet2018deep}.
-\item Can you improve over the previous network concerning accuracy? You can also use regularization techniques and batch normalization from the previous lab.
+\item Try out at least three different networks, describe the networks, why you chose them, and the Keras model output. Reading Ch. 11-11.5 in \citet{Goodfellow-et-al-2016} might give some good inspiration and guidance. For example, you can add a \texttt{dropout\_layer} \citep[see ][, Ch. 5.3]{chollet2018deep}. \label{item:three}
+\item Can you improve over the networks in Step \ref{item:three}. concerning accuracy? You can try different regularization approaches and batch normalization from the previous lab.
 \end{enumerate}
 
+\newpage
 
 \section{Implementing a convolutional layer}
 
@@ -258,7 +260,7 @@ output <- maxpool_layer(convolutional_layer(X, K, -370, relu))
 
 \end{enumerate}
 
-
+\newpage
 
 \section{* Transfer learning using VGG16}
 
@@ -268,16 +270,14 @@ To get VG on this assignment, you can choose to make this task OR the task on im
 
 \emph{Note!} This assignment can be a little heavy computationally. If your own an old computer, you might want to run this task in the computer room in the Department.
 
-\emph{Note!} This problem is more complex than the MNIST problem, so don't be surprised if you get lower accuracy than you got on the MNIST dataset.
-
 As the last step, we will look into using transfer learning as a quick way of improving the prediction accuracy on the cifar-10 dataset. Here Ch. 5.3 in \citet{chollet2018deep} or \href{https://blogs.rstudio.com/ai/posts/2017-12-14-image-classification-on-small-datasets/}{this tutorial} might be helpful.
 
-You can find the current state-of-the-art neural networks for the cifar-10 dataset \href{https://benchmarks.ai/cifar-10}{here.} Feel free to read some of the papers and be inspired on how to improve your neural networks.
+You can find the current state-of-the-art neural networks for the cifar-10 dataset \href{https://benchmarks.ai/cifar-10}{here}. Feel free to read some of the papers and be inspired on how to improve your neural network.
 
 \begin{enumerate}
-\item Using Keras, download the VGG16 convolutional neural network. Just download the convolutional base. We are going to use the network on the cifar-10 dataset so change the \texttt{input\_size} to \texttt{c(32, 32, 3)}.
+\item Using Keras, download the VGG16 convolutional neural network convolutional base. Just download the convolutional base. We are going to use the network on the cifar-10 dataset so change the \texttt{input\_size} to \texttt{c(32, 32, 3)}.
 \item Now add a dense layer with 64 hidden nodes (as in the previous exercise). Include the Keras model output in the assignment report. How many parameters do you have in the dense top layer (compared to the CNN in the previous part)?
-\item Now, freeze the convolutional base and train the dense top layer of your network on the cifar-10 dataset. Run it for five epochs. \emph{Note!} This will take time. Don't be surprised if you need roughly 200s per epoch or more.
+\item Now, freeze the convolutional base and train the dense top layer of your network on the cifar-10 dataset. Run it for five epochs. \emph{Note!} This will take time. Don't be surprised if you need roughly 200s per epoch or more. Also, remember to freeze the convolutional base!
 \item Report your final accuracy. How does this compare to the previous model for the cifar data?
 \end{enumerate}
 
