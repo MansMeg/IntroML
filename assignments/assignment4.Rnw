@@ -179,7 +179,7 @@ We are now going to implement a convolutional neural network using Keras. Here C
 
 \section{Implementing a convolutional layer}
 
-To get VG on this assignment, you can choose to make this task OR the task on transfer learning using VGG16 below.
+To get VG on this assignment, you can choose to make this task OR the task on implementing a convolutional layer above. You are also free to do both, if you want. As long as you pass one of the two VG assignments you will get a VG point.
 
 \input{distinction_task.tex}
 
@@ -264,7 +264,7 @@ output <- maxpool_layer(convolutional_layer(X, K, -370, relu))
 
 \section{* Transfer learning using VGG16}
 
-To get VG on this assignment, you can choose to make this task OR the task on implementing a convolutional layer above.
+To get VG on this assignment, you can choose to make this task OR the task on implementing a convolutional layer above. You are also free to do both, if you want. As long as you pass one of the two VG assignments you will get a VG point.
 
 \input{distinction_task.tex}
 
