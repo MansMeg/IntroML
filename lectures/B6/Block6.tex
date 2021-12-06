@@ -38,7 +38,7 @@
 \setlength{\parskip}{3mm}
 \title[]{{\color{black}Machine learning, big data and artificial intelligence -- Block 6}}
 \author[]{M{\aa}ns Magnusson\\Department of Statistics, Uppsala University}
-\date{HT 2020}
+\date{HT 2021}
 
 
 \begin{document}
@@ -63,7 +63,60 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+\section{Previous assignments}
 
+\begin{frame}{Practicalities}
+
+\begin{itemize}
+\item remember the project proposition deadline the 15th of December
+\item One lecture later this week on State of the Art in word embeddings and transformers (Väinö Yrjänäinen and Anders Östling)
+\item An additional guest lecture in january on fairness in AI and law (Holli Sargeant, Cambride University)
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Assignment 3}
+
+\begin{itemize}
+\item remember the use of validation/test/train
+\item dont retrain your best model on test data
+\item clarify instructions: micro or macro precision and recall
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Assignment 4: Evaluation}
+
+\begin{itemize}
+\item Some further clarifications are needed
+\item It takes long time to run the models
+\item Better help in how to think when constructing networks
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{General principle}
+
+\begin{figure}[h]
+\caption{Test, training, and model complexity (Hastie et al, 2009, Figure 7)}
+\centering
+\includegraphics[width=0.8\textwidth]{fig/ESL_7_1.png}
+\end{figure}
+
+
+
+\end{frame}
+
+
+\frame{\frametitle{Grid search vs. Random Search}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{fig/random_search.png}
+\caption{Grid search and random search (Goodfellow et al, 2017, Fig. 11.2)}
+\end{figure}
+
+}
 
 
 \section{Word embeddings}
@@ -109,8 +162,12 @@
 
 \begin{frame}{Word embeddings}
 
+\begin{quote}%<⟨action specification⟩>
+  The quick brown fox jumps over the lazy dog.
+\end{quote}
+
 \begin{itemize}
-\item A word type represent {\color{uured} meaning in a low-dimensional semanitic space Word embeddings}
+\item A word type represent {\color{uured} meaning in a low-dimensional semantic space}
 \item The distributional hypothesis:
 \begin{itemize}
   \item Harris (1954) and Firth (1957): \\ ``A word is characterized by the company it keeps''
@@ -119,11 +176,19 @@
 \item Lots of different embeddings: \\ \texttt{word2vec}, GloVe, Probabilistic Embeddings
 \end{itemize}
 
+
+\end{frame}
+
+
+\begin{frame}{Word embeddings}
+
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.6\textwidth]{fig/Mikolov_2013_word_projections.png}
 \caption{Word embedding properties (Mikolov et al, 2013)}
 \end{figure}
+
+king - man + woman $\approx$ queen
 
 \end{frame}
 
@@ -176,10 +241,10 @@
 \begin{frame}{Recurrent Neural Networks}
 
 \begin{align*}
-a_t &= b_t + W h_{t-1} + U x_t \\
-h_t &= \sigma{a_t} \\
+a_t &= b + W h_{t-1} + U x_t \\
+h_t &= \sigma_1(a_t) \\
 o_t &= c + V h_{t} \\
-\hat{y}_t &= \text{softmax}(o_t)
+\hat{y}_t & = \sigma_{\text{output}}(o_t) = \text{softmax}(o_t)
 \end{align*}
 
 Think of $h_t$ as the "state" at timepoint $t$
@@ -558,6 +623,8 @@ Think of $h_t$ as the "state" at timepoint $t$
 \end{itemize}
 \pause
 \item Becoming the de facto new standard in industry and NLP
+\pause
+\item Many new versions has come out RoBERTa, DistillBERT, AlBERT etc.
 \pause
 \item {\color{uured} Pre-trained} on a large number of books
 \pause
