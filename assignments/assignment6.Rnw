@@ -163,7 +163,7 @@ k_means_W(X, C)
 
 \section{Probabilistic PCA}
 
-As a last part of the assignment, we will look into the probabilistic Principal Component analysis model. Here, Ch. 14 - 14.1 in \citet{Goodfellow-et-al-2016} is helpful.
+As a last part of the assignment, we will look into the probabilistic Principal Component analysis model. Here, Ch. 13 - 13.1 in \citet{Goodfellow-et-al-2016} is helpful.
 
 \begin{enumerate}
 \item Implement a function \texttt{pPCA(W, b, sigma2)} and that simulated data from a probabilistic PCA model with $h \sim N(0,I)$ and $\sigma^2 = 1$
