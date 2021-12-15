@@ -253,7 +253,7 @@ theta_and_gamma_em20 <- em_uni_two_comp(mixture_data, theta0, iter = 20)
 ## ...
 @
 \item Run your EM algorithm on the \texttt{eruptions} variable of the \texttt{faithful} data and on the \texttt{Petal.Length} variable of the \texttt{iris} data. What are the estimated parameters for the two datasets?
-\item Visualize the density for the two datasets using the parameters estimated with your EM algorithm. \emph{Hint!} You should be able to use \texttt{d\_uni\_two\_comp(x, theta)}.
+\item Visualize the density for the two datasets in two different figures using the parameters estimated with your EM algorithm. Also show histograms for the real data in the same Figures (i.e. so you show the data and the estimated density). \emph{Hint!} You should be able to use \texttt{d\_uni\_two\_comp(x, theta)}.
 \end{enumerate}
 
 
