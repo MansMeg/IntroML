@@ -196,7 +196,6 @@ In the next step, we will implement the EM algorithm conceptually similar to k-m
 library(uuml)
 data("mixture_data")
 theta0 <- list(mu_1 = 4.12, mu_2 = 0.94, sigma_1 = 2, sigma_2 = 2, pi = 0.5)
-y <- mixture_data
 @
 
 
@@ -209,7 +208,7 @@ y <- mixture_data
 \item Manually choose values for $\mu_1$, $\mu_2$, $\sigma_1$, $\sigma_2$ and $\pi$ that gives a density you think is a good fit for the \texttt{eruptions} variable.
 \item Implement a function called \texttt{e\_uni\_two\_comp(X, theta)} that returns a  vector of gamma values for each row in \texttt{X} (for component 2).  This function should implement the expectation step in algorithm 8.1 in \citet{hastie2009elements}.
 <<eval = FALSE>>=
-gamma <- e_uni_two_comp(y, theta0)
+gamma <- e_uni_two_comp(mixture_data, theta0)
 head(gamma)
 ## [1]  0.9106339 0.8716861 0.7797225 0.6645640 0.6484311 0.5178799
 @
@@ -217,7 +216,7 @@ head(gamma)
 \item How can we interpret $\gamma$ here?
 \item Implement a function called \texttt{max\_uni\_two\_comp(X, gamma)} that returns a list with parameters \texttt{mu1}, \texttt{mu2}, \texttt{sigma1}, \texttt{sigma2} and \texttt{pi}. This function should implement the maximization step in algorithm 8.1 in \citet{hastie2009elements}.
 <<eval = FALSE>>=
-theta <- max_uni_two_comp(y, gamma)
+theta <- max_uni_two_comp(mixture_data, gamma)
 theta
 ## $mu_1
 ## [1] 3.842941
@@ -235,19 +234,19 @@ theta
 ## [1] 0.4883709
 ##
 @
-\item Implement the log-likelihood of the model as \texttt{ll\_uni\_two\_comp(x, theta)}. \emph{Hint!} You can use large parts of tour \texttt{em\_uni\_two\_comp(x, theta)}
+\item Implement the log-likelihood of the model as \texttt{ll\_uni\_two\_comp(x, theta)}. \emph{Hint!} See \citet[Eq. 8.39 in ][]{hastie2009elements}.
 <<eval = FALSE>>=
-ll_uni_two_comp(y, theta0)
+ll_uni_two_comp(mixture_data, theta0)
 ## -43.1055
 @
-\item Now combine the implemented functions to an EM algorithm \texttt{em\_uni\_two\_comp(X, theta\_0, iter)} that takes in a $n \times p$ data matrix \texttt{X} and an initialization value for as \texttt{theta\_0}. Then the algorithm should be run \texttt{iter} number of iterations. For each iteration print out the log-likelihood value for that current iterations.
+\item Now combine the implemented functions to an EM algorithm \texttt{em\_uni\_two\_comp(X, theta\_0, iter)} that takes in a $n \times p$ data matrix \texttt{X} and an initialization value for as \texttt{theta\_0}. Then the algorithm should be run \texttt{iter} number of iterations. For each iteration print out the log-likelihood value for that current iteration and store the value of $\theta$ for each iteration.
 <<eval = FALSE>>=
-theta_em <- em_uni_two_comp(y, theta0)
+theta_em <- em_uni_two_comp(mixture_data, theta0, iter = 3)
 ## Log Lik:  -41.53247
 ## Log Lik:  -41.11211
 ## Log Lik:  -40.48348
 @
-\item Test your algorithm on the \texttt{mixture\_example} for 20 iterations. Do you get the same results as in \citet[p. 275]{hastie2009elements}? Note that you might get slightly different results (at the second decimal place). Also, compare your log-likelihoods with Figure 8.6 in \citet{hastie2009elements}. Do you have a similar result?
+\item Test your algorithm on the \texttt{mixture\_data} for 20 iterations. Do you get the same results for $\hat{pi}$ as in \citet[p. 275]{hastie2009elements}? Note that you might get slightly different results (at the second decimal place). Also, compare your log-likelihoods with Figure 8.6 in \citet{hastie2009elements}. Do you have a similar result? \emph{Hint!} There can be a slight different order depending on if you compute the log-likelihood value before or after the update of $\theta$.
 \item Run your EM algorithm on the \texttt{eruptions} variable of the \texttt{faithful} data and on the \texttt{Petal.Length} variable of the \texttt{iris} data. What are the estimated parameters for the two datasets?
 \item Visualize the density for the two datasets using the parameters estimated with your EM algorithm. \emph{Hint!} You should be able to use \texttt{d\_uni\_two\_comp(x, theta)}.
 \end{enumerate}
