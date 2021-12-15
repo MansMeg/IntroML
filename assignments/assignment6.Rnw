@@ -212,7 +212,7 @@ gamma <- e_uni_two_comp(mixture_data, theta0)
 head(gamma)
 ## [1]  0.9106339 0.8716861 0.7797225 0.6645640 0.6484311 0.5178799
 @
-\emph{Note!} Gamma values for component 1 is essentially just 1 - \texttt{gamma}.
+\emph{Note!} Gamma values for component 1 is just 1 - \texttt{gamma}.
 \item How can we interpret $\gamma$ here?
 \item Implement a function called \texttt{max\_uni\_two\_comp(X, gamma)} that returns a list with parameters \texttt{mu1}, \texttt{mu2}, \texttt{sigma1}, \texttt{sigma2} and \texttt{pi}. This function should implement the maximization step in algorithm 8.1 in \citet{hastie2009elements}.
 <<eval = FALSE>>=
@@ -234,7 +234,7 @@ theta
 ## [1] 0.4883709
 ##
 @
-\item Implement the log-likelihood of the model as \texttt{ll\_uni\_two\_comp(x, theta)}. \emph{Hint!} See \citet[Eq. 8.39 in ][]{hastie2009elements}.
+\item Implement the log-likelihood of the model as \texttt{ll\_uni\_two\_comp(x, theta)}. \emph{Hint!} See Eq. 8.39 in \citet{hastie2009elements}.
 <<eval = FALSE>>=
 ll_uni_two_comp(mixture_data, theta0)
 ## -43.1055
