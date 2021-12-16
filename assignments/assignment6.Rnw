@@ -147,8 +147,8 @@ C <- compute_cluster_encoding(X, m)
 C[1:10]
 ## [1] 2 1 2 1 2 1 2 2 1 2
 @
-\item Now, use \texttt{compute\_cluster\_means(X, C)} and \texttt{compute\_cluster\_encoding(X, m)} to implement Algorithm 14.1 in \citet{hastie2009elements} as \texttt{k\_means(X,K)}. The \texttt{k\_means(X,K)} should take an $n\times p$ matrix \texttt{X} and the number of clusters $K$. The function should return a $p \times 1$ vector of cluster assignments after the algorithm has run until no cluster assignments change. Use random initialization of cluster means.
-\item Implement a function called \texttt{k\_means\_W(X,C)} that computes the k-means within-point scatter of Eq. 14.31 in \citet{hastie2009elements}.
+\item Now, use \texttt{compute\_cluster\_means(X, C)} and \texttt{compute\_cluster\_encoding(X, m)} to implement Algorithm 14.1 in \citet{hastie2009elements} as \texttt{k\_means(X,K)}. The \texttt{k\_means(X,K)} should take an $n\times p$ matrix \texttt{X} and the number of clusters $K$. The function should return a $n \times 1$ vector of cluster assignments \texttt{C} and a $K \times p$ mean matrix \texttt{m} after the algorithm has run until no cluster assignments change. Randomly initialize the cluster assignments as a part of the algorithm.
+\item Implement a function called \texttt{k\_means\_W(X,C)} that computes the k-means within-point scatter (WPS) of Eq. 14.31 in \citet{hastie2009elements}.
 <<eval = FALSE>>=
 set.seed(4711)
 X <- as.matrix(faithful)
@@ -156,8 +156,16 @@ C <- sample(1:3, nrow(X), replace = TRUE)
 k_means_W(X, C)
 ## [1] 4601439
 @
-\item Now run your k-means a couple of times for both \texttt{faithful} with $K=2$ and \texttt{iris} with $K=3$ using the two variables used above.
-\item Visualize the clustering for the worst and the best clustering according to the within-point scatter (WPS). \emph{Note!} There might be some runs with the same WPS.
+\item Now run your \texttt{k\_means(X,K)} a couple of times for both \texttt{faithful} with $K=2$ and \texttt{iris} with $K=3$ using the two variables used above. Use different seeds every time. Compute the WPS for the final cluster assignments
+<<eval = FALSE>>=
+set.seed(4711)
+X <- as.matrix(faithful)
+result1 <- k_means(X,K = 2)
+wps1 <- k_means_W(X, result1$C)
+result2 <- k_means(X,K = 2)
+wps2 <- k_means_W(X, result2$C)
+@
+\item Visualize the clustering for the worst and the best clustering according to the WPS. \emph{Note!} There might be some runs with the same WPS.
 \item Describe and discuss the results you get.
 \end{enumerate}
 
