@@ -156,7 +156,7 @@ C <- sample(1:3, nrow(X), replace = TRUE)
 k_means_W(X, C)
 ## [1] 4601439
 @
-\item Now run your \texttt{k\_means(X,K)} a couple of times for both \texttt{faithful} with $K=2$ and \texttt{iris} with $K=3$ using the two variables used above. Use different seeds every time. Compute the WPS for the final cluster assignments
+\item Now run your \texttt{k\_means(X,K)} a couple of times for both \texttt{faithful} with $K=2$ and \texttt{iris} with $K=3$ using the two variables used above. Use different seeds every time. Compute the WPS for the final cluster assignments. Below is an example how this could be done.
 <<eval = FALSE>>=
 set.seed(4711)
 X <- as.matrix(faithful)
