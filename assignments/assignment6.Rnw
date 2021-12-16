@@ -174,7 +174,7 @@ wps2 <- k_means_W(X, result2$C)
 As a last part of the assignment, we will look into the probabilistic Principal Component analysis model. Here, Ch. 13 - 13.1 in \citet{Goodfellow-et-al-2016} is helpful.
 
 \begin{enumerate}
-\item Implement a function \texttt{pPCA(W, b, sigma2)} and that simulated data from a probabilistic PCA model with $h \sim N(0,I)$ and $\sigma^2 = 1$
+\item Implement a function \texttt{pPCA(W, b, sigma2)} that simulate data from the probabilistic PCA model with $h \sim N(0,I)$ and $\sigma^2 = 1$
 \item Simulate 300 observation PCA model with $W=(-1, 3)$, $b = (0.5, 2)$, and $\sigma^2 = 1$. The resulting distribution should look something similar as in Figure \ref{pPCA}.
 \begin{figure}[h]
 \centering
