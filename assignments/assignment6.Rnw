@@ -169,29 +169,33 @@ wps2 <- k_means_W(X, result2$C)
 \item Describe and discuss the results you get.
 \end{enumerate}
 
+\newpage
+
 \section{Probabilistic PCA}
 
 As a last part of the assignment, we will look into the probabilistic Principal Component analysis model. Here, Ch. 13 - 13.1 in \citet{Goodfellow-et-al-2016} is helpful.
 
 \begin{enumerate}
-\item Implement a function \texttt{pPCA(W, b, sigma2)} that simulate data from the probabilistic PCA model with $h \sim N(0,I)$ and $\sigma^2 = 1$
-\item Simulate 300 observation PCA model with $W=(-1, 3)$, $b = (0.5, 2)$, and $\sigma^2 = 1$. The resulting distribution should look something similar as in Figure \ref{pPCA}.
+\item Implement a function \texttt{pPCA(W, b, sigma2)} that simulate data $\mathbf{x} \in \mathbb{R}^{D}$ from the probabilistic PCA model with $\mathbf{h} \sim N(0,I_K)$ where $\mathbf{h} \in \mathbb{R}^{K \times 1}$, $\mathbf{W} \in \mathbb{R}^{D \times K}$, $\mathbf{b} \in \mathbb{R}^{D \times 1}$ and $\sigma^2 = 1$.
+\item Simulate 300 observation PCA model with $\mathbf{W}=(-1, 3)^T$, $\mathbf{b} = (0.5, 2)^T$, and $\sigma^2 = 1$. The resulting distribution should look something similar as in Figure \ref{pPCA}.
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.6\textwidth]{figs/pPCA.png}
-\caption{Data from a pPCA model with $W = (-1, 3)^T$, $b = (0.5, 2)$ and $\sigma^2 = 1$}
+\caption{Data from a pPCA model with $\mathbf{W} = (-1, 3)^T$, $\mathbf{b} = (0.5, 2)^T$ and $\sigma^2 = 1$}
 \label{pPCA}
 \end{figure}
 \item Describe the different parts of the model. What are the parameters? What are the latent variables?
 \item Try some other parameter values for $W$ and $b$ and visualize the result in a similar scatter plot as in Fig. \ref{pPCA}.
-\item Now run principal component analysis on your simulated data (with $W = (-1, 3)^T$, $b = (0.5, 2)$) using
+\item Now run principal component analysis on your simulated data (with $\mathbf{W} = (-1, 3)^T$, $\mathbf{b} = (0.5, 2)^T$) using
 <<eval = FALSE>>=
 pr <- prcomp(X, center = TRUE, scale. = FALSE)
 @
 Multiply the first \texttt{stdev} with the first principal component (\texttt{rotation}).
-\item What parameters in your pPCA model do these results correspond to. \emph{Note!} You might have to multiply your result with -1.
-\item Finally, simulate values $\mathbf{x}$ of dimension five from a probabilistic PCA model for a given choice of parameters. The latent variables $H$ should be of dimension two, i.e. $H \in \mathbb{R}^{300 \times 2}$. You are free to choose the parameter values $W$, $b$ and $\sigma$ yourself, but the resulting distribution should have at least one negative and one positive correlation between the $X$s. Visualize the variables using a pair-wise scatterplot using \texttt{pairs(X)}.
+\item What parameters in your pPCA model do these results correspond to. \emph{Note!} You might have to multiply your result/vector with -1.
+\item Finally, simulate values $\mathbf{x}$ of dimension five from a probabilistic PCA model for a given choice of parameters. The latent variables $\mathbf{h}$ should be of dimension two, i.e. $\mathbf{h} \in \mathbb{R}^{2 \times 1}$ for each simulated observation. You are free to choose the parameter values $\mathbf{W}$, $\mathbf{b}$ and $\sigma^2$ yourself, but the resulting distribution should have at least one negative and one positive correlation between the $X$s. Visualize the variables using a pair-wise scatterplot using \texttt{pairs(X)} in R.
 \end{enumerate}
+
+\newpage
 
 \section{* The EM-algorithm for soft clustering: Univariate Two-Component Normal Mixture}
 \label{uni_two_comp}
