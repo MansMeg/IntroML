@@ -160,12 +160,12 @@ k_means_W(X, C)
 <<eval = FALSE>>=
 set.seed(4711)
 X <- as.matrix(faithful)
-result1 <- k_means(X,K = 2)
+result1 <- k_means(X, K = 2)
 wps1 <- k_means_W(X, result1$C)
-result2 <- k_means(X,K = 2)
+result2 <- k_means(X, K = 2)
 wps2 <- k_means_W(X, result2$C)
 @
-\item Visualize the clustering for the worst and the best clustering according to the WPS. \emph{Note!} There might be some runs with the same WPS.
+\item Visualize the clustering for the worst and the best clustering according to the WPS. \emph{Note!} There might be multiple runs with the same (best) WPS.
 \item Describe and discuss the results you get.
 \end{enumerate}
 
