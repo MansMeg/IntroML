@@ -41,7 +41,7 @@
 \setlength{\parskip}{3mm}
 \title[]{{\color{black}Machine learning, big data and artificial intelligence -- Block 8}}
 \author[]{M{\aa}ns Magnusson\\Department of Statistics, Uppsala University}
-\date{HT 2020}
+\date{HT 2021}
 
 
 \begin{document}
@@ -49,6 +49,35 @@
 \frame{\titlepage
 % \thispagestyle{empty}
 }
+
+
+\section{Previous assignments}
+
+\begin{frame}{Practicalities}
+
+\begin{itemize}
+\item New exercise sessions: Dec 22, Dec 29, Jan 3, and Jan 5 on Zoom:
+\texttt{https://uu-se.zoom.us/my/andreasostling}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Assignment 5}
+
+\begin{itemize}
+\item MNIST vs. IMDB: Bias, variance or Bayes Error?
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Assignment 6: Evaluation}
+
+\begin{itemize}
+\item The Deep Learning book is hard to understand? How improve?
+\item Clarifying as we go.
+\end{itemize}
+
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -117,7 +146,7 @@
 \begin{frame}{Autoencoder}
 
 \begin{itemize}
-\item An autoencoder is a neural network (e.g. feed-forward) that take an input $x$ and predict (the same) $x$. \pause
+\item An autoencoder is a neural network (e.g. feed-forward) that take an input $x$ and predict (the same) $x$ ($r$). \pause
 \item Three parts:
 \begin{itemize}
 \item {\color{uured}encoder} $f(x)$ (or $e(x)$)
@@ -162,7 +191,7 @@ L(\phi, \theta) = (x - d_\phi(e_\theta(x)))^2
 
 \begin{itemize}
 \item A linear autoencoder: $e_\theta(x) = W_\phi$, and $d_\theta(x) = W_\phi$
-\item We want to minimize the loss:
+\item We want to minimize the loss (ignoring $b$/the mean):
 \[
 L(\phi, \theta) = \sum_{i=1}^N (x_i - W_\theta W_\phi x_i)^2
 \]
@@ -172,6 +201,7 @@ L(\phi, \theta) = \sum_{i=1}^N (x_i - W_\theta W_\phi x_i)^2
 L(P) = \sum_{i=1}^N (x_i - P_q P_q^T x_i)^2\,,
 \]
 where $P$ is an orthogonal matrix of rank $q$.
+\pause
 \item {\color{uured} Hence}: PCA can be seen as an autoencoder
 \end{itemize}
 

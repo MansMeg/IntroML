@@ -41,7 +41,7 @@
 \setlength{\parskip}{3mm}
 \title[]{{\color{black}Machine learning, big data and artificial intelligence -- Block 9}}
 \author[]{M{\aa}ns Magnusson\\Department of Statistics, Uppsala University}
-\date{HT 2020}
+\date{HT 2021}
 
 
 \begin{document}
@@ -132,7 +132,7 @@
 \item The {\color{uured} Environment}: Where the agent performs actions.\pause
 \item {\color{uured} Actions}: Made by the agent and affects the environment.\pause
 \item {\color{uured} Reward}: The evaluation of an action. A singular value. Pleasure and pain.\pause
-\item {\color{uured} Return}: The aggregated reward over a long period.\pause
+\item {\color{uured} Return}: The aggregated reward over a long period.
 \end{enumerate}
 
 \end{frame}
@@ -144,7 +144,7 @@
 \begin{enumerate}
 \item Agents:
 \begin{enumerate}
-\item Have a {\color{uured} goal}
+\item Have a {\color{uured} goal} (maximize return)
 \item {\color{uured} Sense} aspect of their environment
 \item Choose {\color{uured} actions}
 \item Possibility to {\color{uured} improve performance over time}
@@ -162,7 +162,7 @@
 \begin{enumerate}
 \item {\color{uured} Policy}: How the agent choose actions. Determines behaviour.
 \item {\color{uured} Model}: The agent's model of the environment. Used for {\color{uured} planning}\pause
-\item {\color{uured} Value function}: The long-term value\pause
+\item {\color{uured} Value function}: The long-term value (the expected long-term return following a policy)
 \end{enumerate}
 \pause
 \begin{itemize}
@@ -372,10 +372,11 @@ Q_T(a) = Q_{T-1} + {\color{uured} \alpha(t)} (R_{t, A_t=a} - Q_{T-1}(a))
 \item Explore based on our uncertainty of $Q_t(a)$\pause
 \item The Upper-Confidence-Bound (UCB) method
 \[
-A_t = \arg \max_a \left( Q_{t} + c \sqrt{\frac{{\color{uured}\hat{\sigma}^2(a)}}{N_t(a)}} \right)
-\]
-\[
 A_t = \arg \max_a \left( Q_{t} + c \sqrt{\frac{{\color{uured} \log t}}{N_t(a)}}  \right)
+\]
+An analogy:
+\[
+A_t = \arg \max_a \left( Q_{t} + c \sqrt{\frac{{\color{uured}\hat{\sigma}^2(a)}}{N_t(a)}} \right)
 \]
 \item Another (Bayesian) alternative is {\color{uured}Thompson Sampling}
 \end{itemize}
@@ -556,7 +557,7 @@ v_{\pi}(s) = \mathbb{E}_\pi(G_t|S_t = s) = \mathbb{E}_\pi\left(\sum^\infty_{k=0}
 \begin{frame}{The Optimal Policy}
 
 \begin{itemize}
-\item A policy $\pi$ is {\color{uured}better} than $\pi'$ if $v_pi(s) \geq v_pi'(s)$ for all $s \in \mathcal{S}$.\pause
+\item A policy $\pi$ is {\color{uured}better} than $\pi'$ if $v_\pi(s) \geq v_{\pi'}(s)$ for all $s \in \mathcal{S}$.\pause
 \item A policy that is better or equal to all other policies is the {\color{uured}optimal policy} $\pi_\star$.\pause
 \item The optimal value function: $v_{\pi_\star}(s) = v_\star(s)$\pause
 \item The optimal policy $\pi_\star$ is greedy wrt $v_{\pi_\star}(s)$: \\The best long term strategy\pause
