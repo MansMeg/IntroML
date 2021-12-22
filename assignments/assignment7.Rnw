@@ -169,7 +169,7 @@ names(crp) <- c("paragraph", "text")
 s <- SimpleCorpus(VectorSource(crp$text))
 m <- DocumentTermMatrix(s)
 @
-\item To compute a topic model with ten topics, we use a Gibbs sampling algorithm. Below is an example of how we can run a Gibbs sampler for 1000 iterations. Run your topic model for 2000 iterations.
+\item To compute a topic model with ten topics, we use a Gibbs sampling algorithm. Below is an example of how we can run a Gibbs sampler for 2000 iterations. Run your topic model for 2000 iterations.
 <<eval=FALSE>>=
 library(topicmodels)
 K <- 10
