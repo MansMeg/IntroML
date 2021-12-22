@@ -158,6 +158,8 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
 \item Use your model to compute the accuracy, precision and recall on the hold-out test set included with the MNIST data. If you get a lower accuracy (or higher error) than on the validation set (or higher error), why is this the case?
 \end{enumerate}
 
+\newpage
+
 \section{* A simple neural network from scratch}
 
 \input{distinction_task.tex}
