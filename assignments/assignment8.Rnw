@@ -157,7 +157,7 @@ nonstationary_bandit(2, t = 1000)
 nonstationary_bandit(1, t = 1)
 nonstationary_bandit(1, t = 1000)
 @
-\item Implement a greedy policy algorithm that always chooses the greedy action, according to Eq. (2.2) in \citet{sutton2020reinforcement}. The function called \texttt{greedy\_algorithm(Q1, bandit)} should input a vector of initial estimates $Q_1$ and a reward function. Then the algorithm should run the bandit for 1000 steps and return the following; (1)The rewards $R_t$ for all steps, (2) the mean reward over all the 1000 steps, (3) the value estimates $Q_t(a)$, and (4) the total number of choices of each action $N_t(a)$. Here is an example of how it could work.
+\item Implement a greedy policy algorithm that always chooses the greedy action, according to Eq. (2.2) in \citet{sutton2020reinforcement}. The function called \texttt{greedy\_algorithm(Q1, bandit)} should input a vector of initial estimates $Q_1$ and a reward function. Then the algorithm should run the bandit for 1000 steps and return the following; (1) The rewards $R_t$ for all steps, (2) the mean reward over all the 1000 steps, (3) the value estimates $Q_t(a)$, and (4) the total number of choices of each action $N_t(a)$. Here is an example of how it could work. \emph{Note!} This is a random algorithm so you might get a different result, even if you use the exact same seed and have a correct algorithm.
 <<eval = FALSE>>=
 Q1 <- rep(0, 5)
 set.seed(4711)
@@ -239,9 +239,9 @@ nonstationary_algorithm(Q1, stationary_bandit, epsilon = 0.1, alpha = 0.2)
 ## [1]  0.219634021  1.848627000 ...
 @
 
-\item Run each algorithm 100 times/simulations and compute the mean of the mean rewards (for each simulation) for each of the algorithms. \emph{Note!} The algorithm should run 1000 steps for each of the 100 simulations. Do this for both the stationary and non-stationary bandit. For the non-stationary algorithm, try $\alpha=0.5$ and $\alpha=0.9$ and for the UCB, try $c=0.5$ and $c=2$. Summarize all the results in a table.
+\item Run each algorithm 500 times/simulations and compute the mean of the mean rewards (for each simulation) for each of the algorithms. \emph{Note!} The algorithm should run 1000 steps for each of the 500 simulations. Do this for both the stationary and non-stationary bandit. For the non-stationary algorithm, try $\alpha=0.5$ and $\alpha=0.9$. Summarize all the results in a table.
 \item What are your conclusions from these results? Which algorithm seems to be the best one, and why?
-\item Pot the average reward per step for the 100 runs for the worst and best algorithm, such as in Figure 2.2. in \citet{sutton2020reinforcement}. Use the output $R_t$ from your implementations.
+\item Pot the average reward per step for the 500 runs for the worst and best algorithm, such as in Figure 2.2. in \citet{sutton2020reinforcement}. Use the output $R_t$ from your implementations.
 \end{enumerate}
 
 \section{Markov Decision Processes}
@@ -267,7 +267,6 @@ always_search_policy(mdp)
 @
 \item Now implement a function \texttt{charge\_when\_low\_policy(MDP)} that takes an MPD specified above and run the MDP for 1000 steps. The policy should be that the agent always chooses to recharge if the energy level is low and always search if the energy level is high. The function should return the same thing as above.
 \item Compare the two policies for MDP with $\alpha = \beta = 0.9$ and $\alpha = \beta = 0.4$ with $r_\text{wait} = 0.1 \text{ and } r_\text{search} = 1$. Run at least ten times per policy and compute the mean reward. What policy is prefered in the two MDPs?
-
 \end{enumerate}
 
 
@@ -348,7 +347,7 @@ gradient_bandit_algorithm(stationary_bandit, alpha = 0.1)
 ## [1]  0.62963402  0.94862700 -0.30089716 ...
 @
 \item Test to run the gradient bandit with $\alpha = 0$. What happens and why?
-\item Run the gradient bandit and the UCB algorithms 100 times/simulations and compute the mean of the mean rewards (for each simulation) for each of the algorithms. \emph{Note!} The algorithm should run 1000 steps for each of the 100 simulations. Use both the stationary and non-stationary bandit. For the UCB, try $c=0.5$ and $c=2$ and for the gradient bandit $\alpha = 0.1$ and $\alpha = 1$. Summarize all the results in a table and compare the results with the previous bandit algorithms. Which algorithm performs the best?
+\item Run the gradient bandit and the UCB algorithms 500 times/simulations and compute the mean of the mean rewards (for each simulation) for each of the algorithms. \emph{Note!} The algorithm should run 1000 steps for each of the 500 simulations. Use both the stationary and non-stationary bandit. For the UCB, try $c=0.5$ and $c=2$ and for the gradient bandit $\alpha = 0.1$ and $\alpha = 1$. Summarize all the results in a table and compare the results with the previous bandit algorithms. Which algorithm performs the best?
 \end{enumerate}
 
 % TODO (later): Instead implement a full MDP
