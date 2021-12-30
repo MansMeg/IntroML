@@ -201,7 +201,7 @@ As we have seen previously, for images, we can get better performance using Conv
 \item Now implement a four-layer (encoder and decoder) convolutional neural network with two latent dimensions. There should be 50 filters in each convolutional layer. \emph{Note!} A dense layer should be included as the last step in the encoder and the first step in the decoder. These layers should have 100 hidden units. You should end up with a variational autoencoder with roughly 2M parameters.
 \item Print the model and include it in your report. How many weights (parameters) are used to compute $\mu$ and $\sigma^2$ for the latent variables? What layer represent the latent variables?
 \item Now train your CNN variational autoencoder on the MNIST data for five epochs. Visualize the latent state for the different numbers. How do you interpret this result? Compare these results with the results from the feed-forward autoencoder.
-\item Finally, encode all the 2:s in the MNIST test dataset to the latent state using your decoder (Hint!, see \texttt{y\_test} for numbers). What is the mean of the digits "2" in the two latent dimensions?
+\item Finally, encode all the 2:s in the MNIST test dataset to the latent state using your encoder (Hint!, see \texttt{y\_test} for numbers). What is the mean of the digits "2" in the two latent dimensions?
 \item Visualize the mean value of the digit 2 of the latent state as a 28 by 28-pixel image using your decoder.
 \end{enumerate}
 
