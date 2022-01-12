@@ -186,15 +186,13 @@ Each student will review one other group's project report. The project review sh
 
 Presentation details:
 \begin{itemize}
-  \item Each project needs to be presented in addition to submitting the notebook
+  \item Each project needs to be presented in addition to submitting the mini-project report
   \item The presentation should be high level, but sufficiently detailed information should be readily available to facilitate answering questions from the audience
   \item Within each session, about four groups, will be presenting
   \item For 1-2 person groups, the presentation should be 10 minutes
   \item For three-person groups, the presentation should be 15 minutes
   \item Afterwards, questions will be asked first by other students and then by attending teachers.
-  \item Each student will be responsible for (critically) discussing/commenting on one other project report.
-  \item Grading of the presentation will be done by the attending teachers using standardized grading instructions.
-  \item Presenters' ID cards will be checked by the teacher to ensure the right persons are presenting
+  \item Reviewers are anonymous so as a reviewer you are \emph{not} expected to do any additional questions.
 \end{itemize}
 
 Specific presentation recommendations:
@@ -202,7 +200,8 @@ Specific presentation recommendations:
   \item The first slide needs to include the project title and names of the group members.
   \item The chosen methods(s) should be explained and justified (you are \textit{not} holding this presentation for a hypothetical customer who doesn't care about the details of your methods).
   \item Big enough font size for text and figure labels should be used to make it easy for the audience to read slides.
-  \item The last slide needs to include to conclusion and names of the group members.
+  \item A good rule of thumb is to expect one slide to take 2 minutes to present.
+  \item The last/final slide needs to include your conclusion and names of the group members.
 \end{itemize}
 
 \end{document}
