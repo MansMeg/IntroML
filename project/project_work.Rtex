@@ -119,6 +119,8 @@ The following data sets should not be used in the project:
 \subsection{Project Proposal}
 Students need to turn in a half-page project and data description by the end of block six and get approval for the proposed project. The project proposal must include the following pieces.
 
+\emph{The project proposal should include all the group members names!}
+
 \begin{itemize}
   \item Description of the problem.
   \item Description of the data.
@@ -128,12 +130,16 @@ Students need to turn in a half-page project and data description by the end of 
 To minimize the project work's total workload, I suggest you see the proposal as a first draft of Sections 1 and 2 of the project report (see below). Then you will already have written the first part of your project report.
 
 \subsection{Project Report}
+\label{project_report}
 
 The Project outcome is a report in the ICML paper format that can be found \href{https://icml.cc/Conferences/2020/StyleAuthorInstructions}{[here]}.
 The ICML format is also available in overleaf here: \href{https://www.overleaf.com/latex/templates/icml-2019-submission-template/vkqjjvzjvhdc}{[here]}
 
+\emph{The project report should be anonymous!}
+
 The paper should consist of \emph{four (4) pages}, excluding references and eventual appendices. The paper should include the following four (4) sections:
 \begin{enumerate}
+  \item Abstract
   \item Introduction (roughly 0.5 pages)
   \begin{itemize}
     \item Description of the problem.
@@ -157,9 +163,12 @@ The paper should consist of \emph{four (4) pages}, excluding references and even
   \end{itemize}
 \end{enumerate}
 
-Additional requirements for the report:
+Additional requirements and hints for the report:
 \begin{enumerate}
 \item All Figures using color should have a color-blind friendly color palette. See \href{http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette}{here} and \href{https://rdrr.io/cran/ggthemes/man/colorblind.html}{here}.
+\item Befor you turn in the project, do a language check with a tool such as Grammarly. A project will poor english (errors that would have been spotted with a tool such as Grammarly) will affect your grade downwards.
+\item The final report should like like a research paper, i.e. try to avoid bullet list and get a good flow in the text.
+\item You should use correct reference systems. A tip is to use \texttt{\\citet}, \texttt{\\citep}, and \texttt{\\bibtex}. This will also simplyfy your future thesis work.
 \end{enumerate}
 
 
@@ -203,6 +212,35 @@ Specific presentation recommendations:
   \item A good rule of thumb is to expect one slide to take 2 minutes to present.
   \item The last/final slide needs to include your conclusion and names of the group members.
 \end{itemize}
+
+\subsection{Project Grading}
+
+Below are the criterias used when grading the mini-projects. Some general comments on grading are:
+
+\begin{enumerate}
+\item The more students the higher the quality expected of the project, i.e. a better report is expected from a three-student report than a two-student report.
+\end{enumerate}
+
+
+To pass the report (G), the following criterias should be fulfilled:
+
+\begin{enumerate}
+\item The report should be turned in and follow the general outline of Section \ref{project_report}.
+\item show basic knowledge and understanding of the core concepts of the course by using concepts correctly
+\item show an understanding in when certain methods should be used or not, and how
+\item use at least two (2) differnt methods (or architectures) and compare them in a correct way
+\item state what has been done in the report with clarity, good english and rigour so it is easy for a reader to understand and follow the paper.
+\item correctly use references in the report following the guideline of the template in Section \ref{project_report}
+\end{enumerate}
+
+To pass the mini-project with distinction (VG), the following criterias also apply in addition to the criteria for passing the report above:
+
+\begin{enumerate}
+\item show deep knowledge knowledge and understanding of the core concepts and how to adapt them in a good way to a new situation
+\item connect the analysis in the report with other areas in statistics or machine learning or previous courses taken in the masters program, i.e. not just repeat what has been done in previous labs.
+\end{enumerate}
+
+
 
 \end{document}
 
