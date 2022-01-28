@@ -1,4 +1,4 @@
-# Introduction Course in Machine Learning at Uppsala University
+# Introduction Course in Machine Learning (2ST122) at Uppsala University 
 
 Welcome to the GitHub repo for the introduction course in Introduction to Machine Learning at Uppsala University. This repo contains all necessary material and information for the course.
 
