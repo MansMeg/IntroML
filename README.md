@@ -16,7 +16,7 @@ Roughly the course assumes basic knowledge in linear algebra, calculus, probabil
 You can find a rough course plan with reading instructions [here](https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing).
 
 ## Schedule
-You can find the course schedule on TimeEdit [here](https://cloud.timeedit.net/uu/web/schema/) (search for course code 2ST122).
+You can find the course schedule on TimeEdit [here](https://cloud.timeedit.net/uu/web/schema/) (search for course code 2ST129).
 
 ## Grading
 The course is graded with U (Underkänd/Fail), G (Godkänd/Pass), VG (väl godkänd/Pass with distinction).
