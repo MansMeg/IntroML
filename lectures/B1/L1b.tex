@@ -21,14 +21,14 @@
 % \usepackage[english]{babel}
 
 \usepackage{array}
-\usepackage{multirow}
+%\usepackage{multirow}
 
  \setbeamertemplate{footline}{\hfill\insertframenumber/\inserttotalframenumber}
 
 
 %library(tinytex)
 %tlmgr_install('csquotes')
-\usepackage{csquotes}
+%\usepackage{csquotes}
 
 %\usepackage{bm}
 %\usepackage{natbib}
@@ -49,9 +49,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \setlength{\parskip}{3mm}
-\title[]{{\color{black}Machine learning, big data and artificial intelligence -- Block 2}}
+\title[]{{\color{black}Machine learning, big data and artificial intelligence -- Block 1}}
 \author[]{M{\aa}ns Magnusson\\Department of Statistics, Uppsala University}
-\date{November 2020}
+\date{November 2022}
 
 
 \begin{document}
@@ -102,13 +102,13 @@ The focus is usually \emph{estimation} or \emph{attribution}.
 
 \begin{itemize}
 
-\item We are interested in how our model work when predicting a new observation \\
+\item We are interested in how our model work when predicting a new observation
 
-\begin{displayquote}
-The generalization performance of a learning method relates to its prediction capability on \emph{independent} test data.
-
-(Hastie et al, 2017, p. 219)
-\end{displayquote}
+%\begin{exampleblock}{}
+%  {\large ``The generalization performance of a learning method relates to its prediction capability on \emph{independent} test data.''}
+%  \vskip5mm
+%  \hspace*\fill{\small--- Hastie et al., (2017, p. 219)}
+%\end{exampleblock}
 
 \pause
 
@@ -137,11 +137,21 @@ L(y_0,\hat{y}_0)
 \item Regression problems:
 \[
     L(y_0,\hat{y}_0) =
-\begin{cases}
-    |y_0 - \hat{y}_0|\\
-    (y_0 - \hat{y}_0)^2
-\end{cases}
-\]\pause
+%\begin{cases}
+%    |y_0 - \hat{y}_0|\\
+%    (y_0 - \hat{y}_0)^2
+%\end{cases}
+\]
+% TODO: Fix!
+%  \[
+%     L(y_0,\hat{y}_0) = \left\{\begin{array}{lr}
+%        x(n), & \text{for } 0\leq n\leq 1\\
+%        x(n-1), & \text{for } 0\leq n\leq 1\\
+%        x(n-1), & \text{for } 0\leq n\leq 1
+%        \end{array}\right\} = xy
+%  \]
+
+\pause
 \item Language models: Perplexity, Glue, Human annotation
 \end{itemize}
 
@@ -153,18 +163,18 @@ L(y_0,\hat{y}_0)
 
 \begin{frame}{Confusion Matrix}
 
-
-\noindent
+% TODO: Fix!
+%\noindent
 %\centering
-\renewcommand\arraystretch{1.5}
-\setlength\tabcolsep{0pt}
-\begin{tabular}{c >{\bfseries}r @{\hspace{0.7em}}c @{\hspace{0.4em}}c}
-  \multirow{10}{*}{\parbox{1.1cm}{\bfseries\raggedleft Actual\\ Value}} &
-    & \multicolumn{2}{c}{\bfseries Prediction Outcome} \\
-  & & $p_{p}$ & $n_{p}$ \\
-  & $p_{a}$ & \MyBox{True}{Positive} & \MyBox{False}{Negative} \\[2.4em]
-  & $n_{a}$ & \MyBox{False}{Positive} & \MyBox{True}{Negative}
-\end{tabular}
+%\renewcommand\arraystretch{1.5}
+%\setlength\tabcolsep{0pt}
+%\begin{tabular}{c >{\bfseries}r @{\hspace{0.7em}}c @{\hspace{0.4em}}c}
+%  \multirow{10}{*}{\parbox{1.1cm}{\bfseries\raggedleft Actual\\ Value}} &
+%    & \multicolumn{2}{c}{\bfseries Prediction Outcome} \\
+%  & & $p_{p}$ & $n_{p}$ \\
+%  & $p_{a}$ & \MyBox{True}{Positive} & \MyBox{False}{Negative} \\[2.4em]
+%  & $n_{a}$ & \MyBox{False}{Positive} & \MyBox{True}{Negative}
+%\end{tabular}
 
 
 \end{frame}
