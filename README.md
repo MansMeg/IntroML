@@ -43,7 +43,8 @@ Below are the main references for the course. All books are available free onlin
 
 In addition, the following material will also be included (note that you might need to access the material through the Uppsala University network):
 
-- Efron, B. (2020). Prediction, Estimation, and Attribution. Journal of the American Statistical Association, 115(530), 636-655. [online access](https://www.tandfonline.com/doi/full/10.1080/01621459.2020.1762613) *Note!* You need to be on the Uppsala University network to access the article.
+- Ruder (2016). An overview of gradient descent optimization algorithms. [online access](https://arxiv.org/abs/1609.04747)
+- Efron (2020). Prediction, Estimation, and Attribution. Journal of the American Statistical Association, 115(530), 636-655. [online access](https://www.tandfonline.com/doi/full/10.1080/01621459.2020.1762613) *Note!* You need to be on the Uppsala University network to access the article.
 - Salganik, M. J. et al. Measuring the predictability of life outcomes with a scientific mass collaboration. Proceedings of the National Academy of Sciences Apr 2020, 117 (15) 8398-8403; DOI: 10.1073/pnas.1915006117 [online access](https://www.pnas.org/content/117/15/8398)
 - Precision and Recall at [Wikipedia](https://en.wikipedia.org/wiki/Precision_and_recall).
 - Kingma DP and Welling M. An Introduction to Variational Autoencoders, 2019. [online access](https://arxiv.org/pdf/1906.02691.pdf)
