@@ -3,7 +3,7 @@
 \usepackage[english]{babel} % Anpassa efter svenska. Ger svensk logga.
 \usepackage[utf8]{inputenc} % Anpassa efter linux
 \usepackage{graphicx}
-\usetheme{Uppsala}
+\usepackage{../common/beamerthemeUppsala}
 %\usecolortheme{UU} % Anpassa efter UU:s frger och logga
 %\hypersetup{pdfpagemode=FullScreen} % Adobe Reader ska ppna fullskrm
 \setbeamertemplate{itemize items}[circle]
@@ -27,21 +27,18 @@
 
 %library(tinytex)
 %tlmgr_install('csquotes')
-\usepackage{csquotes}
+%\usepackage{csquotes}
 
-%\usepackage{bm}
-%\usepackage{natbib}
-\newcommand{\bfm}[1]   {\mbox{\boldmath{${#1}$}}}
-\newcommand{\Prob}   {\mbox{\textnormal{P}}}
-\def\eqd{\,{\buildrel d \over =}\,}
-\DeclareMathOperator{\E}{\mathbb{E}}
+
+% Read in commands
+\input{../common/commands.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \setlength{\parskip}{3mm}
-\title[]{{\color{black}Machine learning, big data and artificial intelligence -- Block 8}}
+\title[]{{\color{black}Machine learning -- Block 7}}
 \author[]{M{\aa}ns Magnusson\\Department of Statistics, Uppsala University}
-\date{HT 2021}
+\date{\currentsemester}
 
 
 \begin{document}
@@ -711,14 +708,14 @@ Relies on the {\color{uured} bag-of-word} assumption
 \begin{frame}
 \frametitle{}
 
-\begin{displayquote}
+%\begin{displayquote}
 Closing arguments were heard yesterday in the Federal bankruptcy fraud trial of Stephen J. Sabbeth, whose legal problems have raised doubts about his ability to continue as leader of the Nassau County Democratic Party.
 
 \medskip
 
 Mr. Sabbeth is charged with trying to conceal \$750,000 from his bank creditors by hiding the money in a secret account in his wife's maiden name, rather than use it to pay creditors when his lumber business went into bankruptcy 10 years ago.
 
-\end{displayquote}
+%\end{displayquote}
 
 \hspace{10mm} -- The New York Times 25th of Febuary 1999
 
