@@ -9,7 +9,7 @@ The course is given to second-year master students in the Statistics masters pro
 The course takes roughly 20h per week, if the student aims for VG this might take longer. In total the course should take roughly 200h.
 
 ## Prerequisites and Course Goals
-See course syllabus [here](https://www.uu.se/en/admissions/freestanding-courses/course-syllabus/?kpid=39843&type=1).
+See course syllabus [here](https://www.uu.se/en/admissions/freestanding-courses/course/?kKod=2ST129&typ=1).
 
 Roughly the course assumes basic knowledge in linear algebra, calculus, probability theory and programming (with R or Python).
 
