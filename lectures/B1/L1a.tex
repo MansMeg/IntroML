@@ -52,7 +52,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\begin{frame}{This (two) week's lectures}
+\begin{frame}{This block}
 \begin{itemize}
 \item What is AI and Machine Learning?
 \item Course Information and Practicalities
@@ -135,6 +135,24 @@ Learning from data. -- Hastie, Tibshirani, Friedman (2009)
 
 \end{frame}
 
+\begin{frame}{Different names for the same things}
+
+\begin{itemize}
+\item Machine learning has developed in parallel with Statistics
+\item Common with \uured{different names for the same thing}:
+\begin{enumerate}
+\item Time series classification (ML) vs. Functional data classification (Stats)\pause
+\item Time series regression (ML) vs. Scalar-on-function
+regression (Stats)\pause
+\item Learning (ML) vs. Estimation (Stats)\pause
+\item Weights (ML) vs. Parameters (Stats)\pause
+\item Features (ML) vs. Covariates (Stats)
+\end{enumerate}
+
+\end{itemize}
+
+\end{frame}
+
 
 \begin{frame}{Different flavors of ML}
 
@@ -176,9 +194,14 @@ The aims of this course are that you should:\\[3mm]\pause
 \begin{frame}{Course Outline}
 Two main parts:
 \begin{itemize}
-\item Core Content (9 lecture blocks):
+\item Core Content (8 lecture blocks):
 \begin{itemize}
-\item Supervised learning (6 blocks)
+\item Supervised learning (5 blocks)
+\begin{itemize}
+\item Introduction (1 block)
+\item Tree-based methods (1 block)
+\item Neural Networks (3 block)
+\end{itemize}
 \item Unsupervised learning (2 blocks)
 \item Reinforcement learning (1 block)\pause
 \end{itemize}
@@ -191,21 +214,36 @@ Exact dates and details; see the course page.
 \begin{frame}{Core Content}
 
 \begin{itemize}
-\item Two lectures/computer labs (approx. 4h)
+\item One-two lectures/computer labs (approx. 2-4h)
 \begin{itemize}
 \item Lecture(s): present overall theory and content (overview)
-\item Computer labs(s): Hands on help with the assignment if you get stuck. \emph{Start before the computer assignment!}
+\item Computer labs(s): Hands on help with the assignment if you get stuck. \uured{Start before the computer assignment!}
 \end{itemize}
-\item Online video material and reading assignments (approx. 4-6h, 50-90 pages a week)
+\item \uured{Ask questions!} \pause
+\item Online video material and reading assignments (approx. 2-3h, 50-90 pages a week)
 \item \emph{Note!} There might be some overlap between reading instructions.
-\item An individual computer assignment (approx. 12-16h). Deadline Sundays 23.59.\pause
+\item An individual computer assignment (approx. 14-16h). Deadline Sundays 23.59.\pause
 \item Recommended workflow for each block
 \begin{itemize}
 \item Do the reading assignments
+\item Attend the lecture (optional) \uured{to ask questions!}
 \item Watch the videos (although, optional)
 \item Do the computer assignment
 \end{itemize}
 \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Examination}
+
+\begin{enumerate}
+\item To pass (G): All labs, mini-project, and project review need to be passed (70\%)\pause
+\item To pass with distinction (VG): 6/10 VG points\pause
+\item Each assignment has an extra (VG) task worth 1 VG point.\pause
+\item The mini-project is worth 2 VG-points (if it is passed with distinction).
+\item Ph.D. students: I suggest you get VG to pass the course. Make the project a potential paper.
+\end{enumerate}
 
 \end{frame}
 
@@ -216,30 +254,48 @@ Exact dates and details; see the course page.
 \item Main part of the course\\Learning by doing
 \item Machine learning = Statistics + Computer Science\\Hence a lot of programming\pause
 \item Both implementation of core components and state-of-the-art methods\pause
-\item \emph{Warning!} There might be bugs in the assignments!\pause
-\item All labs can be turned in a second time. Deadline last day of course.
+\item \emph{Warning!} There might be bugs in the assignments! \uured{Don't hesitate to ask questions!}\pause
+\item All labs can be turned in a three times. 2nd deadline last day of course. 3rd deadline approx 2-4 weeks after the course. \uured{If failed, resubmit right away!}
 \item We will mark and return each assignment within 10 working days.
-\item \emph{Important!} Do not write your name anywhere and do the assignment evaluation!
+\item \emph{Important!} Don't write your name anywhere and do the assignment evaluation!\pause
+\item \emph{Important!} Don't \uured{show your assignment} to any other student. But feel free to discuss!
 \end{enumerate}
 
 \end{frame}
+
+
+\begin{frame}{Computer Assignments}
+
+\begin{figure}[h]
+\caption{Workload last year to pass (G)}
+\centering
+\includegraphics[width=0.9\textwidth]{figs/G.png}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}{Computer Assignments}
+
+\begin{figure}[h]
+\caption{Workload last year to pass with distinction (VG)}
+\centering
+\includegraphics[width=0.9\textwidth]{figs/VG.png}
+\end{figure}
+
+\end{frame}
+
 
 \begin{frame}{Mini-project}
 
 \begin{itemize}
 \item See project instructions on webpage for details.\pause
-\item Supervised problem of choice on real data.
+\item \uured{Supervised problem} of choice on real data.
 \item 2-3 students.\pause
 \item Supply a half-page project proposal of data and problem at the end of block 6.\pause
 \item Project will last two weeks (half time) - but start earlier.
 \item Approximate 40 hours of work \emph{per student}.\pause
 \item The project should result in a 4 page report (PDF) using the ICML LaTeX template (see course page).
 \item Project oral presentation (10-15 minutes)\pause
-\item Each student will review one other project:
-\begin{enumerate}
-\item Write a 1-2 page review of the report.
-\item Discuss at the oral presentations.
-\end{enumerate}
 \end{itemize}
 \end{frame}
 
@@ -248,43 +304,28 @@ Exact dates and details; see the course page.
 
 \begin{itemize}
 \item Course page: Github -- please do a PR if something is wrong!\pause
-\item Communication: Course Slack\pause
 \item Acknowledgements: M{\aa}ns Thulin, Josef Wilzén, Anders Eklund\pause
 \item Schedule: Time Edit/Studium
 \item Assignments: Studium\pause
 \item Literature
 \begin{itemize}
-\item Hastie, Tibshirani \& Friedman (2009). \emph{Elements of Statistical Learning}. Springer. Available at\\\texttt{https://web.stanford.edu/$\sim$hastie/ElemStatLearn/}
-\item Chollet \& Allaire (2018). \emph{Deep Learning with R}. Manning. Available for reading at\\\texttt{https://www.manning.com/books/deep-learning-\\with-r}
-\item Goodfellow, Bengio \& Courville (2017). \emph{Deep Learning}. Available at \\\texttt{https://www.deeplearningbook.org/}
+\item Hastie, Tibshirani \& Friedman (2009). \emph{Elements of Statistical Learning}.
+\item Chollet \& Allaire (2018) \emph{Deep Learning with R}.
+\item Goodfellow, Bengio \& Courville (2017) \emph{Deep Learning}.
+\item Sutton and Barto (2020) \emph{Reinforcement learning: An introduction}
 \item Additional articles, tuturials, videos etc. posted on course (github) homepage
 \end{itemize}
 \end{itemize}
 
 \end{frame}
 
-\begin{frame}{Examination}
-
-\begin{enumerate}
-\item To pass (G): All labs, mini-project, and project review need to be passed\pause
-\item To pass with distinction (VG): 7/10 VG points\pause
-\item Each assignment has an extra (VG) task worth 1 VG point.\pause
-\item The mini-project is worth 2 VG-points (if it is passed with distinction).
-\item Ph.D. students: I suggest you get VG to pass the course. Make the project a potential paper.
-\end{enumerate}
-
-
-
-\end{frame}
 
 
 \begin{frame}{Course improvements since last time}
 
 \begin{itemize}
-\item Optional VG assignments and clearer info on how to get VG
 \item More even burden (hopefully)
 \item General updates of unclear parts in assignments
-\item General question in each assignment (4-5 paragraphs)
 \item \emph{Note!} There can be some new bugs after these updates.
 \end{itemize}
 

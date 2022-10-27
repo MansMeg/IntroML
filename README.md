@@ -6,7 +6,7 @@ Welcome to the GitHub repo for the introduction course in Introduction to Machin
 The course is given to second-year master students in the Statistics masters program. 
 
 ## Expected workload
-The course takes roughly 20h per week, if the student aims for VG this might take longer. In total the course should take roughly 200h.
+The course takes roughly 20h per week. In total the course should take roughly 200h. If the student aims for VG more time might be needed. 
 
 ## Prerequisites and Course Goals
 See course syllabus [here](https://www.uu.se/en/admissions/freestanding-courses/course/?kKod=2ST129&typ=1).
@@ -24,7 +24,11 @@ The course is graded with U (Underkänd/Fail), G (Godkänd/Pass), VG (väl godk�
 
 To pass, you should pass all assignments and the mini-project. 
 
-To get the grade VG on the course, a total of 6 or more VG points is needed. Each assignment has an additional task to complete to get VG on the assignment (and one VG-point). If the final mini-project gets VG, the students are awarded 2 VG points for the mini-project.
+To get the grade VG on the course, a total of 6 or more VG points is needed. Each assignment has an additional task to complete to get VG on the assignment (and one VG-point). If the final mini-project gets VG, the students are awarded 2 VG points for the mini-project. VG-points will only be awarded on the first deadline of the assignment.
+
+Note that aiming for VG might mean that you need to put in more hours than the expected 20h per week. 
+
+be more clear about VG is probably going to mean that you need to do more if you are not very skilled.
 
 
 ## Course Literature and Video Material
@@ -97,7 +101,7 @@ Each week an individual computer assignment is done with a focus on implementing
 
 Students should return the computer assignments no later than **Sunday 23.59 each week**. A second possibility to turn in assignments is possible at the end of the course. For a detailed list of deadlines, see the [rough course plan](https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing).
 
-After the last (second) possible time to turn in the assignment no more chances will be given. In this case, you will be failed on the course and you will need to retake the course next year.
+There are two complementary turn-ins of assignments, the last day of the course and roughly 2-4 weeks after the course ends. After the last possible time to turn in the assignment no more chances will be given. In this case, you will be failed on the course and you will need to retake the course next year.
 
 Each assignment will be graded and evaluated within 10 working days.
 
