@@ -3,7 +3,8 @@
 \usepackage[english]{babel} % Anpassa efter svenska. Ger svensk logga.
 \usepackage[utf8]{inputenc} % Anpassa efter linux
 \usepackage{graphicx}
-\usetheme{Uppsala}
+\usepackage{../common/beamerthemeUppsala}
+%\usetheme{Uppsala}
 %\usecolortheme{UU} % Anpassa efter UU:s frger och logga
 %\hypersetup{pdfpagemode=FullScreen} % Adobe Reader ska ppna fullskrm
 \setbeamertemplate{itemize items}[circle]
@@ -25,31 +26,13 @@
 
  \setbeamertemplate{footline}{\hfill\insertframenumber/\inserttotalframenumber}
 
-
-%library(tinytex)
-%tlmgr_install('csquotes')
-%\usepackage{csquotes}
-
-%\usepackage{bm}
-%\usepackage{natbib}
-\newcommand{\bfm}[1]   {\mbox{\boldmath{${#1}$}}}
-\newcommand{\Prob}   {\mbox{\textnormal{P}}}
-\def\eqd{\,{\buildrel d \over =}\,}
-\DeclareMathOperator{\E}{\mathbb{E}}
-
-
-\newcommand\MyBox[2]{
-  \fbox{\lower0.75cm
-    \vbox to 1.7cm{\vfil
-      \hbox to 1.7cm{\hfil\parbox{1.4cm}{#1\\#2}\hfil}
-      \vfil}%
-  }%
-}
+% Read in commands
+\input{../common/commands.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \setlength{\parskip}{3mm}
-\title[]{{\color{black}Machine learning, big data and artificial intelligence -- Block 1}}
+\title[]{{\color{black}Machine learning -- Block 1(b)}}
 \author[]{M{\aa}ns Magnusson\\Department of Statistics, Uppsala University}
 \date{November 2022}
 

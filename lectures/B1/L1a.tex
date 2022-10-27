@@ -12,7 +12,8 @@
     urlcolor=cyan,
 }
 
-\usetheme{Uppsala}
+\usepackage{../common/beamerthemeUppsala}
+%\usetheme{Uppsala}
 %\usecolortheme{UU} % Anpassa efter UU:s frger och logga
 %\hypersetup{pdfpagemode=FullScreen} % Adobe Reader ska ppna fullskrm
 \setbeamertemplate{itemize items}[circle]
@@ -30,18 +31,16 @@
 % \usepackage[english]{babel}
  \setbeamertemplate{footline}{\hfill\insertframenumber/\inserttotalframenumber}
 
-%\usepackage{bm}
-%\usepackage{natbib}
-\newcommand{\bfm}[1]   {\mbox{\boldmath{${#1}$}}}
-\newcommand{\Prob}   {\mbox{\textnormal{P}}}
-\def\eqd{\,{\buildrel d \over =}\,}
+% Read in commands
+\input{../common/commands.tex}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \setlength{\parskip}{3mm}
-\title[]{{\color{black}Machine learning, big data and artificial intelligence -- Block 1}}
+\title[]{{\color{black}Machine learning -- Block 1(a)}}
 \author[]{M{\aa}ns Magnusson\\Department of Statistics, Uppsala University}
-\date{November 2021}
+\date{November 2022}
 
 
 \begin{document}
