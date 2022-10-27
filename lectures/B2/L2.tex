@@ -3,7 +3,8 @@
 \usepackage[english]{babel} % Anpassa efter svenska. Ger svensk logga.
 \usepackage[utf8]{inputenc} % Anpassa efter linux
 \usepackage{graphicx}
-\usetheme{Uppsala}
+\usepackage{../common/beamerthemeUppsala}
+%\usetheme{Uppsala}
 %\usecolortheme{UU} % Anpassa efter UU:s frger och logga
 %\hypersetup{pdfpagemode=FullScreen} % Adobe Reader ska ppna fullskrm
 \setbeamertemplate{itemize items}[circle]
@@ -22,23 +23,15 @@
  \setbeamertemplate{footline}{\hfill\insertframenumber/\inserttotalframenumber}
 
 
-%library(tinytex)
-%tlmgr_install('csquotes')
-\usepackage{csquotes}
-
-%\usepackage{bm}
-%\usepackage{natbib}
-\newcommand{\bfm}[1]   {\mbox{\boldmath{${#1}$}}}
-\newcommand{\Prob}   {\mbox{\textnormal{P}}}
-\def\eqd{\,{\buildrel d \over =}\,}
-\DeclareMathOperator{\E}{\mathbb{E}}
+% Read in commands
+\input{../common/commands.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \setlength{\parskip}{3mm}
-\title[]{{\color{black}Machine learning, big data and artificial intelligence -- Block 3}}
+\title[]{{\color{black}Machine learning -- Block 2}}
 \author[]{M{\aa}ns Magnusson\\Department of Statistics, Uppsala University}
-\date{November 2021}
+\date{November 2022}
 
 
 \begin{document}
