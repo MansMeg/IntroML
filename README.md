@@ -1,11 +1,12 @@
-# Introduction Course in Machine Learning (2ST122) at Uppsala University 
+# Introduction Course in Machine Learning (2ST129) at Uppsala University 
 
 Welcome to the GitHub repo for the introduction course in Introduction to Machine Learning at Uppsala University. This repo contains all necessary material and information for the course.
 
 ## Course Background 
 The course is given to second-year master students in the Statistics masters program. 
+
 ## Expected workload
-The course takes roughly 15-25h per week, partly depending on wether the student aims for VG or not. In total the course should take roughly 200h.
+The course takes roughly 20h per week, if the student aims for VG this might take longer. In total the course should take roughly 200h.
 
 ## Prerequisites and Course Goals
 See course syllabus [here](https://www.uu.se/en/admissions/freestanding-courses/course-syllabus/?kpid=39843&type=1).
@@ -16,14 +17,14 @@ Roughly the course assumes basic knowledge in linear algebra, calculus, probabil
 You can find a rough course plan with reading instructions [here](https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing).
 
 ## Schedule
-You can find the course schedule on TimeEdit [here](https://cloud.timeedit.net/uu/web/schema/) (search for course code 2ST122).
+You can find the course schedule on TimeEdit [here](https://cloud.timeedit.net/uu/web/schema/) (search for course code 2ST129).
 
 ## Grading
 The course is graded with U (Underkänd/Fail), G (Godkänd/Pass), VG (väl godkänd/Pass with distinction).
 
 To pass, you should pass all assignments and the mini-project. 
 
-To get the grade VG on the course, a total of 7 or more VG points is needed. Each assignment has an additional task to complete to get VG on the assignment (and one VG-point). If the final mini-project gets VG, the students are awarded 2 VG points for the mini-project.
+To get the grade VG on the course, a total of 6 or more VG points is needed. Each assignment has an additional task to complete to get VG on the assignment (and one VG-point). If the final mini-project gets VG, the students are awarded 2 VG points for the mini-project.
 
 
 ## Course Literature and Video Material
@@ -76,21 +77,20 @@ The literature list might change slightly during the course.
 Online course discussions will be held through Slack. See Studium for details on how to log in.
 
 ### Location
-
-The course will have 1-2 guest lectures that the guest lecturers will give through Zoom. Otherwise, the course will be held on campus. You can find information and support for students on Zoom [here](https://mp.uu.se/c/perm/link?p=267521030). 
+The course will have 2 guest lectures that the guest lecturers will give through Zoom. Otherwise, the course will be held on campus. You can find information and support for students on Zoom [here](https://mp.uu.se/c/perm/link?p=267521030). 
 
 ## Teachers
 
-Main Teacher: Måns Magnusson
+Main Teacher: [Måns Magnusson](https://www.mansmagnusson.com/)
 Teaching assistant: Andreas Östling
 
 ## Course structure
 
 ### Main part
 The course consists of rougly 8 blocks (weeks) of material. Each week consists of the following (expected workload in parenthesis):
-- Two lectures/computer labs (approx. 2-4h per week)
-- Online video material and reading assignments (approx. 2-6 h per week)
-- An individual computer assignment (approx. 10-16 h per week)
+- Two lectures/computer labs (approx. 3h per week)
+- Online video material and reading assignments (approx. 4h per week)
+- An individual computer assignment (approx. 13 h per week)
 
 ### Computer assignments
 Each week an individual computer assignment is done with a focus on implementing the main part of the material. Each assignment is completed individually and should follow the computer assignment template.
@@ -102,10 +102,10 @@ After the last (second) possible time to turn in the assignment no more chances 
 Each assignment will be graded and evaluated within 10 working days.
 
 ### Machine Learning, AI and ethics
-A guest lecture will be given on AI and ethics by [Karim Jebari](https://www.iffs.se/en/research/researchers/karim-jebari/).
+A guest lecture will be given on AI and ethics by [Karim Jebari](https://www.iffs.se/en/research/researchers/karim-jebari/) and [Holli Sargeant](https://www.law.cam.ac.uk/people/research-students/h-sargeant/79151).
 
 ## Course Project
-The last two weeks will focus on a course project where 2-3 students choose their data and create a supervised machine learning predictor for a real-world dataset. 
+The last two weeks will focus on a course project where 2-3 students choose their data and create a supervised machine learning predictive model for a real-world dataset. 
 
 You can find details and instructions on the project work [here](https://github.com/MansMeg/IntroML/blob/master/project/).
 
