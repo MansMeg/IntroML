@@ -54,11 +54,11 @@
 \center
 \textsc{\LARGE Uppsala University}\\[1.5cm] % Name of your university/college
 \includegraphics[scale=.2]{files/uu_logo.png}\\[1cm]
-\textsc{\Large Introduction to Machine Learning, Big Data, and AI}\\[0.5cm]
+\textsc{\Large Machine Learning}\\[0.5cm]
 \textsc{\large }\\[0.5cm]
 
 %\HRule \\[0.4cm]
-{ \huge \bfseries Project Instructions}\\[0.4cm] % Title of your document
+{ \huge \bfseries Mini-Project Instructions}\\[0.4cm] % Title of your document
 %\HRule \\[1.5cm]
 
 \vfill
@@ -75,16 +75,18 @@ knitr::opts_chunk$set(size = "small")
 
 \section{Project Instructions}
 
-The last two weeks will focus on a course project where 2-3 students choose data and create a supervised machine learning predictor for a real-world dataset.
+The last two weeks will focus on a course project where 2-3 students choose data and create a supervised machine-learning predictor for a real-world dataset.
 
 Requirements for the projects are:
 \begin{itemize}
 \item Your project should be a supervised learning project.
-\item Real data should be used (see below for details).
-\item Minimally two methods (or two different neural nets) should be compared and evaluated.
+\item Real data should be used (see below for details). Choose a dataset you find interesting!
+\item Minimally, two methods (or two different neural net architectures) should be compared and evaluated.
 \end{itemize}
 
-\emph{For PhD students}: You can choose to make a small project related to your research interest instead. Although, it should still be a 4 page paper output.
+\emph{For PhD students}: You can choose to do a small project related to your research interest instead. Although, it should still be a 4-page paper output.
+
+
 
 \subsection{Suggested Reading}
 
@@ -95,9 +97,12 @@ The project will be a small practical exercise in supervised machine learning. S
 \end{itemize}
 
 \subsection{Project Group and Expected Workload}
-It is possible to have only one student in a group, although this is not recommended. One student group will, in practice, mean additional work due to the requirements of the project.
+It is possible to have only one student in a group, although this is not recommended. One student group will, in practice, mean additional work due to the project's requirements.
 
-The project is expected to take 40h per student in the group. Hence a 3 group project should be the equivalent of a 120h project.
+The project is expected to take 40h per student in the group. Hence a 3-group project should be the equivalent of a 120h project.
+
+\emph{Hint!} If you choose to work alone, try to choose a subject related to your master thesis project.
+
 
 \subsection{Data Sets and Methods Recommendations}
 
@@ -108,7 +113,7 @@ We recommend that you find a dataset you are interested in using yourself. If yo
 \item The machine learning competition site Kaggle: \href{https://www.kaggle.com/}{[here]}
 \end{itemize}
 
-The following data sets should not be used in the project:
+You should not use the following data sets in the project:
 \begin{itemize}
 \item Titanic (R data set)
 \item mtcars (R data set)
@@ -117,15 +122,15 @@ The following data sets should not be used in the project:
 
 
 \subsection{Project Proposal}
-Students need to turn in a half-page project and data description by the end of block six and get approval for the proposed project. The project proposal must include the following pieces.
-
-\emph{The project proposal should include all the group members names!}
+Students must turn in a half-page project and data description in the middle of the course for the proposed project. The project proposal must include the following pieces.
 
 \begin{itemize}
   \item Description of the problem.
   \item Description of the data.
   \item A first idea on potential methods and evaluation.
 \end{itemize}
+
+\emph{The project proposal should include all the group members' names!}
 
 To minimize the project work's total workload, I suggest you see the proposal as a first draft of Sections 1 and 2 of the project report (see below). Then you will already have written the first part of your project report.
 
@@ -135,7 +140,8 @@ To minimize the project work's total workload, I suggest you see the proposal as
 The Project outcome is a report in the ICML paper format that can be found \href{https://icml.cc/Conferences/2020/StyleAuthorInstructions}{[here]}.
 The ICML format is also available in overleaf here: \href{https://www.overleaf.com/latex/templates/icml-2019-submission-template/vkqjjvzjvhdc}{[here]}
 
-\emph{The project report should be anonymous!}
+\emph{The project report should include all the group members' names!}
+
 
 The paper should consist of \emph{between three and a half (3.5) and four (4) pages}, excluding references and eventual appendices. The paper should include the following four (4) sections:
 \begin{enumerate}
@@ -144,11 +150,11 @@ The paper should consist of \emph{between three and a half (3.5) and four (4) pa
   \begin{itemize}
     \item Description of the problem.
   \end{itemize}
-  \item Data and Methods (roughly 1 pages)
+  \item Data and Methods (roughly one page)
   \begin{itemize}
     \item Description of the data.
     \item Description and motivation of the method
-    \item Description of how the evaluation was conducted
+    \item Description of how you conducted the evaluation
   \end{itemize}
   \item Results (roughly 1.5-2 pages)
   \begin{itemize}
@@ -159,37 +165,17 @@ The paper should consist of \emph{between three and a half (3.5) and four (4) pa
   \begin{itemize}
     \item Conclusions from the results. Did the method work as expected?
     \item Discussion of problems and potential improvements
-    \item Discussion of potential ethical issues (in light of the guest lecture).
+    \item Discussion of potential ethical/fairness issues (in light of the guest lecture).
   \end{itemize}
 \end{enumerate}
 
 Additional requirements and hints for the report:
 \begin{enumerate}
-\item All Figures using color should have a color-blind friendly color palette. See \href{http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette}{here} and \href{https://rdrr.io/cran/ggthemes/man/colorblind.html}{here}.
-\item Befor you turn in the project, do a language check with a tool such as Grammarly. A project will poor english (errors that would have been spotted with a tool such as Grammarly) will affect your grade downwards.
-\item The final report should like like a research paper, i.e. try to avoid bullet list and get a good flow in the text.
-\item You should use correct reference systems. A tip is to use \texttt{\\citet}, \texttt{\\citep}, and \texttt{\\bibtex}. This will also simplyfy your future thesis work.
+\item All Figures using colour should have a colour-blind-friendly colour palette. See \href{http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette}{here} and \href{https://rdrr.io/cran/ggthemes/man/colorblind.html}{here}.
+\item Before you turn in the project, do a language check with a tool such as Grammarly. A project with poor English (errors you would have spotted with a tool such as Grammarly) will affect your grade.
+\item The final report should be like a research paper, i.e. try to avoid bullet lists and get a good flow in the text.
+\item You should use the correct reference systems. A tip is to use \texttt{\\citet}, \texttt{\\citep}, and \texttt{\\bibtex}. Using \texttt{\\bibtex} will simplify your future thesis work.
 \end{enumerate}
-
-
-\subsection{Project Review}
-
-Each student will review one other group's project report. The project review should consist of a written report of 1-2 pages using the ICML paper format that can be found \href{https://icml.cc/Conferences/2020/StyleAuthorInstructions}{[here]}. The review \emph{have to} contain the following sections with roughly one to two paragraphs per section.
-
-\begin{enumerate}
-\item Summary and contributions: \\ Briefly summarize the project report and its contributions in one paragraph.
-\item Strengths: \\ Describe the strengths of the work. Examples can be a clever use of the method. An interesting and non-trivial problem.Comparisons of more than one method.
-\item Weaknesses: \\ Describe the weaknesses of the work. Examples can be a lack of reproducibility, poorly chosen method, or evaluation.
-\item Correctness: \\ Are the claims and methods correct? Is the empirical methodology correct?
-\item Clarity: \\ Is the paper well written? Is it easy to follow or understand the report?
-\item Formatting: \\ Is the paper correctly formated, and are the required content included in the project report?
-\item Ethical considerations: \\ Does the report raise potential ethical concerns? Does methods, applications, or data create or reinforce unfair bias or have a primary purpose of harm or injury. If so, please explain briefly.
-\end{enumerate}
-
-
-\emph{Note} Reviewing others' work is an essential part of the scientific process. These reviewer guidelines have been in large part been taken from the NeurIPS reviewer guidelines that you can find here:
-\href{https://nips.cc/Conferences/2020/PaperInformation/ReviewerGuidelines}{NeurIPS reviewer guidelines}
-
 
 \subsection{Project Presentations}
 
@@ -201,45 +187,43 @@ Presentation details:
   \item For 1-2 person groups, the presentation should be 10 minutes
   \item For three-person groups, the presentation should be 15 minutes
   \item Afterwards, questions will be asked first by other students and then by attending teachers.
-  \item Reviewers are anonymous so as a reviewer you are \emph{not} expected to do any additional questions.
 \end{itemize}
 
 Specific presentation recommendations:
 \begin{itemize}
   \item The first slide needs to include the project title and names of the group members.
   \item The chosen methods(s) should be explained and justified (you are \textit{not} holding this presentation for a hypothetical customer who doesn't care about the details of your methods).
-  \item Big enough font size for text and figure labels should be used to make it easy for the audience to read slides.
+  You should use \item Big enough font size for text and figure labels to make it easy for the audience to read slides.
   \item A good rule of thumb is to expect one slide to take 2 minutes to present.
-  \item The last/final slide needs to include your conclusion and names of the group members.
+  \item The last/final slide needs to include your conclusion and the group members' names.
 \end{itemize}
 
 \subsection{Project Grading}
 
-Below are the criterias used when grading the mini-projects. Some general comments on grading are:
+Below are the criteria used when grading the mini-projects. Some general comments on grading are:
 
 \begin{enumerate}
-\item The more students the higher the quality expected of the project, i.e. a better report is expected from a three-student report than a two-student report.
+\item The more students, the higher the quality expected of the project, i.e. a better report is expected from a three-student report than a two-student report.
 \end{enumerate}
 
 
-To pass the report (G), the following criterias should be fulfilled:
+To pass the report (G), you should fulfil the following criteria:
 
 \begin{enumerate}
-\item The report should be turned in and follow the general outline of Section \ref{project_report}.
-\item show basic knowledge and understanding of the core concepts of the course by using concepts correctly
-\item show an understanding in when certain methods should be used or not, and how
-\item use at least two (2) differnt methods (or architectures) and compare them in a correct way
-\item state what has been done in the report with clarity, good english and rigour so it is easy for a reader to understand and follow the paper.
-\item correctly use references in the report following the guideline of the template in Section \ref{project_report}
+\item Turned in a correctly formatted report that follows the general outline of Section \ref{project_report}.
+\item Show basic knowledge and understanding of the core concepts of the course by using concepts correctly.
+\item Show an understanding of when certain methods should be used or not and how.
+\item Use at least two (2) different methods (or architectures) and correctly compare them.
+\item State what has been done in the report with clarity, good English and rigour, so it is easy for a reader to understand and follow the paper.
+\item Correctly use references in the report following the guideline of the template in Section \ref{project_report}.
 \end{enumerate}
 
-To pass the mini-project with distinction (VG), the following criterias also apply in addition to the criteria for passing the report above:
+To pass the mini-project with distinction (VG), the additional criteria also apply:
 
 \begin{enumerate}
-\item show deep knowledge knowledge and understanding of the core concepts and how to adapt them in a good way to a new situation
-\item connect the analysis in the report with other areas in statistics or machine learning or previous courses taken in the masters program, i.e. not just repeat what has been done in previous labs.
+\item Show deep knowledge and understanding of the core concepts and how to adapt them in a good way to a new situation.
+\item Connect the analysis in the report with other areas in statistics or machine learning or previous courses taken in the master's program, i.e. not just repeat what has been done in previous labs.
 \end{enumerate}
-
 
 
 \end{document}
