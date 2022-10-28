@@ -59,6 +59,7 @@ In addition, the following material will also be included (note that you might n
 - Griffiths, M. and Steyvers. 2004. Finding Scientific topics [online](https://www.pnas.org/content/pnas/101/suppl_1/5228.full.pdf)
 - Blei, D. 2012. Probabilistic Topic Models [online](http://www.cs.columbia.edu/~blei/papers/Blei2012.pdf)
 - Rocca, J. 2019. Understanding Variational Autoencoders [online](https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73).
+- Verma, S. and Rubin, J. (2018) Fairness definitions explained. [online](https://dl.acm.org/doi/pdf/10.1145/3194770.3194776)
 
 The literature list might change slightly during the course.
 
