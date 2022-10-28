@@ -57,7 +57,7 @@
 \center
 \textsc{\LARGE Uppsala University}\\[1.5cm] % Name of your university/college
 \includegraphics[scale=.2]{files/uu_logo.png}\\[1cm]
-\textsc{\Large Introduction to Machine Learning, Big Data, and AI}\\[0.5cm]
+\textsc{\Large Machine Learning}\\[0.5cm]
 \textsc{\large }\\[0.5cm]
 
 \HRule \\[0.4cm]
@@ -95,20 +95,21 @@ knitr::opts_chunk$set(size = "small")
 \input{general_questions_info.tex}
 
 \begin{enumerate}
-\item Describe, with your own words, what \citet{efron2020prediction} see as the difference between the \emph{traditional regression methods} and the \emph{pure prediction algorithms}. (1-2 paragraphs)
-\item In many machine learning applications, we use Stochastic Gradient Descent, even though other optimization algorithms that use second-order derivatives are better. Why is this the case? Describe with your own words (max 1 paragraph)
-\item \citet{Goodfellow-et-al-2016} describe machine learning algorithms with tasks (T), performance (P) and experience (E). Describe these three concepts in your own words. (1-2 paragraphs)
-\item Describe the free lunch theorem with your own words? (max 1 paragraph)
+\item Describe, with your own words, what \citet{efron2020prediction} see as the difference between the \emph{traditional regression methods} and the \emph{pure prediction algorithms}. (max 1 paragraph)
+%\item In many machine learning applications, we use Stochastic Gradient Descent, even though other optimization algorithms that use second-order derivatives are better. Why is this the case? Relate this to $N$ and $P$ and describe with your own words (max 1 paragraph)
+%\item \citet{Goodfellow-et-al-2016} describe machine learning algorithms with tasks (T), performance (P) and experience (E). Describe these three concepts in your own words. (1-2 paragraphs)
+%\item Describe the free lunch theorem with your own words? (max 1 paragraph)
 % \item Describe the concept of model complexity/capacity with your own words? (max 1 paragraph)
+\item Describe the bias-variance trade-off with your own words. (max 1 paragraph)
 \end{enumerate}
 
 \section{Basic, Stochastic, and Mini-Batch Gradient Descent}
 
-This assignment will study different ways to optimize common objective functions in many areas of Machine Learning, namely, stochastic gradient descent. Here we will test to implement these optimizers for a well-known model, logistic regression.
+This assignment will study different ways to optimize common objective functions in many areas of Machine Learning, namely, stochastic gradient descent. Here we will test to implement these optimizers for a well-known model, logistic regression. See \citet{ruder2016overview} for pseudo-code and details on the algorithms.
 
 We are going to work with this data as a test case:
 
-<<echo=TRUE,eval=FALSE>>=
+<<echo=TRUE,eval=TRUE>>=
 library(uuml)
 data("binary")
 
@@ -145,61 +146,93 @@ Although, in our case we instead want to minimize the negative log likelihood NL
 \item Derive the the gradient for NLL$(\theta, \mathbf{y}, \mathbf{X})$ with respect to $\theta$.
 \item Implement the gradient as a function in R. Below are two examples of how it should work. Note, \texttt{l\_grad(y, X, theta)} return the gradient of $(1/n) l(\theta, \mathbf{y}, \mathbf{X})$.
 <<echo=FALSE,eval=TRUE>>=
-l_grad <- function(y, X, theta){
+ll_grad <- function(y, X, theta){
 c("(Intercept)" = -0.1825, "gre_sd" = 0.0857, "gpa_sd" = 0.0829)
 }
 @
 <<echo=TRUE,eval=TRUE>>=
-l_grad(y, X, theta = c(0,0,0))
+ll_grad(y, X, theta = c(0,0,0))
 @
 
 <<echo=FALSE,eval=TRUE>>=
-l_grad <- function(y, X, theta){
+ll_grad <- function(y, X, theta){
 c("(Intercept)" = 0.0217, "gre_sd" = -0.0395, "gpa_sd" = -0.0426)
 }
 @
 <<echo=TRUE,eval=TRUE>>=
-l_grad(y, X, theta = c(-1,0.5,0.5))
+ll_grad(y, X, theta = c(-1,0.5,0.5))
 @
 
 \end{enumerate}
 
 \subsection{Implement Gradient Descent}
-We now have the primary tool for implementing gradient descent and stochastic gradient descent.
+We now have the primary tool for implementing gradient descent and stochastic gradient descent. The log-likelihood function has been implemented in the \texttt{uuml} package and can be accessed as follows.
+<<echo=TRUE,eval=TRUE>>=
+# The inside of the function
+ll
+# How we can use it
+theta <- c(0, 0, 0)
+ll(y, X, theta)
+@
+
 
 \begin{enumerate}
-\item Implement the log-likelihood $l$ or the negative log-likelihood NLL in R. Note that you will have to do gradient ascent if you use the log-likelihood.
-<<echo=FALSE,eval=TRUE>>=
-l <- function(y, X, theta){
--277.2589
-}
-@
-<<echo=TRUE,eval=TRUE>>=
-l(y, X, theta = c(0,0,0))
-@
-
-<<echo=FALSE,eval=TRUE>>=
-l <- function(y, X, theta){
--244.5342
-}
-@
-<<echo=TRUE,eval=TRUE>>=
-l(y, X, theta = c(-1,0.5,0.5))
-@
 \item Run logistic regression in R to get an MLE estimate of \texttt{theta} using the \texttt{glm()} function. Print the three parameter estimates.
-\item Implement the following gradient descent algorithms:
+
+\emph{Hint!} The design matrix \texttt{X} already include an intercept so you need to remove that either from \texttt{X} or from the R formula using \texttt{y ~ -1 + X}.
+\item Implement the following gradient descent algorithms \citep[see][for details and psuedo-code]{ruder2016overview} as three separate R functions. Print these functions in your report.
 \begin{enumerate}
 \item ordinary (full/batch) gradient descent
 \item stochastic gradient descent
 \item mini-batch (stochastic) gradient descent using ten samples to estimate the gradient
 \end{enumerate}
-\item Try different learning parameters $\eta$ and run the algorithm for roughly 500 epochs. Visualize your results in two plots per algorithm and choice of $\eta$:
+A boilerplate for the algorithm can be found here.
+<<echo=TRUE,eval=FALSE>>=
+mbsgd <- function(y, X, sample_size, eta, epochs){
+  # Setup output matrix
+  results <- matrix(0.0, ncol = length(theta_init) + 2L, nrow = epochs)
+  colnames(results) <- c("epoch", "nll", colnames(X))
+
+  # Run algorithm
+  theta <- rep(0.0, ncol(X)) # Init theta to the 0 vector
+  for(j in 1:epochs){
+
+    ### Put the algorithm code here ###
+
+    # Store epoch, nll and output results
+    results[j, "epoch"] <- j
+    results[j, "nll"] <- ll(y, X, theta)
+    results[j, -1] <- theta
+  }
+  return(results)
+}
+@
+The function can then be called as:
+<<echo=TRUE,eval=FALSE>>=
+result <- mbsgd(y, X, sample_size = 10, eta = 0.1, epochs = 500)
+@
+
+\item Try different learning parameters $\eta$ and run the algorithm for roughly 500 epochs. You should find three different $\eta$ for each algorithm. One $\eta$ where the optimizer diverge, one $\eta$ where the optimizer converge very slowly and one $\eta$ that converges quick(er). Note that $\eta$ should be fixed/the same during all 500 epochs. Visualize your results in two plots per algorithm and choice of $\eta$ as a line graph (hence 18 figures in total).
 \begin{enumerate}
 \item The (negative) log-likelihood value \emph{for all observations} for the given $\theta$ (y-axis) and the epochs (full data iterations, x-axis).
 \item The value of one $\theta$ parameter of your choice (y-axis) and the epochs (full data iterations, x-axis). Also include the true values you got from using the \texttt{glm()} function above as a horizontal line in the figure.
 \end{enumerate}
-When do the algorithms converge or diverge? Describe your conclusions. Show the code (loop) you use.
+Below is an example of how you can plot the loss and the parameter over epochs using \texttt{ggplot2}. Note, this is just random generated data as an example.
+<<echo=TRUE,eval=TRUE, fig.height=2>>=
+library(ggplot2)
+# create data
+set.seed(4711)
+epoch <- 1:500
+nll <- rnorm(500,1.5) # Just random data.
+data <- data.frame(nll, epoch)
+# Plot
+ggplot(data, aes(x=epoch, y=nll)) +
+  geom_line() +
+  geom_hline(yintercept = 1.5, color = "blue") +
+  ggtitle("Example")
+@
 \end{enumerate}
+
 
 \newpage
 
