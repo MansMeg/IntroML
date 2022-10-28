@@ -3,4 +3,5 @@
 export(extract_log_liks)
 export(extract_phi)
 export(extract_theta)
+export(ll)
 export(recycling_mdp)
