@@ -144,7 +144,7 @@ Although, in our case we instead want to minimize the negative log likelihood NL
 
 \begin{enumerate}
 \item Derive the the gradient for NLL$(\theta, \mathbf{y}, \mathbf{X})$ with respect to $\theta$.
-\item Implement the gradient as a function in R. Below are two examples of how it should work. Note, \texttt{l\_grad(y, X, theta)} return the gradient of $(1/n) l(\theta, \mathbf{y}, \mathbf{X})$.
+\item Implement the gradient as a function in R. Below are two examples of how it should work. Note, \texttt{l\_grad(y, X, theta)} return the gradient of $(1/n) l(\theta, \mathbf{y}, \mathbf{X})$. Show that your implementation give the same result as these test cases in your report.
 <<echo=FALSE,eval=TRUE>>=
 ll_grad <- function(y, X, theta){
 c("(Intercept)" = -0.1825, "gre_sd" = 0.0857, "gpa_sd" = 0.0829)
@@ -287,7 +287,7 @@ where $l(\theta, \mathbf{y}, \mathbf{X})$ is defined as in task 1 above. We also
 
 \begin{enumerate}
 \item Derive the the gradient for $\text{NLL}_r(\theta, \mathbf{y}, \mathbf{X},\lambda)$ with respect to $\theta$.
-\item Implement the gradient as a function in R. Below are two examples of how it should work. \emph{Note!} \texttt{l\_grad(y, X, theta, lambda)} implemented above return the gradient of $(1/n) l(\theta, \mathbf{y}, \mathbf{X}, \lambda)$.
+\item Implement the gradient as a function in R. Below are two examples of how it should work. \emph{Note!} \texttt{l\_grad(y, X, theta, lambda)} implemented above return the gradient of $(1/n) l(\theta, \mathbf{y}, \mathbf{X}, \lambda)$. Show that your implementation give the same result as these test cases in your report.
 <<echo=FALSE,eval=TRUE>>=
 lr_grad <- function(y, X, theta, lambda){
 c("(Intercept)" = -0.1825, "gre_sd" = 0.0857, "gpa_sd" = 0.0829)
@@ -314,7 +314,7 @@ lr_grad <- function(y, X, theta, lambda){
 <<echo=TRUE,eval=TRUE>>=
 lr_grad(y, X, theta = c(-1,0.5,0.5), lambda = 1)
 @
-\item Implement the regularized log-likelihood $l_r$ or the negative log-likelihood $\text{NLL}_r$ in R. \emph{Note!} This differs from the log-likelihood above (where we used the sum over the observations).
+\item Implement the regularized log-likelihood $l_r$ or the negative log-likelihood $\text{NLL}_r$ in R. \emph{Note!} This differs from the log-likelihood above (where we used the sum over the observations). Show that your implementation give the same result as these test cases in your report.
 <<echo=FALSE,eval=TRUE>>=
 lr <- function(y, X, theta, lambda){
 -0.6931

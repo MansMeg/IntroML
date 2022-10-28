@@ -16,6 +16,7 @@ Here general information is included that is needed for administrative/course pu
 - **Time used for extra assignment (VG)**: [How long time did the extra (VG) assignments took (in hours)]
 - **Good with lab**: [Write one-two sentences of what you liked with the assignment/what should we keep for next year.]
 - **Things to improve in the lab**: [Write one-two sentences of what you think can be improved in the assignment. Can something be clarified further? Did you get stuck on stuff that is not related to the content of the assignment etc.]
+- **Anything that was difficult with the material?**: [Was it some part of the material this week that was extra hard to understand/grasp that would need further clarification?]
 
 **NOTE!** The assignments will be graded anonymously. **Do not include your name anywhere in the assignment! If the name is included, the assignment will be failed.**
 
