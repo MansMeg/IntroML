@@ -1,5 +1,5 @@
-\documentclass[10pt,handout]{beamer}
-%\documentclass[10pt]{beamer}
+%\documentclass[10pt,handout]{beamer}
+\documentclass[10pt]{beamer}
 \usepackage[english]{babel} % Anpassa efter svenska. Ger svensk logga.
 \usepackage[utf8]{inputenc} % Anpassa efter linux
 \usepackage{graphicx}
@@ -67,7 +67,7 @@
 
 \begin{frame}{What exactly is machine learning and artificial intelligence?}
 The word "AI" is often used quite loosely:
-   \includegraphics[width=\textwidth]{figs/AI-example.jpg}
+   \includegraphics[width=0.9\textwidth]{figs/AI-example.jpg}
 \end{frame}
 
 
@@ -327,6 +327,11 @@ Exact dates and details; see the course page.
 \item Approximate 40 hours of work \emph{per student}.\pause
 \item The project should result in a 4 page report (PDF) using the ICML LaTeX template (see course page).
 \item Project oral presentation (10-15 minutes)\pause
+\item Mini-project and master thesis:
+\begin{itemize}
+\item The mini-project can be used to explore thesis project
+\item Master thesis proposals in November
+\end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -428,8 +433,8 @@ Questions?
 
 \end{frame}
 
-
 \subsection{Example: Logistic regression}
+
 
 \begin{frame}{Logistic regression and classification}
 When the $y_i$ in a regression problem is binary (or more generally, categorical), it becomes a {\color{uured}classification problem}.\\[3mm]\pause
@@ -519,7 +524,7 @@ Questions?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\section{Optimization Algorithms for Machine Learning}
+\section{Optimization in Machine Learning}
 \frame{\sectionpage}
 
 \begin{frame}{Training of ML algorithms}
@@ -612,13 +617,14 @@ where
 E(\nabla L(\theta, X_{i}, y_{i})) = \frac{1}{Z} \nabla L(\theta, \mathbf{X}, \mathbf{y})\,,
 \]
 for some constant $Z$.
-\item Think survey sampling -- we want to estimate a total.
+\item Goal -- we want to estimate a total.
 \item This give us the following algorithm:
 \[
 \theta_t = \theta_{t-1} - \eta_t \hat{\nabla} L(\theta_{t-1}, X_{i}, y_{i})\,,
 \]
 where $i$ is random sampled index.
 \item \emph{Note!} \\We need to have an unbiased estimator for $\nabla L(\theta, \mathbf{X}, \mathbf{y})$
+\item \uured{What is an iteration?}\pause
 \item Epochs vs. Iterations
 \end{itemize}
 
@@ -631,8 +637,8 @@ where $i$ is random sampled index.
 
 \begin{itemize}
 \item Learning rate $\eta_t$ is important
+\item \uured{Will it converge to an optimum?}\pause
 \item We need to reduce $\eta_t$ over time
-\item Will it converge to an optimum?\pause
 \item Robbins–Monro (1951) conditions:
 \begin{enumerate}
 \item $\eta_t \geq 0$ $\forall t \geq 0$
@@ -663,17 +669,22 @@ where $\mathcal(S)_i$ is a set of random sample (without replacement) indices an
 
 \begin{itemize}
 \item SGD can be slow to converge due to 'jumping' behaviour
-\item Can improve behaviour using the velocity -- the rolling mean of gradients
-\item Additional hyperparemeter $\alpha$ to control velocity
+\item Can improve behaviour using momentum -- the rolling mean of gradients
+\item Additional hyperparemeter $\alpha$ to control the momentum
 \[
-v_t = \alpha v_{t-1} + \eta_t \hat{\nabla} L(\theta_{t-1}, X_{i}, y_{i})\,,
+m_t = \alpha m_{t-1} + \eta_t \hat{\nabla} L(\theta_{t-1}, X_{i}, y_{i})\,,
 \]
 \[
-\theta_t = \theta_{t-1} - v_t,
+\theta_t = \theta_{t-1} - m_t,
 \]
 
 \end{itemize}
 
+\begin{figure}[h]
+\caption{SGD with momentum}
+\centering
+\includegraphics[width=0.9\textwidth]{figs/sgdm}
+\end{figure}
 
 \end{frame}
 
@@ -695,20 +706,28 @@ Example of SGD with momentum \href{https://distill.pub/2017/momentum/}{here}.
 \end{frame}
 
 
-\begin{frame}{Adam and RMSprop}
+\begin{frame}{Adaptive Moment Estimation (Adam)}
 
 \begin{itemize}
-\item Want the optimizer to adapt to the learning rate $\eta_t$ to individual parameters
-\item Common approaches are
-\begin{itemize}
-\item RMSprop
-\item Adaptive Moment Estimation (Adam)
-\end{itemize}
+\item Adapt $\eta_t$ to individual parameters
+\begin{align*}
+m_t =& \beta_1 m_{t-1} + (1-\beta_1) \hat{\nabla} L(\theta_{t-1}, X_{i}, y_{i}) \\
+v_t =& \beta_1 v_{t-1} + (1-\beta_2) \hat{\nabla} L(\theta_{t-1}, X_{i}, y_{i})^2
+\end{align*}
+\item Bias correction
+\begin{align*}
+\hat{m}_t =& \frac {m_{t}}{1-\beta_1}\\
+\hat{v}_t =& \frac {v_{t}}{1-\beta_2}
+\end{align*}
+\item Update
+\[
+\theta_t = \theta_{t-1} - \frac{\eta}{\sqrt{\hat{v}_t} + \epsilon} \hat{v}_t,
+\]
+\item Common values: $\beta_1=0.9$, $\beta_2=0.999$, and $\epsilon=10^{-8}$
+\item RMSprop is another (similar) alternative
 \end{itemize}
 
 \end{frame}
-
-
 
 
 
