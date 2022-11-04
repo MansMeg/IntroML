@@ -721,7 +721,7 @@ v_t =& \beta_1 v_{t-1} + (1-\beta_2) \hat{\nabla} L(\theta_{t-1}, X_{i}, y_{i})^
 \end{align*}
 \item Update
 \[
-\theta_t = \theta_{t-1} - \frac{\eta}{\sqrt{\hat{v}_t} + \epsilon} \hat{v}_t,
+\theta_t = \theta_{t-1} - \frac{\eta}{\sqrt{\hat{v}_t} + \epsilon} \hat{m}_t,
 \]
 \item Common values: $\beta_1=0.9$, $\beta_2=0.999$, and $\epsilon=10^{-8}$
 \item RMSprop is another (similar) alternative
