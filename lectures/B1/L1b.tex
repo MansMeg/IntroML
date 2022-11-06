@@ -129,7 +129,8 @@ work when predicting a new observation $y_0$ from the data generating process $P
 \item To assess the performance we use the loss function for a new unseen observation $y_0$ and the prediction of that observation $\hat{f}(x_0)$
 \[
 L(y_0,\hat{f}(x_0))
-\]\pause
+\]
+\pause
 \item This is quite general and we choose based $L$ based on what we want the model performe well on.\pause
 \item Examples:
 \begin{itemize}
@@ -172,7 +173,7 @@ L(\mathbf{y}_0, \hat{\mathbf{p}}) = - \sum^M_{j=1} y_{0,j} \log{\hat{p}_j}
 \end{frame}
 
 
-\begin{frame}{Classification Performance: the Confusion Matrix}
+\begin{frame}{The Confusion Matrix}
 
 \begin{itemize}
 \item A common way to present performance in classification is \uured{the confusion matrix}:
@@ -185,19 +186,18 @@ L(\mathbf{y}_0, \hat{\mathbf{p}}) = - \sum^M_{j=1} y_{0,j} \log{\hat{p}_j}
   Negative & False Positive (FP) & True Negative ((TN)
 \end{tabular}
 
-\pause
 
-\begin{itemize}
-\item In multiclass classification:
-\end{itemize}
+\end{frame}
+
+\begin{frame}{The Confusion Matrix: Multi-class}
 
 \centering
 \begin{tabular}{lccc}
   & Prediction &  \\
   Actual & a & b & c \\
-  a & $T_a$ & $F_ab$ & $F_ac$ \\
-  b & $F_ba$ & $T_b$ & $F_bc$ \\
-  c & $F_ca$ & $F_cb$ & $T_c$ \\
+  a & $T_a$ & $F_{ab}$ & $F_{ac}$ \\
+  b & $F_{ba}$ & $T_b$ & $F_{bc}$ \\
+  c & $F_{ca}$ & $F_{cb}$ & $T_c$ \\
 \end{tabular}
 and
 \centering
@@ -207,6 +207,7 @@ and
   a & $T_a$ & $F_{ba} + F_{ca}$ & $F_{ab} + F_{ac}$ \\
   ... & ... & ... & ...
 \end{tabular}
+
 
 
 \end{frame}
@@ -237,7 +238,7 @@ or
 
 \begin{frame}{Precision}
 
-Of the predicted positives, how many are \uured{actually positive}?
+Of all the predicted positives, how many are \uured{actually positive}?
 
 % Want to use when want to be sure about a prediction
 \[
@@ -245,54 +246,78 @@ Of the predicted positives, how many are \uured{actually positive}?
 \]
 or
 \[
-\text{Precision}_a = \frac{(T_a)}{T_a + F_{ab} + F_{ac})}
+\text{Precision}_a = \frac{(T_a)}{T_a + F_{ba} + F_{ca})}
 \]
+
+All \uured{predicted} $a$: $T_a + F_{ba} + F_{ca}$
 
 If we want one precision estimate for all classes:
 \begin{enumerate}
-\item Macro-average
-\item Micro-average
+\item Macro-average ($\text{Precision}_a, ..., \text{Precision}_c$)
+\item Micro-average (use Table 2)
+\end{enumerate}
+
+\end{frame}
+
+
+
+\begin{frame}{Recall}
+
+% Want to use when want to be sure about a prediction
+Of all \uured{positives}, how many are predicted correctly (recalled)?\pause
+
+\[
+\text{Recall} = \frac{(\text{TP})}{\text{(TP+FN)}}
+\]
+and
+\[
+\text{Recall}_a =  \frac{(T_a)}{T_a + F_{ab} + F_{ac})}
+\]
+
+All \uured{true/actual} $a$: $T_a + F_{ab} + F_{ac}$
+
+If we want one precision estimate for all classes:
+\begin{enumerate}
+\item Macro-average ($\text{Recall}_a, ..., \text{Recall}_c$)
+\item Micro-average (use Table 2)
 \end{enumerate}
 
 
-% Want to use whe
 
+\end{frame}
+
+\begin{frame}{Sensitivity and specificity}
+
+\[
+\text{Sensitivity} = \text{Recall of \uured{positive} class} =  \frac{\text{TP}}{\text{TP+FN}}
+\]
+and
+\[
+\text{Specificity} = \text{Recall of \uured{negative} class} =\frac{\text{TN}}{\text{TN+FP}}
+\]
 
 \end{frame}
 
 
-
-\begin{frame}{Precision and Recall}
-
+\begin{frame}{F1-score}
 
 % Want to use when want to be sure about a prediction
-\[
-\text{Precision} = \frac{(\text{TP})}{\text{(TP+FP)}}
-\]
-
-Of the predicted positives, how many are actually positive?\pause
-
-% Want to use when want to be sure about a prediction
-\[
-\text{Recall} = \text{Sensitivity} = \frac{(\text{TP})}{\text{(TP+FN)}}
-\]
-
-Of all positives, how many are predicted correctly?\pause
-
-\[
-\text{Specificity} = \frac{(\text{TN})}{\text{(TN+FP)}}
-\]
-
-Of all negative, how many are predicted correctly?\pause
+Harmonic mean of Precision and Recall.
 
 % F1: Both good precision and recall
 \[
-\text{F1} = 2 \cdot \frac{(\text{Precision} \cdot \text{Recall})}{\text{(\text{Precision} + \text{Recall})}}
+\text{F}_1 = \frac{2}{\text{Precision}^{-1} + \text{Recall}^{-1}} = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{\text{Precision} + \text{Recall}}}
 \]
 
+Very common performance measurement in practice.
+
+If we want one precision estimate for all classes:
+\begin{enumerate}
+\item Macro-average ($\text{F}_{1a}, ..., \text{F}_{1c}$)
+\item Micro-average (use Table 2)
+\end{enumerate}
 
 \end{frame}
-
 
 
 
@@ -303,28 +328,35 @@ Say that we want to classify spam vs. ham. \\[3mm]\pause
 
 \begin{center}
 \begin{tabular}{ l | c | c }
-  & $\hat{y}=0$ & $\hat{y}=1$\\
+  & $\hat{f}(x)=1$ & $\hat{f}(x)=0$\\
   \hline
-  $y=0$ & 515 & 91 \\
-  $y=1$ & 85 & 569 \\
+  $y=1$ & 515 & 91 \\
+  $y=0$ & 85 & 569 \\
   \hline
 \end{tabular}
 \end{center}
 The cell counts yield us estimates of
-\begin{itemize}
-\item Accuracy $P(\hat{y}=y)$: $\frac{515+569}{515+91+85+569}\approx 0.86$\\[3mm]\pause
-\end{itemize}
+\begin{enumerate}
+\item Accuracy: $\frac{515+569}{515+91+85+569}\approx 0.86$
+\item Precision: $\frac{515}{515+85}\approx 0.86$
+\item Recall: $\frac{515}{515+91}\approx 0.85$
+\item $F_1$: $\frac{2 \cdot 0.85 \cdot 0.86}{0.85 + 0.86}\approx 0.855$
+\end{enumerate}
 
-In this example, we let $\hat{y}_i=1$ whenever $\hat{\pi}_i>0.5$. What if we choose another cut-off level $\hat{\pi}_i>\alpha$ instead?
+\pause
+
+In this example, we let $\hat{y}_i=1$ whenever $\hat{\pi}_i>0.5$.
+
+What if we choose another cut-off level $\hat{\pi}_i>\alpha$ instead?
 
 \end{frame}
 
 
 \begin{frame}{Classification tables}
-Previous table, with acc. 86 \%, sens. 87 \% and spec. 85 \%:
+
 \begin{center}
 \begin{tabular}{ l | c | c }
- {\color{uured}$\alpha=0.5$} & $\hat{y}=0$ & $\hat{y}=1$\\
+ {\color{uured}$\alpha=0.5$} & $\hat{f}(x)=1$ & $\hat{f}(x)=0$\\
   \hline
   $y=0$ & 515 & 91 \\
   $y=1$ & 85 & 569 \\
@@ -335,37 +367,50 @@ Previous table, with acc. 86 \%, sens. 87 \% and spec. 85 \%:
 Now let $\alpha=0.3$ instead, so that we are more prone to say that $\hat{y}=1$:
 \begin{center}
 \begin{tabular}{ l | c | c }
-  {\color{uured}$\alpha=0.3$} & $\hat{y}=0$ & $\hat{y}=1$\\
+  {\color{uured}$\alpha=0.3$} & $\hat{f}(x)=1$ & $\hat{f}(x)=0$\\
   \hline
-  $y=0$ & 462 & 144 \\
-  $y=1$ & 38 & 616 \\
+  $y=1$ & 462 & 144 \\
+  $y=0$ & 38 & 616 \\
   \hline
 \end{tabular}
 \end{center}
-Accuracy: 86 \%, sensitivity: 94 \%, specificity: 76 \%.\\[3mm]
-The sensitivity has increased, but the sensitivity has decreased...
+The cell counts yield us estimates of
+\begin{enumerate}
+\item Accuracy: $\frac{462+616}{462+38+144+616}\approx 0.86$
+\item Precision: $\frac{462}{462+38}\approx 0.92$
+\item Recall: $\frac{462}{462+144}\approx 0.76$
+\item $F_1$: $\frac{2 \cdot 0.92 \cdot 0.76}{0.92 + 0.76}\approx 0.83$
+\end{enumerate}
+
+The Precision has increased, but the Recall has decreased...
 
 \end{frame}
 
 
 
-\begin{frame}{A more reasonable example}
-Previous table, highly unbalanced. 1001 ham and 17 spam.
+\begin{frame}{A more problematic example}
+A highly unbalanced example. 1001 ham and 17 spam.
 
 Our new classifier: Everything is ham!\pause
 
 \begin{center}
 \begin{tabular}{ l | c | c }
-  & $\hat{y}=0$ & $\hat{y}=1$\\
+  & $\hat{f}(x)=1$ & $\hat{f}(x)=0$\\
   \hline
-  $y=0$ & 1001 & 0 \\
-  $y=1$ & 17 & 0 \\
+  $y=1$ & 1001 & 0 \\
+  $y=0$ & 17 & 0 \\
   \hline
 \end{tabular}
 \end{center}
 \pause
-
-Accuracy: 98 \%! and sensitivity: 100 \%, specificity: 0 \%.\\[3mm]
+The cell counts yield us estimates of
+\begin{enumerate}
+\item Accuracy: $\frac{1001}{1001+17}\approx 0.99$
+\item Precision: $\frac{1001}{1001+0}\approx 1.0$
+\item Recall: $\frac{1001}{1001+17}\approx 0.99$
+\item $F_1$: $\frac{2 \cdot 1 \cdot 0.99}{0.99 + 1}\approx 0.99$
+\item But Specificity is 0!
+\end{enumerate}
 
 \end{frame}
 
@@ -379,82 +424,100 @@ Questions?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\section{Test error}
+\section{Test and training error}
 \frame{\sectionpage}
 
 \begin{frame}{Test Error}
 
 \begin{itemize}
 \item The main error of interest - \emph{generalization error}
-\item Conditional Test Error \\(Model performance for the \emph{training} data):
+\item Conditional Test Error \\(Model performance for the \uured{actual} training data):
 \[
-\text{Err}_\mathcal{T} = \E_{Y,X}(L(Y,\hat{Y}(X) | \mathcal{T})
+\text{Err}_\mathcal{T} = \E_{Y,X}(L(Y_0,\hat{f}(X_0) | \mathcal{T})
 \]
-\item Expected Test Error \\(Model performance over \emph{different} data):
+\item Expected Test Error \\(Model performance over \uured{different} training datasets):
 \[
-\text{Err} = \E_\mathcal{T}(\E_{Y,X}(L(Y,\hat{Y}(X)))
+\text{Err} = \E_\mathcal{T}(\E_{Y,X}(L(Y_0,\hat{f}(X_0)))
 \]
+\item Sometimes refered to as \uured{generalization} error.
 
 \end{itemize}
 
 \end{frame}
 
-
-\subsection{Training Error}
 
 \begin{frame}{Training Error}
 
 \begin{itemize}
-\item The Error the algorithm try to minimize
-\item Error over the training sample:
+\item The loss function the algorithm try to \uured{minimize}
+\item The Error in the training data:
 \[
-\overline{\text{err}} = \frac{1}{N} \sum_{i=1}^N L(y_i,\hat{y}_i)
+\overline{\text{err}} = \frac{1}{N} \sum_{i=1}^N L(y_i,\hat{f}(x_i))
 \]
-\item Can be seen as a Monte Carlo Appraximation over data
 
 \end{itemize}
 
 \end{frame}
 
 
-\begin{frame}{How are training and test error related?}
+\begin{frame}{Model complexity/capacity}
 
+\begin{itemize}
+\item Model complexity/capacity: \uured{The flexibility of the model.}
+\item \uured{Underfitting}: Too \uured{low} capacity of model
+\item \uured{Overfitting}: Too \uured{high} capacity of model
+\item Example: Polynomial regression with higher order terms
+\end{itemize}
 
 \begin{figure}[h]
-\caption{Test, training, and model complexity (Hastie et al, 2009, Figure 7)}
+\caption{Model complexity (Goodfellow et al, 2017, Figure 5.2)}
 \centering
-\includegraphics[width=0.8\textwidth]{figs/ESL_7_1.png}
+\includegraphics[width=0.9\textwidth]{figs/Dl_5_2}
 \end{figure}
 
 \end{frame}
 
 
-\section{Model Assesment}
+\begin{frame}{Training, test, and complexity}
 
-\begin{frame}{How to estimate the Test Error: Model Assesment}
+
+\begin{figure}[h]
+\caption{Test, training, and model complexity (Goodfellow et al, 2017, Figure 5.3)}
+\centering
+\includegraphics[width=0.8\textwidth]{figs/Dl_5_3.png}
+\end{figure}
+
+\end{frame}
+
+
+\section{Estimating the test error}
+
+\begin{frame}{How to estimate the Test Error (Model Assesment)}
 
 \begin{itemize}
 \item We set aside a \emph{test set} from the data
 \item Use as the last step to \emph{estimate} the test error
-\item Should only be used \emph{ONCE}\pause
+\item Should only be used \uured{ONCE}\pause
 \item Size of testset:
 \begin{itemize}
 \item Common suggestion 10\%
-\item A statistical estimation problem
+\item A statistical estimation problem (choice of samling size)
 \end{itemize}
 \end{itemize}
 
 \end{frame}
 
+
 \begin{frame}{Multiple Use of Test Set for Model Assesment}
 
 \begin{itemize}
-\item Say that we have $\hat{L}(\mathcal{T})$ an estimate of the loss on the test set given a training set
-\item Lets say that we have $i \in \{1,...,M\}$ be models trained on $M$ independent training sets $\mathcal{T}_i$ but they all have the same underlying error $L^*$
-\item Then we can assume that
-\[
-\hat{L}_i(\mathcal{T}_i) \sim N(L^*, \sigma)
-\]
+% TODO: Fix
+%\item Say that we have $\hat{L}(\mathcal{T})$ an estimate of the loss on the test set given a training set
+%\item Lets say that we have $i \in \{1,...,M\}$ be models trained on $M$ independent training sets $\mathcal{T}_i$ but they all have the same underlying error $L^*$
+%\item Then we can assume that
+%\[
+%\hat{L}_i(\mathcal{T}_i) \sim N(L^*, \sigma)
+%\]
 \item What happens if we use the test set to pick the model?
 \end{itemize}
 
@@ -480,7 +543,7 @@ Questions?
 \end{frame}
 
 
-\subsection{Bias and Variance}
+\section{Bias and Variance}
 
 
 \begin{frame}{Bias and Variance}
@@ -492,15 +555,15 @@ Y = f(X) + \epsilon\,,
 where $\E(\epsilon)=0$ and $V(\epsilon)=\sigma_\epsilon$.
 
 \begin{align*}
-\text{Err}(x_0) &= \E_{Y}\{(Y-\hat{f}(x_0))^2 | X = x_0\} \\
-  &= \sigma^2_\epsilon + \{\E_Y(\hat{f}(x_0)) - f(x_0)\}^2 + \E\{\hat{f}(x_0) - \E_Y(\hat{f}(x_0))\}^2 \\
+\text{Err}(x_0) &= \E\{(Y-\hat{f}(x_0))^2 | X = x_0\} \\
+  &= \sigma^2_\epsilon + \{\E(\hat{f}(x_0)) - f(x_0)\}^2 + \E\{\hat{f}(x_0) - \E(\hat{f}(x_0))\}^2 \\
   &= \sigma^2_\epsilon + \text{Bias}^2(\hat{f}(x_0)) + V(\hat{f}(x_0))
 \end{align*}
 
 \begin{itemize}
-\item \emph{Bias}: How close can we get to the true model
-\item \emph{Variance}: The variability of the predictions
-\item \emph{Irreducible error}: The best (theoretically) possible model
+\item \emph{Bias}: How close can $\hat{f}$ get to the true model $f$
+\item \emph{Variance}: The variability of the predictions from $\hat{f}$
+\item \emph{Irreducible/Bayes error}: The best (theoretically) possible model
 \end{itemize}
 
 \end{frame}
