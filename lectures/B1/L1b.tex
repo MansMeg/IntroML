@@ -59,23 +59,24 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\section{Model Predictive Performance}
+\section{Predictive Performance}
+% What is predictive performance?
 \frame{\sectionpage}
 
 \begin{frame}{Previous Model Evaluation}
-In the past, we have used a large number of tools for assessing models, e.g.:
-
 \begin{itemize}
-\item Various plots
+\item In the past, tools for assessing models, e.g.:
+\begin{itemize}
+%\item Various plots
 \item Residuals
 \item Leverage, Cook's distance
 \item p-values
 \item $R^2$
+\item AIC
 \end{itemize}
-
-That is, they only tell us {\color{uured}how well the model fits the data}, and diagnose the model. \pause
-
-The focus is usually \emph{estimation} or \emph{attribution}.
+\item Model diagnoses and \uured{how well the model fits the data}.
+\item In statistics: focus on \uured{estimation} and \uured{attribution}.
+\end{itemize}
 \end{frame}
 
 
@@ -84,8 +85,17 @@ The focus is usually \emph{estimation} or \emph{attribution}.
 % We are looking at predictive performance here
 
 \begin{itemize}
-
-\item We are interested in how our model work when predicting a new observation
+\item Supervised learning: focus on \uured{predictive performance}:
+\item How well our model $\hat{f}$ trained on
+\[
+\mathcal{T}=\{(y_i, x_i), i = 1, ..., n\}
+\]
+work when predicting a new observation $y_0$ from the data generating process $P_{y,x}$.
+\[
+\E(L(Y_0,X_0)|\mathcal{T}) = \int L(Y_0, \hat{f}(X_0)) P_{y,x} d(Y_0,X_0) |\mathcal{T}
+\]
+%\pause
+\item ability to perform well on previously unobserved inputs is called \uured{generalization}
 
 %\begin{exampleblock}{}
 %  {\large ``The generalization performance of a learning method relates to its prediction capability on \emph{independent} test data.''}
@@ -93,49 +103,47 @@ The focus is usually \emph{estimation} or \emph{attribution}.
 %  \hspace*\fill{\small--- Hastie et al., (2017, p. 219)}
 %\end{exampleblock}
 
-\pause
+%\pause
 
-\item Models can be overly optimistic -- the model can have a good fit but be poor at making predictions for new data\footnote{See e.g. Picard, R.R., Cook, R.D. (1984). Cross-validation of regression models. \emph{Journal of the American Statistical Association}, \textbf{79(387)}, 575--583.}, a phenomenon known as {\color{uured}overfitting}.\\[3mm]
-
+\item Models can be overly \uured{optimistic}\footnote{See e.g. Picard, R.R., Cook, R.D. (1984). Cross-validation of regression models. \emph{Journal of the American Statistical Association}, \textbf{79(387)}, 575--583.}:
+\begin{itemize}
+\item explain training data well
+\item poor generalizability
+\end{itemize}
+\item a phenomenon known as \uured{overfitting}.
 \end{itemize}
 
 \end{frame}
 
-\subsection{Measuring Performance}
+\section{Measuring Performance}
+\frame{\sectionpage}
+% How do we measure predictive performance?
 
-\begin{frame}{Loss Functions (again)}
+\begin{frame}{Loss Functions}
 
 % We are looking at predictive performance here
 
 
 \begin{itemize}
 
-\item To assess the performance we use the loss function for a new unseen observation $y_0$, and the prediction of that observation $\hat{y}$
+\item To assess the performance we use the loss function for a new unseen observation $y_0$ and the prediction of that observation $\hat{f}(x_0)$
 \[
-L(y_0,\hat{y}_0)
+L(y_0,\hat{f}(x_0))
 \]\pause
 \item This is quite general and we choose based $L$ based on what we want the model performe well on.\pause
 \item Examples:
 \begin{itemize}
-\item Regression problems:
+\item Regression problems (squared loss/error):
 \[
-    L(y_0,\hat{y}_0) =
-%\begin{cases}
-%    |y_0 - \hat{y}_0|\\
-%    (y_0 - \hat{y}_0)^2
-%\end{cases}
+    L(y_0,\hat{f}(x_0)) = (y_0 - \hat{f}(x_0))^2
 \]
-% TODO: Fix!
-%  \[
-%     L(y_0,\hat{y}_0) = \left\{\begin{array}{lr}
-%        x(n), & \text{for } 0\leq n\leq 1\\
-%        x(n-1), & \text{for } 0\leq n\leq 1\\
-%        x(n-1), & \text{for } 0\leq n\leq 1
-%        \end{array}\right\} = xy
-%  \]
-
 \pause
-\item Language models: Perplexity, Glue, Human annotation
+\item Classification (0-1 loss)
+\[
+    L(y_0,\hat{f}(x_0)) = I(y_0 = \hat{f}(x_0))
+\]
+%\pause
+%\item Language models: Perplexity
 \end{itemize}
 
 
@@ -144,20 +152,61 @@ L(y_0,\hat{y}_0)
 \end{frame}
 
 
-\begin{frame}{Confusion Matrix}
+\begin{frame}{Cross-Entropy Loss}
 
-% TODO: Fix!
-%\noindent
-%\centering
-%\renewcommand\arraystretch{1.5}
-%\setlength\tabcolsep{0pt}
-%\begin{tabular}{c >{\bfseries}r @{\hspace{0.7em}}c @{\hspace{0.4em}}c}
-%  \multirow{10}{*}{\parbox{1.1cm}{\bfseries\raggedleft Actual\\ Value}} &
-%    & \multicolumn{2}{c}{\bfseries Prediction Outcome} \\
-%  & & $p_{p}$ & $n_{p}$ \\
-%  & $p_{a}$ & \MyBox{True}{Positive} & \MyBox{False}{Negative} \\[2.4em]
-%  & $n_{a}$ & \MyBox{False}{Positive} & \MyBox{True}{Negative}
-%\end{tabular}
+\begin{itemize}
+\item When we predict probabilities $\hat{f}(x_0)=\hat{p}$:
+\[
+L(y_0, \hat{p}) = - (y_0 \log{\hat{p}}) + ((1 - y_0) \log{(1- \hat{p})})
+\]
+\uured{Question:} Do you recognize the (cross-entropy) loss function?
+% Bernoulli negative log-likelihood?
+\pause
+\item Maximizing the likelihood is the same as minimizing the cross-entropy. \pause
+\item Multi class cross-entroy over $M$ classes
+\[
+L(\mathbf{y}_0, \hat{\mathbf{p}}) = - \sum^M_{j=1} y_{0,j} \log{\hat{p}_j}
+\]
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Classification Performance: the Confusion Matrix}
+
+\begin{itemize}
+\item A common way to present performance in classification is \uured{the confusion matrix}:
+\end{itemize}
+\centering
+\begin{tabular}{lcc}
+  & Prediction &  \\
+  Actual & Positive & Negative \\
+  Positive & True Positive (TP) & False Negative (FN) \\
+  Negative & False Positive (FP) & True Negative ((TN)
+\end{tabular}
+
+\pause
+
+\begin{itemize}
+\item In multiclass classification:
+\end{itemize}
+
+\centering
+\begin{tabular}{lccc}
+  & Prediction &  \\
+  Actual & a & b & c \\
+  a & $T_a$ & $F_ab$ & $F_ac$ \\
+  b & $F_ba$ & $T_b$ & $F_bc$ \\
+  c & $F_ca$ & $F_cb$ & $T_c$ \\
+\end{tabular}
+and
+\centering
+\begin{tabular}{lccc}
+  & Prediction &  \\
+  Actual & TP & FP & FN \\
+  a & $T_a$ & $F_{ba} + F_{ca}$ & $F_{ab} + F_{ac}$ \\
+  ... & ... & ... & ...
+\end{tabular}
 
 
 \end{frame}
@@ -169,12 +218,49 @@ L(y_0,\hat{y}_0)
 
 \[
 \text{Accuracy} = \frac{(\text{TP+TN})}{\text{(TP+FP+FN+TN)}}
-\]\pause
+\]
 
-What is the problem with Accuracy?
+or
+
+\[
+\text{Accuracy} = \frac{T_a + T_b + T_c}{N}
+\]
+
+\pause
+
+
+\uured{Question}: What is the problem with Accuracy?
 % Unbalanced samples
 
 \end{frame}
+
+
+\begin{frame}{Precision}
+
+Of the predicted positives, how many are \uured{actually positive}?
+
+% Want to use when want to be sure about a prediction
+\[
+\text{Precision} = \frac{(\text{TP})}{\text{(TP+FP)}}
+\]
+or
+\[
+\text{Precision}_a = \frac{(T_a)}{T_a + F_{ab} + F_{ac})}
+\]
+
+If we want one precision estimate for all classes:
+\begin{enumerate}
+\item Macro-average
+\item Micro-average
+\end{enumerate}
+
+
+% Want to use whe
+
+
+\end{frame}
+
+
 
 \begin{frame}{Precision and Recall}
 
@@ -206,6 +292,8 @@ Of all negative, how many are predicted correctly?\pause
 
 
 \end{frame}
+
+
 
 
 \begin{frame}{Example}
@@ -282,24 +370,6 @@ Accuracy: 98 \%! and sensitivity: 100 \%, specificity: 0 \%.\\[3mm]
 \end{frame}
 
 
-\begin{frame}{Cross-Entropy Loss}
-
-\begin{itemize}
-\item When we have probabilities $\hat{p}=\hat{y}_0$:
-\[
-L(y_0, \hat{p}) = - (y_0 \log{\hat{p}}) + ((1 - y_0) \log{(1- \hat{p})})
-\]
-Question: Do you recognize the loss function?
-% Bernoulli negative log-likelihood?
-\pause
-\item Maximizing the likelihood is the same as minimizing the cross-entropy. \pause
-\item Multi class generalization over $M$ classes
-\[
-L(\mathbf{y}_0, \hat{\mathbf{p}}) = - \sum^M_{j=1} y_{0,j} \log{\hat{p}_j}
-\]
-\end{itemize}
-
-\end{frame}
 
 
 \begin{frame}<handout:0>{Questions?}
