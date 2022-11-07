@@ -530,21 +530,21 @@ Questions?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\section{Model Selection}
-\frame{\sectionpage}
+%\section{Model Selection}
+%\frame{\sectionpage}
 
 
-\begin{frame}{Model Selection}
-\begin{itemize}
-\item We want to select a model based on performance.
-\item Important when using hyperparameters (as in regularization)
-\end{itemize}
+%\begin{frame}{Model Selection}
+%\begin{itemize}
+%\item We want to select a model based on performance.
+%\item Important when using hyperparameters (as in regularization)
+%\end{itemize}
 
-\end{frame}
+%\end{frame}
 
 
 \section{Bias and Variance}
-
+\frame{\sectionpage}
 
 \begin{frame}{Bias and Variance}
 
@@ -563,7 +563,7 @@ where $\E(\epsilon)=0$ and $V(\epsilon)=\sigma_\epsilon$.
 \begin{itemize}
 \item \emph{Bias}: How close can $\hat{f}$ get to the true model $f$
 \item \emph{Variance}: The variability of the predictions from $\hat{f}$
-\item \emph{Irreducible/Bayes error}: The best (theoretically) possible model
+\item \emph{Irreducible/Bayes error}: The minimum possible error
 \end{itemize}
 
 \end{frame}
@@ -594,32 +594,43 @@ This give us the following error decomposition:
 \end{figure}
 
 \begin{itemize}
-\item High Bias: Underfit
-\item High Variance: Overfit
+\item High Bias: \uured{Underfit}
+\item High Variance: \uured{Overfit}
 \item High Irreducible error: No model is good
 \end{itemize}
 
 \end{frame}
 
 
+\begin{frame}{Bias and Variance}
 
-\subsection{Optimism of Training Error}
+\begin{figure}[h]
+\caption{Bias and variance (Goodfellow et al., 2017, Figure 5.6)}
+\centering
+\includegraphics[width=0.9\textwidth]{figs/Dl_5_6.png}
+\end{figure}
 
-\begin{frame}{Optimism of Training Error}
+\end{frame}
 
-The in-sample test error:
+%\subsection{Optimism of Training Error}
+
+\begin{frame}{Optimism}
+
+The in-sample \uured{test} error:
 \[
 \text{Err}_\text{in} = \frac{1}{N}\sum^N_{i=1} \E_{Y^0}\{L(Y^0_i,\hat{f}(x_i))|\mathcal{T}\}\,,
 \]
-where $Y_{0,i}$ is a new response variable condition on $x_i$.\\[3mm]\pause
+where $Y_{0,i}$ is a \uured{new variable conditioned on $x_i$}.\\[3mm]
+
+\pause
 
 We have that
 \[
-\E_\mathbf{y} (\text{Err}_\text{in}) = \E_\mathbf{y}(\overline{\text{err}}) + \underbrace{\frac{2}{N}\sum^N_{i=1} \text{Cov}(\hat{y}_i,y_i)}_{\text{optimism}}\,,
+\E_\mathbf{y} (\text{Err}_\text{in}) = \E_\mathbf{y}(\overline{\text{err}}) + \underbrace{\frac{2}{N}\sum^N_{i=1} \text{Cov}(\hat{f}(x_i),y_i)}_{\text{optimism}}\,,
 \]
 where $\overline{\text{err}}$ is the training error.
 
-How could we create an optimistic classifier for the training data?
+\uured{Question}: How could we create an optimistic classifier for the training data?
 
 \end{frame}
 
@@ -627,21 +638,9 @@ How could we create an optimistic classifier for the training data?
 
 \begin{itemize}
 \item Under certain conditions we can estimate this optimism.
-\item AIC, BIC etc are examples of this -- asymptotic predictive performance.
+\item AIC is an example of this -- asymptotic predictive performance.
+\item Find the optimism
 \end{itemize}
-
-
-
-\end{frame}
-
-
-\begin{frame}{Find the Optimism!}
-
-\begin{figure}[h]
-\caption{Test, training, and model complexity (Hastie et al, 2009, Figure 7)}
-\centering
-\includegraphics[width=0.8\textwidth]{figs/ESL_7_1.png}
-\end{figure}
 
 % Answer the diff between the red and blue line
 
@@ -649,12 +648,12 @@ How could we create an optimistic classifier for the training data?
 
 
 
-\begin{frame}{The double descent behaviour of large models}
+\begin{frame}{The double descent of large models}
 
 \begin{figure}[h]
 \caption{The double descent of large models (Nakkiran et al., 2019, Figure 1)}
 \centering
-\includegraphics[width=0.8\textwidth]{figs/Nakkiran_et_al_2019.png}
+\includegraphics[width=0.9\textwidth]{figs/Nakkiran_et_al_2019.png}
 \end{figure}
 
 
@@ -675,17 +674,28 @@ Questions?
 \begin{frame}{Cross-Valdidation}
 
 
-We want to estimate $\text{Err}$ for different models and to choose the best model.\\[3mm]\pause
 
-Cross-Validation is probably the most popular approach to estimate $\text{Err}$.
+
+
 
 \begin{itemize}
-\item The model is judged only on how well it does predictions for new data.\\[2mm]\pause
-\item No need for rules-of-thumbs to verify that tests and estimators are applicable.\\[2mm]\pause
-\item No need to worry about significance levels, standard errors etc.\\[2mm]\pause
-\item Equally useful for frequentist, Bayesian and algorithmic methods (and these can easily be compared).\\[3mm]\pause
+\item We want to estimate \uured{$\text{Err}$} for different models and to \uured{choose the best model} where
+\begin{align*}
+\text{Err} & = \E_\mathcal{T} (\text{Err}_\mathcal{T}) \\
+ & = \E_\mathcal{T} (\E(L(Y_0,X_0)|\mathcal{T})) \\
+& = \int (\int L(Y_0, \hat{f}(X_0)) P_{y,x} d(Y_0,X_0) |\mathcal{T}) d\mathcal{T}
+\end{align*}
+\item Cross-Validation is probably the most popular approach to estimate \uured{$\text{Err}$} and choose between models because it is
+\begin{enumerate}
+\item Conceptually easy to understand
+\item Easy to implement
+\item No need for rules-of-thumbs to verify that it is applicable
+\item Equally useful for many different type of models
+\item Flexible for the use case at hand
+\end{enumerate}
+\pause
+\item Common approach to \uured{learn hyper parameters}\\(that is a model choice)
 \end{itemize}
-
 
 \end{frame}
 
@@ -703,24 +713,41 @@ Cross-Validation is probably the most popular approach to estimate $\text{Err}$.
 \item Split data in $K$ folds
 \item For each fold $k=1,2,...,K$
 \begin{enumerate}
-\item Use all samples except those in $k$ to build the predictive model
+\item Use all samples except those in $k$ to build $\hat{f}(x)$
 \item Use the model and predict the observations in fold $k$
 \end{enumerate}
 \end{enumerate}
 
 \[
-CV(\hat{f},\alpha) = \frac{1}{N}\sum^N_{i=1} L(y_i,\hat{y}_{-\kappa(i)}(x_i,\alpha)
+\text{Err}_{CV}(\hat{f}) = \frac{1}{N}\sum^N_{i=1} L(y_i,\hat{f}_{-\kappa(i)}(x))
 \]
 
 \end{frame}
 
 \begin{frame}{The Bias of Cross-Valdidaton}
 
+\begin{itemize}
+\item Cross-validation estimation of \uured{$\text{Err}$} will be biased
+\item The training data size is smaller than the full data
+\end{itemize}
+
 \begin{figure}[h]
 \caption{Cross-Validation Bias (Hastie et al, 2009, Fig. 7.8)}
 \centering
-\includegraphics[width=0.9\textwidth]{figs/ESL_7_8.png}
+\includegraphics[width=0.7\textwidth]{figs/ESL_7_8.png}
 \end{figure}
+
+\end{frame}
+
+
+\begin{frame}{K-fold Cross Validation}
+
+\begin{itemize}
+\item Common $K$ are: $K=\{2,5,10\}$
+\item Smaller $K$ gives larger bias
+\item Larger $K$ is computationally more costly
+\item $K=10$ is a common approach
+\end{itemize}
 
 \end{frame}
 
@@ -728,16 +755,17 @@ CV(\hat{f},\alpha) = \frac{1}{N}\sum^N_{i=1} L(y_i,\hat{y}_{-\kappa(i)}(x_i,\alp
 \begin{frame}{Leave-One-Out Cross Validation}
 
 \begin{itemize}
-\item We set $K=N$
+\item When $K=N$
 \item Benefits
 \begin{itemize}
 \item Almost unbiased estimate of $\text{Err}$
-\item Can be less computationally costly is some situations
+\item Sometimes we only need to train our model once
 \end{itemize}
 \item Drawbacks
 \begin{itemize}
-\item Higher Variance
-\item Can be more computationally costly (naive implementation)
+\item Higher Variance in estimate of $\text{Err}$
+\item Can be more computationally very costly (naive implementation)
+\item Can be unstable/less robust in some settings
 \end{itemize}
 \end{itemize}
 
@@ -749,7 +777,7 @@ CV(\hat{f},\alpha) = \frac{1}{N}\sum^N_{i=1} L(y_i,\hat{y}_{-\kappa(i)}(x_i,\alp
 \begin{figure}[h]
 \caption{Cross-Validation Bias (Hastie et al, 2009, Fig. 7.14)}
 \centering
-\includegraphics[width=0.8\textwidth]{figs/ESL_7_14.png}
+\includegraphics[width=0.7\textwidth]{figs/ESL_7_14.png}
 \end{figure}
 
 \end{frame}
@@ -778,6 +806,7 @@ CV(\hat{f},\alpha) = \frac{1}{N}\sum^N_{i=1} L(y_i,\hat{y}_{-\kappa(i)}(x_i,\alp
 \[
 \mathbf{d} = \{(y_i, \mathbf{x}_i), i = 1, ..., n\} \,\sim P_{y,x}
 \]
+\item The (naive) assumption: independence
 \item Things that can go wrong:
 \begin{itemize}
 \item temporal leak/concept drift
@@ -785,10 +814,33 @@ CV(\hat{f},\alpha) = \frac{1}{N}\sum^N_{i=1} L(y_i,\hat{y}_{-\kappa(i)}(x_i,\alp
 \item non-randomized data
 \end{itemize}
 \pause
-\item Example: Evaluating prediction models for Elections
+%\item Example: Evaluating prediction models for Elections
 % TODO: Add examples from the bachelor theses
 \end{itemize}
 
+
+\end{frame}
+
+
+\begin{frame}{Example: Election prediction}
+
+\begin{itemize}
+\item We want to predict the next election
+\item We know that there are "\uured{concept drift}"
+\item Solution in Frölander and Uddhammar (2021) and Olsson and Ölfvingsson (2021)
+\begin{enumerate}
+\item LOO-CV on the elections 1973-2014
+\item The elections 2018 as the final validation set
+\end{enumerate}
+
+
+\end{itemize}
+
+\begin{figure}[h]
+\caption{Predictive distr. (Olsson and Ölfvingsson, 2021, Fig. 6)}
+\centering
+\includegraphics[width=1\textwidth]{figs/elections}
+\end{figure}
 
 \end{frame}
 
