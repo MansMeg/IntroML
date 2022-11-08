@@ -57,7 +57,7 @@
 \center
 \textsc{\LARGE Uppsala University}\\[1.5cm] % Name of your university/college
 \includegraphics[scale=.2]{files/uu_logo.png}\\[1cm]
-\textsc{\Large Introduction to Machine Learning, Big Data, and AI}\\[0.5cm]
+\textsc{\Large Machine Learning}\\[0.5cm]
 \textsc{\large }\\[0.5cm]
 
 \HRule \\[0.4cm]
@@ -93,10 +93,12 @@ knitr::opts_chunk$set(size = "small")
 \input{general_questions_info.tex}
 
 \begin{enumerate}
-\item Describe bagging and boosting with your own words. What is the difference between the two approaches? (1-2 paragraphs)
-\item When (and why) is random forests performing poorly with a small $m$? (max 1 paragraph)
-\item What is a learning ensemble? (max 1 paragraph)
+\item Describe bagging and boosting with your own words. What is the difference between the two approaches? (1 paragraphs)
+%\item When (and why) is random forests performing poorly with a small $m$? (max 1 paragraph)
+%\item What is a learning ensemble? (max 1 paragraph)
 \end{enumerate}
+
+\newpage
 
 \section{Decision Trees}
 
@@ -121,7 +123,42 @@ y_test <- Hitters[1:30, c("Salary")]
 X_train <- Hitters[31:nrow(Hitters), c("Years", "Hits")]
 y_train <- Hitters[31:nrow(Hitters), c("Salary")]
 @
-\item Implement an R function to split observations binary greedily (ignore \texttt{NA} values). Here we use the \citet[][Eq. 9.12-9.14]{hastie2009elements}, but with the addition that we will keep at least $l$ leafs. The function should take a design matrix \texttt{X}, an \texttt{y} variable and a minimal leaf size \texttt{l}. The function should return a list with the index set of the observations in \texttt{R1}, \texttt{R2}, the split value \texttt{s} and the covariate used for the split \texttt{j}. See below for an example.
+\item Implement an R function to split observations binary greedily (ignore \texttt{NA} values). Here we use the \citet[][Eq. 9.12-9.14]{hastie2009elements}, but with the addition that we will keep at least $l$ leafs. The function should take a design matrix \texttt{X}, an \texttt{y} variable and a minimal leaf size \texttt{l}. The function should return a list with the index set of the observations in \texttt{R1}, \texttt{R2}, the split value \texttt{s} and the covariate used for the split \texttt{j}. Below is a rough sketch how you can implement the function.
+
+<<echo=TRUE, eval=FALSE>>=
+tree_split <- function(X, y, l){
+  checkmate::assert_matrix(X)
+  checkmate::assert_numeric(y, len = nrow(X))
+  checkmate::assert_int(l)
+
+  SS <- matrix(Inf, nrow = nrow(X), ncol = ncol(X))
+  for(j in 1:ncol(X)){
+    for(k in 1:nrow(X)){
+      s <- X[k,j] # Split point
+      R1 <- which(X[,j] <= s)
+      R2 <- which(X[,j] > s)
+
+      # Handle if R1 or R2 is smaller than the leaf size l
+      # Compute c1
+      # Compute c2
+      SS[k, j] <- # Compute the SS
+    }
+  }
+
+  # The final results for the min SS
+  j <- # Which column was used for the split-point
+  s <- # What value of X was used as the split-point
+  R1 <- which(X[,j] <= s)
+  R2 <- which(X[,j] > s)
+  list(j = j,
+       s = s,
+       R1 = R1,
+       R2 = R2,
+       SS = min(SS))
+}
+@
+
+See below for an example how the function should work.
 
 <<echo = FALSE>>=
 tree_split <- function(X,y,l){
@@ -156,7 +193,45 @@ tree_split(X_check, y_check, l = 1)
 @
 \item What is the first split based on the whole training data \texttt{X\_train} and \texttt{y\_train}?
 \item What is the Sum of Squares (SS) for this first split?
-\item Use the function \texttt{tree\_split()} to create a function \texttt{grow\_tree()} that takes the arguments \texttt{X}, \texttt{y}, and \texttt{l} and then build a decision tree. The returned tree can be a \texttt{data.frame} that looks as follows. Note that \texttt{R1\_i} and \texttt{R2\_i} indicates the row of the \texttt{data.frame} where to go next. This is just one example implementation, you are free to implement this however you want. \emph{Hint 1!} Use a list in R to store the set of indecies you are splitting up. \emph{Hint 2!} Remember that the indecies that \texttt{split\_tree()} returns are based on the data you put into that functions. Hence, you need to convert them to the full data indecies.
+\item Use the function \texttt{tree\_split()} to create a function \texttt{grow\_tree()} that takes the arguments \texttt{X}, \texttt{y}, and \texttt{l} and then build a decision tree. The returned tree can be a \texttt{data.frame} that looks as follows. Note that \texttt{R1\_i} and \texttt{R2\_i} indicates the row of the \texttt{data.frame} where to go next. This is just one example implementation, you are free to implement this however you want.
+
+\emph{Hint 1!} Use a list in R to store the set of indecies you are splitting up.
+
+\emph{Hint 2!} Remember that the indecies that \texttt{split\_tree()} returns are based on the data you put into that functions. Hence, you need to convert them to the full data indecies.
+
+Here is an template how the function could be implemented, but you are free to implement it however you want.
+
+<<echo = TRUE, eval=FALSE>>=
+grow_tree <- function(X, y, l){
+  checkmate::assert_matrix(X)
+  checkmate::assert_numeric(y, len = nrow(X))
+  checkmate::assert_int(l)
+
+  init <- tree_split(X, y, l)
+  S_m <- list(init$R1, init$R2)
+  S_m_ij <- list(c(1,3), c(1,4))
+  results <- data.frame(j = init$j,
+                        s = init$s,
+                        R1_i = -1,
+                        R2_i = -1,
+                        gamma = NA)
+  while (length(S_m) > 0) {
+    if(length(S_m[[1]]) >= 2*l){
+
+      # Do stuff here to grow the tree
+
+    } else {
+
+      # Do stuff here to when you cant grow the tree (compute gamma)
+
+    }
+
+  }
+  return(results)
+}
+@
+
+Here is an example how iy should work.
 
 <<echo = FALSE>>=
 grow_tree <- function(X,y,l){
@@ -173,7 +248,28 @@ grow_tree <- function(X,y,l){
 tr <- grow_tree(X_check, y_check, l = 5)
 tr
 @
-\item Finally implement a function \texttt{predict\_with\_tree(new\_data, tree)} to use the tree to predict new observations $X_{new}$ as follows:
+\item Finally implement a function \texttt{predict\_with\_tree(new\_data, tree)}. Here is a starting template for the function.
+<<echo = TRUE, eval=FALSE>>=
+predict_with_tree <- function(new_data, tree){
+  checkmate::assert_matrix(new_data)
+
+  predictions <- numeric(ncol(new_data))
+
+  for(k in 1:ncol(new_data)){
+    not_in_leaf <- TRUE
+    while(not_in_leaf){
+
+      # Do stuff
+
+      }
+    }
+  }
+  return(predictions)
+}
+@
+
+To use the tree to predict new observations $X_{new}$ as follows.
+
 <<echo = FALSE>>=
 predict_with_tree <- function(new_data, tree){
   c(106.5, 244.5)
@@ -188,19 +284,18 @@ y_new
 pred_y <- predict_with_tree(new_data = X_new, tree = tr)
 pred_y
 @
-\item Implement a function \texttt{rmse(x,y)} that computes the root mean squared error between \texttt{x} and \texttt{y}. It should work like the following
-<<echo = FALSE>>=
-rmse <- function(x, y){
-  19.5
-}
+\item The function \texttt{rmse(x,y)} in the \texttt{uuml} R package computes the root mean squared error between \texttt{x} and \texttt{y}.
+<<echo = TRUE>>=
+rmse
 @
 
 <<echo=TRUE,eval=TRUE>>=
-rmse(c(75, 105), c(102, 99))
+rmse(x = c(75, 105, 33), y = c(102, 99, 43))
 @
-\item What is the root mean squared error on the test set for a tree trained on the whole training data \texttt{X\_train} and \texttt{y\_train}?
+What is the root mean squared error (RMSE) on the test set for a tree trained on the whole training data \texttt{X\_train} and \texttt{y\_train}?
 \end{enumerate}
 
+\newpage
 
 \section{Running standard tools for boosting and random forests}
 
@@ -217,7 +312,7 @@ dat_train <- Hitters[31:nrow(Hitters), c("Salary","Years", "Hits")]
 Hitters.rf <- randomForest(Salary ~ Years + Hits, data = dat_train)
 @
 \item How many variables are used at each split. Why do you get this number?
-\item Use the trained random forest to predict using the \texttt{predict} function at test set and compute the RMSE of your predictions using your \texttt{rmse} function.
+\item Use the trained random forest to predict using the \texttt{predict} function at test set and compute the RMSE of your predictions using the \texttt{rmse} function.
 \item Next, use the \texttt{xgboost} R package to fit a boosted regression tree model to the training data using the \texttt{xgboost} function.
 <<echo=TRUE,eval=FALSE>>=
 X_test <- dat_test[1:30, c("Years", "Hits")]
@@ -226,10 +321,11 @@ X_train <- dat_train[31:nrow(Hitters), c("Years", "Hits")]
 y_train <- dat_train[31:nrow(Hitters), c("Salary")]
 xgb <- xgboost(as.matrix(X_train), as.matrix(y_train), nrounds = 200)
 @
-\item What is the RMSE of the predictions (again using your \texttt{rmse} function) using the boosted regression tree model?
+\item What is the RMSE of the predictions (again using the \texttt{rmse} function) using the boosted regression tree model?
 \item How does that compare to the random forest regression model?
 \end{enumerate}
 
+\newpage
 
 \section{*Bagged tree implementation}
 
