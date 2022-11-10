@@ -190,7 +190,7 @@ A boilerplate for the algorithm can be found here.
 <<echo=TRUE,eval=FALSE>>=
 mbsgd <- function(y, X, sample_size, eta, epochs){
   # Setup output matrix
-  results <- matrix(0.0, ncol = length(theta_init) + 2L, nrow = epochs)
+  results <- matrix(0.0, ncol = ncol(X) + 2L, nrow = epochs)
   colnames(results) <- c("epoch", "nll", colnames(X))
 
   # Run algorithm
@@ -202,7 +202,7 @@ mbsgd <- function(y, X, sample_size, eta, epochs){
     # Store epoch, nll and output results
     results[j, "epoch"] <- j
     results[j, "nll"] <- ll(y, X, theta)
-    results[j, -1] <- theta
+    results[j, -(1:2)] <- theta
   }
   return(results)
 }
