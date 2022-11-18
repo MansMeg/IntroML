@@ -97,15 +97,15 @@ knitr::opts_chunk$set(size = "small")
 \input{general_questions_info.tex}
 
 \begin{enumerate}
-\item Describe the output layer in a neural network. What does it do? (max 1 paragraph)
+%\item Describe the output layer in a neural network. What does it do? (max 1 paragraph)
 % \item Describe the input layer in a neural network. What does it do? (max 1 paragraph)
 %\item What is a tensor? (max 1 paragraph)
-\item What is the benefit of using (negative) log-likelihood as loss functions according to \citet{Goodfellow-et-al-2016}? (max 1 paragraph)
+%\item What is the benefit of using (negative) log-likelihood as loss functions according to \citet{Goodfellow-et-al-2016}? (max 1 paragraph)
 %\item What are the benefits with deeper neural networks compared to shallow ones according to \citet{Goodfellow-et-al-2016}? (max 1 paragraph)
-\item Describe early stopping regularization (max 1 paragraph).
+%\item Describe early stopping regularization (in 1 paragraph).
 %\item Describe weight decay regularization (max 1 paragraph).
-%\item Describe dropout regularization (max 1 paragraph).
-\item Describe the relationship between bagging and dropout regularization (max 1 paragraph).
+\item Describe dropout regularization (max 1 paragraph).
+%\item Describe the relationship between bagging and dropout regularization (max 1 paragraph).
 \end{enumerate}
 
 \section{Feed-Forward Neural Network using Keras and TensorFlow}
@@ -125,7 +125,7 @@ mnist$test$x <- mnist$test$x/255
 
 
 \begin{enumerate}
-\item As a first step, we visualize a couple of digits. Below is an example.
+\item As a first step, we visualize a couple of digits. Include the first 8 you can find in the training dataset in the report as an image.
 <<echo=TRUE,eval=FALSE>>=
 idx <- 3
 im <- mnist$train$x[idx,,]
@@ -135,28 +135,39 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
         xaxt='n', yaxt='n', main=paste(mnist$train$y[idx]))
 @
 \item How large is the training and test set?
-\item Implement a feed-forward neural network in R using TensorFlow and Keras. Start by following the introduction \href{https://tensorflow.rstudio.com/tutorials/beginners/}{here}. Start with one hidden layer with 16 units and the sigmoid as the activation function. Do not use any regularization for now.
+\item Implement a simple feed-forward neural network in R using TensorFlow and Keras. See the introduction \href{https://tensorflow.rstudio.com/tutorials/beginners/}{\textbf{[here]}}. Implement a neural network with one hidden layer with 16 units and the sigmoid as the activation function for the hidden layer. The output layer should be a softmax. Print your \texttt{keras} model description and include it in your report.
 \begin{enumerate}
-\item Print your \texttt{keras} model and include it in your report.
-\item How many parameters do your model have?
-\item What is the input layer in the model? How many parameters does the input layer have?
-\item What is the output layer in the model? How many parameters does the output layer have?
-\item What do you get as classification accuracy? Include the validation accuracy or error per epoch figure/plot that is automatically generated. \emph{Hint!} The classification accuracy should be around 0.85. \emph{Hint!} In multi-class classification, if the model classifies a digit to any other class than the valid class, it is a false negative or a false positive. I.e. we can still use the same definition for accuracy, precision and recall as in the binary case in multi-class classification.
+\item How many parameters do your model have in total?
+\item How many parameters does the input layer have?
+\item How many parameters does the output layer have?
+\item What do you get as classification accuracy? Include the validation accuracy and error per epoch figure/plot that is automatically generated.
+
+\emph{Hint!} The classification accuracy should be around 0.85.
+
 \end{enumerate}
-\item Now, we are going to play around with the essential concepts in feed-forward networks. Do the steps below, and report the \emph{validation} set accuracy/error and the validation accuracy/error per epoch for each step in a figure/plot. Please change this sequentially so you build a more and more complex network.
+
+\item Now, we are going to play around with the essential concepts in feed-forward networks. Do the steps below, but feel free to tinker around and test other values as you go. Try to understand the effect of the different choices. Report the \emph{validation} set accuracy/error and the validation accuracy/error per epoch for each step in a figure/plot together with the \texttt{keras} model description for the \emph{final} neural network with all changes. Start out from the simple neural network above, the do the following changes.
 \begin{enumerate}
 \item Increase the number of hidden units to 128.
 \item Change the activation function to reLU.
 \item Change the optimizer to RMSprop.
-\item Try to run the net for ten epochs. If you would use early stopping for regularization, what would you do? \emph{Note!} You only need to describe what you would do, not do it.
-\item Add a second layer with 128 hidden units. How many parameters do you have in the net right now?
-\item Add dropout with 0.2 and 0.5 dropout probability. You can choose what layers you would like to introduce the dropout.
-\item Add batch normalization. You can choose where you want to add it.
+\item Add a second layer with 128 hidden units.
+\item Add dropout with 0.2 dropout probability for both of your hidden layers.
+\item Add batch normalization for both of your hidden layers.
 \end{enumerate}
-\item Now try to improve the network architecture yourself (but still only use a feed-forward network). You can either start with a new network from scrach or build upon the network from the previous assignment. How good validation set accuracy (or how low error) can you get? What is the architecture used for the best model you can get?
-\item Identify two digits that the in the best network in the previous task has classified incorrectly. Visualize them. Why do you think the network made the classification mistake?
-\item Use your model to compute the accuracy, precision and recall on the hold-out test set included with the MNIST data. If you get a lower accuracy (or higher error) than on the validation set (or higher error), why is this the case?
+\item If you would use early stopping regularization, how would you do that?
+
+\emph{Note!} Just describe what you would do conceptually, you don't need to do it.
+\item Now try to build the best possible network architecture yourself for this data (but still only using a feed-forward network). How good validation set accuracy (or how low error) can you get? What is the architecture used for the best model you can get? Include the final \texttt{keras} code and the \emph{validation} set accuracy figure. Feel free to try early stopping!
+
+\emph{Hint!} The general idea is to find the optimal capacity of the model. Try to start with a network that overfits the data and then regularize that model to improve the generalization error on the validation set.
+
+\item Identify two digits that your best network has classified incorrectly. Visualize them and include what number the digit should be and what your network classified the digit as. Why do you think the network made the classification mistake?
+
+\item Use your model to compute the accuracy and loss on the MNIST hold-out test set included with the data. If you get a lower accuracy (or higher error) than on the validation set (or higher error), why is this the case?
+
 \end{enumerate}
+
 
 \newpage
 
@@ -167,7 +178,7 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
 We want to implement one of the most straightforward neural networks possible.
 
 \begin{enumerate}
-\item Implement the neural network in \citet[][Ch. 6.1]{Goodfellow-et-al-2016} as a function that takes as an input a $2 \times 2$ weight matrix \texttt{W}, a vector \texttt{c}, a vector \texttt{w} and the scalar $b$. It should work as in Ch. 6.1. Here is an example of how it should work.
+\item Implement the neural network in \citet[][Ch. 6.1]{Goodfellow-et-al-2016} as a function that takes as an input a $2 \times 2$ weight matrix \texttt{W}, a vector \texttt{c}, a vector \texttt{w} and the scalar $b$. It should work as in Ch. 6.1., here is an example.
 <<echo = FALSE>>=
 mini_net <- function(X, W, c, w, b){
     matrix(c(0,1,1,0))
@@ -216,7 +227,15 @@ mini_net_loss(y, X, 0.9*W, c, w, b)
 @
 
 \item Again, change the value $W_{1,1}$ to 0. What is the value of the loss function?
+%\item Now we are going to train our mini network using gradient descent. The gradient for the ReLU function is
+%\[
+%\frac{\partial \text{ReLU}(x)}{\partial x} =
+%\]
+%Use this to implement the gradient for $\mathcal{W}$ (we keep the other parameters fixed). Remember the chain rule of calculus (see Chapter XX). You can derive this analytically for each of the four values of W.
+%\item initialize values W using the distribution in XXX eq. 1. What is the initialization distribution.
+%\item use batch/full gradient descent to train your mini network to find roughly the same parameter values as above. Visualize the loss per epoch/iteration as you did in assignment 1.
 \end{enumerate}
+
 
 \newpage
 \bibliography{bibliography}
@@ -227,3 +246,5 @@ mini_net_loss(y, X, 0.9*W, c, w, b)
 %%% mode: latex
 %%% TeX-master: t
 %%% End:
+
+
