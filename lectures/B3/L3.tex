@@ -44,49 +44,28 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+\section{Practicalities}
 
 \begin{frame}{Evaluation assignment 2}
 \begin{itemize}
-\item Took too much time (roughly 26h) - how to solve this? Hints? remove subtasks?
-\item More teaching on code
-\item The bugs...
-\item Minor comments:
-\begin{itemize}
-\item xgboost video
-\item bigger diff between RF and bagging
-\item more focus on the assignment on the lecture
-\end{itemize}
+\item t
 \end{itemize}
 \end{frame}
-
-\begin{frame}{Grading of assignment 1}
-\begin{itemize}
-\item Why is SGD important?
-\item Differece between unsupervised and supervised learning. Task or experience?
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Masters thesis proposals}
-\begin{enumerate}
-\item Evaluation of probabilistic programming frameworks
-\item Predicting introductions in Swedish parliamentary protocols using BERT
-\item Topic model inference: (Stochastic) variational inference and Gibbs sampling
-\item Will Svenska akademins ordlista (SAOL) improve Swedish word embeddings?
-\item Fine-tune a language model (BERT) on EDGAR-CORPUS
-\item OCR-error detection using image and text classification
-\end{enumerate}
-\end{frame}
-
-\section{Introduction to Neural Networks}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \begin{frame}{This week's lecture}
 \begin{itemize}
 \item Feed-Forward Neural Networks
+\item Regularization of Neural Networks
+\item Neural Network Optimization
 \end{itemize}
 \end{frame}
+
+
+\section{Introduction}
+\frame{\sectionpage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \frame{\frametitle{The Hype: Computer Vision}
@@ -132,6 +111,17 @@ Work is very much ongoing:
 \end{itemize}
 
 }
+
+
+\section{Feed-Forward Neural Networks}
+\frame{\sectionpage}
+
+%\subsection{Learning} % And backprop
+
+%\subsection{Hidden Units}
+
+%\subsection{Architecture design}
+
 
 \frame{\frametitle{The Feed-Forward Network}
 
@@ -193,8 +183,6 @@ Layers, neurons, input, output, weights, bias, architecture
 \end{figure}
 
 }
-
-
 
 
 \subsection{Feed-Forward Neural Networks}
@@ -398,103 +386,25 @@ f(z_i)={\frac {e^{z_i}}{\sum _{j=1}^{J}e^{z_{j}}}}
 }
 
 
-\section{Optimization}
 
-\frame{\frametitle{Optimization of Neural Networks}
-
-% TODO: Add the cost functions here (See DL and Keras)
-
-\begin{itemize}
-\item Difficult problem
-\item Many local minima (weight space symmetry)
-\item Platueas and sadel points
-\begin{itemize}
-\item Gradient is small - but not a minimum or maximum
-\item Sadel points increases with the number of dimensions (?)
-\item Large areas with small change in cost function
-\end{itemize}
-\end{itemize}
-
-}
-
-\frame{\frametitle{Optimization of Neural Networks II}
-
-\begin{itemize}
-\item A lot of parameters ($W$ and $b$)
-\item Usually a lot of data\pause
-\item Stochastic Gradient Descent, commonly
-\begin{itemize}
-\item Adam
-\end{itemize}\pause
-\item To compute gradients: backpropagation
-\begin{itemize}
-\item Chain-rule for derivatives
-\end{itemize}
-
-\end{itemize}
-
-% TODO: Add slide on repetition on SGD here (take from block 1)
-
-}
-
-\frame{\frametitle{Initial values}
-
-\begin{itemize}
-\item We need to have starting values for SGD - non-trivial
-\item Bad initial values might
-\begin{itemize}
-\item Bad convergence (local optimum)
-\item Numerical problems
-\end{itemize}
-\item We want to break symmetry between layers
-\item Initialization can be seen as a hyperparameter
-\item Good practice
-\begin{itemize}
-\item Initialize values randomly close to zero (uniform or normal)
-\end{itemize}
-\end{itemize}
-
-}
-
-
-%\frame{\frametitle{Batch normalization}
-%
-%\begin{itemize}
-%\item A way to simplify the optimization
-%\end{itemize}
-% TODO: Fix this part - add information here on batch normalization
-%}
-
-
-
-\frame{\frametitle{Neural Networks in Practice:\\ TensorFlow and Keras}
-\begin{itemize}
-\item Tensorflow
-\begin{itemize}
-\item Framework for large-scale machine learning and Neural Networks
-\item Developed by Google
-\item Computational graphs
-\item Handles:
-\begin{itemize}
-\item Computing gradients for Neural Networks
-\item Enable simple use of graphical processing units (GPU) and Tensor processing Units (TPU)
-\item Used in both research and production
-\end{itemize}
-\end{itemize}
-\item Keras
-\begin{itemize}
-\item Syntax for 'building' Neural Networks
-\item Platform independent (ish)
-\end{itemize}
-\end{itemize}
-
-\centering
-\includegraphics[width=0.2\textwidth]{fig/TF_logo.png}
-\includegraphics[width=0.2\textwidth]{fig/Keras_logo.png}
-
-}
 
 \section{Regularization}
+\frame{\sectionpage}
+
+%\subsection{Norm penalty}
+% 7.1
+
+%\subsection{Dataset augmentation}
+% 7.4
+
+%\subsection{Multi-Task Learning}
+% 7.7
+
+%\subsection{Early Stopping}
+% 7.8
+
+%\subsection{Drop-out}
+% 7.12
 
 \frame{\frametitle{Regularization of Neural Networks}
 
@@ -634,6 +544,178 @@ w \leftarrow & (1 - 2\alpha \epsilon)w - \epsilon \nabla_w J(w)\\
 \item In CNN: Dataset augmentation
 \item Get more data...
 \end{itemize}
+
+}
+
+\section{Optimization}
+
+
+\subsection{Optimization and Learning}
+
+
+\frame{\frametitle{Optimization of Neural Networks II}
+
+\begin{itemize}
+\item Usually, a lot of data and many parameters ($\theta =(W, b)$)\pause
+\item We want to minimize our cost function
+\[
+J(\theta) = \sum_i^N L(f(x_i),y_i) + \Omega(\theta)\,,
+\]
+where $L$ is the observation level loss and $\Omega$ is the regularization term \pause
+\item Learning: Find $\hat{\theta}$
+\item Stochastic Gradient Descent, commonly
+\begin{itemize}
+\item Adam
+\end{itemize}\pause
+\item To compute gradients: backpropagation
+\begin{itemize}
+\item Chain-rule for derivatives
+\end{itemize}
+\end{itemize}
+
+% TODO: Add slide on repetition on SGD here (take from block 1)
+
+}
+
+% This chapter focuses on one particular case of optimization: finding the parameters θ of a neural network that significantly reduce a cost function J (θ), which typically includes a performance measure evaluated on the entire training set as well as additional regularization terms.
+
+
+
+%\subsection{Ill-Conditioning}
+% 8.2.1
+
+%\subsection{Local minima}
+% 8.2.2
+% Neural Networks are (usually) not a convex problem
+% This mean that we can have local minima
+% this is a problem if we get stuck in a local minima with high cost
+% This is probably not the case
+% Many practitioners believe that this is a problem
+% Diagnose: Plot the gradient norm (gTg) over epochs
+
+%\subsection{Plateaus and Saddle Points}
+% 8.2.3
+% https://en.wikipedia.org/wiki/Saddle_point
+% Another problem is saddle points gradient is what?
+% Many random functions have saddle points in high dimensions
+% A saddle point is a gradient of 0 Hessian is indefinite i.e. both positive and negative eigen values
+% A minimum has a positive definite Hessian.
+% To understand the intuition behind this behavior, observe that the Hessian matrix at a local minimum has only positive eigenvalues. The Hessian matrix at a saddle point has a mixture of positive and negative eigenvalues. Imagine that the sign of each eigenvalue is generated by flipping a coin.
+
+% An amazing property of many random functions is that the eigenvalues of the Hessian become more likely to be positive as we reach regions of lower cost. In our coin tossing analogy, this means we are more likely to have our coin come up heads n times if we are at a critical point with low cost. This means that local minima are much more likely to have low cost than high cost. Critical points with high cost are far more likely to be saddle points.
+
+% The proliferation of saddle points in high dimensional spaces presumably explains why second-order methods have not succeeded in replacing gradient descent for neural network training.
+
+% On the other hand, gradient descent empirically seems to be able to escape saddle points in many cases.
+
+%\subsection{Cliffs, exploding and vanishing gradients}
+% 8.2.4-8.2.5
+% Copy image 8.2.3
+
+%\subsection{Inexact and difficult gradients}
+% 8.2.6
+% TODO
+
+%\subsection{Parameter initialization}
+% 8.4
+
+
+% TODO: Add the cost functions here (See DL and Keras)
+
+\frame{\frametitle{Problem}
+
+\begin{itemize}
+\item Difficult problem
+\item Many local minima (weight space symmetry)
+\item Platueas and sadel points
+\begin{itemize}
+\item Gradient is small - but not a minimum or maximum
+\item Sadel points increases with the number of dimensions (?)
+\item Large areas with small change in cost function
+\end{itemize}
+\end{itemize}
+
+}
+
+
+
+\frame{\frametitle{Initial values}
+
+\begin{itemize}
+\item We need to have starting values for SGD - non-trivial
+\item Bad initial values might
+\begin{itemize}
+\item Bad convergence (local optimum)
+\item Numerical problems
+\end{itemize}
+\item We want to break symmetry between layers
+\item Initialization can be seen as a hyperparameter
+\item Good practice
+\begin{itemize}
+\item Initialize values randomly close to zero (uniform or normal)
+\end{itemize}
+\end{itemize}
+
+}
+
+
+%\frame{\frametitle{Batch normalization}
+%
+%\begin{itemize}
+%\item A way to simplify the optimization
+%\end{itemize}
+% TODO: Fix this part - add information here on batch normalization
+%}
+
+\subsection{Neural Networks in Practice}
+
+\frame{\frametitle{TensorFlow}
+\begin{itemize}
+\item Framework for large-scale machine learning and Neural Networks
+\item Developed by Google
+\item Can be used both from R and Python
+\item Used in both research and production
+\item What Tesorflow does:
+\begin{itemize}
+\item Computing gradients (autodiff) for Neural Networks
+\item Enable use of graphical processing units (GPU) and Tensor processing Units (TPU)
+\item Enable training using common optimizers (such as Adam, RMSprop)
+\end{itemize}
+\item Tesorflow Probability is a probabilistic programming framework using TF
+\end{itemize}
+\centering
+\includegraphics[width=0.2\textwidth]{fig/TF_logo.png}
+
+}
+
+
+\frame{\frametitle{(Py)Torch}
+
+\begin{itemize}
+\item Similar to TensorFlow
+\item Developed by Meta AI
+\item Can be used both from R and Python
+\item Used in both research and production
+\item \uured{pyro} is a probabilistic programming framework using torch
+\end{itemize}
+
+\centering
+\includegraphics[width=0.5\textwidth]{fig/pytorch_logo.png}
+
+}
+
+\frame{\frametitle{Keras}
+
+\begin{itemize}
+\item Syntax for 'building' Neural Networks
+\item Available both in R and Python
+\item TensorFlow or Torch as backend
+\end{itemize}
+
+% TODO: Add an image of KERAS here and how to read a model
+
+\centering
+\includegraphics[width=0.2\textwidth]{fig/Keras_logo.png}
 
 }
 
