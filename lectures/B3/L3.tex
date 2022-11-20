@@ -391,14 +391,6 @@ f(z_i)={\frac {e^{z_i}}{\sum _{j=1}^{J}e^{z_{j}}}}
 \section{Regularization}
 \frame{\sectionpage}
 
-
-
-%\subsection{Early Stopping}
-% 7.8
-
-%\subsection{Drop-out}
-% 7.12
-
 \frame{\frametitle{Regularization of Neural Networks}
 
 \begin{itemize}
@@ -510,9 +502,8 @@ w \leftarrow & (1 - 2\alpha \epsilon)w - \epsilon \nabla_w J(w)\\
 \end{itemize}
 }
 
-
-
-
+\subsection{Early Stopping}
+% 7.8
 
 
 \frame{\frametitle{Early Stopping}
@@ -538,6 +529,9 @@ w \leftarrow & (1 - 2\alpha \epsilon)w - \epsilon \nabla_w J(w)\\
 \caption{Early Stopping (Goodfellow et al, 2017, Fig. 7.4)}
 \end{figure}
 }
+
+\subsection{Drop-out}
+% 7.12
 
 \frame{\frametitle{Dropout}
 
@@ -570,13 +564,9 @@ w \leftarrow & (1 - 2\alpha \epsilon)w - \epsilon \nabla_w J(w)\\
 }
 
 
-\frame{\frametitle{Other regularization techniques}
+\frame{\frametitle{But...}
 
-
-\begin{itemize}
-\item In CNN: Dataset augmentation
-\item Get more data...
-\end{itemize}
+The best regularizer is... \pause \uured{to get more data}.
 
 }
 
