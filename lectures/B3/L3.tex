@@ -391,14 +391,7 @@ f(z_i)={\frac {e^{z_i}}{\sum _{j=1}^{J}e^{z_{j}}}}
 \section{Regularization}
 \frame{\sectionpage}
 
-%\subsection{Norm penalty}
-% 7.1
 
-%\subsection{Dataset augmentation}
-% 7.4
-
-%\subsection{Multi-Task Learning}
-% 7.7
 
 %\subsection{Early Stopping}
 % 7.8
@@ -411,10 +404,13 @@ f(z_i)={\frac {e^{z_i}}{\sum _{j=1}^{J}e^{z_{j}}}}
 \begin{itemize}
 \item Reduce traing error but improve test/validation error\pause
 \item Neural Networks are extremely flexible / high model capacity\pause
-\item Regularization is crucial for good generalizability of NN\pause
+\item Regularization is crucial for good generalizability
 \end{itemize}
 
 }
+
+\subsection{Norm penalty}
+% 7.1
 
 \frame{\frametitle{Weight decay / Norm penalty}
 
@@ -481,6 +477,43 @@ w \leftarrow & (1 - 2\alpha \epsilon)w - \epsilon \nabla_w J(w)\\
 \end{figure}
 
 }
+
+
+\subsection{Data augmentation}
+% 7.4
+
+\frame{\frametitle{Dataset augmentation}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{fig/DLR_fig_5_10_data_augmentation.png}
+\caption{Data Augmentation (Chollet and Allair, 2018, Fig 5.10)}
+\end{figure}
+\begin{itemize}
+\item "Modify" data or inject noise
+\item Common in Convolutional neural networks
+\end{itemize}
+}
+
+\subsection{Multi-Task Learning}
+% 7.7
+
+\frame{\frametitle{Multi-Task Learning}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{fig/DL_7_2.png}
+\caption{Multi-task learning (Goodfellow et al., 2017, Fig 7.2)}
+\end{figure}
+\begin{itemize}
+\item Common in Large Language Models (Transformers)
+\end{itemize}
+}
+
+
+
+
+
 
 \frame{\frametitle{Early Stopping}
 
