@@ -113,45 +113,6 @@ Work is very much ongoing:
 }
 
 
-\section{Feed-Forward Neural Networks}
-\frame{\sectionpage}
-
-%\subsection{Learning} % And backprop
-
-%\subsection{Hidden Units}
-
-%\subsection{Architecture design}
-
-
-\frame{\frametitle{The Feed-Forward Network}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.8\textwidth]{fig/simple_NN.png}
-\caption{A simple feed-forward network (Goodfellow et al, 2017)}
-\end{figure}
-
-{\color{uured} Important concepts}:
-
-Layers, neurons, input, output, weights, bias, architecture
-
-}
-
-\frame{\frametitle{Different Architectures for Different Purposes}
-
-\begin{itemize}
-\item Different networks for different purposes
-\begin{itemize}
-\item {\color{uured} Convolutional Neural Networks}: Computer Vision\pause
-\item {\color{uured} Recurrent Neural Networks}: Speech Audio (?)\pause
-\item {\color{uured} Transformers/Attention}: Textual data
-\end{itemize}
-\item The Neural Network Zoo: \url{https://www.asimovinstitute.org/neural-network-zoo/}
-\end{itemize}
-
-}
-
-
 \frame{\frametitle{Areas of Use: All fields}
 
 \begin{itemize}
@@ -166,10 +127,10 @@ Layers, neurons, input, output, weights, bias, architecture
 \frame{\frametitle{Why and when neural nets?}
 
 \begin{itemize}
-\item Learning feature representations
-\item Needs a lot of data to learn complex representations
+\item Learning \uured{feature representations}
+\item Needs a lot of data to learn \uured{complex representations} (image, text, audio)
 \item Good for sensor data (high-dimensional)\pause
-\item When should we not use neural networks?
+\item When should we \uured{not} use neural networks?
 \end{itemize}
 
 }
@@ -183,6 +144,47 @@ Layers, neurons, input, output, weights, bias, architecture
 \end{figure}
 
 }
+
+
+\frame{\frametitle{Different Network Architectures for Different Purposes}
+
+\begin{itemize}
+\item Different networks for different purposes
+\begin{itemize}
+\item {\color{uured} Feed-Forward Neural Network}: Basic building block\pause
+\item {\color{uured} Convolutional Neural Networks}: Computer Vision\pause
+\item {\color{uured} Recurrent Neural Networks}: Speech Audio (?)\pause
+\item {\color{uured} Transformers/Attention}: Textual data
+\end{itemize}
+\item The Neural Network Zoo: \url{https://www.asimovinstitute.org/neural-network-zoo/}
+\end{itemize}
+
+}
+
+
+
+
+\section{Feed-Forward Neural Networks}
+\frame{\sectionpage}
+%\subsection{Hidden Units}
+
+%\subsection{Architecture design}
+
+
+\frame{\frametitle{The Feed-Forward Network}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{fig/simple_NN.png}
+\caption{A simple feed-forward network (Goodfellow et al, 2017, Fig. 6.2)}
+\end{figure}
+
+{\color{uured} Important concepts}:
+
+Layers, neurons, input, output, weights, bias, architecture
+
+}
+
 
 
 \subsection{Feed-Forward Neural Networks}
@@ -200,6 +202,7 @@ y_i = \mathbf{w}^T g(\mathbf{W}^T\mathbf{x}_i + \mathbf{b}_1) + \mathbf{b}_2
 \]
 
 }
+
 
 \frame{\frametitle{The Feed-Forward Network}
 
