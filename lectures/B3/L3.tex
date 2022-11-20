@@ -166,9 +166,7 @@ Work is very much ongoing:
 
 \section{Feed-Forward Neural Networks}
 \frame{\sectionpage}
-%\subsection{Hidden Units}
 
-%\subsection{Architecture design}
 
 
 \frame{\frametitle{The Feed-Forward Network}
@@ -293,6 +291,29 @@ A feed-forward network for one observation ($x_i$).
 
 }
 
+\subsection{Output Units}
+
+% Linear Units for Gaussian Output Distributions
+
+% Given features h, a layer of linear output units produces a vector yˆ = Wh+b.
+
+% Bernoulli units: Sigmoid  yˆ = Wh+b.
+%yˆ = σ wh + b # Note only one value
+
+% Multinoulli
+% z = Wh + b, (6.28)
+%where zi = log P˜(y = i | x). The softmax function can then exponentiate and
+%normalize z to obtain the desired yˆ. Formally, the softmax function is given by
+%softmax(z)i =
+%exp(zi) 
+%j exp(zj )
+%. (6.29)
+
+% Other situations - use the negative log likelihood, e.g. poisson for counts, multivariate gaussian, ordinal data, survival models.
+
+
+
+\subsection{Hidden Units}
 
 \frame{\frametitle{Activation functions ($g_l$)}
 
@@ -334,16 +355,31 @@ f(z_i)={\frac {e^{z_i}}{\sum _{j=1}^{J}e^{z_{j}}}}
 
 }
 
+\subsection{Architecture design}
+
+\frame{\frametitle{Architecture design}
+
+\begin{itemize}
+\item Architecture: the overall structure of the network
+\item Choices:
+\begin{itemize}
+\item How many layers?
+\item How many hidden units in each layer?
+\item Activation functions?\pause
+\end{itemize}
+\item \emph{Note!} Output units is defined by the \uured{data}
+\end{itemize}
+
+}
 
 \frame{\frametitle{Universal Approximation Theorem}
 
-"A feed-forward neural network with a linear output layer and at least one hidden layer with any 'squashing' activation function can approximate any Borel measurable function from one finite-dimensional space to another with any desired non-zero amount of error, provided that the network is given enough hidden units." (Goodfellow et al. 2017, p. 198)
-
 \begin{itemize}
-\item Also holds for ReLU
-\item No garantuee we can learn the network
-\item No garantuee that it will generalize
-\item No indication of how large the network need to be
+\item A feedforward network with a \uured{single layer} of sufficient size is can to represent any function.
+\item Also holds for ReLU (under some assumptions)\pause
+\item No garantuee we can learn the network\pause
+\item No garantuee that it will generalize\pause
+\item No indication of how large the network need to be\pause
 \end{itemize}
 
 }
