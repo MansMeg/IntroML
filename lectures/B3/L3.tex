@@ -547,44 +547,51 @@ w \leftarrow & (1 - 2\alpha \epsilon)w - \epsilon \nabla_w J(w)\\
 
 }
 
-\section{Optimization}
+\section{Optimization of Neural Networks}
+\frame{\sectionpage}
 
-
-\subsection{Optimization and Learning}
-
-
-\frame{\frametitle{Optimization of Neural Networks II}
+\frame{\frametitle{Neural Network Learning}
 
 \begin{itemize}
-\item Usually, a lot of data and many parameters ($\theta =(W, b)$)\pause
-\item We want to minimize our cost function
+\item Usually, a lot of data and many parameters ($\theta = (W, b)$)\pause
+\item We usually minimize our training cost function
 \[
-J(\theta) = \sum_i^N L(f(x_i),y_i) + \Omega(\theta)\,,
+J(\theta) = \sum_i^N L(\text{NN}(x_i),y_i) + \Omega(\theta)\,,
 \]
-where $L$ is the observation level loss and $\Omega$ is the regularization term \pause
-\item Learning: Find $\hat{\theta}$
-\item Stochastic Gradient Descent, commonly
-\begin{itemize}
-\item Adam
-\end{itemize}\pause
-\item To compute gradients: backpropagation
-\begin{itemize}
-\item Chain-rule for derivatives
+where $L$ is the observation level loss, $\text{NN}()$ is our neural network and $\Omega$ is the regularization term. \pause
+\item \uured{Learning Target}: Find $\hat{\theta}$ that minimize the \uured{generalization} error \pause
 \end{itemize}
-\end{itemize}
-
-% TODO: Add slide on repetition on SGD here (take from block 1)
 
 }
 
-% This chapter focuses on one particular case of optimization: finding the parameters θ of a neural network that significantly reduce a cost function J (θ), which typically includes a performance measure evaluated on the entire training set as well as additional regularization terms.
 
+\frame{\frametitle{Optimization of Neural Networks}
+
+\begin{itemize}
+\item Stochastic Gradient Descent methods
+\[
+\theta_t = \theta_{t-1} - \eta_t \hat{\nabla} J(\theta_{t-1})
+\]
+\item In practice, better optimizers are used:
+\begin{itemize}
+\item Adam
+\item RMSprop
+\end{itemize}\pause
+\item To compute gradients ($\hat{\nabla} J(\theta_{t-1})$):
+\begin{itemize}
+\item \uured{Backpropagation} algorithm (chain-rule for derivatives)
+\end{itemize}
+\end{itemize}
+
+% Double check that backprop is introduced before/elaborate more in backprop
+
+}
 
 
 %\subsection{Ill-Conditioning}
 % 8.2.1
 
-%\subsection{Local minima}
+\subsection{Local minima}
 % 8.2.2
 % Neural Networks are (usually) not a convex problem
 % This mean that we can have local minima
@@ -616,11 +623,8 @@ where $L$ is the observation level loss and $\Omega$ is the regularization term 
 % 8.2.6
 % TODO
 
-%\subsection{Parameter initialization}
-% 8.4
 
 
-% TODO: Add the cost functions here (See DL and Keras)
 
 \frame{\frametitle{Problem}
 
@@ -638,23 +642,30 @@ where $L$ is the observation level loss and $\Omega$ is the regularization term 
 }
 
 
+\subsection{Parameter initialization}
+% 8.4
 
 \frame{\frametitle{Initial values}
-
 \begin{itemize}
-\item We need to have starting values for SGD - non-trivial
+\item We need to have \uured{starting values} for gradient descent\pause
+\item Initialization can be seen as a hyperparameter\pause
 \item Bad initial values might
 \begin{itemize}
 \item Bad convergence (local optimum)
 \item Numerical problems
+\end{itemize}\pause
+\item We want to \uured{break symmetry} between layers
+\begin{itemize}
+\item Otherwise the same units will be updated in the same way (deterministically)
 \end{itemize}
-\item We want to break symmetry between layers
-\item Initialization can be seen as a hyperparameter
+\pause
 \item Good practice
 \begin{itemize}
 \item Initialize values randomly close to zero (uniform or normal)
 \end{itemize}
 \end{itemize}
+
+% TODO: readup more in breaking symmetry
 
 }
 
@@ -667,7 +678,8 @@ where $L$ is the observation level loss and $\Omega$ is the regularization term 
 % TODO: Fix this part - add information here on batch normalization
 %}
 
-\subsection{Neural Networks in Practice}
+\section{Neural Networks in Practice}
+\frame{\sectionpage}
 
 \frame{\frametitle{TensorFlow}
 \begin{itemize}
