@@ -587,21 +587,46 @@ where $L$ is the observation level loss, $\text{NN}()$ is our neural network and
 
 }
 
-
+% TODO: Add
 %\subsection{Ill-Conditioning}
 % 8.2.1
 
 \subsection{Local minima}
-% 8.2.2
-% Neural Networks are (usually) not a convex problem
-% This mean that we can have local minima
-% this is a problem if we get stuck in a local minima with high cost
-% This is probably not the case
-% Many practitioners believe that this is a problem
-% Diagnose: Plot the gradient norm (gTg) over epochs
 
-%\subsection{Plateaus and Saddle Points}
+\frame{\frametitle{Problems: Local Minima}
+% 8.2.2
+\begin{itemize}
+\item Neural Networks cost function $J(\theta)$ are (usually) \uured{not a convex} function
+\item We can have local minima
+\item \uured{When will this be a problem?}\pause
+\item A problem if local optima has a \uured{high cost}\pause
+\item \uured{Good thing:} This is probably not the situation!\pause
+\item Many practitioners believe this is a problem\pause
+\item \uured{Diagnosis:} Plot the gradient norm, $\mathbf{g}^T \mathbf{g}$, where $\mathbf{g} = \hat{\nabla} J(\theta)$ \pause
+\end{itemize}
+
+}
+
+
+
+\subsection{Plateaus and Saddle Points}
 % 8.2.3
+
+\frame{\frametitle{Problems: Plateaus and Saddle Points}
+% 8.2.3
+\begin{itemize}
+\item Another problem is \uured{saddle points}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{fig/saddle_point.png}
+\caption{Saddle point for $z = x^2 - y^2$ (Wikipedia)}
+\end{figure}
+\item \uured{What is the gradient in a saddle point?} \pause
+
+\end{itemize}
+
+}
+
 % https://en.wikipedia.org/wiki/Saddle_point
 % Another problem is saddle points gradient is what?
 % Many random functions have saddle points in high dimensions
@@ -618,6 +643,8 @@ where $L$ is the observation level loss, $\text{NN}()$ is our neural network and
 %\subsection{Cliffs, exploding and vanishing gradients}
 % 8.2.4-8.2.5
 % Copy image 8.2.3
+
+
 
 %\subsection{Inexact and difficult gradients}
 % 8.2.6
