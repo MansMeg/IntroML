@@ -48,7 +48,8 @@
 
 \begin{frame}{Evaluation assignment 2}
 \begin{itemize}
-\item t
+\item Still took too long (but better)
+\item Problem with the \texttt{grow\_tree} template/confusing template
 \end{itemize}
 \end{frame}
 
@@ -154,9 +155,9 @@ Work is very much ongoing:
 \item {\color{uured} Feed-Forward Neural Network}: Basic building block\pause
 \item {\color{uured} Convolutional Neural Networks}: Computer Vision\pause
 \item {\color{uured} Recurrent Neural Networks}: Speech Audio (?)\pause
-\item {\color{uured} Transformers/Attention}: Textual data
+\item {\color{uured} Transformers/Attention}: Textual data/Audio/Vision
 \end{itemize}
-\item The Neural Network Zoo: \url{https://www.asimovinstitute.org/neural-network-zoo/}
+\item The Neural Network Zoo:\\ \url{https://www.asimovinstitute.org/neural-network-zoo/}
 \end{itemize}
 
 }
@@ -231,7 +232,10 @@ b_2 =
 \end{equation*}
 
 \begin{equation*}
-g(z) = ReLU(z) = \max(0,z)\,,
+g(z) = \text{ReLU}(z) = \max(0,z)
+\end{equation*}
+
+\begin{equation*}
 x_i =
 \begin{pmatrix}
 0 \\
@@ -243,7 +247,7 @@ x_i =
 y_i = \begin{pmatrix}
 1 \\
 -2 \\
-\end{pmatrix}^T g(\begin{pmatrix}
+\end{pmatrix}^T \text{ReLU}\left[\begin{pmatrix}
 0 \\
 0 \\
 \end{pmatrix} +
@@ -251,7 +255,7 @@ y_i = \begin{pmatrix}
 1 \\
 -1 \\
 \end{pmatrix}
-) + \begin{pmatrix}
+\right] + \begin{pmatrix}
 0 \\
 \end{pmatrix}
 \]
@@ -293,24 +297,46 @@ A feed-forward network for one observation ($x_i$).
 
 \subsection{Output Units}
 
-% Linear Units for Gaussian Output Distributions
 
-% Given features h, a layer of linear output units produces a vector yˆ = Wh+b.
+\frame{\frametitle{Output units ($g_L$)}
 
-% Bernoulli units: Sigmoid  yˆ = Wh+b.
-%yˆ = σ wh + b # Note only one value
+\begin{itemize}
+\item \uured{Depend on the data} $y$\pause
+\item Linear units for regression
+\[
+\hat{y} = \mathbf{w} \mathbf{h} + \mathbf{b}
+\]
+\pause
+\item Bernoulli units for binary classification
+\[
+\hat{y} = \sigma(\mathbf{w} \mathbf{h} + \mathbf{b})\,,
+\]
+where
+\[
+\sigma(z) = \frac{1}{1+\exp(-z)}\,,
+\]
+i.e. the \uured{logistic} or \uured{sigmoid} function. \pause
+\end{itemize}
 
-% Multinoulli
-% z = Wh + b, (6.28)
-%where zi = log P˜(y = i | x). The softmax function can then exponentiate and
-%normalize z to obtain the desired yˆ. Formally, the softmax function is given by
-%softmax(z)i =
-%exp(zi) 
-%j exp(zj )
-%. (6.29)
+}
 
-% Other situations - use the negative log likelihood, e.g. poisson for counts, multivariate gaussian, ordinal data, survival models.
 
+\frame{\frametitle{Output units ($g_L$)}
+
+\begin{itemize}
+\item Multinoulli units for multi-class classification
+\[
+\hat{\mathbf{y}} = \text{softmax}(\mathbf{w} \mathbf{h} + \mathbf{b})\,,
+\]
+where
+\[
+\text{softmax}(\mathbf{z}) = \frac{\exp(z_j)}{\sum_j \exp(z_j)}\,.
+\]
+\pause
+\item Other situations: Use the \uured{negative log-likelihood}, e.g. Poisson, ordinal logit, survival models
+\end{itemize}
+
+}
 
 
 \subsection{Hidden Units}
@@ -319,7 +345,7 @@ A feed-forward network for one observation ($x_i$).
 
 \begin{itemize}
 \item Sometimes use notation $\sigma$ as in $\sigma(W h + b)$\pause
-\item Historically $g(z)$ has been the sigmoid or or hyperbolic tangent (tanh)
+\item Historically $g(z)$ has been the \uured{sigmoid} or or hyperbolic tangent (tanh)
 \[
 g_\text{sigmoid}(z)={\frac {e^{z}}{e^{z}+1}}={\frac {1}{1+e^{-z}}}
 \]
@@ -335,10 +361,6 @@ g_\text{ReLU}(z)=\max({0,z})
 \item Easier to estimate with SGD
 \item Easier for deep models
 \end{itemize}
-\item Last activation is the output function $g_L$, usually a softmax (if classification)
-\[
-f(z_i)={\frac {e^{z_i}}{\sum _{j=1}^{J}e^{z_{j}}}}
-\]
 \end{itemize}
 
 }
@@ -387,7 +409,7 @@ f(z_i)={\frac {e^{z_i}}{\sum _{j=1}^{J}e^{z_{j}}}}
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.6\textwidth]{fig/DL_6_3.png}
+\includegraphics[width=0.9\textwidth]{fig/DL_6_3.png}
 \caption{Effect of depth on accuracy (Goodfellow et al, 2017, Fig. 6.3)}
 \end{figure}
 
@@ -397,7 +419,7 @@ f(z_i)={\frac {e^{z_i}}{\sum _{j=1}^{J}e^{z_{j}}}}
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.6\textwidth]{fig/DL_6_6.png}
+\includegraphics[width=0.9\textwidth]{fig/DL_6_6.png}
 \caption{Depth vs. no of parameters (Goodfellow et al, 2017, Fig. 6.6)}
 \end{figure}
 
@@ -441,9 +463,9 @@ f(z_i)={\frac {e^{z_i}}{\sum _{j=1}^{J}e^{z_{j}}}}
 \frame{\frametitle{Regularization of Neural Networks}
 
 \begin{itemize}
-\item Reduce traing error but improve test/validation error\pause
+\item Reduce traing error but \uured{improve generalization error}\pause
 \item Neural Networks are extremely flexible / high model capacity\pause
-\item Regularization is crucial for good generalizability
+\item Regularization is important for good generalizability
 \end{itemize}
 
 }
@@ -451,7 +473,7 @@ f(z_i)={\frac {e^{z_i}}{\sum _{j=1}^{J}e^{z_{j}}}}
 \subsection{Norm penalty}
 % 7.1
 
-\frame{\frametitle{Weight decay / Norm penalty}
+\frame{\frametitle{Norm penalty}
 
 \begin{itemize}
 \item Let
@@ -464,7 +486,7 @@ where $J(W,b)$ is the cost function and $\alpha \Omega(W)$ is the penalty for th
 
 }
 
-\frame{\frametitle{Weight decay / Norm penalty}
+\frame{\frametitle{Norm penalty}
 
 \begin{itemize}
 \item Let
@@ -485,7 +507,7 @@ be the $L_1$ and $L_2$ regularization respectively.
 }
 
 
-\frame{\frametitle{Weight decay / Norm penalty}
+\frame{\frametitle{Weight decay}
 
 \begin{itemize}
 \item Lets define the cost function as
@@ -556,9 +578,8 @@ w \leftarrow & (1 - 2\alpha \epsilon)w - \epsilon \nabla_w J(w)\\
 \frame{\frametitle{Early Stopping}
 
 \begin{itemize}
-\item Stop optimization early based on validation error
-\item Rerun to that number of epochs (hyperparameter)
-\item Can be shown to be quivalent (under strict assumptions) to $L_2$ regularization
+\item \uured{Stop optimization early} based on validation error\pause
+\item Use the best iteration (hyperparameter)
 \end{itemize}
 
 \begin{figure}[h]
@@ -566,6 +587,11 @@ w \leftarrow & (1 - 2\alpha \epsilon)w - \epsilon \nabla_w J(w)\\
 \includegraphics[width=0.8\textwidth]{fig/early_stopping.png}
 \caption{Early Stopping (Goodfellow et al, 2017, Fig. 7.3)}
 \end{figure}
+
+\begin{itemize}
+\item Can be shown to be quivalent (under strict assumptions) to $L_2$ regularization
+\item Efficient regularization
+\end{itemize}
 }
 
 \frame{\frametitle{Early Stopping}
@@ -629,7 +655,7 @@ The best regularizer is... \pause \uured{to get more data}.
 J(\theta) = \sum_i^N L(\text{NN}(x_i),y_i) + \Omega(\theta)\,,
 \]
 where $L$ is the observation level loss, $\text{NN}()$ is our neural network and $\Omega$ is the regularization term. \pause
-\item \uured{Learning Target}: Find $\hat{\theta}$ that minimize the \uured{generalization} error \pause
+\item \uured{Learning Target}: Find $\hat{\theta}$ that minimize the \uured{generalization} error
 \end{itemize}
 
 }
@@ -691,7 +717,7 @@ where $L$ is the observation level loss, $\text{NN}()$ is our neural network and
 \includegraphics[width=0.8\textwidth]{fig/saddle_point.png}
 \caption{Saddle point for $z = x^2 - y^2$ (Wikipedia)}
 \end{figure}
-\item \uured{What is the gradient in a saddle point?} \pause
+\item \uured{What is the gradient in a saddle point?}
 
 \end{itemize}
 
