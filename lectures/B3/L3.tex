@@ -344,7 +344,6 @@ f(z_i)={\frac {e^{z_i}}{\sum _{j=1}^{J}e^{z_{j}}}}
 }
 
 
-
 \frame{\frametitle{Activation functions ($g_l$)}
 
 \begin{figure}[h]
@@ -367,7 +366,7 @@ f(z_i)={\frac {e^{z_i}}{\sum _{j=1}^{J}e^{z_{j}}}}
 \item How many hidden units in each layer?
 \item Activation functions?\pause
 \end{itemize}
-\item \emph{Note!} Output units is defined by the \uured{data}
+\item \emph{Note!} Output units is defined by both the \uured{data} and by design
 \end{itemize}
 
 }
@@ -384,20 +383,29 @@ f(z_i)={\frac {e^{z_i}}{\sum _{j=1}^{J}e^{z_{j}}}}
 
 }
 
-\subsection{Hyper-parameters}
+\frame{\frametitle{Depth matters}
 
-\frame{\frametitle{Hyper-parameters in feed-forward networks}
-
-\begin{itemize}
-\item The number of layers
-\item The number of neurons
-\item Activation functions
-\item The type of layers (CNN, MaxPooling, Multi-head attention)
-\end{itemize}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{fig/DL_6_3.png}
+\caption{Effect of depth on accuracy (Goodfellow et al, 2017, Fig. 6.3)}
+\end{figure}
 
 }
 
-\frame{\frametitle{How to choose parameters}
+\frame{\frametitle{Depth matters II}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{fig/DL_6_6.png}
+\caption{Depth vs. no of parameters (Goodfellow et al, 2017, Fig. 6.6)}
+\end{figure}
+
+}
+
+
+
+\frame{\frametitle{How to choose architecture}
 
 \begin{itemize}
 \item Trial and error on validation sets
