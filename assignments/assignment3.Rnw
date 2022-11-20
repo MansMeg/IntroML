@@ -135,7 +135,7 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
         xaxt='n', yaxt='n', main=paste(mnist$train$y[idx]))
 @
 \item How large is the training and test set?
-\item Implement a simple feed-forward neural network in R using TensorFlow and Keras. See the introduction \href{https://tensorflow.rstudio.com/tutorials/beginners/}{\textbf{[here]}}. Implement a neural network with one hidden layer with 16 units and the sigmoid as the activation function for the hidden layer. The output layer should be a softmax. Print your \texttt{keras} model description and include it in your report.
+\item Implement a simple feed-forward neural network in R using TensorFlow and Keras. See the introduction \href{https://tensorflow.rstudio.com/tutorials/beginners/}{\textbf{[here]}} or \href{https://cran.r-project.org/web/packages/keras/vignettes/index.html}{\textbf{[here]}}. Implement a neural network with one hidden layer with 16 units and the sigmoid as the activation function for the hidden layer. The output layer should be a softmax. Print your \texttt{keras} model description and include it in your report.
 \begin{enumerate}
 \item How many parameters do your model have in total?
 \item How many parameters does the input layer have?
