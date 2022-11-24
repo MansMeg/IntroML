@@ -95,6 +95,7 @@ knitr::opts_chunk$set(size = "small")
 %\input{general_questions_info.tex}
 
 %\begin{enumerate}
+%\item describe what dropout does in a CNN.
 %\item What is a convolutional kernel/feature map? (max 1 paragraph)
 %\item Describe how cross-correlation is related to a convolution with your own words. (max 1 paragraph)
 %\item Describe the purpose of a pooling layer in a convolutional architecture. (max 1 paragraph)
@@ -171,6 +172,7 @@ We are now going to implement a convolutional neural network using Keras. Here C
 
 @
 \emph{Note!} This problem is more complex than the MNIST problem, so don't be surprised if you get lower accuracy than you got on the MNIST dataset.
+\item Visualize one image of your choice from the CIFAR dataset together with its class/category.
 \item Why do we now have 896 parameters in the first convolutional layer?
 \item Try out and compare at least three different networks for the CIFAR data. Describe the networks (include the keras model output), why you choose them, and the Keras model output. \citet[Ch. 11-11.5]{Goodfellow-et-al-2016} and \citep[Ch. 5.3]{chollet2018deep} might give some suggestions. \label{item:three}
 \end{enumerate}
@@ -206,16 +208,17 @@ image(1:ncol(im), 1:nrow(im), im,
 
 <<echo = FALSE>>=
 convolution <- function(X,K){
-  matrix(c(56, 490, 260,
-           0,  438, 294,
-           0,  341, 391), byrow = TRUE, ncol = 3)
+  matrix(c(-1, 27,
+           -36, -36), byrow = TRUE, ncol = 2)
 }
+
 convolutional_layer <- function(X,K,b,activation){
-      matrix(c(52,  0,
-               14, 14), byrow = TRUE, ncol = 2)
+      matrix(c(99,  127,
+               64, 64), byrow = TRUE, ncol = 2)
 }
+
 maxpool_layer <- function(X){
-  matrix(c(250, 144,
+  matrix(c(250,  144,
            198, 241), byrow = TRUE, ncol = 2)
 }
 @
@@ -227,22 +230,22 @@ maxpool_layer <- function(X){
 <<>>=
 X <- mnist_example[["4"]][12:15,12:15]
 X
-K <- matrix(c(1, 1, 0, 0), nrow = 2)
+
+K <- matrix(c(-0.5, -0.5, -0.5,
+              1,  1,  1,
+              -0.5, -0.5, -0.5), nrow = 3, byrow = TRUE)
 K
+
 convolution(X, K)
 @
 \item Visualize the feature map of MNIST example digit 4 using the above two by two kernel \texttt{K}.
 \item Now implement all steps in a \texttt{convolutional\_layer(X, K, b, activation)} function that takes the kernel, bias and activation function. It should work as follows.
 <<>>=
 relu <- function(x) max(0, x)
-X <- mnist_example[["4"]][12:15,12:15]
-K <- matrix(c(1, 1, 1,
-              0, 0, 0,
-              0, 0, 0), nrow = 3, byrow = TRUE)
-convolutional_layer(X, K, -370, relu)
+convolutional_layer(X, K, 100, relu)
 @
-\item Run your convolutional layer on MNIST example digit 4 with bias -400. Visualize the feature map as you visualize the original image. What does the filter seem to capture?
-\item Now transpose your filter and run your convolutional layer on MNIST example digit 4 with bias -450. Visualize the feature map. What does that transposed filter seem to capture?
+\item Run your convolutional layer on MNIST example digit 4 with bias -150. Visualize the feature map as you visualize the original image. What does the filter seem to capture?
+\item Now transpose your filter and run your convolutional layer on MNIST example digit 4 with bias -150. Visualize the feature map. What does that transposed filter seem to capture?
 \item As the last step in our convolutional layer, implement a two by two, two stride max-pooling layer. It should work as follows.
 <<>>=
 X <- mnist_example[["4"]][12:15,12:15]
@@ -252,9 +255,6 @@ maxpool_layer(X)
 <<eval=FALSE>>=
 X <- mnist_example[["4"]]
 relu <- function(x) max(0, x)
-K <- matrix(c(1, 1, 1,
-              0, 0, 0,
-              0, 0, 0), nrow = 3, byrow = TRUE)
 output <- maxpool_layer(convolutional_layer(X, K, -370, relu))
 @
 
