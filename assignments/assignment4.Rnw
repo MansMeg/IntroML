@@ -90,29 +90,29 @@ knitr::opts_chunk$set(size = "small")
 
 \newpage
 
-\section{General Questions}
+%\section{General Questions}
 
-\input{general_questions_info.tex}
+%\input{general_questions_info.tex}
 
-\begin{enumerate}
-\item What is a convolutional kernel/feature map? (max 1 paragraph)
+%\begin{enumerate}
+%\item What is a convolutional kernel/feature map? (max 1 paragraph)
 %\item Describe how cross-correlation is related to a convolution with your own words. (max 1 paragraph)
 %\item Describe the purpose of a pooling layer in a convolutional architecture. (max 1 paragraph)
 % \item Reason about when to gather more data in an ML application? (1-2 paragraphs)
 %\item What hyperparameter does \citet{Goodfellow-et-al-2016} find to be the most important to tune, and why? (max 1 paragraph)
 %\item What automatic hyperparameter search is recommended by \citet{Goodfellow-et-al-2016}, grid search or random search. Why? (max 1 paragraph)
-\item Describe a good debugging test for an ML algorithm. (max 1 paragraph)
+%\item Describe a good debugging test for an ML algorithm. (max 1 paragraph)
 %\item Describe data augmentation in the context of image data and convnets. (max 1 paragraph)
-\item Describe why we primarily focus on fine-tuning layers higher up in neural networks when fine-tuning large pre-trained neural networks. (1-2 paragraphs)
-\end{enumerate}.
+%\item Describe why we primarily focus on fine-tuning layers higher up in neural networks when fine-tuning large pre-trained neural networks. (1-2 paragraphs)
+%\end{enumerate}.
 
-\newpage
+%\newpage
 
 \section{Convolutional neural networks using Keras}
 
 \emph{Note!} This assignment can be a little heavy computationally. If your own an old computer, you might want to run this task in the computer room in the Department.
 
-We are now going to implement a convolutional neural network using Keras. Here Ch. 5.1-5.3 in \citet{chollet2018deep} and the \href{https://tensorflow.rstudio.com/tutorials/advanced/images/cnn/}{following tutorial} might be useful, especially for details on how to load the data. Remember to load the \texttt{tesorflow} R package before loading the \texttt{keras} R package.
+We are now going to implement a convolutional neural network using Keras. Here Ch. 5.1-5.3 in \citet{chollet2018deep} and the \href{https://tensorflow.rstudio.com/tutorials/advanced/images/cnn/}{following tutorial} might be useful, especially for details on how to load the data. Remember to load the \texttt{tensorflow} R package before loading the \texttt{keras} R package.
 
 \emph{Note!} Running Keras can be computationally heavy, and I suggest not to run the code in \texttt{markdown}. Instead, run the code in R and copy the results as output (see the assignment template for an example).
 
@@ -141,7 +141,8 @@ We are now going to implement a convolutional neural network using Keras. Here C
 @
 \item Explain why there are 320 parameters in the first layer. How many are kernel weights (and why), and how many biases?
 \item Train the network using Keras. What is your loss and accuracy on the MNIST dataset?
-\item As the next step, we will implement a similar network for the CIFAR-10 dataset using \texttt{dataset\_cifar10()}. See the \href{https://tensorflow.rstudio.com/tutorials/advanced/images/cnn/}{tutorial} for details on how to load data. Implement a similar CNN as in the tutorial. That is:
+\item Choose at least three hyper-parameters you would like to evaluate (e.g. the number of layers, kernel sizes, number of kernels, number of hidden units in the classification head). Use random search \citet[see Ch. 11-11.5 in ][]{Goodfellow-et-al-2016} and train 10 different models with random hyper-parameter settings and store the validation accuracy of your network. Based on these result, choose the best hyper-parameter setting for your network. Print the code and the accuracy of your final model. You can choose the marginal distribution for the hyper-parameters yourself.
+\item As the next step, we will implement a convolutional neural network for the CIFAR-10 dataset using \texttt{dataset\_cifar10()}. See the \href{https://tensorflow.rstudio.com/tutorials/advanced/images/cnn/}{tutorial} for details on how to load data. Implement a similar CNN as in the tutorial. That is:
 <<>>=
 ## Model: "sequential"
 ## ___________________________________________________________________________
@@ -171,15 +172,14 @@ We are now going to implement a convolutional neural network using Keras. Here C
 @
 \emph{Note!} This problem is more complex than the MNIST problem, so don't be surprised if you get lower accuracy than you got on the MNIST dataset.
 \item Why do we now have 896 parameters in the first convolutional layer?
-\item Try out at least three different networks, describe the networks, why you chose them, and the Keras model output. Reading Ch. 11-11.5 in \citet{Goodfellow-et-al-2016} might give some good inspiration and guidance. For example, you can add a \texttt{dropout\_layer} \citep[see ][, Ch. 5.3]{chollet2018deep}. \label{item:three}
-\item Can you improve over the networks in Step \ref{item:three}. concerning accuracy? You can try different regularization approaches and batch normalization from the previous lab.
+\item Try out and compare at least three different networks for the CIFAR data. Describe the networks (include the keras model output), why you choose them, and the Keras model output. \citet[Ch. 11-11.5]{Goodfellow-et-al-2016} and \citep[Ch. 5.3]{chollet2018deep} might give some suggestions. \label{item:three}
 \end{enumerate}
 
 \newpage
 
 \section{Implementing a convolutional layer}
 
-To get VG on this assignment, you can choose to make this task OR the task on implementing a convolutional layer above. You are also free to do both, if you want. As long as you pass one of the two VG assignments you will get a VG point.
+To get VG on this assignment, you can choose to make this task OR the task on transfer learning below. You are also free to do both, if you want. As long as you pass one of the two VG assignments you will get a VG point. Although, please only write down the time it took to do the VG assignment for one of the tasks.
 
 \input{distinction_task.tex}
 
@@ -264,7 +264,7 @@ output <- maxpool_layer(convolutional_layer(X, K, -370, relu))
 
 \section{* Transfer learning using VGG16}
 
-To get VG on this assignment, you can choose to make this task OR the task on implementing a convolutional layer above. You are also free to do both, if you want. As long as you pass one of the two VG assignments you will get a VG point.
+To get VG on this assignment, you can choose to make this task OR the task on implementing a convolutional layer above. You are also free to do both, if you want. As long as you pass one of the two VG assignments you will get a VG point. Although, please only write down the time it took to do the VG assignment for one of the tasks.
 
 \input{distinction_task.tex}
 
