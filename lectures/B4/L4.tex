@@ -61,25 +61,10 @@
 
 \section{Previous assignments}
 
-\begin{frame}{Assignment 2}
-
-\begin{itemize}
-\item the difference in your RF comes from the CART algorithm
-\item remember to reuse your code
-\item why do I not show my code?
-\item why focus on implementation?
-\item do not risk the course by plagiarize, even small things
-\end{itemize}
-
-\end{frame}
-
 \begin{frame}{Assignment 3: Evaluation}
 
 \begin{itemize}
-\item R and Python for Keras/difficulties in installation
-\item The problem with seeds in Keras/TF
-\item Not super-clear instructions
-\item Better instruction on how to build your network
+\item ?
 \end{itemize}
 
 \end{frame}
@@ -97,20 +82,22 @@
 \item Supply a {\color{uured} project proposal} of data and problem at the end of \emph{15th of December 23.59}.
 \item \emph{Hint!} Submit page 1-1.5 of the project as project proposal.
 \item Deadline is after all lectures on supervised learning\pause
-\item Feel free to combine it with your master thesis project.\pause
+\item Feel free to combine it with your master thesis project!\pause
 \item Check with me if you have questions.
 \item The project should result in a 4 page report (PDF) using the {\color{uured} ICML LaTeX template}.
 \end{itemize}
 \end{frame}
 
 
-\section{Convolutional Neural Networks}
+\section{Introduction}
+\frame{\sectionpage}
 
 \frame{\frametitle{Convolutional Neural Networks}
 
 \begin{itemize}
-\item \emph{Convolutional} Neural Networks are behind great progress in the 2010s.
-\item It has revolutionized {\color{uured} Computer Vision}.
+\item \uured{Acknowledgements}: Anders Eklund, Link\"{o}ping University.\pause
+\item \uured{Convolutional} Neural Networks are behind great progress in the 2010s.
+\item It has revolutionized \uured{Computer Vision}.
 \item Also called: ConvNets, Convolutional nets, Convolutional networks
 \end{itemize}
 
@@ -121,26 +108,22 @@
 \end{figure}
 \pause
 
-Acknowledgements: Anders Eklund, Link\"{o}ping University.
-
 }
 
 
 \frame{\frametitle{Convolutional Neural Networks}
 
 \begin{itemize}
-\item Special architecture that works well for data with a {\color{uured} grid structure}
+\item Special architecture that works well for data with a \uured{grid structure}
 \begin{enumerate}
-\item 1D-grids: Time series
-\item 2D-grids: Gray-scale Images (pixels)
-\item 3D-grids: Color Images (pixels and chanels)
+\item 1D-grids: Time series\pause
+\item 2D-grids: Gray-scale Images (pixels)\pause
+\item 3D-grids: Color Images (pixels and chanels)\pause
 \item 4D-grids: Color Video (pixels, chanels, frames)
 \end{enumerate}
 \end{itemize}
 
 }
-
-\subsection{Computer Vision Problems}
 
 \frame{\frametitle{Computer Vision}
 
@@ -158,7 +141,7 @@ Acknowledgements: Anders Eklund, Link\"{o}ping University.
 \item ImageNet: 14M Images, 20k classes, 1M bounding boxes
 \end{itemize}
 \pause
-\item Many different trained models and {\color{uured} transfer learning}
+\item Many different pre-trained models (e.g. VGG16)
 \end{itemize}
 }
 
@@ -188,17 +171,14 @@ for analyzing orthopedic trauma radiographs, Acta Orthopaedica, 88:6, 581-586}
 }
 
 
-
-
-
 \frame{\frametitle{What is an Image?}
 
 \begin{itemize}
 \item 2-dimensional object
 \item Each pixel has:
 \begin{enumerate}
-\item a value (light intensity)
 \item a coordinate
+\item a value (light intensity)
 \end{enumerate}\pause
 \item {\color{uured} Grayscale}: single channel
 \item {\color{uured} Color}: three channel (RGB)\pause
@@ -210,7 +190,7 @@ for analyzing orthopedic trauma radiographs, Acta Orthopaedica, 88:6, 581-586}
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.8\textwidth]{fig/MNIST_example.png}
+\includegraphics[width=0.7\textwidth]{fig/MNIST_example.png}
 \caption{Example from the MNIST dataset (28 by 28 pixels)}
 \end{figure}
 
@@ -222,15 +202,11 @@ for analyzing orthopedic trauma radiographs, Acta Orthopaedica, 88:6, 581-586}
 \item We want to learn {\color{uured} representations} of parts of images
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.8\textwidth]{fig/DLR_Fig_5_2_cat.png}
+\includegraphics[width=0.7\textwidth]{fig/DLR_Fig_5_2_cat.png}
 \caption{The representations of a cat (Chollet and Allair, 2018, Fig 5.2)}
 \end{figure}
 \pause
-\item CNN uses {\color{uured} Convolutional Layers} to learn {\color{uured} parameter efficient} representations:
-\begin{enumerate}
-\item Convolution
-\item (Max-)Pooling
-\end{enumerate}
+\item CNN uses \uured{Convolutional Layers} to learn \uured{parameter efficient} representations
 \end{itemize}
 
 }
@@ -247,7 +223,9 @@ for analyzing orthopedic trauma radiographs, Acta Orthopaedica, 88:6, 581-586}
 }
 
 
-\subsection{Convolutions}
+\section{Convolution}
+\frame{\sectionpage}
+
 
 \frame{\frametitle{Convolution}
 
@@ -256,8 +234,8 @@ for analyzing orthopedic trauma radiographs, Acta Orthopaedica, 88:6, 581-586}
 \[
 y(t) = \int x(\tau) k(t-\tau)d\tau = (x*k)(t)
 \]
-\item "Weighting together two functions"
-\item In CNNs:
+\item Inutuition: "Weighting together two functions"
+\item In a convolutional layer:
 \begin{enumerate}
 \item $x(t)$: Input
 \item $k(t)$: Kernel, filter, "feature"
@@ -265,7 +243,6 @@ y(t) = \int x(\tau) k(t-\tau)d\tau = (x*k)(t)
 \end{enumerate}
 \end{itemize}
 }
-
 
 
 \frame{\frametitle{Discrete Convolution}
@@ -323,59 +300,83 @@ Y(i,j) = (X * K) \sum_{m} \sum_{n} X(m, n) K(i+m, j+n)
 \[
 X=
   \begin{bmatrix}
-    0 & 1 & 0 & 1 & 0 \\
-    0 & 1 & 1 & 1 & 0 \\
-    0 & 1 & 0 & 1 & 0
+    0 & 0 & 0 & 1 & 1 \\
+    0 & 0 & 0 & 1 & 1 \\
+    0 & 0 & 0 & 1 & 1 \\
+    0 & 0 & 1 & 1 & 1
   \end{bmatrix}\,,
   K =
   \begin{bmatrix}
-    0 & 1 \\
-    0 & 1
+    -1 & 1 \\
+    -1 & 1
   \end{bmatrix}
 \]
 \pause
 \[
 Y=
   \begin{bmatrix}
-    2 & 1 & 2 & 0 \\
-    2 & 1 & 2 & 0
+    0 & 0 & 2 & 0 \\
+    0 & 0 & 2 & 0 \\
+    0 & 1 & 2 & 0
   \end{bmatrix}\,,
 \]
 }
 
 
-\frame{\frametitle{Convolutions}
+
+
+\section{Convolutional Neural Networks}
+\frame{\sectionpage}
+
+\frame{\frametitle{Convolutional Neural Networks}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{fig/DL_fig_9_7_conv_layer.png}
+\caption{Convolution layer (Goodfellow et al, 2018, Fig. 9.7)}
+\end{figure}
+}
+
+\frame{\frametitle{Convolutional Neural Networks}
 
 \begin{itemize}
+\item Most convolutional neural networks have:
+\begin{enumerate}
+\item Many convolutional layers
+\item More kernels higher up in the network
+\item A classification head (usually a feed-forward neural network)
+\end{enumerate}
+\pause
 \item Benefits:
 \begin{enumerate}
-\item Few parameters (filters)
+\item Few(er) parameters (filters)
 \item Captures {\color{uured} local structures}
 \item Efficient computations\pause
 \end{enumerate}
 \item How to choose filters?
 \begin{enumerate}
-\item Before: {\color{uured} manually handcrafted}
-\item Now: {\color{uured} learn the filters} using backpropagation and CNN
+\item Before: {\color{uured} manually handcrafted}\pause
+\item Now: {\color{uured} learn the filters}
 \end{enumerate}
 
 \end{itemize}
 
 }
 
-
-\subsection{Convolutions in Neural Networks}
+\subsection{The Convolution Layer}
 
 \frame{\frametitle{Convolution layer}
 
 \begin{itemize}
 \item {\color{uured} Input}: Data or Feature Maps
+\pause
 \item {\color{uured} Parameters}:
 \begin{itemize}
 \item $N$ filters/kernels of size $m\times m$
 \item $N$ bias terms (one per filter)
 \end{itemize}
-\item {\color{uured} Activation function}: Applied element wise on feature maps
+\pause
+\item {\color{uured} Activation functions}: Applied element wise on feature maps
+\pause
 \item {\color{uured} Output}: Feature Maps
 \pause
 \item In Keras:\\
@@ -404,7 +405,6 @@ Y=
 \caption{Padding and valid edge handling (Chollet and Allair (2018), Fig. 5.5, 5.6)}
 \end{figure}
 }
-
 
 
 \frame{\frametitle{Stride}
@@ -451,24 +451,23 @@ Y=
 \frame{\frametitle{Detector stage}
 
 \begin{itemize}
-\item Remember, in dense networks: $h = \sigma(X W + b)$
+\item Remember, in feed-forward networks: $\mathbf{h} = \sigma(\mathbf{X W}  + b)$
 \item In CNN:
 \begin{enumerate}
-\item $W$ "is the filter"
-\item $X$ is the input feature map
-\item $X W$ "is the convolutional feature map"
-\item $b$ is a bias (one per filter)
-\item $\sigma$ is the activation function (usually a ReLu)
+\item $\mathbf{W}$ is the filter\pause
+\item $\mathbf{X}$ is the input feature map\pause
+\item $\mathbf{X W}$ is the convolutional feature map\pause
+\item $b$ is a bias (one per filter) \pause
+\item $\sigma$ is the activation function (usually a ReLU)
 \end{enumerate}
 \end{itemize}
 
 }
 
-
+\subsection{The Pooling Layer}
 \frame{\frametitle{Pooling layer}
 
 \begin{itemize}
-\item Similar to a convolution
 \item We take a function $f$ that return one value per pooling kernel\pause
 \item Most commonly $f=\max$
 \item Commonly a $2\times 2$ pooling kernel with stride 2
@@ -484,18 +483,30 @@ Y=
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.8\textwidth]{fig/MaxpoolSample2.png}
-\caption{Strides (Computer Science Wiki: "Max-pooling / Pooling")}
+\caption{Strides (Computer Science Wikipedia)}
 \end{figure}
-
 }
 
+\frame{\frametitle{Using pooling to learn invariances}
 
-\subsection{Data Augmentation - Regularization for CNNs}
+\begin{itemize}
+\item pooling over spatial positions: invariant to translation
+\item pooling over different filters: invariant to transformations
+\end{itemize}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\textwidth]{fig/invariances.png}
+\caption{Learning invariances (Goodfellow et al., 2017, Fig. 9.9)}
+\end{figure}
+}
+
+\subsection{Regularization}
 
 \frame{\frametitle{Data Augmentation}
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.8\textwidth]{fig/DLR_fig_5_10_data_augmentation.png}
+\includegraphics[width=0.6\textwidth]{fig/DLR_fig_5_10_data_augmentation.png}
 \caption{Data Augmentation (Chollet and Allair, 2018, Fig 5.10)}
 \end{figure}
 \pause
@@ -511,12 +522,12 @@ Y=
 
 \begin{itemize}
 \item AlexNet (2012), 5 convolutional layers
-\item VGGNet (2014), 16 convolutional layers
+\item VGG16 (2014), 16 convolutional layers
 \item ResNet (2015), 152 convolutional layers
 \end{itemize}
 }
 
-\frame{\frametitle{VGG}
+\frame{\frametitle{VGG16}
 
 \begin{figure}[h]
 \centering
@@ -527,6 +538,7 @@ Y=
 }
 
 \section{Transfer learning}
+\frame{\sectionpage}
 
 \frame{\frametitle{Transfer learning}
 
@@ -577,6 +589,9 @@ Y=
 \end{figure}
 
 }
+
+\section{Practical aspects}
+\frame{\sectionpage}
 
 
 \end{document}
