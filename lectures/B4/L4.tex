@@ -64,7 +64,8 @@
 \begin{frame}{Assignment 3: Evaluation}
 
 \begin{itemize}
-\item ?
+\item A little too simple?
+\item Problems with Tensorflow and R
 \end{itemize}
 
 \end{frame}
@@ -596,8 +597,67 @@ Y=
 
 }
 
-\section{Practical aspects}
+\section{Practical Methodology}
 \frame{\sectionpage}
 
+\frame{\frametitle{Practical Methodology}
+
+\begin{enumerate}
+\item Determine your goals
+\item Setup your baseline \\(establish a working end-to-end pipeline as soon as possible)
+\item Diagnose your networks performance
+\item Make incremental improvements
+\end{enumerate}
+
+}
+
+
+\frame{\frametitle{1. Determine your goals}
+
+\begin{itemize}
+\item Why are you building a model?\pause
+\item Set up the metric based on the overall target of the system! This may need multiple metrics.\pause %
+\item What is good enough? Remember the \uured{Bayes error}!\pause
+\item What performance can you expect?\pause
+\item Some errors are worse than others, e.g. spam filters.\pause
+\item Handling of uncertain predictions?
+\item \uured{Coverage}: How large proportions can the system predict?\pause
+\item It is not uncommon that manual curation is faster and easier in some settings.
+\end{itemize}
+}
+
+\frame{\frametitle{2. Setup your baseline}
+
+\begin{itemize}
+\item Start with the most simple possible model (logistic regression)
+\item Start from previous approaches
+\item Start with a simple neural network that is common in the domain/defaults (CNN for images, Adam as optimizer)
+\end{itemize}
+}
+
+
+
+
+\frame{\frametitle{3. Diagnosing and improving your model}
+
+\begin{itemize}
+\item Gather more data: Usually a good solution
+\item Avoid focus on the "best" algorithm and the ML-sickness
+\item If high loss in training: The training data is not yet used fully
+\item If high loss on test: The quality of the training data can be poor. This means that the Bayes error is larger.
+\item If low training error, but high test error: Probably more data is a good way forward. If costly or difficult with more data -> regularization
+
+\end{itemize}
+}
+
+\frame{\frametitle{Learning curve to assess if you need more data}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{fig/DL_5_4a.png}
+\caption{Learning curve to assess the need for more data (Goodfellow et al., 2017, Fig 5.4)}
+\end{figure}
+
+}
 
 \end{document}
