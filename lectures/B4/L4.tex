@@ -636,13 +636,21 @@ Y=
 }
 
 
+\begin{frame}{Statistical Learning Theory}
 
+\begin{figure}[h]
+\caption{Test, training, and model complexity (Goodfellow et al, 2017, Figure 5.3)}
+\centering
+\includegraphics[width=0.8\textwidth]{fig/Dl_5_3.png}
+\end{figure}
 
-\frame{\frametitle{3. Diagnosing and improving your model}
+\end{frame}
+
+\frame{\frametitle{3. Diagnosing and improving your model: More data}
 
 \begin{itemize}
 \item Gather more data: Usually a good solution
-\item Avoid focus on the "best" algorithm and the ML-sickness
+\item Avoid focus on the "best" algorithm and the "ML-sickness"
 \item If high loss in training: The training data is not yet used fully
 \item If high loss on test: The quality of the training data can be poor. This means that the Bayes error is larger.
 \item If low training error, but high test error: Probably more data is a good way forward. If costly or difficult with more data -> regularization
@@ -658,6 +666,45 @@ Y=
 \caption{Learning curve to assess the need for more data (Goodfellow et al., 2017, Fig 5.4)}
 \end{figure}
 
+}
+
+\frame{\frametitle{3. Diagnosing and improving your model: Regularization}
+
+\begin{itemize}
+\item General idea: Increase data and model capacity until target is reached.
+\item Adapt hyperparameters to get \uured{optimal capacity}
+\item Goal: The primary goal of manual hyperparameter search is to adjust the effective capacity of the model to match the complexity of the task.
+\item Ideally, each marginal hyperparameter has a U-shaped form
+\item Step 1: Get good training error. Tune learning rate. U-shaped for training error. Neural network performs best when training error is low.
+\item Step 2: Tuning hyperparameters (regularization) requires monitoring both training and test error to diagnose whether your model is overfitting or underfitting
+\item Best performance: Larger model that is regularized well.
+\item End goal: Good performance on test set
+\item With low training error you can always improve by adding more data
+
+\end{itemize}
+}
+
+\frame{\frametitle{Hyper-parameter optimization}
+
+\begin{itemize}
+\item Neural networks has many hyperparameters
+\item \uured{What is a hyperparameter in a neural network?}
+\item Grid search:
+\begin{itemize}
+\item Setup a grid of potential values
+\item For 1-4 hyperparameter: grid search can work well
+\item Usually iterative/repeated grid search is best: start with three values, and work iteratively
+\item Grows exponentially with the number of parameters
+\end{itemize}
+\item Random search
+\begin{itemize}
+\item Specify a marginal distribution for each hyperparameter (additional work)
+\item Common: uniform on log scale
+\item Can also be done iteratively
+\item random search can be exponentially more efficient
+\item reduce the error faster
+\end{itemize}
+\end{itemize}
 }
 
 \end{document}
