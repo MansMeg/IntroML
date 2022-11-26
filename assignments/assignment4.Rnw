@@ -142,7 +142,7 @@ We are now going to implement a convolutional neural network using Keras. Here C
 @
 \item Explain why there are 320 parameters in the first layer. How many are kernel weights (and why), and how many biases?
 \item Train the network using Keras. What is your loss and accuracy on the MNIST dataset?
-\item Choose at least three hyper-parameters you would like to evaluate (e.g. the number of layers, kernel sizes, number of kernels, number of hidden units in the classification head). Use random search \citet[see Ch. 11-11.5 in ][]{Goodfellow-et-al-2016} and train 10 different models with random hyper-parameter settings and store the validation accuracy of your network. Based on these result, choose the best hyper-parameter setting for your network. Print the code and the accuracy of your final model. You can choose the marginal distribution for the hyper-parameters yourself.
+\item Choose at least three hyper-parameters you would like to evaluate (\citet[see Table 11.1 in ][]{Goodfellow-et-al-2016}). Use random search \citet[see Ch. 11.4.4 in ][]{Goodfellow-et-al-2016} and train 10 different models with random hyper-parameter settings and store the validation accuracy of your network. Based on these result, choose the best hyper-parameter setting for your network. Print the code and the accuracy of your final model. You can choose the marginal distribution for the hyper-parameters yourself.
 \item As the next step, we will implement a convolutional neural network for the CIFAR-10 dataset using \texttt{dataset\_cifar10()}. See the \href{https://tensorflow.rstudio.com/tutorials/advanced/images/cnn/}{tutorial} for details on how to load data. Implement a similar CNN as in the tutorial. That is:
 <<>>=
 ## Model: "sequential"
@@ -179,7 +179,7 @@ We are now going to implement a convolutional neural network using Keras. Here C
 
 \newpage
 
-\section{Implementing a convolutional layer}
+\section{* Implementing a convolutional layer}
 
 To get VG on this assignment, you can choose to make this task OR the task on transfer learning below. You are also free to do both, if you want. As long as you pass one of the two VG assignments you will get a VG point. Although, please only write down the time it took to do the VG assignment for one of the tasks.
 
