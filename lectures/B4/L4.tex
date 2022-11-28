@@ -632,6 +632,11 @@ Y=
 \item Make incremental improvements
 \end{enumerate}
 
+\begin{itemize}
+\item \uured{General idea}: Increase data and model capacity until goal is reached\pause
+\item \uured{End goal}: Good enough performance on test set
+\end{itemize}
+
 }
 
 
@@ -672,17 +677,19 @@ Y=
 
 \end{frame}
 
-\frame{\frametitle{3. Diagnose and improve: More data?}
+\frame{\frametitle{3. Diagnose and improve}
 
 \begin{itemize}
-\item High training loss: Training data not fully used\pause
+\item High training loss: Training data not fully used\\
+Neural network generally performs best when training error is low
+\pause
 \item High test loss: Low data quality, i.e. large Bayes error?\pause
 \item Low training error and high test error: Common situation\pause
 \begin{itemize}
-\item Gather more data, or
-\item Regularize to optimal capacity
+\item You can always improve by gather more data, or
+\item Regularize to optimal capacity\pause
 \end{itemize}
-\item \uured{How to know the improvemensts of additional data?}
+\item \uured{How to know the improvements of additional data?}
 \end{itemize}
 }
 
@@ -699,17 +706,17 @@ Y=
 \frame{\frametitle{3. Diagnosing and improving your model: Regularization}
 
 \begin{itemize}
-\item Avoid \uured{the algorithm rabbit hole}
-\item General idea: Increase data and model capacity until target is reached.
-\item Adapt hyperparameters to get \uured{optimal capacity}
-\item Goal: The primary goal of manual hyperparameter search is to adjust the effective capacity of the model to match the complexity of the task.
-\item Ideally, each marginal hyperparameter has a U-shaped form
-\item Step 1: Get good training error. Tune learning rate. U-shaped for training error. Neural network performs best when training error is low.
-\item Step 2: Tuning hyperparameters (regularization) requires monitoring both training and test error to diagnose whether your model is overfitting or underfitting
 \item Best performance: Larger model that is regularized well.
-\item End goal: Good performance on test set
-\item With low training error you can always improve by adding more data
-
+\item Warning: Avoid \uured{the algorithm rabbit hole}\pause
+\item Adapt hyperparameters to get \uured{optimal capacity}\pause
+\item Hyperparameter Search Goal: \\adjust the model capacity to match the complexity of the task.\pause
+\item Marginal hyperparameter has a U-shaped error function (ideally)\pause
+\item Neural Networks Steps:
+\begin{enumerate}
+\item Get good training error. E.g. by tune learning rate and increasing capacity\pause
+\item Tune hyperparameters (regularization):\\
+Requires monitoring both training and test error
+\end{enumerate}
 \end{itemize}
 }
 
