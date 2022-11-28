@@ -64,8 +64,10 @@
 \begin{frame}{Assignment 3: Evaluation}
 
 \begin{itemize}
-\item A little too simple?
+\item A little too simple? Too uneven workload.
+\item Problems with computer labs
 \item Problems with Tensorflow and R
+\item Use python. Maybe as an VG assignment?
 \end{itemize}
 
 \end{frame}
@@ -550,22 +552,9 @@ Y=
 \frame{\frametitle{Transfer learning}
 
 \begin{itemize}
-\item Learning representations in $P_1$ will help generalizations in $P_2$
-\item Main idea: transfer learned representations to new settings where they might be useful
 \item "{\color{uured} Transfer knowledge} between problems"
-\item Transfer/reuse {\color{uured} learned weights}\pause
-\item A Bayesian perspective: A strong prior
-\item Use (large) pre-trained models for smaller problems
-\item One of the main reasons for the success of (convolutional) neural networks\pause
-\item The Risk: Catastophic forgetting
-\item Two types of transfer learning in Neural Networks:
-\begin{itemize}
-\item Feature extraction
-\item Fine Tuning
-\end{itemize}
-\item \uured{Domain adaptation}: Same problem but at different input dataset (e.g. language models for legal/medical/political data)
-\item Concept drift: Similar problem
-\item Previously popular with unsupervised pre-training. Now mainly resused models.
+\item \uured{Learning representations} in $P_1$ will aid \uured{generalization} in $P_2$\pause
+\item A Bayesian perspective: A \uured{strong prior}
 \end{itemize}
 
 }
@@ -582,6 +571,20 @@ Y=
 
 }
 
+\frame{\frametitle{Transfer learning}
+
+\begin{itemize}
+\item \uured{In practice}: Transfer/reuse {\color{uured} learned weights} or rather \uured{some weights}\pause
+\item Use (large) \uured{pre-trained} models for smaller problems
+\item A reason for the success of CNN\pause
+\item Two types of transfer learning in Neural Networks:
+\begin{itemize}
+\item Feature extraction (use pre-trained networks for features)
+\item Fine Tuning (adapt pre-trained features)
+\end{itemize}
+\end{itemize}
+
+}
 
 \frame{\frametitle{Feature Extraction}
 
@@ -603,15 +606,29 @@ Y=
 
 }
 
+
+\frame{\frametitle{Transfer learning}
+
+\begin{itemize}
+
+\item \uured{Catastophic forgetting} \pause
+\item \uured{Domain adaptation}: Same problem but at different input dataset\\ (e.g. language models for legal/medical/political data) \pause
+\item \uured{Concept drift}: Similar problem \pause
+\item Previously, popular with unsupervised pre-training.
+\end{itemize}
+
+}
+
+
 \section{Practical Methodology}
 \frame{\sectionpage}
 
 \frame{\frametitle{Practical Methodology}
 
 \begin{enumerate}
-\item Determine your goals
-\item Setup your baseline \\(establish a working end-to-end pipeline as soon as possible)
-\item Diagnose your networks performance
+\item Determine your goals\pause
+\item Setup your baseline \\(establish a working end-to-end pipeline as soon as possible)\pause
+\item Diagnose your networks performance\pause
 \item Make incremental improvements
 \end{enumerate}
 
@@ -622,27 +639,30 @@ Y=
 
 \begin{itemize}
 \item Why are you building a model?\pause
-\item Set up the metric based on the overall target of the system! This may need multiple metrics.\pause %
+\item Set up the metric based on the \uured{overall goal} of the system! \\This may need multiple metrics.\pause %
 \item What is good enough? Remember the \uured{Bayes error}!\pause
 \item What performance can you expect?\pause
 \item Some errors are worse than others, e.g. spam filters.\pause
-\item Handling of uncertain predictions?
+\item Handling of uncertain predictions:
 \item \uured{Coverage}: How large proportions can the system predict?\pause
-\item It is not uncommon that manual curation is faster and easier in some settings.
+\item Manual curation can be faster and easier.
 \end{itemize}
 }
 
 \frame{\frametitle{2. Setup your baseline}
 
 \begin{itemize}
-\item Start with the most simple possible model (logistic regression)
-\item Start from previous approaches
-\item Start with a simple neural network that is common in the domain/defaults (CNN for images, Adam as optimizer)
+\item Start with...
+\begin{itemize}
+\item the most simple possible model (logistic regression)\pause
+\item previous approaches/baselines\pause
+\item a simple neural network that is common in the domain/defaults\\(CNN for images, Adam as optimizer)
+\end{itemize}
 \end{itemize}
 }
 
 
-\begin{frame}{Statistical Learning Theory}
+\begin{frame}{Remember: Statistical Learning Theory}
 
 \begin{figure}[h]
 \caption{Test, training, and model complexity (Goodfellow et al, 2017, Figure 5.3)}
@@ -652,19 +672,21 @@ Y=
 
 \end{frame}
 
-\frame{\frametitle{3. Diagnosing and improving your model: More data}
+\frame{\frametitle{3. Diagnose and improve: More data?}
 
 \begin{itemize}
-\item Gather more data: Usually a good solution
-\item Avoid focus on the "best" algorithm and the "ML-sickness"
-\item If high loss in training: The training data is not yet used fully
-\item If high loss on test: The quality of the training data can be poor. This means that the Bayes error is larger.
-\item If low training error, but high test error: Probably more data is a good way forward. If costly or difficult with more data -> regularization
-
+\item High training loss: Training data not fully used\pause
+\item High test loss: Low data quality, i.e. large Bayes error?\pause
+\item Low training error and high test error: Common situation\pause
+\begin{itemize}
+\item Gather more data, or
+\item Regularize to optimal capacity
+\end{itemize}
+\item \uured{How to know the improvemensts of additional data?}
 \end{itemize}
 }
 
-\frame{\frametitle{Learning curve to assess if you need more data}
+\frame{\frametitle{Learning curve}
 
 \begin{figure}[h]
 \centering
@@ -677,6 +699,7 @@ Y=
 \frame{\frametitle{3. Diagnosing and improving your model: Regularization}
 
 \begin{itemize}
+\item Avoid \uured{the algorithm rabbit hole}
 \item General idea: Increase data and model capacity until target is reached.
 \item Adapt hyperparameters to get \uured{optimal capacity}
 \item Goal: The primary goal of manual hyperparameter search is to adjust the effective capacity of the model to match the complexity of the task.
