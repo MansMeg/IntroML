@@ -724,7 +724,7 @@ Requires monitoring both training and test error
 
 \begin{itemize}
 \item Neural networks has many hyperparameters
-\item \uured{What is a hyperparameter in a neural network?}
+\item \uured{What is a hyperparameter in a neural network?}\pause
 \item Grid search:
 \begin{itemize}
 \item Setup a grid of potential values
@@ -732,13 +732,14 @@ Requires monitoring both training and test error
 \item Usually iterative/repeated grid search is best: start with three values, and work iteratively
 \item Grows exponentially with the number of parameters
 \end{itemize}
+\pause
 \item Random search
 \begin{itemize}
 \item Specify a marginal distribution for each hyperparameter (additional work)
 \item Common: uniform on log scale
 \item Can also be done iteratively
-\item random search can be exponentially more efficient
-\item reduce the error faster
+\item Can be exponentially more efficient
+\item Generally reduce the error faster in setting with many hyper parameters
 \end{itemize}
 \end{itemize}
 }
@@ -746,11 +747,11 @@ Requires monitoring both training and test error
 \frame{\frametitle{Diagnosis and Debugging}
 
 \begin{itemize}
-\item Visualize the model predictions
-\item Analyze the worst errors: \uured{why?}
-\item Use train and test error as a diagnostic: \uured{Can you overfit the data?}
-\item Use test suites: Can you get known results on a toy data. Both training error and derivatives
-\item Monitor the gradients
+\item Visualize the model predictions\pause
+\item Analyze the worst errors: \uured{why?}\pause
+\item Use train and test error as a diagnostic: \uured{Can you overfit the data?}\pause
+\item Use test suites: Can you get known results on a toy data. Both training error and derivatives\pause
+\item Monitor the gradients\pause
 \item Monitor activation function statistics. Are some never activated?
 \end{itemize}
 }
