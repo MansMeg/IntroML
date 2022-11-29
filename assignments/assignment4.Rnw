@@ -113,7 +113,7 @@ knitr::opts_chunk$set(size = "small")
 
 \emph{Note!} This assignment can be a little heavy computationally. If your own an old computer, you might want to run this task in the computer room in the Department.
 
-We are now going to implement a convolutional neural network using Keras. Here Ch. 5.1-5.3 in \citet{chollet2018deep} and the \href{https://tensorflow.rstudio.com/tutorials/advanced/images/cnn/}{following tutorial} might be useful, especially for details on how to load the data. Remember to load the \texttt{tensorflow} R package before loading the \texttt{keras} R package.
+We are now going to implement a convolutional neural network using Keras. Here Ch. 5.1-5.3 in \citet{chollet2018deep} and the \href{https://tensorflow.rstudio.com/examples/cifar10_cnn}{following tutorial} might be useful, especially for details on how to load the data. Remember to load the \texttt{tensorflow} R package before loading the \texttt{keras} R package.
 
 \emph{Note!} Running Keras can be computationally heavy, and I suggest not to run the code in \texttt{markdown}. Instead, run the code in R and copy the results as output (see the assignment template for an example).
 
