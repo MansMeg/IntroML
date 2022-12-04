@@ -95,9 +95,9 @@ knitr::opts_chunk$set(size = "small")
 
 \input{general_questions_info.tex}
 \begin{enumerate}
-\item What is the difference between a recurrent neural network and an ordinary feed-forward neural network? (max 1 paragraph)
-\item What is LSTM neural network, and why does it work better on long sequences than a  naive  RNN? (max 1 paragraph)
-\item What is the main difference between a GRU and LSTM neural network? (max 1 paragraph)
+%\item What is the difference between a recurrent neural network and an ordinary feed-forward neural network? (max 1 paragraph)
+%\item What is LSTM neural network, and why does it work better on long sequences than a  naive  RNN? (max 1 paragraph)
+%\item What is the main difference between a GRU and LSTM neural network? (max 1 paragraph)
 \item Name at least one difference between the BERT model and the original transformer model? (max 1 paragraph)
 \end{enumerate}
 
@@ -173,12 +173,13 @@ multi_head_self_attention(X,
 @
 \end{enumerate}
 
+\newpage
 
-\section{* Implementing a simple RNN}
+\section{Implementing a simple RNN}
 
-\input{distinction_task.tex}
+%\input{distinction_task.tex}
 
-We are going to implement a one-layer recurrent neural network based on the \texttt{rnn\_example} data. We are going to implement a simple layer described in Section 10.2.0 in \citet{Goodfellow-et-al-2016}. See this section for details.
+We are going to implement a one-layer recurrent neural network based on the \texttt{rnn\_example} data. We are going to implement a simple layer described in Section 10.2 in \citet{Goodfellow-et-al-2016}. See this section for details.
 
 We will set the dimensionality of the hidden state to 4 and the output dimension to 3. In this task, we will set $h_0$, the initial starting state, to a zero-vector. The input will be the embeddings in the \texttt{rnn\_example} data.
 
@@ -254,10 +255,14 @@ rnn_layer(X,
 \item Now, what is the value of the hidden state \texttt{h\_t} for the token \texttt{dog}?
 \end{enumerate}
 
+\newpage
 
-\section{* Recurrent Neural Networks with Keras}
+\section{*Recurrent Neural Networks with Keras}
+
+To get VG on this assignment, you can choose to do this task OR the task using BERT with PyTorch below. You are also free to do both, if you want. As long as you pass one of the VG assignments you will get a VG point. Although, please only write down the time it took to do the VG assignment for one of the tasks if you choose to do more than one.
 
 \input{distinction_task.tex}
+
 
 As a first step, we will try using Recurrent Neural Networks on a text classification task. Here Chapter 6 - 6.2 in \citet{chollet2018deep} will be the primary reference.
 
@@ -287,18 +292,40 @@ input_test <- pad_sequences(input_test, maxlen = maxlen)
 \end{enumerate}
 
 
-%\section{* Taking BERT out for a spin (Optional assignment)}
+\newpage
 
-%Unfortunately, there is no simple way to run BERT directly from R yet. There are two ways you can try to use BERT. There are two ways you can try BERT using Keras.
+\section{*BERT for Swedish with PyTorch}
+
+To get VG on this assignment, you can choose to do this task OR the task using Keras and PyTorch above. You are also free to do both if you want. You will get a VG point if you pass one of the VG assignments. Although, please only write down the time it took to do the VG assignment for one of the tasks if you choose to do more than one.
+
+\input{distinction_task.tex}
+
+Unfortunately, there is yet to be a simple way to run BERT directly from R. Although, using Google Colab, we can run one of the Swedish BERT models trained by the Swedish national library. The tutorial is in English, and without any Swedish understanding, it should be straightforward to follow.
+
+Follow the tutorial on Google Colab \href{https://github.com/MansMeg/IntroML/blob/master/assignments/swedish_bert_classification.ipynb}{\color{blue}{here}}. Then do the following things.
+
+\begin{enumerate}
+\item Try to improve on the relatively low classification accuracy and get above 80\% overall accuracy. You are free to elaborate how much you want yourself, but some suggestions are:
+\begin{enumerate}
+\item Fine-tune a larger part of the BERT model (not just the classification head)
+\item Run the model for more epochs
+\item Try out other learning rates (scheduling)
+\end{enumerate}
+\emph{Note!} Training these large neural networks might take some time. It can take more than an hour at Google Colab to fine-tune the whole BERT model.
+\item Write down the steps you take, the overall accuracy you get along the way, and the final accuracy of your fine-tuned BERT model, both overall and per party.
+\item Reason based on your final confusion matrix on the difficulties for the model. Can the errors be reduced further or not? Why?
+\end{enumerate}
+
+
+
+
+
 
 %\begin{enumerate}
 %\item Using reticulate in R. \href{https://blogs.rstudio.com/ai/posts/2019-09-30-bert-r/}{Here is a tutorial.}
 %\item Run BERT using Python in Colab \href{https://colab.research.google.com/github/dipanjanS/nlp_workshop_odsc19/blob/master/Module05%20-%20NLP%20Applications/Project07E%20-%20Text%20Classification%20with%20BERT%20Deep%20Transfer%20Learning.ipynb}{here}.
 %\end{enumerate}
 
-%The second approach is probably more straightforward, and there you could try out running BERT using a GPU. In both cases, it is built upon Keras, and you will understand most parts.
-
-% The (optional) assignment is to run through the tutorial and summarize your preferred method's experience and thoughts on using BERT.
 
 \newpage
 \bibliography{bibliography}
