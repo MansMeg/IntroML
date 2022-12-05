@@ -45,10 +45,10 @@
 
 \begin{frame}{This week's lectures}
 \begin{itemize}
-\item Word embedding basics
+\item Word embeddings
 \item Recurrent Neural Networks
 \item Attention and Transformers
-\item BERT
+\item BERT models
 \end{itemize}
 \end{frame}
 
@@ -56,64 +56,30 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\section{Previous assignments}
+\section{Practicalities}
 
 \begin{frame}{Practicalities}
 
 \begin{itemize}
-\item remember the project proposition deadline the 15th of December
-\item One lecture later this week on State of the Art in word embeddings and transformers (Väinö Yrjänäinen and Anders Östling)
-\item An additional guest lecture in january on fairness in AI and law (Holli Sargeant, Cambride University)
+\item Remember the project proposition deadline the 12th of December
+\item One lecture later this week on word embeddings (Väinö Yrjänäinen)
+\item We are behind on correcting assignments
 \end{itemize}
 
 \end{frame}
 
-\begin{frame}{Assignment 3}
-
-\begin{itemize}
-\item remember the use of validation/test/train
-\item dont retrain your best model on test data
-\item clarify instructions: micro or macro precision and recall
-\end{itemize}
-
-\end{frame}
 
 \begin{frame}{Assignment 4: Evaluation}
 
 \begin{itemize}
-\item Some further clarifications are needed
-\item It takes long time to run the models
-\item Better help in how to think when constructing networks
+\item Minor comments
 \end{itemize}
 
 \end{frame}
 
-\begin{frame}{General principle}
-
-\begin{figure}[h]
-\caption{Test, training, and model complexity (Hastie et al, 2009, Figure 7)}
-\centering
-\includegraphics[width=0.8\textwidth]{fig/ESL_7_1.png}
-\end{figure}
-
-
-
-\end{frame}
-
-
-\frame{\frametitle{Grid search vs. Random Search}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.6\textwidth]{fig/random_search.png}
-\caption{Grid search and random search (Goodfellow et al, 2017, Fig. 11.2)}
-\end{figure}
-
-}
-
 
 \section{Word embeddings}
-
+\frame{\sectionpage}
 
 \begin{frame}{How do we represent words?}
 \begin{itemize}
@@ -180,8 +146,17 @@
 \includegraphics[width=0.6\textwidth]{fig/Mikolov_2013_word_projections.png}
 \caption{Word embedding properties (Mikolov et al, 2013)}
 \end{figure}
+\[
+\text{king} - \text{man} + \text{woman} \approx \text{queen}
+\]
 
-king - man + woman $\approx$ queen
+\pause
+%\left
+But also (Bolukbasi et al., 2016):
+\[
+\text{computer programmer} - \text{man} + \text{woman} \approx \text{homemaker}
+\]
+
 
 \end{frame}
 
@@ -198,6 +173,7 @@ king - man + woman $\approx$ queen
 
 
 \section{Recurrent Neural Networks}
+\frame{\sectionpage}
 
 \begin{frame}{Recurrent Neural Networks}
 
@@ -214,6 +190,7 @@ king - man + woman $\approx$ queen
 \item Text classification
 \item Sequence / word classification
 \item Time series predictions
+\item Audio data
 \end{itemize}
 
 \end{itemize}
@@ -270,23 +247,23 @@ Think of $h_t$ as the "state" at timepoint $t$
 \begin{frame}{Problems with RNN}
 
 \begin{itemize}
-\item Predicting sequences of {\color{uured} different lengths}
+%\item Predicting sequences of {\color{uured} different lengths}
 \item {\color{uured} Exploding and vanishing} gradients
-\item {\color{uured} Long-term}  dependencies
+\item {\color{uured} Long-term} dependencies
 \end{itemize}
 % TODO: Add 10.36-10.39 on the vanishing and exploding gradient
 
 \end{frame}
 
-\begin{frame}{Bi-Directional RNN}
+%\begin{frame}{Bi-Directional RNN}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.8\textwidth]{fig/DLR_6_21_BiRNN}
-\caption{Bi-Directional RNN (Chollet and Allaire, 2018, Fig. 6.21)}
-\end{figure}
+%\begin{figure}[h]
+%\centering
+%\includegraphics[width=0.8\textwidth]{fig/DLR_6_21_BiRNN}
+%\caption{Bi-Directional RNN (Chollet and Allaire, 2018, Fig. 6.21)}
+%\end{figure}
 
-\end{frame}
+%\end{frame}
 
 
 
@@ -368,23 +345,23 @@ Think of $h_t$ as the "state" at timepoint $t$
 \end{frame}
 
 
-\section{Attention and Transformers}
+\section{Transformers}
+\frame{\sectionpage}
 
-\begin{frame}{Transformer}
+\begin{frame}{The Transformer}
 
 \begin{itemize}
 \item Introduced in 2017 in Vaswani et al. (2017)
 \item Behind the recent progress in NLP: BERT, GPT-2, GPT-3, etc.
 \pause
-\item Becoming de-facto standard in industry and academia
+\item Becoming de-facto \uured{standard} in industry and academia
 \pause
-\item Brings {\color{uured} transfer learning} to NLP
-\pause
-\item Two large benefits:
+\item Four benefits:
 \begin{itemize}
 \item Enables more {\color{uured} parallelism}
 \item Better handling of {\color{uured} long-range dependencies}
-%\item Enables {\color{uured} deeper} networks
+\item Brings {\color{uured} transfer learning} to text data
+\item Enables {\color{uured} deeper} networks
 \end{itemize}
 \end{itemize}
 
@@ -397,7 +374,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 \begin{figure}[h]
 \centering
 \includegraphics[width=1\textwidth]{fig/alammar_the_transformer_3.png}
-\caption{Attention (Vaswani et al., 2017)}
+\caption{Attention (Allamar, 2018)}
 \end{figure}
 
 \end{frame}
@@ -408,7 +385,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 \begin{figure}[h]
 \centering
 \includegraphics[width=1\textwidth]{fig/alammar_The_transformer_encoder_decoder_stack}
-\caption{Attention (Vaswani et al., 2017)}
+\caption{Attention (Allamar, 2018)}
 \end{figure}
 
 \end{frame}
@@ -444,7 +421,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 
 
 
-\begin{frame}{The Encoder Layer}
+\begin{frame}{The Transformer Layer (Encoder layer)}
 
 \begin{figure}[h]
 \centering
@@ -464,6 +441,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 \includegraphics[width=0.4\textwidth]{fig/Vaswani_2_scaled_dot.png}
 \caption{Scaled Dot-Product Attention (Vaswani et al., 2017)}
 \end{figure}
+
 
 \end{frame}
 
