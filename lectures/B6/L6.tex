@@ -312,7 +312,7 @@ d_k(x_{i,k}, x_{j,k}) = (x_{i,k} - x_{j,k})^2
 \item Popular in practice and a classic in unsupervised machine learning\pause
 \item Hard, flat clustering
 \item Simple and effective\pause
-\item {\color{uured} Model}: $x_i$ is close to one of $m_1,...,m_K$ vectors
+\item {\color{uured} Model}: $x_i$ "is close to" one of $m_1,...,m_K$ vectors
 \item {\color{uured} Loss function}:
 \[
 l_\mathbf{m} (x) = \min_\mathbf{m} (x_i - m_k)^2
@@ -356,12 +356,14 @@ l_\mathbf{m} (x) = \min_\mathbf{m} (x_i - m_k)^2
 \begin{itemize}
 \item k-means finds {\color{uured} local modes}
 \item Re-run algorithm with many {\color{uured} different starting values}
-\item Choose the best by the best loss
+\item Choose the best by the \uured{best loss}
 \pause
 \item There exists many developments
 \begin{itemize}
 \item scaling to large data
+\pause
 \item generalized loss
+\pause
 \item approaches to find a good $K$
 \end{itemize}
 \end{itemize}
@@ -378,8 +380,6 @@ l_\mathbf{m} (x) = \min_\mathbf{m} (x_i - m_k)^2
 
 \end{frame}
 
-
-\section{Mixture models}
 
 \begin{frame}{Problems with k-means}
 
@@ -401,6 +401,9 @@ l_\mathbf{m} (x) = \min_\mathbf{m} (x_i - m_k)^2
 We can solve these problems using {\color{uured} probabilistic models}
 
 \end{frame}
+
+\section{Mixture models}
+\frame{\sectionpage}
 
 \begin{frame}{Finite Mixture Models}
 
@@ -439,11 +442,13 @@ y_i = \sum_{k=1}^K \pi_k \phi_k(\theta_k)\,,
 \[
 z_i \sim \text{Categorical}(\pi)
 \]
+\pause
 \item Generate $y_i$ conditioned on $z_i$:
 \[
 y_i \sim \phi_{z_i}(\theta_{z_i})
 \]
 \end{enumerate}
+\pause
 \item Cluster assignments $z_i$ are the {\color{uured} latent variables}
 \end{itemize}
 
@@ -499,6 +504,16 @@ where
 
 \end{frame}
 
+\begin{frame}{Simulated data from a GMM}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{fig/mix_models.png}
+\caption{Simulated mixture data with the latent variable $z$.}
+\end{figure}
+
+\end{frame}
+
 
 \begin{frame}{Mixtures of Multinomial distributions}
 
@@ -524,6 +539,7 @@ y_i = \sum_{k=1}^K \pi_k \text{Multinomial}(\mathbf{p}_k)
 
 \section{Expectation Maximization}
 
+
 \begin{frame}{Estimating Mixtures Models}
 
 \begin{itemize}
@@ -531,6 +547,14 @@ y_i = \sum_{k=1}^K \pi_k \text{Multinomial}(\mathbf{p}_k)
 \[
 y_i = \sum_{k=1}^K \pi_k \phi(\theta_k)\,,
 \]
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Estimating Mixtures Models}
+
+\begin{itemize}
 \item Hence we want to maximize the log-likelihood
 \[
 \mathcal{L}(\pi, \theta) = \sum^N_{i=1} \log \left( \sum_{k=1}^K \pi_k \phi(y_i|\theta_k)\right)
@@ -538,8 +562,9 @@ y_i = \sum_{k=1}^K \pi_k \phi(\theta_k)\,,
 \item This is difficult, although {\color{uured} if we only knew $\mathbf{z}$}...\pause
 \begin{align*}
 \mathcal{L}_{\text{full}}(\pi, \theta, \mathbf{z}) =& \sum^N_{i=1} \log \left( \sum_{k=1}^K I(z_i=k) \phi(y_i|\theta_k)\right) + \\
-& \log(\pi_k^I(z_i=k))\\
-=& \sum^N_{i=1} \sum_{k=1}^K I(z_i=k) \log \phi(y_i|\theta_k) + I(z_i=k) \log(\pi_k)
+& \log(\pi_k^{I(z_i=k)})\\
+=& \sum^N_{i=1} \sum_{k=1}^K I(z_i=k) \log \phi(y_i|\theta_k) + \\
+& I(z_i=k) \log(\pi_k)
 \end{align*}
 \item So if we knew $\mathbf{z}$ it is essentially just maximizing $\mathcal{L}$ for each cluster separately.
 
