@@ -547,7 +547,19 @@ y_i = \sum_{k=1}^K \pi_k \text{Multinomial}(\mathbf{p}_k)
 \[
 y_i = \sum_{k=1}^K \pi_k \phi(\theta_k)\,,
 \]
+\item If we add a cluster indicators $\uured{\mathbf{z}}$ it is simpler...
+\pause
+\item Two approaches:
+  \begin{itemize}
+  \item Gibbs sampler (Bayesian)
+  \[
+  p(\mathbf{z}, \theta, \pi|\mathbf{y})
+  \]
+  \pause
+  \item Expectation maximization (Frequentist)
 \end{itemize}
+\end{itemize}
+
 
 \end{frame}
 
@@ -581,7 +593,9 @@ y_i = \sum_{k=1}^K \pi_k \phi(\theta_k)\,,
 \[
 \gamma_{i} = E_{z_i} (\mathcal{L}_{\text{full}}|\theta, y_i)\,.
 \]
+\pause
 \item $\gamma_{i}$ can be seen as observation $i$s {\color{uured} weights} for each cluster
+\pause
 \item $\gamma_{i}$ is sometimes refered to as the {\color{uured} responsibility}.
 \end{itemize}
 
@@ -593,7 +607,7 @@ y_i = \sum_{k=1}^K \pi_k \phi(\theta_k)\,,
 \begin{itemize}
 \item Now, given $\gamma$ we can (hopefully) easier maximize $\theta$.\pause
 \item We maximize $\mathcal{L}_{\text{full}}$ given $\gamma$ and $y$.\pause
-\item We usually choose $\psi$ so the maximization
+\item We usually choose $\phi$ (the density) so the maximization
 \begin{itemize}
 \item is a nice analytical expression.
 \item end up with a weighted MLE.
@@ -641,11 +655,14 @@ Hence, the EM algorithm is a {\color{uured} soft clustering} approach.
 \begin{itemize}
 \item If we set $z_i = \text{argmax}(\gamma_i)$: {\color{uured} k-means}\pause
 \item If we sample $z_i$ according to $\gamma$: {\color{uured} stochastic EM}
+\item If we sample $z_i$ conditional on $\theta$: {\color{uured} Gibbs sampling}
+
 \end{itemize}
 
 \end{frame}
 
 \section{probabilistic PCA}
+\frame{\sectionpage}
 
 \begin{frame}{Dimensionality reduction}
 
@@ -660,7 +677,7 @@ Hence, the EM algorithm is a {\color{uured} soft clustering} approach.
 \item {\color{uured} Discover underlying latent variables} (factors)
 \end{itemize}
 \pause
-\item More details in the multivariate course.
+\item More details in the \uured{multivariate course}.
 \end{itemize}
 
 \end{frame}
@@ -675,7 +692,9 @@ X \approx b +  W H^T\,,
 \]
 where $H \in \mathbb{R}^{n \times k}$, $W \in \mathbb{R}^{k \times p}$, $b \in \mathbb{R}^{p}$ and $X \in \mathbb{R}^{n \times p}$.
 \item $H$ can be seen as a {\color{uured} latent factors}
+\pause
 \item $W$ can be seen as a {\color{uured} factor loadings}
+\pause
 \item We assume that $W$ is orthogonal: $W^T W = I$
 \end{itemize}
 
