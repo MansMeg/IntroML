@@ -441,12 +441,14 @@ Think of $h_t$ as the "state" at timepoint $t$
 \includegraphics[width=0.4\textwidth]{fig/Vaswani_2_scaled_dot.png}
 \caption{Scaled Dot-Product Attention (Vaswani et al., 2017)}
 \end{figure}
-
+\[
+\text{Attention}(\mathbf{Q},\mathbf{K},\mathbf{V}) = \text{softmax}\left(\frac{\mathbf{Q} \mathbf{K}^T}{\sqrt {d_k}}\right) \mathbf{V}
+\]
 
 \end{frame}
 
 
-\begin{frame}{The encoder vs. the decoder}
+\begin{frame}{Attention components}
 
 \begin{itemize}
 \item (Q)uery: Word $i$ query other words
@@ -578,7 +580,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 %\end{frame}
 
 \section{BERT}
-
+\frame{\sectionpage}
 
 \begin{frame}{BERT}
 
