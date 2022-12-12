@@ -57,53 +57,30 @@
 
 
 
-\section{Previous assignments}
+\section{Practicalities}
 
 \begin{frame}{Practicalities}
 
 \begin{itemize}
-\item Remember the project proposition deadline the 15th of December
-\item An additional guest lecture in January on fairness in AI and law (Holli Sargeant, Cambride University)
+\item Remember the project proposition deadline the \uured{today}
+\item Still behind with grading...
 \end{itemize}
 
 \end{frame}
 
-\begin{frame}{Assignment 4}
+\begin{frame}{Assignment 5}
 
 \begin{itemize}
-\item Not much
+\item Difficult area in general
+\item More connections between the implementation and the Keras code
+\item Struggle with running the code
 \end{itemize}
 
 \end{frame}
 
-\begin{frame}{Assignment 5: Evaluation}
 
-\begin{itemize}
-\item More variation
-\item More example code
-\item Would have liked to play around with BERT
-\item Still not superclear what is the weights in the RNN: Keras confusion
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}{Recurrent Neural Networks}
-
-\begin{align*}
-a_t &= b + W h_{t-1} + U x_t \\
-h_t &= \sigma_1(a_t) \\
-o_t &= c + V h_{t} \\
-\hat{y}_t & = \sigma_{\text{output}}(o_t) = \text{softmax}(o_t)
-\end{align*}
-
-Think of $h_t$ as the "state" at timepoint $t$
-
-The embedding is $X$.
-
-\end{frame}
-
-
-\section{Introuction to unsupervised learning}
+\section{Introduction to unsupervised learning}
+\frame{\sectionpage}
 
 \begin{frame}{Supervised and Unsupervised learning}
 
@@ -159,7 +136,7 @@ In {\color{uured} unsupervised}  learning:
 Other names for $p(x)$:
 \begin{itemize}
 \item {\color{uured} Data} model\\ $p(x)$ is our \emph{data} generating mechanism
-\item {\color{uured} Generative} model\\ We can \emph{generate} samples from $p(x)$.
+\item {\color{uured} Generative} model\\ We can \emph{generate} samples from $p(x)$. \uured{Big right now!}
 \end{itemize}
 \pause
 Common use cases for unsupervised learning:
@@ -212,7 +189,7 @@ where $d(x|h)$ is the decoder and $e(h|x)$ is the encoder.\pause
 \item {\color{uured} High} $\mathcal{L}$: The observation is {\color{uured} well} explained by the model
 \item {\color{uured} Low} $\mathcal{L}$: The observation is {\color{uured} badly} explained by the model
 \end{itemize}
-\item Common approach: Evaluate log-likelihood on a held-out set
+\item Evaluate log-likelihood on a \uured{held-out validation set}
 \end{itemize}
 
 \end{frame}
@@ -231,7 +208,8 @@ where $d(x|h)$ is the decoder and $e(h|x)$ is the encoder.\pause
 
 \begin{frame}{Example: Bivariate Gaussian model}
 
-We assume a Multivariate Gaussian model and estimate $\mu,\Sigma$ from data.
+We assume a $p(x)$ is a Multivariate Gaussian model and estimate $\mu,\Sigma$ from data.
+\pause
 
 \[
 \hat{\mu} = [3.19, 4.11]
@@ -241,7 +219,7 @@ We assume a Multivariate Gaussian model and estimate $\mu,\Sigma$ from data.
 \hat{\Sigma} = \begin{bmatrix} 1.95 & 2.05\\ 2.05 & 3.36 \end{bmatrix}
 \]
 
-We can now generate new data from MVN($\hat{\mu},\hat{\Sigma}$).
+We can now \uured{generate new data} from $\hat{p}(x)$ as MVN($\hat{\mu},\hat{\Sigma}$).
 
 \end{frame}
 
@@ -264,7 +242,7 @@ We can now generate new data from MVN($\hat{\mu},\hat{\Sigma}$).
 \begin{itemize}
 \item An {\color{uured} unobserved} or {\color{uured} hidden} variable or "factor"\pause
 \item A parameter specific to some or a few observations or features\pause
-\item Often these latent variables can be of interest
+\item Often these latent variables can be of \uured{main interest}
 \end{itemize}
 
 \end{frame}
@@ -274,10 +252,13 @@ We can now generate new data from MVN($\hat{\mu},\hat{\Sigma}$).
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{fig/hmm.png}
-\caption{A Hidden Markov Model (Wikipedia). Note that $x$ is unobserved and $y$ is observed.}
+\caption{A Hidden Markov Model (Wikipedia). }
 \end{figure}
 
+Here: $x$ is \uured{unobserved/latent} and $y$ is \uured{observed}.
+
 \end{frame}
+
 
 \begin{frame}{Example: Factor Analysis}
 
@@ -292,7 +273,7 @@ We can now generate new data from MVN($\hat{\mu},\hat{\Sigma}$).
 
 
 \section{Clustering}
-
+\frame{\sectionpage}
 
 \begin{frame}{Clustering}
 \begin{itemize}
@@ -323,6 +304,8 @@ d_k(x_{i,k}, x_{j,k}) = (x_{i,k} - x_{j,k})^2
 \end{itemize}
 
 \end{frame}
+
+\subsection{k-means}
 
 \begin{frame}{k-means}
 \begin{itemize}
