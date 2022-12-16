@@ -250,15 +250,15 @@ x_i \sim N({\color{uured}\text{NeuralNetwork}}_\phi (z_i), \sigma I)
 \section{The Variational Autoencoder}
 \frame{\sectionpage}
 
-\begin{frame}{The Variational Autoencoder}
+\begin{frame}{The Variational Autoencoder (VAE)}
 \begin{itemize}
 \item The variational autoencoder (VAE) is a {\color{uured} deep probabilistic autoencoder}
-\item Commonly used for unsupervised learning of {\color{uured} images}\pause
-\item Consists of {\color{uured} three parts}:
+\item Used for unsupervised learning of {\color{uured} images}\pause
+\item Consists of:
 \begin{enumerate}
-\item The (probabilistic) encoder $q(z|\phi, x)$: inference model
-\item Sample $z$ from encoded $x$
-\item The (probabilistic) decoder $p(x|\theta, z)$: observation model
+\item The (probabilistic) encoder $q(z|\phi, x)$: \uured{inference model}
+\item Sample $z$ from encoded $x$: the \uured{latent state}
+\item The (probabilistic) decoder $p(x|\theta, z)$: \uured{observation model}
 \end{enumerate}
 \pause
 \item Encoding the {\color{uured} latent state as a distribution} forces the space to be "reasonable"/reduces overfitting
@@ -300,7 +300,8 @@ x_i \sim N({\color{uured}\text{NeuralNetwork}}_\phi (z_i), \sigma I)
 \[
 x_i \sim N(\text{NeuralNetwork}(z,\theta), c I)
 \]
-\item $x_i$ for observation $i$ depends non-linearly on $z_i$
+\item $x_i$ for observation $i$ depends non-linearly on the latent state $z_i$
+\pause
 \item A probabilistic linear decoder: {\color{uured} pPCA}
 \end{itemize}
 
@@ -313,13 +314,12 @@ x_i \sim N(\text{NeuralNetwork}(z,\theta), c I)
 \end{frame}
 
 
-\subsection{The probabilistic encoder}
+\subsection{The encoder}
 
 \begin{frame}{The probabilistic encoder}
 
 \begin{itemize}
 \item The probabilistic encoder $q(z|x, \phi)$ ({\color{uured} inference model})
-\item We want: $q_\phi(z|x) \approx p_\theta(z|x)$
 \pause
 \item We assume that $q_\phi(z|x)$ follows a specific distribution. Commonly:
 \[
@@ -331,7 +331,8 @@ z \sim N(\mu, \Sigma)
 \]
 where $\phi = (\phi_\mu, \phi_\Sigma)$
 \pause
-\item One common assumption is that $\Sigma$ is a diagonal matrix.
+\item Common assumption: $\Sigma$ is a diagonal matrix.
+\pause
 \item {\color{uured} Result}: $z_i$ for observation $i$ depends non-linearly on $x_i$
 \end{itemize}
 
