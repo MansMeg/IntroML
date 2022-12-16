@@ -48,32 +48,12 @@
 }
 
 
-\section{Previous assignments}
-
-\begin{frame}{Practicalities}
-
-\begin{itemize}
-\item New exercise sessions: Dec 22, Dec 29, Jan 3, and Jan 5 on Zoom:
-\texttt{https://uu-se.zoom.us/my/andreasostling}
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}{Assignment 5}
-
-\begin{itemize}
-\item MNIST vs. IMDB: Bias, variance or Bayes Error?
-\end{itemize}
-
-\end{frame}
+\section{Practicalities}
 
 \begin{frame}{Assignment 6: Evaluation}
 
 \begin{itemize}
-\item The Deep Learning book is hard to understand? How improve?
-\item Clarifying as we go.
-\item Long time of putting together the report? How can we make this simpler?
-\item The workload and VG assignments.
+\item ?
 \end{itemize}
 
 \end{frame}
@@ -91,6 +71,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Introduction}
+\frame{\sectionpage}
 
 \begin{frame}{Why variational autoencoders and topic models?}
 \begin{itemize}
@@ -118,7 +100,7 @@
 \item Used for:
 \begin{itemize}
 \item Identify "{\color{uured}closeness}" in high-dimensional data\pause
-\item {\color{uured}Visualize} data\pause
+\item {\color{uured}Visualize/analyze} data\pause
 \item {\color{uured}Compression}\pause
 \item {\color{uured}Feature construction}\pause
 \item Analyze underlying {\color{uured}patterns}
@@ -141,6 +123,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Autoencoders}
+\frame{\sectionpage}
 
 \begin{frame}{Autoencoder}
 
@@ -149,7 +132,7 @@
 \item Three parts:
 \begin{itemize}
 \item {\color{uured}encoder} $f(x)$ (or $e(x)$)
-\item code
+\item \uured{code} $h$
 \item {\color{uured}decoder} $g(h)$ (or $d(z)$)
 \end{itemize}
 
@@ -215,7 +198,7 @@ where $P$ is an orthogonal matrix of rank $q$.
 
 \begin{frame}{Deep Autoencoders}
 \begin{itemize}
-\item Deep Autoencoder: An autoencoder with {\color{uured} multilayer neural networks} as encoder and decoder
+\item \uured{Deep} Autoencoder: An autoencoder with {\color{uured} multilayer neural networks} as encoder and decoder
 \begin{itemize}
 \item can be seen as a non-linear PCA
 \item learn nonlinear representations
@@ -237,8 +220,16 @@ where $P$ is an orthogonal matrix of rank $q$.
 \item cannot generate data.
 \item no notion of uncertainty
 \end{itemize}
-\item We would like something like probabilistic PCA for (deep) autoencoders\pause
-\item Remember the pPCA model (with z as latent variable):
+\pause
+\item We would like something like probabilistic PCA for (deep) autoencoders
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{probabilistic PCA as an decoder}
+
+\begin{itemize}
+\item Remember the pPCA model (with $z$ as latent variable):
 \[
 x_i \sim N({\color{uured}b +  W} z_i^T, \sigma I)
 \]
@@ -249,6 +240,7 @@ x_i \sim N({\color{uured}\text{NeuralNetwork}}_\phi (z_i), \sigma I)
 \]
 \pause
 \item This is an example of a {\color{uured} Deep Latent Variable model}\\(a probabilistic decoder)
+\pause
 \item Another example is the {\color{uured} Variational Autoencoder}
 \end{itemize}
 
@@ -256,6 +248,7 @@ x_i \sim N({\color{uured}\text{NeuralNetwork}}_\phi (z_i), \sigma I)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The Variational Autoencoder}
+\frame{\sectionpage}
 
 \begin{frame}{The Variational Autoencoder}
 \begin{itemize}
@@ -536,6 +529,7 @@ D_{KL}(q_\phi(z|x)||p_\theta(z|x)) \geq 0
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Probabilistic Topic Models}
+\frame{\sectionpage}
 
 \frame{\sectionpage}
 
