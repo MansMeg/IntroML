@@ -98,11 +98,11 @@ knitr::opts_chunk$set(size = "small")
 \input{general_questions_info.tex}
 
 \begin{enumerate}
-\item What is reinforcement learning? (max 1 paragraph)
+%\item What is reinforcement learning? (max 1 paragraph)
 \item Describe the exploration-exploitation dilemma. (max 1 paragraph)
 % Describe an rl policy
 % Describe an rl value function
-\item Explain the concept of reward signal. (max 1 paragraph)
+% \item Explain the concept of reward signal. (max 1 paragraph)
 % When might a greedy bandit be better than an epsilon 0.1 bandit? And why?
 \item Describe the concept of state in a Markov Decision Process. (max 1 paragraph)
 % Why should not RL agents be rewarded for a subgoal. Come up with an example?
