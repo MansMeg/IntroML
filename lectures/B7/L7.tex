@@ -256,8 +256,8 @@ x_i \sim N({\color{uured}\text{NeuralNetwork}}_\phi (z_i), \sigma I)
 \item Used for unsupervised learning of {\color{uured} images}\pause
 \item Consists of:
 \begin{enumerate}
-\item The (probabilistic) encoder $q(z|\phi, x)$: \uured{inference model}
-\item Sample $z$ from encoded $x$: the \uured{latent state}
+\item The (probabilistic) encoder $q(z|\phi, x)$: \uured{inference model}\pause
+\item Sample $z$ from encoded $x$: the \uured{latent state}\pause
 \item The (probabilistic) decoder $p(x|\theta, z)$: \uured{observation model}
 \end{enumerate}
 \pause
@@ -325,11 +325,15 @@ x_i \sim N(\text{NeuralNetwork}(z,\theta), c I)
 \[
 z \sim N(\mu, \Sigma)
 \]
+\pause
 \item A neural network learns the parameters $\mu$ and $\Sigma$
 \[
-\mu = \text{NeuralNetwork}(x,\phi_\mu)\,, \Sigma = \text{NeuralNetwork}(x,\phi_\Sigma)\,,
+\mu = \text{NeuralNetwork}(x,\phi_\mu)\,,
 \]
-where $\phi = (\phi_\mu, \phi_\Sigma)$
+and
+\[
+\Sigma = \text{NeuralNetwork}(x,\phi_\Sigma)\,.
+\]
 \pause
 \item Common assumption: $\Sigma$ is a diagonal matrix.
 \pause
@@ -376,13 +380,15 @@ where $\phi = (\phi_\mu, \phi_\Sigma)$
 \begin{itemize}
 \item {\color{uured} Goal}: estimating $\phi$, $\theta$ (and $z_i$)
 %\item We have a sampling step in the middle (the latent state $z$)
+\pause
 \item The encoder and decoder are (usually) complicated \\ (no close form solution)
-\item Need to estimate $\phi$ and $\theta$ using gradient ascent
+\item Estimate $\phi$ and $\theta$ using gradient ascent
+\pause
 \item Target:
 \begin{itemize}
 \item Maximize $\log p(x)$\\(Explain the data as well as possible)
 \end{itemize}\pause
-\item Optimization target: \\Maximize the variational lower bound or {\color{uured} evidence lower bound (ELBO)}
+\item \uured{Optimization target}: \\Maximize the variational lower bound or {\color{uured} evidence lower bound (ELBO)}
 \end{itemize}
 \end{frame}
 
@@ -408,7 +414,7 @@ where $\phi = (\phi_\mu, \phi_\Sigma)$
 \begin{frame}{The Kullback-Leibler divergence}
 
 \begin{itemize}
-\item {\color{uured} The Kulback-Leibler divergence}: a way of measuring the distance between probability distributions (although, not a metric)
+\item {\color{uured} The Kulback-Leibler divergence}: a way of measuring the "distance" between probability distributions
 \[
 D_{KL}(q_\phi(z|x)||p_\theta(z|x)) = \mathbb{E}_{q_\phi(z|x)}\left[\log \left(\frac{q_\phi(z|x)}{p_\theta(z|x)}\right)\right]
 \]
@@ -424,7 +430,7 @@ D_{KL}(q_\phi(z|x)||p_\theta(z|x)) \geq 0
 \begin{frame}{Training target}
 
 \begin{itemize}
-\item Optimization target: Maximize the ELBO
+\item \uured{Optimization target}: Maximize the ELBO
 \begin{align*}
 \mathcal{L}_{\theta,\phi}(x) = \log p_\theta(x) - D_{KL}(q_\phi(z|x)||p_\theta(z|x))
 \end{align*}
@@ -505,8 +511,9 @@ D_{KL}(q_\phi(z|x)||p_\theta(z|x)) \geq 0
 \begin{itemize}
 \item Benefits of VAE:
 \begin{itemize}
-\item Get a more interpretable latent state
-\item We can estimate uncertainty
+\item Get a more \uured{interpretable} latent state
+\item We can estimate \uured{uncertainty}
+\item \uured{Regularize} the latent state
 \item We can inject knowledge in our latent state
 \end{itemize}
 \pause
