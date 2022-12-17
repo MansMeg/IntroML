@@ -104,7 +104,7 @@
 \begin{itemize}
 \item RL agent won over Lee Sedol in 2016: {\color{uured} AlphaGo}\pause
 \item Won over human champions in {\color{uured} DOTA2} in 2019\pause
-\item Autonomous driving\pause
+\item \uured{ChatGPT}/InstructGPT in 2022\pause
 \item Industry automation: RL is used to reduce the energy cost of datacenter cooling\pause
 \item Automated trading\pause
 \item Elevator scheduling\pause
@@ -123,7 +123,7 @@
 \item The {\color{uured} Agent}: The learning agent. \pause
 \item The {\color{uured} Environment}: Where the agent performs actions.\pause
 \item {\color{uured} Actions}: Made by the agent and affects the environment.\pause
-\item {\color{uured} Reward}: The evaluation of an action. A singular value. Pleasure and pain.\pause
+\item {\color{uured} Reward}: The evaluation of an action. A scalar value. Pleasure and pain.\pause
 \item {\color{uured} Return}: The aggregated reward over a long period.
 \end{enumerate}
 
@@ -211,6 +211,7 @@
 
 
 \section{Bandits}
+\frame{\sectionpage}
 % TODO: Add policy also in the bandit part ie that the choosing of A is a policy, the greedy policy, epsilon policy etc
 
 
@@ -370,7 +371,6 @@ An analogy:
 \[
 A_t = \arg \max_a \left( Q_{t} + c \sqrt{\frac{{\color{uured}\hat{\sigma}^2(a)}}{N_t(a)}} \right)
 \]
-\item Another (Bayesian) alternative is {\color{uured}Thompson Sampling}
 \end{itemize}
 
 \end{frame}
@@ -389,13 +389,42 @@ A_t = \arg \max_a \left( Q_{t} + c \sqrt{\frac{{\color{uured}\hat{\sigma}^2(a)}}
 % TODO: Add gradient bandits and Thompsson sampling
 
 
+\begin{frame}{The Bayesian Bandit: Thompson sampling}
 
+\begin{itemize}
+\item A Bayesian Bandit
+\begin{enumerate}
+\item Setup a likelihood for $R$, $p(R|a,\theta)$
+\item Setup a prior for $\theta$, $p(\theta)$
+\item Compute posterior for $\theta$, $p(\theta|R, a)$
+\item Choose action $A_t$ proportional to
+\[
+\int I[\E(R|\theta,a^\star) = \arg \max_{a'} \E(R|\theta,a')] p(\theta|R,a) d\theta
+\]
+where $I$ is the indicator function.
+\end{enumerate}
+\item Repeat step 3-4 \pause
+\item Monte Carlo approximation of step 4:
+\begin{enumerate}
+\item Draw one sample from the posterior $\tilde{\theta}$
+\[
+\tilde{\theta} \sim p(\theta|R, a)
+\]
+\item Conditional on $\tilde{\theta}$, choose action $A_t$
+\[
+A_t = \arg \max_{a'} \E(R|\tilde{\theta},a')]
+\]
+\end{enumerate}
+
+\end{itemize}
+
+\end{frame}
 
 
 
 
 \section{Markov Decision Processes}
-
+\frame{\sectionpage}
 
 
 \begin{frame}{The Markov Decision process}
