@@ -109,6 +109,8 @@ There are two complementary turn-ins of assignments, the last day of the course 
 
 Each assignment will be graded and evaluated within 10 working days.
 
+To pass the assignment 75% of the points are needed. Similarly 75% of the VG assignment is needed to get a VG-point.
+
 ### Machine Learning, AI and ethics
 A guest lecture will be given on AI and ethics by [Karim Jebari](https://www.iffs.se/en/research/researchers/karim-jebari/) and [Holli Sargeant](https://www.law.cam.ac.uk/people/research-students/h-sargeant/79151).
 
