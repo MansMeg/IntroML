@@ -30,6 +30,11 @@ Note that aiming for VG might mean that you need to put in more hours than the e
 
 be more clear about VG is probably going to mean that you need to do more if you are not very skilled.
 
+### Reassessing grades
+Grades are not subject to appeal. However, a grading decision must be reassessed if it is clearly incorrect. Grades can never be lowered. If students want grades to be reassessed, they should contact the course administration who will distribute a form for reassessment the students have to fill out. 
+
+### Re-taking the course
+If you fail or drop-out from the course you will need to re-take all assignments and redo the mini-project next time the course is given.
 
 ## Course Literature and Video Material
 Below are the main references for the course. All books are available free online. Some articles may need access from an Uppsala University network.
