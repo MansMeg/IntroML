@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper,english]{article}
+\documentclass[11pt,a4paper]{article}
 \usepackage[latin1]{inputenc}
 \usepackage{hyperref}
 \usepackage{listings}
@@ -88,8 +88,9 @@ Requirements for the projects are:
 \item Minimally, two methods (or two different neural net architectures) should be compared and evaluated.
 \end{itemize}
 
-\emph{For PhD students}: You can choose to do a small project related to your research interest instead. Although, it should still be a 4-page paper output.
+\emph{Tip!} Write the report so you can add your final report as an example of work you have done to future potential employers.
 
+\emph{For PhD students}: You can choose to do a small project related to your research interest instead. Although, it should still be a 4-page paper output.
 
 
 \subsection{Suggested Reading}
@@ -141,11 +142,14 @@ To minimize the project work's total workload, I suggest you see the proposal as
 \subsection{Project Report}
 \label{project_report}
 
-The Project outcome is a report in the ICML paper format that can be found \href{https://icml.cc/Conferences/2020/StyleAuthorInstructions}{[here]}.
+The requirements for the projects are:
+\begin{itemize}
+\item The Project outcome is a report in the ICML paper format that can be found \href{https://icml.cc/Conferences/2020/StyleAuthorInstructions}{[here]}.
 The ICML format is also available in overleaf here: \href{https://www.overleaf.com/latex/templates/icml-2019-submission-template/vkqjjvzjvhdc}{[here]}
-
-\emph{The project report should include all the group members' names!}
-
+\item The project report should include all the group members' names, but following the LaTeX template. I.e. your names should be as authors in the template.
+\item The supervised problem should be well explained. This includes the target of the prediction $y$ and the features $x$. What variables are used here, and why is $y$ relevant to predict using $x$?
+\item If models with hyperparameters are used, there should be motivation. Why are they chosen and how? You should describe the method used to set the hyperparameters.
+\end{itemize}
 
 The paper should consist of \emph{between three and a half (3.5) and four (4) pages}, excluding references and eventual appendices. The paper should include the following four (4) sections:
 \begin{enumerate}
@@ -174,6 +178,11 @@ The paper should consist of \emph{between three and a half (3.5) and four (4) pa
     \item Conclusions from the results. Did the method work as expected?
     \item Discussion of problems and potential improvements
     \item Discussion of potential ethical/fairness issues (in light of the guest lecture).
+  \end{itemize}
+  \item Acknowledgements (optional)
+  \begin{itemize}
+    \item If you are willing to let me use your project report as an example in the next course, please state that in the Acknowledgements. Just add the following sentence: "We hereby grant our consent for the utilization of this project report as a reference material within the context of future editions of the course."
+    \item Other people you might want to thank.
   \end{itemize}
 \end{enumerate}
 
