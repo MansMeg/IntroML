@@ -127,17 +127,28 @@ You should not use the following data sets in the project:
 
 
 \subsection{Project Proposal}
-Students must turn in a half-page project and data description in the middle of the course for the proposed project. The project proposal must include the following pieces.
+Students must turn in a half-page project and data description in the ICML paper format that can be found \href{https://icml.cc/Conferences/2020/StyleAuthorInstructions}{[here]}. The ICML format is also available in overleaf here: \href{https://www.overleaf.com/latex/templates/icml-2019-submission-template/vkqjjvzjvhdc}{[here]}.
 
-\begin{itemize}
-  \item Description of the problem.
-  \item Description of the data.
-  \item A first idea on potential methods and evaluation.
-\end{itemize}
+\emph{The project report should include all the group members' names following the LaTeX template, i.e. your names should be as authors in the template.}
 
-\emph{The project proposal should include all the group members' names!}
+The project proposal must include the following pieces:
+\begin{enumerate}
+  \item Title
+  \begin{itemize}
+    \item The title should describe the problem and be like a real article title, i.e. don't write "Mini-project:" or similar in the title.
+  \end{itemize}
+  \item Abstract (1 paragraph)
+  \item Introduction (roughly 0.5 pages)
+  \begin{itemize}
+    \item Description of the problem.
+  \end{itemize}
+  \item Data and Methods (roughly 0.5 pages)
+  \begin{itemize}
+    \item Description of the data.
+    \item A first idea on potential methods and evaluation.
+  \end{itemize}
+\end{enumerate}
 
-To minimize the project work's total workload, I suggest you see the proposal as a first draft of Sections 1 and 2 of the project report (see below). Then you will already have written the first part of your project report.
 
 \subsection{Project Report}
 \label{project_report}
