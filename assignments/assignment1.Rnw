@@ -51,6 +51,7 @@
 \newcommand{\Prob}{\mathbb{P}}
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 
 \begin{titlepage}
 
@@ -95,12 +96,12 @@ knitr::opts_chunk$set(size = "small")
 \input{general_questions_info.tex}
 
 \begin{enumerate}
-\item Describe, with your own words, what \citet{efron2020prediction} see as the difference between the \emph{traditional regression methods} and the \emph{pure prediction algorithms}. (max 1 paragraph)
+\item (2p) Describe, with your own words, what \citet{efron2020prediction} see as the difference between the \emph{traditional regression methods} and the \emph{pure prediction algorithms}. (max 1 paragraph)
 %\item In many machine learning applications, we use Stochastic Gradient Descent, even though other optimization algorithms that use second-order derivatives are better. Why is this the case? Relate this to $N$ and $P$ and describe with your own words (max 1 paragraph)
 %\item \citet{Goodfellow-et-al-2016} describe machine learning algorithms with tasks (T), performance (P) and experience (E). Describe these three concepts in your own words. (1-2 paragraphs)
 %\item Describe the free lunch theorem with your own words? (max 1 paragraph)
 % \item Describe the concept of model complexity/capacity with your own words? (max 1 paragraph)
-\item Describe the bias-variance trade-off with your own words. (max 1 paragraph)
+\item (2p) Describe the bias-variance trade-off with your own words. (max 1 paragraph)
 \end{enumerate}
 
 \section{Basic, Stochastic, and Mini-Batch Gradient Descent}
@@ -143,8 +144,8 @@ l(\theta, \mathbf{y}, \mathbf{X}) = & \sum_{i=1}^n y_i \log(p_i) + (1 - y_i) \lo
 Although, in our case we instead want to minimize the negative log likelihood NLL$(\theta, \mathbf{y}, \mathbf{X})=-l(\theta, \mathbf{y}, \mathbf{X})$, which is essentially the same as the cross-entropy loss.
 
 \begin{enumerate}
-\item Derive the the gradient for NLL$(\theta, \mathbf{y}, \mathbf{X})$ with respect to $\theta$.\\\emph{Hint!} See \citet[Ch. 4.4]{hastie2009elements}.
-\item Implement the gradient as a function in R. Below are two examples of how it should work. Note, \texttt{l\_grad(y, X, theta)} return the gradient of $(1/n) l(\theta, \mathbf{y}, \mathbf{X})$. Show that your implementation give the same result as these test cases in your report.
+\item (4p) Derive the the gradient for NLL$(\theta, \mathbf{y}, \mathbf{X})$ with respect to $\theta$.\\\emph{Hint!} See \citet[Ch. 4.4]{hastie2009elements}.
+\item (2p) Implement the gradient as a function in R. Below are two examples of how it should work. Note, \texttt{l\_grad(y, X, theta)} return the gradient of $(1/n) l(\theta, \mathbf{y}, \mathbf{X})$. Show that your implementation give the same result as these test cases in your report.
 <<echo=FALSE,eval=TRUE>>=
 ll_grad <- function(y, X, theta){
 c("(Intercept)" = -0.1825, "gre_sd" = 0.0857, "gpa_sd" = 0.0829)
@@ -177,14 +178,14 @@ ll(y, X, theta)
 
 
 \begin{enumerate}
-\item Run logistic regression in R to get an MLE estimate of \texttt{theta} using the \texttt{glm()} function. Print the three parameter estimates.
+\item (1p) Run logistic regression in R to get an MLE estimate of \texttt{theta} using the \texttt{glm()} function. Print the three parameter estimates.
 
 \emph{Hint!} The design matrix \texttt{X} already include an intercept so you need to remove that either from \texttt{X} or from the R formula using \texttt{y ~ -1 + X}.
 \item Implement the following gradient descent algorithms \citep[see][for details and psuedo-code]{ruder2016overview} as three separate R functions. Print these functions in your report.
 \begin{enumerate}
-\item ordinary (full/batch) gradient descent
-\item stochastic gradient descent
-\item mini-batch (stochastic) gradient descent using ten samples to estimate the gradient
+\item (2p) ordinary (full/batch) gradient descent
+\item (2p) stochastic gradient descent
+\item (2p) mini-batch (stochastic) gradient descent using ten samples to estimate the gradient
 \end{enumerate}
 A boilerplate for the algorithm can be found here.
 <<echo=TRUE,eval=FALSE>>=
@@ -214,8 +215,8 @@ result <- mbsgd(y, X, sample_size = 10, eta = 0.1, epochs = 500)
 
 \item Try different learning parameters $\eta$ and run the algorithm for roughly 500 epochs. You should find three different $\eta$ for each algorithm. One $\eta$ where the optimizer diverge, one $\eta$ where the optimizer converge very slowly and one $\eta$ that converges quick(er). Note that $\eta$ should be fixed/the same during all 500 epochs. Visualize your results in two plots per algorithm and choice of $\eta$ as a line graph (hence 18 figures in total).
 \begin{enumerate}
-\item The (negative) log-likelihood value \emph{for all observations} for the given $\theta$ (y-axis) and the epochs (full data iterations, x-axis).
-\item The value of one $\theta$ parameter of your choice (y-axis) and the epochs (full data iterations, x-axis). Also include the true values you got from using the \texttt{glm()} function above as a horizontal line in the figure.
+\item (2p) The (negative) log-likelihood value \emph{for all observations} for the given $\theta$ (y-axis) and the epochs (full data iterations, x-axis).
+\item (2p) The value of one $\theta$ parameter of your choice (y-axis) and the epochs (full data iterations, x-axis). Also include the true values you got from using the \texttt{glm()} function above as a horizontal line in the figure.
 \end{enumerate}
 Below is an example of how you can plot the loss and the parameter over epochs using \texttt{ggplot2}. Note, this is just random generated data as an example.
 <<echo=TRUE,eval=TRUE, fig.height=2>>=
@@ -250,11 +251,11 @@ dim(prob2_train)
 
 You should do the following and present the results in your report:
 \begin{enumerate}
-\item Fit a linear model to the training data. What are the results? Why does this happen?
-\item Use \texttt{cv.glmnet} from the \texttt{glmnet} package to fit a linear lasso regression to the training data. Describe what the function does. Include the plot showing the MSE for different values of $\lambda$ in your report and describe how to interpret it.
-\item Have a look at the coefficients you get from the $\lambda_{min}$ and $\lambda_{1se}$ models. Describe the resulting models in the report, e.g., if any variables have been removed from the model. But please do not print all 240 coefficients!
-\item Use \texttt{cv.glmnet} from the \texttt{glmnet} package to fit a linear ridge regression to the training data.
-\item Use the models (lasso/ridge, $\lambda_{min}$ or $\lambda_{1se}$) to make predictions for the test data. Present the MAE and RMSE of the four models in a table in your report. Discuss the results, comparing the interpretability and predictive performance of the models.
+\item (1p) Fit a linear model to the training data. What are the results? Why does this happen?
+\item (1p) Use \texttt{cv.glmnet} from the \texttt{glmnet} package to fit a linear lasso regression to the training data. Describe what the function does. Include the plot showing the MSE for different values of $\lambda$ in your report and describe how to interpret it.
+\item (1p) Have a look at the coefficients you get from the $\lambda_{min}$ and $\lambda_{1se}$ models. Describe the resulting models in the report, e.g., if any variables have been removed from the model. But please do not print all 240 coefficients!
+\item (1p) Use \texttt{cv.glmnet} from the \texttt{glmnet} package to fit a linear ridge regression to the training data.
+\item (2p) Use the models (lasso/ridge, $\lambda_{min}$ or $\lambda_{1se}$) to make predictions for the test data. Present the MAE and RMSE of the four models in a table in your report. Discuss the results, comparing the interpretability and predictive performance of the models.
 \end{enumerate}
 
 \newpage
@@ -286,8 +287,8 @@ where $l(\theta, \mathbf{y}, \mathbf{X})$ is defined as in task 1 above. We also
 \emph{Note!} The objective function above is the one used in the \texttt{glmnet} package. We can define this slightly different (for example not divide $l$ with $n$). This will give different estimates because $\lambda$ will have different meanings. More information on the \texttt{glmnet} objective function can be found \href{https://glmnet.stanford.edu/articles/glmnet.html#logistic-regression-family-binomial-}{here}.
 
 \begin{enumerate}
-\item Derive the the gradient for $\text{NLL}_r(\theta, \mathbf{y}, \mathbf{X},\lambda)$ with respect to $\theta$.
-\item Implement the gradient as a function in R. Below are two examples of how it should work. \emph{Note!} \texttt{l\_grad(y, X, theta, lambda)} implemented above return the gradient of $(1/n) l(\theta, \mathbf{y}, \mathbf{X}, \lambda)$. Show that your implementation give the same result as these test cases in your report.
+\item (2p) Derive the the gradient for $\text{NLL}_r(\theta, \mathbf{y}, \mathbf{X},\lambda)$ with respect to $\theta$.
+\item (1p) Implement the gradient as a function in R. Below are two examples of how it should work. \emph{Note!} \texttt{l\_grad(y, X, theta, lambda)} implemented above return the gradient of $(1/n) l(\theta, \mathbf{y}, \mathbf{X}, \lambda)$. Show that your implementation give the same result as these test cases in your report.
 <<echo=FALSE,eval=TRUE>>=
 lr_grad <- function(y, X, theta, lambda){
 c("(Intercept)" = -0.1825, "gre_sd" = 0.0857, "gpa_sd" = 0.0829)
@@ -314,7 +315,7 @@ lr_grad <- function(y, X, theta, lambda){
 <<echo=TRUE,eval=TRUE>>=
 lr_grad(y, X, theta = c(-1,0.5,0.5), lambda = 1)
 @
-\item Implement the regularized log-likelihood $l_r$ or the negative log-likelihood $\text{NLL}_r$ in R. \emph{Note!} This differs from the log-likelihood above (where we used the sum over the observations). Show that your implementation give the same result as these test cases in your report.
+\item (1p) Implement the regularized log-likelihood $l_r$ or the negative log-likelihood $\text{NLL}_r$ in R. \emph{Note!} This differs from the log-likelihood above (where we used the sum over the observations). Show that your implementation give the same result as these test cases in your report.
 <<echo=FALSE,eval=TRUE>>=
 lr <- function(y, X, theta, lambda){
 -0.6931
@@ -341,13 +342,13 @@ lr <- function(y, X, theta, lambda){
 <<echo=TRUE,eval=TRUE>>=
 lr(y, X, theta = c(-1,0.5,0.5), lambda = 1)
 @
-\item Run logistic regression with ridge penalty in R using \texttt{glmnet} estimate of \texttt{theta}. Set \texttt{lambda} to 1 and \texttt{alpha} to 0 to run a penalized logistic regression. You also need to remove the intercept from \texttt{X}.
-\item Implement the following gradient descent algorithms for the penalized logistic objective:
+\item (1p) Run logistic regression with ridge penalty in R using \texttt{glmnet} estimate of \texttt{theta}. Set \texttt{lambda} to 1 and \texttt{alpha} to 0 to run a penalized logistic regression. You also need to remove the intercept from \texttt{X}.
+\item (2p) Implement the following gradient descent algorithms for the penalized logistic objective:
 \begin{enumerate}
 \item ordinary (full or batch) gradient descent
 \item mini-batch (stochastic) gradient descent using ten samples to estimate the gradient
 \end{enumerate}
-\item Try different learning parameters $\eta$ and $\lambda$. When does the algorithm converge or diverge? Visualize the iterations (x-axis) and the log-likelihood (y-axis). Show at least one plot per algorithm that converges.
+\item (2p) Try different learning parameters $\eta$ and $\lambda$. When does the algorithm converge or diverge? Visualize the iterations (x-axis) and the log-likelihood (y-axis). Show at least one plot per algorithm that converges.
 \end{enumerate}
 
 \newpage
