@@ -263,17 +263,17 @@ You should do the following and present the results in your report:
 \begin{enumerate}
 \item (1p) Fit a linear model to the training data. What are the results? Why does this happen?
 \item (1p) Use \texttt{glmnet()} function from the \texttt{glmnet} package to fit a linear lasso regression to the training data with $\lambda=1$. How many coefficients are used in the model? \emph{Hint!} \texttt{coefficients()}
-\item Split the data into five folds randomly.
+\item Split the data into ten folds randomly.
 \emph{Hint!} Use the \texttt{sample()} function and create a new variable called fold. Here is an example on how to select the folds
 <<eval=FALSE>>=
-fold <- sample(1:5, nrow(X), replace = TRUE)
+fold <- sample(1:10, nrow(X), replace = TRUE)
 
 X_trainfold1 <- X[fold==1,]
 X_valfold1 <- X[fold!=1,]
 y_trainfold1 <- y[fold==1,]
 y_valfold1 <- y[fold!=1,]
 @
-\item (5p) Now implement 5-fold cross-validation on the training data.
+\item (5p) Now implement 10-fold cross-validation on the training data.
 \emph{Hint!} Implement this as function called \texttt{glmnet\_cv()} that takes the \texttt{fold} variable, \texttt{X}, \texttt{y} and \texttt{lambda} and then outputs the RMSE.
 
 \begin{enumerate}
@@ -289,8 +289,8 @@ rmse(pred_y_valfold, y_valfold)
 \item Take the mean RMSE for the five folds.
 \end{enumerate}
 \item Now, compute the RMSE for $\lambda=1$ using 5-fold cross-validation.
-\item Test different values for the hyper parameter $\lambda$. What is the best RMSE you can get with 5-fold cross-validation? What is the $\lambda$ for this value?
-\item Now use the best model to do predictions on the test set. What is your RMSE on the testset?
+\item Test different values for the hyper parameter $\lambda$. What is the best RMSE you can get with 10-fold cross-validation? What is the $\lambda$ for this value?
+\item Now use the best model to do predictions on the test set. What is your RMSE on the test set?
 \end{enumerate}
 
 \newpage
