@@ -126,7 +126,7 @@ You should not use the following data sets in the project:
 
 
 
-\subsection{Project Proposal}
+\subsection{Project Proposal Part 1}
 Students must turn in a half-page project and data description in the ICML paper format that can be found \href{https://icml.cc/Conferences/2020/StyleAuthorInstructions}{[here]}. The ICML format is also available in overleaf here: \href{https://www.overleaf.com/latex/templates/icml-2019-submission-template/vkqjjvzjvhdc}{[here]}.
 
 \emph{The project report should include all the group members' names following the LaTeX template, i.e. your names should be as authors in the template.}
@@ -145,10 +145,39 @@ The project proposal must include the following pieces:
   \item Data and Methods (roughly 0.5 pages)
   \begin{itemize}
     \item Description of the data.
-    \item A first idea on potential methods and evaluation.
   \end{itemize}
 \end{enumerate}
 
+
+\subsection{Project Proposal Part 2}
+Part 2 contain additional information regarding the proposed method and some first preliminary results. It should also fix comments to the previous proposal 1.
+
+Students must turn in a project proposal part 2 and data description in the ICML paper format (see above).
+
+\emph{The project proposal 2 should include all the group members' names following the LaTeX template, i.e. your names should be as authors in the template.}
+
+The project proposal must include the following pieces:
+\begin{enumerate}
+  \item Title
+  \begin{itemize}
+    \item The title should describe the problem and be like a real article title, i.e. don't write "Mini-project:" or similar in the title.
+  \end{itemize}
+  \item Abstract (1 paragraph)
+  \item Introduction (roughly 0.5 pages)
+  \begin{itemize}
+    \item Description of the problem.
+  \end{itemize}
+  \item Data and Methods (roughly 0.5 pages)
+  \begin{itemize}
+    \item Description of the data.
+    \item Description and motivation of the method
+    \item Description of how you conducted the evaluation
+  \end{itemize}
+  \item Results (roughly 0.5 page)
+  \begin{itemize}
+    \item A first very preliminary result
+  \end{itemize}
+\end{enumerate}
 
 \subsection{Project Report}
 \label{project_report}
@@ -197,7 +226,7 @@ The paper should consist of \emph{between three and a half (3.5) and four (4) pa
   \end{itemize}
 \end{enumerate}
 
-\emph{The project report should have the same title as the project proposal.}
+\emph{The project report should have the same title as the project proposals.}
 
 Additional requirements and hints for the report:
 \begin{enumerate}

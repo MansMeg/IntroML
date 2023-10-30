@@ -51,7 +51,7 @@
 \newcommand{\Prob}{\mathbb{P}}
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
+%\SweaveOpts{concordance=TRUE}
 
 \begin{titlepage}
 
@@ -91,18 +91,18 @@ knitr::opts_chunk$set(size = "small")
 
 \newpage
 
-\section{General Questions}
+%\section{General Questions}
 
-\input{general_questions_info.tex}
+%\input{general_questions_info.tex}
 
-\begin{enumerate}
-\item (2p) Describe, with your own words, what \citet{efron2020prediction} see as the difference between the \emph{traditional regression methods} and the \emph{pure prediction algorithms}. (max 1 paragraph)
+%\begin{enumerate}
+%\item (2p) Describe, with your own words, what \citet{efron2020prediction} see as the difference between the \emph{traditional regression methods} and the \emph{pure prediction algorithms}. (max 1 paragraph)
 %\item In many machine learning applications, we use Stochastic Gradient Descent, even though other optimization algorithms that use second-order derivatives are better. Why is this the case? Relate this to $N$ and $P$ and describe with your own words (max 1 paragraph)
 %\item \citet{Goodfellow-et-al-2016} describe machine learning algorithms with tasks (T), performance (P) and experience (E). Describe these three concepts in your own words. (1-2 paragraphs)
 %\item Describe the free lunch theorem with your own words? (max 1 paragraph)
 % \item Describe the concept of model complexity/capacity with your own words? (max 1 paragraph)
-\item (2p) Describe the bias-variance trade-off with your own words. (max 1 paragraph)
-\end{enumerate}
+%\item (2p) Describe the bias-variance trade-off with your own words. (max 1 paragraph)
+%\end{enumerate}
 
 \section{Basic, Stochastic, and Mini-Batch Gradient Descent}
 
@@ -182,11 +182,17 @@ ll(y, X, theta)
 
 \emph{Hint!} The design matrix \texttt{X} already include an intercept so you need to remove that either from \texttt{X} or from the R formula using \texttt{y ~ -1 + X}.
 \item Implement the following gradient descent algorithms \citep[see][for details and psuedo-code]{ruder2016overview} as three separate R functions. Print these functions in your report.
+
+\emph{Note!} Each epoch should include all data points. A tip is to order the data points randomly in each iteration.
+
 \begin{enumerate}
 \item (2p) ordinary (full/batch) gradient descent
 \item (2p) stochastic gradient descent
 \item (2p) mini-batch (stochastic) gradient descent using ten samples to estimate the gradient
 \end{enumerate}
+
+
+
 A boilerplate for the algorithm can be found here.
 <<echo=TRUE,eval=FALSE>>=
 mbsgd <- function(y, X, sample_size, eta, epochs){
@@ -246,16 +252,45 @@ library(uuml)
 data("prob2_train")
 data("prob2_test")
 dim(prob2_train)
+X <- as.matrix(prob2_train[,-241])
+y <- as.matrix(prob2_train[,"y"])
+X_test <- as.matrix(prob2_test[,-241])
+y_test <- as.matrix(prob2_test[,"y"])
 @
 
 
 You should do the following and present the results in your report:
 \begin{enumerate}
 \item (1p) Fit a linear model to the training data. What are the results? Why does this happen?
-\item (1p) Use \texttt{cv.glmnet} from the \texttt{glmnet} package to fit a linear lasso regression to the training data. Describe what the function does. Include the plot showing the MSE for different values of $\lambda$ in your report and describe how to interpret it.
-\item (1p) Have a look at the coefficients you get from the $\lambda_{min}$ and $\lambda_{1se}$ models. Describe the resulting models in the report, e.g., if any variables have been removed from the model. But please do not print all 240 coefficients!
-\item (1p) Use \texttt{cv.glmnet} from the \texttt{glmnet} package to fit a linear ridge regression to the training data.
-\item (2p) Use the models (lasso/ridge, $\lambda_{min}$ or $\lambda_{1se}$) to make predictions for the test data. Present the MAE and RMSE of the four models in a table in your report. Discuss the results, comparing the interpretability and predictive performance of the models.
+\item (1p) Use \texttt{glmnet()} function from the \texttt{glmnet} package to fit a linear lasso regression to the training data with $\lambda=1$. How many coefficients are used in the model? \emph{Hint!} \texttt{coefficients()}
+\item Split the data into five folds randomly.
+\emph{Hint!} Use the \texttt{sample()} function and create a new variable called fold. Here is an example on how to select the folds
+<<eval=FALSE>>=
+fold <- sample(1:5, nrow(X), replace = TRUE)
+
+X_trainfold1 <- X[fold==1,]
+X_valfold1 <- X[fold!=1,]
+y_trainfold1 <- y[fold==1,]
+y_valfold1 <- y[fold!=1,]
+@
+\item (5p) Now implement 5-fold cross-validation on the training data.
+\emph{Hint!} Implement this as function called \texttt{glmnet\_cv()} that takes the \texttt{fold} variable, \texttt{X}, \texttt{y} and \texttt{lambda} and then outputs the RMSE.
+
+\begin{enumerate}
+\item For each fold, hold out the validation fold and train on the the rest of the training set. See below.
+<<eval=FALSE>>=
+mod <- glmnet(X_trainfold, y_trainfold, alpha = 1, lambda = [different lambda here])
+pred_y_valfold <- predict(mod, newx = X_valfold)
+@
+\item Use the \texttt{rmse()} function in the \texttt{uuml} R package to compute the root mean squared error (RMSE) for each fold as follows:
+<<eval=FALSE>>=
+rmse(pred_y_valfold, y_valfold)
+@
+\item Take the mean RMSE for the five folds.
+\end{enumerate}
+\item Now, compute the RMSE for $\lambda=1$ using 5-fold cross-validation.
+\item Test different values for the hyper parameter $\lambda$. What is the best RMSE you can get with 5-fold cross-validation? What is the $\lambda$ for this value?
+\item Now use the best model to do predictions on the test set. What is your RMSE on the testset?
 \end{enumerate}
 
 \newpage
