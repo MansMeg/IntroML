@@ -1,6 +1,6 @@
 %\documentclass[10pt,handout]{beamer}
 \documentclass[10pt]{beamer}
-\usepackage[english]{babel} % Anpassa efter svenska. Ger svensk logga.
+\usepackage{babel} % Anpassa efter svenska. Ger svensk logga.
 \usepackage[utf8]{inputenc} % Anpassa efter linux
 \usepackage{graphicx}
 \usepackage{hyperref}
@@ -73,7 +73,7 @@ The word "AI" is often used quite loosely:
 
 \begin{frame}{What is Artificial Intelligence?}
 Artificial intelligence (AI), sometimes called machine intelligence, is intelligence demonstrated by machines, unlike the natural intelligence displayed by humans and animals. -- Wikipedia
-
+\pause
 Artificial intelligence (AI), the ability of a digital computer or computer-controlled robot to perform tasks commonly associated with intelligent beings. -- Encyclopedia Brittanica
 \end{frame}
 
@@ -88,6 +88,9 @@ Also called:
 \item General AI
 \item Full AI
 \end{enumerate}
+
+\pause
+Artificial super intelligence (ASI) is "any intellect that greatly exceeds the cognitive performance of humans in virtually all domains of interest" -- Nick Bostrom
 
 \end{frame}
 
@@ -198,7 +201,7 @@ Two main parts:
 \begin{itemize}
 \item Supervised learning (5 blocks)
 \begin{itemize}
-\item Introduction (1 block)
+\item Introduction, statistical learning (1 block)
 \item Tree-based methods (1 block)
 \item Neural Networks (3 block)
 \end{itemize}
@@ -238,7 +241,7 @@ Exact dates and details; see the course page.
 \begin{frame}{Lectures}
 
 \begin{itemize}
-\item Present overall theory and content (overview) \pause
+\item Present overall theory, concepts and content (overview) \pause
 \item Ask questions during the lecture!
 \item Guest lectures on the course (worthwhile):
 \begin{enumerate}
@@ -246,7 +249,6 @@ Exact dates and details; see the course page.
 \item Erik Fredlund, CEO Codon AI (industry applications)\pause
 \item Holli Sargeant, Cambridge University (fairness and law)\pause
 \item Karim Jebari, The Institute for Futures Studies (AI and ethics)\pause
-\item Andreas Östling, UU (transformers)\pause
 \item Väinö Yrjänäinen, UU (word embeddings)
 \end{enumerate}
 \end{itemize}
@@ -324,8 +326,11 @@ Exact dates and details; see the course page.
 \item See project instructions on webpage for details.\pause
 \item \uured{Supervised problem} of choice on real data.
 \item 2-3 students.\pause
-\item Supply a half-page project proposal of data and problem at the end of block 6.\pause
-\item Project will last two weeks (half time) - but start earlier.
+\item Supply step 1 proposal at the end of block 3.\pause
+\item Supply step 2 proposal at the end of block 6.\pause
+\item Project will last two weeks (half time) - but start earlier. Good case to show potential employers.
+\item Recommended data: Images, text or tabular data.
+\item Feel free to build upon the Bayesian project (e.g. compare with Bayesian methods).
 \item Approximate 40 hours of work \emph{per student}.\pause
 \item The project should result in a 4 page report (PDF) using the ICML LaTeX template (see course page).
 \item Project oral presentation (10-15 minutes)\pause
@@ -367,11 +372,9 @@ Exact dates and details; see the course page.
 \begin{itemize}
 \item More even (and lower) burden (hopefully)
 \item General updates of unclear parts in assignments
+\item Added points to the assignments.
 \item \emph{Note!} There can be some new bugs after these updates.
-\item Three Zoom sessions Wednesday-Friday (1h) instead of a 2h session on campus
-\item Introduction to each assignment the first Zoom session.
-\item Industry guest lecture (Erik Fredlund)
-\item More on AI and fairness (Holli Sargeant)
+\item New lectures (and maybe VG-assignments) on generative AI (mainly LLMs)
 \end{itemize}
 
 \end{frame}
@@ -421,6 +424,10 @@ Questions?
 
 %[Take images - Ask are the classification problems or nor what is the features]
 
+\uured{Any examples of applications?}
+
+\pause
+
 \begin{itemize}
 \item Is this e-mail message spam (1) or not (0)?\pause
 %\item Sequence to sequence (NLP) - machine translation?
@@ -437,13 +444,11 @@ Questions?
 
 \subsection{Example: Logistic regression}
 
-
 \begin{frame}{Logistic regression and classification}
 When the $y_i$ in a regression problem is binary (or more generally, categorical), it becomes a {\color{uured}classification problem}.\\[3mm]\pause
 The question that the model tries to answer is: does this observation belong to class 0 or class 1?\\[3mm]\pause
 
-Logistic regression is a workhorse in classification problems.
-
+Logistic regression is a workhorse for classification problems.
 
 \end{frame}
 
@@ -457,7 +462,9 @@ $Y_i \in {0,1}$ with success probability $\pi_i$ and $\mu_i=E(Y_i)=\pi_i$.\\[3mm
 \begin{itemize}
 \item The natural parameter of the binomial distribution is $$g(\pi_i)=\log\Big(\frac{\pi_i}{1-\pi_i}\Big),$$
 called the {\color{uured}logit} or {\color{uured}log odds}.\\[3mm ]\pause
-\item A GLM using this link function is called {\color{uured}logistic regression}, but other link functions are also often used in practice.\\[3mm]
+\item A GLM using this link function is called {\color{uured}logistic regression}, but other link functions are also often used in practice.\\
+Many times we use likelihood functions\\
+[3mm]
 \end{itemize}
 \end{frame}
 
@@ -730,6 +737,22 @@ v_t =& \beta_1 v_{t-1} + (1-\beta_2) \hat{\nabla} L(\theta_{t-1}, X_{i}, y_{i})^
 \end{itemize}
 
 \end{frame}
+
+\begin{frame}{Adam}
+
+\begin{figure}[h]
+\caption{The Adam Optimizer (Kingma and Ba, 2014)}
+\centering
+\includegraphics[width=0.6\textwidth]{figs/ADAM}
+\end{figure}
+
+For convergence proofs, see:\\
+Defossez et al (2020) "A Simple Convergence Proof of Adam and Adagrad"
+
+\end{frame}
+
+
+
 
 
 
