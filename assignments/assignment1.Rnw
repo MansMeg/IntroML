@@ -297,6 +297,8 @@ rmse(pred_y_valfold, y_valfold)
 
 \section{* Gradient Descent for penalized logistic regression}
 
+To get a pass with distinction point, you can choose between this task or the task below.
+
 \input{distinction_task.tex}
 
 Here we use the same data as in task 1 above.
@@ -387,6 +389,66 @@ lr(y, X, theta = c(-1,0.5,0.5), lambda = 1)
 \end{enumerate}
 
 \newpage
+
+\section{* Implementation of the Adam optimizer}
+
+To get a pass with distinction point, you can choose between this task or the task above
+
+\input{distinction_task.tex}
+
+Here we use the same data as in task 1 above.
+
+<<echo=TRUE,eval=FALSE>>=
+library(uuml)
+data("binary")
+
+binary$gre_sd <- (binary$gre - mean(binary$gre))/sd(binary$gre)
+binary$gpa_sd <- (binary$gpa - mean(binary$gpa))/sd(binary$gpa)
+X <- model.matrix(admit ~ gre_sd + gpa_sd, binary)
+y <- binary$admit
+@
+\begin{enumerate}
+
+\item Implement the Adam mini-batch gradient descent algorithm \citep[see][for details and psuedo-code]{ruder2016overview} and \citep[][ for details]{kingma2014adam} as an R function. Not that in \citet{kingma2014adam}, the stepsize is denoted by $\alpha$.
+
+\emph{Note!} Each epoch should include all data points. A tip is to order the data points randomly in each iteration.
+
+A boilerplate for the algorithm can be found here.
+<<echo=TRUE,eval=FALSE>>=
+adam <- function(y, X, sample_size, eta, beta1, beta2, epochs){
+  # Setup output matrix
+  results <- matrix(0.0, ncol = ncol(X) + 2L, nrow = epochs)
+  colnames(results) <- c("epoch", "nll", colnames(X))
+
+  # Run algorithm
+  theta <- rep(0.0, ncol(X)) # Init theta to the 0 vector
+  for(j in 1:epochs){
+
+    ### Put the algorithm code here ###
+
+    # Store epoch, nll and output results
+    results[j, "epoch"] <- j
+    results[j, "nll"] <- ll(y, X, theta)
+    results[j, -(1:2)] <- theta
+  }
+  return(results)
+}
+@
+The function can then be called as:
+<<echo=TRUE,eval=FALSE>>=
+result <- mbsgd(y, X, sample_size = 10, eta = 0.1, epochs = 500)
+@
+\item Print the function in your report.
+\item Try different learning parameters $\eta$, $\beta_1$ and $\beta_2$, and run the algorithm for roughly 500 epochs. You should test three different parameters setup. Visualize your results in the same way as in the SGD task above, namely:
+\begin{enumerate}
+\item (2p) The (negative) log-likelihood value \emph{for all observations} for the given $\theta$ (y-axis) and the epochs (full data iterations, x-axis).
+\item (2p) The value of one $\theta$ parameter of your choice (y-axis) and the epochs (full data iterations, x-axis). Also include the true values you got from using the \texttt{glm()} function above as a horizontal line in the figure.
+\end{enumerate}
+\end{enumerate}
+
+\newpage
+
+
 
 \bibliography{bibliography}
 
