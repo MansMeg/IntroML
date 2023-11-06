@@ -444,11 +444,11 @@ Questions?
 \item The main error of interest - \emph{generalization error}
 \item Conditional Test Error \\(Performance for the model trained on \uured{actual} training data):
 \[
-\text{Err}_\mathcal{T} = \E_{Y,X}(L(Y_0,\hat{f}(X_0) | \mathcal{T})
+\text{Err}_\mathcal{T} = \E_{p(X_0,Y_0)}(L(Y_0,\hat{f}(X_0) | \mathcal{T})
 \]
 \item Expected Test Error \\(Model performance over \uured{different} training datasets):
 \[
-\text{Err} = \E_\mathcal{T}(\E_{Y,X}(L(Y_0,\hat{f}(X_0)))
+\text{Err} = \E_{p(X,Y)}(L(Y_0,\hat{f}(X_0)))
 \]
 \item Sometimes refered to as \uured{generalization} error.
 \item Conditional Test Error is more difficult to estimate than the Expected Test Error (Bates, Hastie, and Tibshiriani, 2021)
@@ -703,11 +703,11 @@ Questions?
 \begin{itemize}
 \item We want to estimate \uured{$\text{Err}$} for different models and to \uured{choose the best model} where
 \begin{align*}
-\text{Err} & = \E_\mathcal{T} (\text{Err}_\mathcal{T}) \\
- & = \E_\mathcal{T} (\E(L(Y_0,X_0)|\mathcal{T})) \\
-& = \int (\int L(Y_0, \hat{f}(X_0)) P_{y,x} d(Y_0,X_0) |\mathcal{T}) d\mathcal{T}
+\text{Err} & = \E_{p(X,Y)} (\text{Err}_\mathcal{T}) \\
+ & = \E_{p(X,Y)} (\E_{p(X_0,Y_0)}(L(Y_0,X_0)|\mathcal{T})) %\\
+% & = \int (\int L(Y_0, \hat{f}(X_0)) p(X_0,Y_0) d(Y_0,X_0) | \mathcal{T}) p(X,Y) d(X,Y)
 \end{align*}
-\item Cross-Validation is probably the most popular approach to estimate \uured{$\text{Err}$} and choose between models because it is
+\item Cross-Validation is probably the most popular approach to estimate \uured{$\text{Err}$} and choose between models because it is:
 \begin{enumerate}
 \item Conceptually easy to understand
 \item Easy to implement
@@ -722,7 +722,7 @@ Questions?
 \end{frame}
 
 
-\begin{frame}{Cross-Valdidation Algorithm}
+\begin{frame}{The Cross-Valdidation Algorithm}
 
 \begin{figure}[h]
 \caption{Cross-Validation (Hastie et al, 2009, p. 222, 242)}
@@ -735,14 +735,14 @@ Questions?
 \item Split data in $K$ folds
 \item For each fold $k=1,2,...,K$
 \begin{enumerate}
-\item Use all samples except those in $k$ to build $\hat{f}(x)$
+\item Use all samples except those in $k$ to train $\hat{f}(x)$
 \item Use the model and predict the observations in fold $k$
 \end{enumerate}
 \end{enumerate}
-
 \[
-\text{Err}_{CV}(\hat{f}) = \frac{1}{N}\sum^N_{i=1} L(y_i,\hat{f}_{-\kappa(i)}(x))
+\widehat{\text{Err}}_{CV}(\hat{f}) = \frac{1}{N}\sum^N_{i=1} L(y_i,\hat{f}_{\kappa(i)}(x))
 \]
+where $\kappa(i)$ is the set of observations where $i$ is held-out.
 
 \end{frame}
 
@@ -821,6 +821,8 @@ Questions?
 
 %\end{frame}
 
+
+
 \begin{frame}{The role of the data generating process}
 
 \begin{itemize}
@@ -866,9 +868,66 @@ Questions?
 
 \end{frame}
 
+
+\begin{frame}{What is CV estimating?}
+
+\begin{align*}
+\text{Err} & = \E_{p(X,Y)} (\text{Err}_\mathcal{T})
+\end{align*}
+
+\begin{enumerate}
+\item What do we want CV to estimate, $\text{Err}$ or $\text{Err}_\mathcal{T}$?
+\pause
+\item What is CV estimating?
+\end{enumerate}
+
+\end{frame}
+
+
+\begin{frame}{What is CV estimating?}
+
+Let $\text{Err}_{XY} = \text{Err}_\mathcal{T}$. Further, assume the true model is
+\[
+y_i = \mathbf{x}^T \theta + \epsilon_i
+\]
+where $\epsilon_i \sim N(0,\sigma^2)$.
+
+\begin{figure}[h]
+\caption{MSE and missclassification ($\alpha=10\%$, Bates et al, 2022)}
+\vspace{-5mm}
+\centering
+\includegraphics[width=0.75\textwidth]{figs/bales2021}
+\vspace{-5mm}
+\end{figure}
+\pause
+Two take-aways:
+\vspace{-2mm}
+\begin{enumerate}
+\item CV is estimating $\text{Err}$ (see Bates et al, 2022)
+\pause
+\item Naive SE of CV estimators underestimate the true SE (see Bengio and Goodfellow, 2004)
+\end{enumerate}
+
+
+\end{frame}
+
+
+\begin{frame}{Test error and (cross-)validation error?}
+
+\begin{enumerate}
+\item What is the difference between the validation and test error?
+\pause
+\item Why use cross-validation instead of holding out one validation fold?
+\end{enumerate}
+
+\end{frame}
+
 \begin{frame}<handout:0>{Questions?}
 Questions?
 \end{frame}
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
