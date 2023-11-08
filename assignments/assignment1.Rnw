@@ -176,6 +176,7 @@ theta <- c(0, 0, 0)
 ll(y, X, theta)
 @
 
+\emph{Hint!} A common error is to get the sign of the gradient descent update wrong (confusing gradient for the negative log-likelihood and the gradient for the log-likelihood). If you have problems with getting your algorithm to converge, this might be a reason and something to check.
 
 \begin{enumerate}
 \item (1p) Run logistic regression in R to get an MLE estimate of \texttt{theta} using the \texttt{glm()} function. Print the three parameter estimates.
