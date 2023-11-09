@@ -108,11 +108,9 @@ knitr::opts_chunk$set(size = "small")
 %\item Describe the relationship between bagging and dropout regularization (max 1 paragraph).
 % \end{enumerate}
 
+\input{general_keras.tex}
+
 \section{Feed-Forward Neural Network using Keras and TensorFlow}
-
-As a first step, you must install \texttt{tensorflow} and \texttt{keras} on your local computer. You can find detailed information on how to install \texttt{tensorflow} and \texttt{keras} \textbf{\href{https://tensorflow.rstudio.com/installation/}{[here]}}. You can find details on different architecture components in the \texttt{keras} reference found \textbf{\href{https://keras.rstudio.com/index.html}{[here]}}.
-
-\emph{Note!} Running Keras can be computationally heavy, and I suggest not running the code in \texttt{markdown}. Instead, run the code in R and copy the results as output (see the assignment template for an example).
 
 If you have installed \texttt{keras}, you can load the MNIST dataset. This dataset contains data on handwritten digits that we want to classify. To access the data, we use \texttt{keras} as follows.
 
@@ -122,7 +120,6 @@ mnist <- dataset_mnist()
 mnist$train$x <- mnist$train$x/255
 mnist$test$x <- mnist$test$x/255
 @
-
 
 \begin{enumerate}
 \item As a first step, we visualize a couple of digits. Include the first eight you can find in the training dataset in the report as an image.

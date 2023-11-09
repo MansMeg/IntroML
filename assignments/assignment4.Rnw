@@ -59,7 +59,7 @@
 \center
 \textsc{\LARGE Uppsala University}\\[1.5cm] % Name of your university/college
 \includegraphics[scale=.2]{files/uu_logo.png}\\[1cm]
-\textsc{\Large Introduction to Machine Learning, Big Data, and AI}\\[0.5cm]
+\textsc{\Large Machine Learning}\\[0.5cm]
 \textsc{\large }\\[0.5cm]
 
 \HRule \\[0.4cm]
@@ -109,16 +109,32 @@ knitr::opts_chunk$set(size = "small")
 
 %\newpage
 
-\section{Convolutional neural networks using Keras}
+\input{general_keras.tex}
 
-\emph{Note!} This assignment can be a little heavy computationally. If your own an old computer, you might want to run this task in the computer room in the Department.
+\section{Convolutional neural networks using Keras}
 
 We are now going to implement a convolutional neural network using Keras. Here Ch. 5.1-5.3 in \citet{chollet2018deep} and the \href{https://tensorflow.rstudio.com/examples/cifar10_cnn}{following tutorial} might be useful, especially for details on how to load the data. Remember to load the \texttt{tensorflow} R package before loading the \texttt{keras} R package.
 
-\emph{Note!} Running Keras can be computationally heavy, and I suggest not to run the code in \texttt{markdown}. Instead, run the code in R and copy the results as output (see the assignment template for an example).
+If you have installed \texttt{keras}, you can load the MNIST dataset. This dataset contains data on handwritten digits that we want to classify. To access the data, we use \texttt{keras} as follows.
 
+<<echo=TRUE,eval=FALSE>>=
+library(keras)
+mnist <- dataset_mnist()
+mnist$train$x <- mnist$train$x/255
+mnist$test$x <- mnist$test$x/255
+@
 
 \begin{enumerate}
+\item As a first step, we visualize a couple of digits. Include the first three you can find in the training dataset in the report as an image.
+<<echo=TRUE,eval=FALSE>>=
+idx <- 1
+im <- mnist$train$x[idx,,]
+# Transpose the image
+im <- t(apply(im, 2, rev))
+image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
+        xaxt='n', yaxt='n', main=paste(mnist$train$y[idx]))
+@
+
 \item Implement a Convolutional Neural Network for the MNIST dataset. The network should have two convolutional layers as follows.
 <<>>=
 ## _______________________________________________________________________
@@ -143,7 +159,7 @@ We are now going to implement a convolutional neural network using Keras. Here C
 \item Explain why there are 320 parameters in the first layer. How many are kernel weights (and why), and how many biases?
 \item Train the network using Keras. What is your loss and accuracy on the MNIST dataset?
 \item Choose at least three hyper-parameters you would like to evaluate (\citet[see Table 11.1 in ][]{Goodfellow-et-al-2016}). Use random search \citet[see Ch. 11.4.4 in ][]{Goodfellow-et-al-2016} and train 10 different models with random hyper-parameter settings and store the validation accuracy of your network. Based on these result, choose the best hyper-parameter setting for your network. Print the code and the accuracy of your final model. You can choose the marginal distribution for the hyper-parameters yourself.
-\item As the next step, we will implement a convolutional neural network for the CIFAR-10 dataset using \texttt{dataset\_cifar10()}. See the \href{https://tensorflow.rstudio.com/tutorials/advanced/images/cnn/}{tutorial} for details on how to load data. Implement a similar CNN as in the tutorial. That is:
+\item As the next step, we will implement a convolutional neural network for the CIFAR-10 dataset using \texttt{dataset\_cifar10()}. See the \href{https://tensorflow.rstudio.com/examples/cifar10_cnn}{tutorial} for details on how to load data. Implement a similar CNN as in the tutorial. That is:
 <<>>=
 ## Model: "sequential"
 ## ___________________________________________________________________________
@@ -268,7 +284,7 @@ To get VG on this assignment, you can choose to make this task OR the task on im
 
 \input{distinction_task.tex}
 
-\emph{Note!} This assignment can be a little heavy computationally. If your own an old computer, you might want to run this task in the computer room in the Department.
+\emph{Note!} This task can be a computationally heavy.
 
 As the last step, we will look into using transfer learning as a quick way of improving the prediction accuracy on the cifar-10 dataset. Here Ch. 5.3 in \citet{chollet2018deep} or \href{https://blogs.rstudio.com/ai/posts/2017-12-14-image-classification-on-small-datasets/}{this tutorial} might be helpful.
 
