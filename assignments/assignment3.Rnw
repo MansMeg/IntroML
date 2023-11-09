@@ -92,11 +92,11 @@ knitr::opts_chunk$set(size = "small")
 
 \newpage
 
-\section{General Questions}
+% \section{General Questions}
 
-\input{general_questions_info.tex}
+% \input{general_questions_info.tex}
 
-\begin{enumerate}
+% \begin{enumerate}
 %\item Describe the output layer in a neural network. What does it do? (max 1 paragraph)
 % \item Describe the input layer in a neural network. What does it do? (max 1 paragraph)
 %\item What is a tensor? (max 1 paragraph)
@@ -104,9 +104,9 @@ knitr::opts_chunk$set(size = "small")
 %\item What are the benefits with deeper neural networks compared to shallow ones according to \citet{Goodfellow-et-al-2016}? (max 1 paragraph)
 %\item Describe early stopping regularization (in 1 paragraph).
 %\item Describe weight decay regularization (max 1 paragraph).
-\item Describe dropout regularization (max 1 paragraph).
+% \item Describe dropout regularization (max 1 paragraph).
 %\item Describe the relationship between bagging and dropout regularization (max 1 paragraph).
-\end{enumerate}
+% \end{enumerate}
 
 \section{Feed-Forward Neural Network using Keras and TensorFlow}
 
