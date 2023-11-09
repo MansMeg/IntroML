@@ -93,17 +93,17 @@ knitr::opts_chunk$set(size = "small")
 
 \newpage
 
-\section{General Questions}
+% \section{General Questions}
 
-\input{general_questions_info.tex}
-\begin{enumerate}
-\item What is the relationship between PCA and linear autoencoders? (max 1 paragraph)
+% \input{general_questions_info.tex}
+% \begin{enumerate}
+% \item What is the relationship between PCA and linear autoencoders? (max 1 paragraph)
 %\item Describe the encoder and decoder of a VAE.
 %\item When we maximize the ELBO, what two things do we optimize in a VAE? (max 1 paragraph)
 %\item What is a topic in a latent Dirichlet topic model? (max 1 paragraph)
 %\item How does Blei (2012) describe the relationship between LDA and PCA? (max 1 paragraph)
 %\item What is a mixed membership model? (max 1 paragraph)
-\end{enumerate}
+% \end{enumerate}
 
 
 \section{Variational Autoencoders}

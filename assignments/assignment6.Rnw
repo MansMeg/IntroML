@@ -106,19 +106,19 @@ data("mixture_data")
 
 For a more indepth description of the datasets, just run \texttt{?iris}, \texttt{?faithful}, or \texttt{?mixture\_data} in R.
 
-\section{General Questions}
+%\section{General Questions}
 
-\input{general_questions_info.tex}
+%\input{general_questions_info.tex}
 
-\begin{enumerate}
-\item As a first step, describe, with your own words, what unsupervised learning is, and give relevant references to the course literature. (max 1 paragraph)
+%\begin{enumerate}
+%\item As a first step, describe, with your own words, what unsupervised learning is, and give relevant references to the course literature. (max 1 paragraph)
 %\item What is the difference in the meaning of data augmentation in the EM and CNN senses?
-\item Describe the two steps of the EM algorithm. (max 1 paragraph)
-\item Describe the difference between a Gaussian mixture model and the k-means clustering model. (max 1 paragraph)
+%\item Describe the two steps of the EM algorithm. (max 1 paragraph)
+%\item Describe the difference between a Gaussian mixture model and the k-means clustering model. (max 1 paragraph)
 %Describe the gap statistic. What is the main idea?
 %What is a principal component?
-\item What is the difference between Principal Component Analysis (PCA) and probabilistic PCA? (max 1 paragraph)
-\end{enumerate}
+%\item What is the difference between Principal Component Analysis (PCA) and probabilistic PCA? (max 1 paragraph)
+%\end{enumerate}
 
 \section{The k-means Algorithm}
 
