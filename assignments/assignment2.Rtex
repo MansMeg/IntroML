@@ -88,18 +88,6 @@ knitr::opts_chunk$set(size = "small")
 
 \newpage
 
-\section{General Questions}
-
-\input{general_questions_info.tex}
-
-\begin{enumerate}
-\item Describe bagging and boosting with your own words. What is the difference between the two approaches? (1 paragraphs)
-%\item When (and why) is random forests performing poorly with a small $m$? (max 1 paragraph)
-%\item What is a learning ensemble? (max 1 paragraph)
-\end{enumerate}
-
-\newpage
-
 \section{Decision Trees}
 
 The dataset \texttt{Hitters} contain data on the salary of Baseball players and additional information on years in the baseball league (\texttt{Years}) and the number of hits (\texttt{Hits}). To access the data, use:
@@ -131,21 +119,22 @@ tree_split <- function(X, y, l){
   checkmate::assert_numeric(y, len = nrow(X))
   checkmate::assert_int(l)
 
+  # Store the sum of squares
   SS <- matrix(Inf, nrow = nrow(X), ncol = ncol(X))
   for(j in 1:ncol(X)){
     for(k in 1:nrow(X)){
-      s <- X[k,j] # Split point
+      s <- X[k,j] # Choose split point
       R1 <- which(X[,j] <= s)
       R2 <- which(X[,j] > s)
 
-      # Handle if R1 or R2 is smaller than the leaf size l
+      # Do if R1 or R2 is smaller than the leaf size l
       # Compute c1
       # Compute c2
-      SS[k, j] <- # Compute the SS
+      SS[k, j] <- # Compute the sum of squares
     }
   }
 
-  # The final results for the min SS
+  # The final results for the min SS (arg min)
   j <- # Which column was used for the split-point
   s <- # What value of X was used as the split-point
   R1 <- which(X[,j] <= s)
@@ -193,11 +182,11 @@ tree_split(X_check, y_check, l = 1)
 @
 \item What is the first split based on the whole training data \texttt{X\_train} and \texttt{y\_train}?
 \item What is the Sum of Squares (SS) for this first split?
-\item Use the function \texttt{tree\_split()} to create a function \texttt{grow\_tree()} that takes the arguments \texttt{X}, \texttt{y}, and \texttt{l} and then build a decision tree. The returned tree can be a \texttt{data.frame} that looks as follows. Note that \texttt{R1\_i} and \texttt{R2\_i} indicates the row of the \texttt{data.frame} where to go next. This is just one example implementation, you are free to implement this however you want.
+\item Use the function \texttt{tree\_split()} to create a function \texttt{grow\_tree()} that takes the arguments \texttt{X}, \texttt{y}, and \texttt{l} and then build a decision tree. The returned tree can be a \texttt{data.frame} that looks as below. This is just one example implementation, you are free to implement this however you want.
 
 \emph{Hint 1!} Use a list in R to store the set of indecies you are splitting up.
 
-\emph{Hint 2!} Remember that the indecies that \texttt{split\_tree()} returns are based on the data you put into that functions. Hence, you need to convert them to the full data indecies.
+\emph{Hint 2!} Remember that the indecies that \texttt{split\_tree()} returns are based on the data you put into that functions. Hence, you need to convert them to the full data indecies to simplify.
 
 Here is an template how the function could be implemented, but you are free to implement it however you want.
 
@@ -207,23 +196,58 @@ grow_tree <- function(X, y, l){
   checkmate::assert_numeric(y, len = nrow(X))
   checkmate::assert_int(l)
 
+  # We do an initial split
   init <- tree_split(X, y, l)
+  # We use S_m to store the set of observation indicies
+  # This is used to keep track of the groups of
+  # observations to be split
   S_m <- list(init$R1, init$R2)
-  S_m_ij <- list(c(1,3), c(1,4))
+  # Storing the results
+  # j = column to use for split
+  # s = split point
+  # R1_i = pointer to row where to go next if in R1
+  # R2_i = pointer to row where to go next if in R2
+  # gamma = the gamma value of the leaf (if j and s are NA)
   results <- data.frame(j = init$j,
                         s = init$s,
                         R1_i = -1,
                         R2_i = -1,
                         gamma = NA)
   while (length(S_m) > 0) {
+    # As long as not all parts of the tree has been handled
+    # we will either split or compute lambda
     if(length(S_m[[1]]) >= 2*l){
 
       # Do stuff here to grow the tree
+      # based on observations (indecies) in S_m[[1]]
 
+      # Add split point
+      new_results <- data.frame(j = j,
+                                s = s,
+                                R1_i = -1,
+                                R2_i = -1,
+                                gamma = NA)
+      results <- rbind(results,
+                       new_results)
+      # Add R1 and R2 to S_m
+      S_m <- c(S_m, R1, R2)
+      # Remove the set we just handled
+      S_m[[1]] <- NULL
     } else {
 
-      # Do stuff here to when you cant grow the tree (compute gamma)
+      # Do stuff here to when you cant grow the tree (i.e. compute gamma)
 
+      # Add leaf
+      new_results <- data.frame(j = NA,
+                                s = NA,
+                                R1_i = NA,
+                                R2_i = NA,
+                                gamma = gamma)
+      results <- rbind(results,
+                       new_results)
+
+      # Remove the set we just handled
+      S_m[[1]] <- NULL
     }
 
   }
@@ -231,7 +255,7 @@ grow_tree <- function(X, y, l){
 }
 @
 
-Here is an example how iy should work.
+Here is an example how it should work.
 
 <<echo = FALSE>>=
 grow_tree <- function(X,y,l){
@@ -253,16 +277,17 @@ tr
 predict_with_tree <- function(new_data, tree){
   checkmate::assert_matrix(new_data)
 
-  predictions <- numeric(ncol(new_data))
+  predictions <- numeric(nrow(new_data))
 
-  for(k in 1:ncol(new_data)){
+  for(i in seq_along(predictions)){
     not_in_leaf <- TRUE
     while(not_in_leaf){
 
-      # Do stuff
+      # Check the split and go to next row
+      # until we end up with a gamma
 
-      }
     }
+    predictions[i] <- predicted_value
   }
   return(predictions)
 }
@@ -327,7 +352,7 @@ xgb <- xgboost(as.matrix(X_train), as.matrix(y_train), nrounds = 200)
 
 \newpage
 
-\section{*Bagged tree implementation}
+\section{*Bagged tree and random forest implementation}
 
 \input{distinction_task.tex}
 
@@ -342,9 +367,9 @@ See Section 8.7 in \citet{hastie2009elements}, and especially Eq. (8.51) for det
 \end{enumerate}
 
 
-\section{*Random forest implementation}
+%  \section{*Random forest implementation}
 
-\input{distinction_task.tex}
+% \input{distinction_task.tex}
 
 Using our previous functions we can now build our own random forest regression model using our previous functions \texttt{grow\_tree()} and \texttt{predict\_with\_tree()}. Based on the bagged tree regression model, we only need to add the parameter $m$.
 
@@ -353,7 +378,9 @@ See Section 15.2 in \citet{hastie2009elements}, and especially Algorithm 15.1 fo
 \begin{enumerate}
 \item Create a new function \texttt{grow\_tree\_m()} with the additional argument $m$. The function should grow a tree, but at every split, it should draw a sample of size $m$ of the covariates to make the split.
 \item Implement a random forest regression model using \texttt{grow\_tree\_m()} and \texttt{predict\_with\_tree()}.
-\item Train your random forest regression model on the training data with $m=1$, $B=100$ and predict on the test data. What is the RMSE of your predictions on the test set (using your \texttt{rmse} function)? \emph{Note!} Since we only have just two covariates in the test and train data, the difference is small (if any) compared to the Bagging algorithm. Also, differences compared to the \texttt{randomForest} package probably comes from different way the \texttt{grow\_tree} functions are implemented in your code and the \texttt{randomForest} package.
+\item Train your random forest regression model on the training data with $m=1$, $B=100$ and predict on the test data. What is the RMSE of your predictions on the test set (using your \texttt{rmse} function)?
+
+\emph{Note!} Since we only have just two covariates in the test and train data, the difference is small (if any) compared to the Bagging algorithm. Also, differences compared to the \texttt{randomForest} package probably comes from different way the \texttt{grow\_tree} functions are implemented in your code and the \texttt{randomForest} package.
 \end{enumerate}
 
 \newpage
