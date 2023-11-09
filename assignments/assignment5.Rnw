@@ -91,15 +91,15 @@ knitr::opts_chunk$set(size = "small")
 
 \newpage
 
-\section{General Questions}
+%\section{General Questions}
 
-\input{general_questions_info.tex}
-\begin{enumerate}
+%\input{general_questions_info.tex}
+%\begin{enumerate}
 %\item What is the difference between a recurrent neural network and an ordinary feed-forward neural network? (max 1 paragraph)
 %\item What is LSTM neural network, and why does it work better on long sequences than a  naive  RNN? (max 1 paragraph)
 %\item What is the main difference between a GRU and LSTM neural network? (max 1 paragraph)
-\item Name at least one difference between the BERT model and the original transformer model? (max 1 paragraph)
-\end{enumerate}
+%\item Name at least one difference between the BERT model and the original transformer model? (max 1 paragraph)
+%\end{enumerate}
 
 
 \section{Transformers and Attention}
