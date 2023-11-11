@@ -628,23 +628,28 @@ This give us the following error decomposition:
 
 %\subsection{Optimism of Training Error}
 
-\begin{frame}{Optimism}
+\begin{frame}{Optimism and training error}
 
 The in-sample \uured{test} error:
 \[
 \text{Err}_\text{in} = \frac{1}{N}\sum^N_{i=1} \E_{Y^0}\{L(Y^0_i,\hat{f}(x_i))|\mathcal{T}\}\,,
 \]
 where $Y^0_i$ is a \uured{new variable conditioned on $x_i$}.\\[3mm]
-
 \pause
-
-We have that
+We have that for many loss functions
 \[
 \E_\mathbf{y} (\text{Err}_\text{in}) = \E_\mathbf{y}(\overline{\text{err}}) + \underbrace{\frac{2}{N}\sum^N_{i=1} \text{Cov}(\hat{f}(x_i),y_i)}_{\text{optimism}}\,,
 \]
+or
+\[
+\text{op} = \E_\mathbf{y} (\text{Err}_\text{in}) - \E_\mathbf{y}(\overline{\text{err}})
+\]
 where $\overline{\text{err}}$ is the training error.
 
-\uured{Question}: How could we create an optimistic classifier for the training data?
+As $\hat{f}(x_i) \rightarrow y_i$, optimism will increase.
+
+\uured{Question}: Why?
+
 
 \end{frame}
 
