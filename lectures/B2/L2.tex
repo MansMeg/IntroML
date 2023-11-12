@@ -446,7 +446,7 @@ error = bias^2 + variance + bayes error.
 \item Repeat steps 1-2 $B$ times
 \item Weight together the predictions from the B models into a final ensemble prediction as
 \[
-\hat{f}_\text{bag}(x_i)=\frac{1}{B}\sum_b \hat{f}^b (x_i)
+\hat{f}_\text{bag}(x_i)=\frac{1}{B}\sum_b \hat{f}^b (x_i) = \frac{1}{B}\sum_b \hat{T} (x_i | \Theta_b)
 \]
 \end{enumerate}
 
@@ -466,9 +466,19 @@ error = bias^2 + variance + bayes error.
 
 \frame{\frametitle{Random Forest}
 
-A random forest is a bagging ensemble method, but with one extra step. Consider a sample of N units and K observed covariates/features\\~\\
+\begin{itemize}
+\item A bagging ensemble method, but...
+\pause
+\item Sample of $N$ observations and $K$ covariates/features
+\pause
+\item It is common to use $k=\sqrt{K}$ (rounded down) for classification and $k=K/3$ for regression. But these are only rules of thumb: $k$ is a \textit{tuning parameter}.
+\end{itemize}
+}
 
-Random forest algorithm:
+
+
+\frame{\frametitle{Random Forest: Algorithm}
+
 \begin{enumerate}
 \item Draw, \textit{with replacement}, a random sample of $N$ units from the original sample
 \item \textbf{Draw,  \textit{without replacement}, a random subset of $k$ covariates/features}
@@ -477,33 +487,40 @@ Random forest algorithm:
 \item Weight together the predictions from the B models into a final ensemble prediction
 \end{enumerate}
 
-It is common to use $k=\sqrt{K}$ (rounded down) for classification and $k=K/3$ for regression. But these are only rules of thumb: $k$ is a \textit{tuning parameter}.
 }
 
-\frame{\frametitle{Random Forest, variance reduction}
+\frame{\frametitle{Random Forest variance reduction}
 \begin{itemize}
 \item Consider each tree to be an i.i.d. random variable with variance $\sigma^2$.
 \item The average of these trees then have variance
 \begin{align*}
-\frac{1}{B}\sigma^2.
+\V (\hat{f}(x) = \frac{1}{B}\sigma^2.
 \end{align*}
 	\pause
 \item Trees constructed from the same set of covariates will be correlated and therefore \uured{not independent}.
 \item The variance of the average of these correlated trees then becomes
 	\begin{align*}
-	\rho\sigma^2+\dfrac{1-\rho}{B}\sigma^2.
+	\V (\hat{f}(x)) = \rho\sigma^2+\dfrac{1-\rho}{B}\sigma^2.
 	\end{align*}
-		\pause
-	\item The second term will \uured{vanish with increasing $B$} leaving just the first term left: a function of the \uured{correlation between the trees}
-	\pause
-	\item The remaining part of the variance is minimized by only consider a subset of the covariates when constructing trees - \uured{reducing the correlation} between them.
 \end{itemize}
 
 }
 
+\frame{\frametitle{Random Forest variance reduction}
+\begin{itemize}
+\item The variance of the average of correlated trees:
+	\begin{align*}
+	\V (\hat{f}(x)) = \rho\sigma^2+\dfrac{1-\rho}{B}\sigma^2.
+	\end{align*}
+	\item The second term will \uured{vanish with increasing $B$} leaving just the first term left: a function of the \uured{correlation between the trees}
+	\pause
+	\item The remaining part of the variance is minimized by only consider a subset of the covariates when constructing trees - \uured{reducing the correlation} between trees.
+\end{itemize}
+
+}
 
 \frame{
-\frametitle{Bagging vs. random forest}
+\frametitle{Bagging vs. Random forest}
 \begin{itemize}
 \item In bagging, the trees are often highly correlated
 \begin{itemize}
@@ -511,7 +528,8 @@ It is common to use $k=\sqrt{K}$ (rounded down) for classification and $k=K/3$ f
 \end{itemize}
 \pause
 \item In a random forest, the trees are less similar/correlated since all covariates are not available when each tree is constructed.
-\item A random forest (with many trees) uses the predictive ability of all covariates rather than just a few $\rightarrow$  improves out of sample performance.
+\pause
+\item Intuition: A random forest (with many trees) uses the predictive ability of all covariates rather than just a few $\rightarrow$ improved out of sample performance.
 \end{itemize}
 }
 
