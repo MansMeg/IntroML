@@ -542,43 +542,93 @@ error = bias^2 + variance + bayes error.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Boosting}
+\section{(Gradient) Boosting}
 \frame{\sectionpage}
 
 \frame{\frametitle{Boosting}
 
 \begin{enumerate}
-\item In boosting, models/trees are trained sequentially
+\item In boosting, models/trees are trained \uured{sequentially}
 \pause
-\item Each new model tries to target weak spots of the previous models in the ensemble to improve the performance of the ensemble
+\item Each new model tries to target \uured{weak spots of the previous models}
 \end{enumerate}
-
 
 }
 
 
-\frame{\frametitle{Boosting}
+\frame{\frametitle{Boosting (AdaBoost)}
 
 \begin{enumerate}
-
-\item Fit a prediction model/classifier (e.g., a decision tree) using the original sample
-\begin{itemize}
-\item Give the misclassified observations higher weights
-\end{itemize}
-\item Draw, \textit{with replacement},\textit{with probability proportional to the weights}, a random sample of $N$ units from the original sample
-\item Fit a prediction model/classifier (e.g., a \emph{shallow} decision tree) using the new sample
-\item Update the weights of each observation according to the average misclassification of the trained classifiers
-\item Repeat step 2-4 B times
-\item Weight together the predictions from the B models into a final ensemble prediction, giving larger weights to classifiers with smaller errors
+\item Initialize weight for all observations as $w_i = n^{-1}$
+\item Repeat $B$ times
+\begin{enumerate}
+\item Fit a simple classifier $h_b(x)$ using $w_i$s
+\item Compute the weighted error (between 0-1) as
+\[
+e_b = \frac{\sum w_i I(y_i \neq h_b(x_i))}{\sum w_i}
+\]
+\item Compute the importance of the classifier as
+\[
+\alpha_b = \log((1-e_b)/e_b) = \text{logit}(1-e_b)
+\]
+\item Add the classifier to the ensemble
+\[
+\hat{f}_b(x) = \hat{f}_{b-1}(x) + \alpha_b h_b(x)
+\]
+\item Update weights so that badly classified observations is weighted more
+\[
+w_i \leftarrow w_i \exp (\alpha_b I(y_i \neq h_b(x_i)) )
+\]
+\end{enumerate}
+\item Output the final ensemble $\hat{f}_B(x)$
 \end{enumerate}
 
 }
 
-\frame{\frametitle{Boosting}
+\frame{\frametitle{Boosting example}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\textwidth]{fig/esl_10_2_adaboost}
+\caption{Boosting example (using stumps as $h_b$), Fig. 10.2 (ESL)}
+\end{figure}
+
+}
+
+\frame{\frametitle{Boosting example}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\textwidth]{fig/esl_10_2_adaboost}
+\caption{Boosting example (using stumps as $h_b$), Fig. 10.2 (ESL)}
+\end{figure}
+
+}
+
+
+\frame{\frametitle{Boosting trees}
 For boosting to work well, the updates of the weights must be chosen in some clever way. One successful method is \textit{gradient descent}.\\~\\
 
 We will not focus more on the particular algorithms. For now, we are satisfied with understanding the concept of boosting:\\~\\
 Train a bunch of classifiers sequentially. Force each new classifier to train more on data that the previous classifiers had problems with classifying by giving those samples a higher probability to be sampled.\\~\\
+
+\begin{itemize}
+\pause
+\item Let
+\[
+f_\text{boost}(x) = \sum_b \hat{T} (x | \Theta_b)
+\]
+\pause
+\item We want to minimize the regularized loss
+\[
+L = l(y, f_\text{boost}(x)) + \sum_b \Omega(\hat{T} (x_i | \Theta_b))
+\]
+\pause
+where
+\[
+\Omega(\hat{T} (x_i | \Theta_b)) = \lambda_1 L + \lambda_2 ||\gamma||^2
+\]
+\end{itemize}
 
 }
 
