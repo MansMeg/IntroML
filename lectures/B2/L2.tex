@@ -418,8 +418,8 @@ error = bias^2 + variance + bayes error.
 }
 
 
-\section{Bagging}
-\frame{\sectionpage}
+\subsection{Bagging}
+\frame{\subsectionpage}
 
 
 \frame{\frametitle{Bagging (Bootstrap AGGregating)}
@@ -461,8 +461,8 @@ error = bias^2 + variance + bayes error.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Random forests}
-\frame{\sectionpage}
+\subsection{Random forests}
+\frame{\subsectionpage}
 
 \frame{\frametitle{Random Forest}
 
@@ -542,8 +542,8 @@ error = bias^2 + variance + bayes error.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{(Gradient) Boosting}
-\frame{\sectionpage}
+\subsection{(Gradient) Boosting}
+\frame{\subsectionpage}
 
 \frame{\frametitle{Boosting}
 
@@ -607,40 +607,79 @@ w_i \leftarrow w_i \exp (\alpha_b I(y_i \neq h_b(x_i)) )
 
 
 \frame{\frametitle{Boosting trees}
-For boosting to work well, the updates of the weights must be chosen in some clever way. One successful method is \textit{gradient descent}.\\~\\
-
-We will not focus more on the particular algorithms. For now, we are satisfied with understanding the concept of boosting:\\~\\
-Train a bunch of classifiers sequentially. Force each new classifier to train more on data that the previous classifiers had problems with classifying by giving those samples a higher probability to be sampled.\\~\\
 
 \begin{itemize}
+\item A more general approach is \uured{(gradient) boosting trees}
 \pause
 \item Let
 \[
-f_\text{boost}(x) = \sum_b \hat{T} (x | \Theta_b)
+f_\text{gb}(x) = \sum^B_b \hat{T} (x | \Theta_b)
 \]
 \pause
-\item We want to minimize the regularized loss
+\item We want to minimize the loss
 \[
-L = l(y, f_\text{boost}(x)) + \sum_b \Omega(\hat{T} (x_i | \Theta_b))
+L(y, f_\text{gb}(x))
 \]
 \pause
-where
+\item This means finding
 \[
-\Omega(\hat{T} (x_i | \Theta_b)) = \lambda_1 L + \lambda_2 ||\gamma||^2
+\Theta_b = \arg \min \sum^N_i L(y_i, f_{b-1}(x_i) + \hat{T} (x | \Theta_b))
 \]
 \end{itemize}
 
 }
 
 
-\frame{\frametitle{XGBoost}
+\frame{\frametitle{Gradient Boosting Trees}
 
 \begin{enumerate}
+\item Initialize $f_{0}(x)$
+\item Repeat $B$ times
+\begin{enumerate}
+\item For $i=1,2,...,N$ compute
+\[
+r_{ib} = - \frac{\partial L(y_i,f(x_i))}{\partial f(x_i)}
+\]
+\item Compute a regression tree $\hat{T} (x | \Theta_b)$ on $r_b$
+\item Add the classifier to the ensemble
+\[
+\hat{f}_b(x) = \hat{f}_{b-1}(x) + \hat{T} (x | \Theta_b)
+\]
+\end{enumerate}
+\item Output the final ensemble $\hat{f}_B(x)$
+\end{enumerate}
+
+}
+
+\frame{\frametitle{Comparisons}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\textwidth]{fig/esl_15_1_compare}
+\caption{Comparing bagging, random forests and boosting, Fig. 15.1 (ESL)}
+\end{figure}
+
+}
+
+
+\frame{\frametitle{XGBoost}
+
+\begin{itemize}
 
 \item State of the Art method\pause
-\item Use gradient boosting trees with regularization\pause
+\item Use gradient boosting trees with regularization
+\[
+L(y, f_\text{boost}(x)) + \sum_b \Omega(\hat{T} (x_i | \Theta_b))
+\]
+\pause
+where
+\[
+\Omega(\hat{T} (x_i | \Theta_b)) = \lambda_1 |T| + \lambda_2 ||\gamma||^2
+\]
+where $|T|$ is the number of leafs.
+\pause
 \item Is scalable to very large data
-\end{enumerate}
+\end{itemize}
 
 }
 
