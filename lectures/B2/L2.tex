@@ -1,6 +1,6 @@
 %\documentclass[10pt,handout]{beamer}
 \documentclass[10pt]{beamer}
-\usepackage[english]{babel} % Anpassa efter svenska. Ger svensk logga.
+\usepackage{babel} % Anpassa efter svenska. Ger svensk logga.
 \usepackage[utf8]{inputenc} % Anpassa efter linux
 \usepackage{graphicx}
 \usepackage{../common/beamerthemeUppsala}
@@ -60,9 +60,7 @@
 
 Short evaluation.
 \begin{enumerate}
-\item Assignment 1: Still needs to be reduced? What to remove?
-\item More math?
-\item Research ammanuens positions (deadline wednesday)
+\item Research ammanuens positions (\href{https://swerik-project.github.io/})
 \item Master Thesis projects (deadline friday)
 \end{enumerate}
 
@@ -70,6 +68,8 @@ Short evaluation.
 
 
 \section{Decision trees}
+\frame{\sectionpage}
+
 \frame{\frametitle{Decision trees: basic idea}
 \begin{itemize}
 \item A popular method that can be used for both classification and regression is \uured{decision trees}.\pause
@@ -79,7 +79,7 @@ Short evaluation.
 \begin{enumerate}
 \item Asking a questions
 \item Based on the previous answer, ask new question
-\item Questions are asked until a conclusion is reached\pause
+\item Questions are asked until a conclusion is reached
 \end{enumerate}
 \end{itemize}
 }
@@ -317,6 +317,34 @@ The solution to this is
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Ensemble methods}
+\frame{\sectionpage}
+
+\frame{
+\frametitle{Wisdom of the crowd}
+
+Simulated example (Prize academy, see ESL):
+\begin{enumerate}
+\item 50 members vote in 10 categories, each with 4 nominations.
+\pause
+\item For any category, only 15 voters have some knowledge ($p>0.25$)
+\pause
+\item For each category, the 15 experts are chosen at random from the 50.
+\end{enumerate}
+}
+
+
+\frame{
+\frametitle{Wisdom of the crowd}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{fig/wisdom_esl8_11}
+\caption{Simulated Award Voting, Fig. 8.11 (ESL)}
+\end{figure}
+%If the 15 informed for a category have a 50\% chance of selecting the correct candidate, the consensus doubles the expected performance of an individual.
+}
+
+
 
 \frame{\frametitle{General idea of ensembles}
 The idea of an ensemble is simple: If it difficult to find one really good model perhaps we can find \uured{several weaker models} and \uured{combine their predictions}.\\~\\ \pause
@@ -391,19 +419,38 @@ error = bias^2 + variance + bayes error.
 
 
 \section{Bagging}
+\frame{\sectionpage}
+
 
 \frame{\frametitle{Bagging (Bootstrap AGGregating)}
-Consider a sample of $N$ units.\\~\\
-\textbf{Bagging algorithm:}
+
+\begin{itemize}
+\item Train several \uured{deep} trees and combine their results
+\item Use bootstrap to train different trees
+\end{itemize}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\textwidth]{fig/bagging_esl_8_9}
+\caption{Bagging trees, Fig. 8.9 (ESL)}
+\end{figure}
+
+
+}
+
+\frame{\frametitle{Bagging (Bootstrap AGGregating)}
+
 \begin{enumerate}
 \item Draw, \textit{with replacement}, a random sample of $N$ units from the original sample
 \item Fit a prediction model (e.g., a \uured{deep} decision tree)
 \item Repeat steps 1-2 $B$ times
-\item Weight together the predictions from the B models into a final ensemble prediction
+\item Weight together the predictions from the B models into a final ensemble prediction as
+\[
+\hat{f}_\text{bag}(x_i)=\frac{1}{B}\sum_b \hat{f}^b (x_i)
+\]
 \end{enumerate}
 
-\pause
-Train several deep trees and combine their results by weighting together their predictions
+
 }
 
 
@@ -415,6 +462,7 @@ Train several deep trees and combine their results by weighting together their p
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Random forests}
+\frame{\sectionpage}
 
 \frame{\frametitle{Random Forest}
 
@@ -455,16 +503,16 @@ It is common to use $k=\sqrt{K}$ (rounded down) for classification and $k=K/3$ f
 
 
 \frame{
-\frametitle{Differences between bagging and random forest:}
+\frametitle{Bagging vs. random forest}
 \begin{itemize}
 \item In bagging, the trees are often highly correlated
 \begin{itemize}
 \item If some covariates are strong predictors of the outcome (in the training data), many trees in the `bag' will us the same covariates in their decisions
 \end{itemize}
+\pause
 \item In a random forest, the trees are less similar/correlated since all covariates are not available when each tree is constructed.
+\item A random forest (with many trees) uses the predictive ability of all covariates rather than just a few $\rightarrow$  improves out of sample performance.
 \end{itemize}
-This means that a random forest (with many trees) uses the predictive ability of all covariates rather than just a few, which usually improves out of sample performance.
-
 }
 
 
@@ -473,11 +521,22 @@ This means that a random forest (with many trees) uses the predictive ability of
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Boosting}
+\frame{\sectionpage}
 
 \frame{\frametitle{Boosting}
-In boosting, models are trained sequentially where each new model tries to target weak spots of the previous models in the ensemble to improve the performance of the ensemble
 
-Boosting
+\begin{enumerate}
+\item In boosting, models/trees are trained sequentially
+\pause
+\item Each new model tries to target weak spots of the previous models in the ensemble to improve the performance of the ensemble
+\end{enumerate}
+
+
+}
+
+
+\frame{\frametitle{Boosting}
+
 \begin{enumerate}
 
 \item Fit a prediction model/classifier (e.g., a decision tree) using the original sample
