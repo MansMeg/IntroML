@@ -485,7 +485,11 @@ error = bias^2 + variance + bayes error.
 \item Fit a prediction model (e.g., a decision tree)
 \item Repeat step 1-3 $B$ times
 \item Weight together the predictions from the B models into a final ensemble prediction
+\[
+\hat{f}_\text{rf}(x_i) = \frac{1}{B}\sum_b \hat{T} (x_i | \Theta_b)
+\]
 \end{enumerate}
+
 
 }
 
