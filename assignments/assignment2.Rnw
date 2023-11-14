@@ -221,7 +221,7 @@ grow_tree <- function(X, y, l){
   while (length(S_m) > 0) {
     # As long as not all parts of the tree has been handled
     # we will either split or compute lambda
-    if(length(S_m[[1]]) >= 2*l){
+    if(length(S_m[[1]]) >= 2*l && nrow(unique(X[S_m[[1]],])) > 1){
 
       # Do stuff here to grow the tree
       # based on observations (indecies) in S_m[[1]]
