@@ -111,7 +111,7 @@ y_test <- Hitters[1:30, c("Salary")]
 X_train <- Hitters[31:nrow(Hitters), c("Years", "Hits")]
 y_train <- Hitters[31:nrow(Hitters), c("Salary")]
 @
-\item Implement an R function to split observations binary greedily (ignore \texttt{NA} values). Here we use the \citet[][Eq. 9.12-9.14]{hastie2009elements}, but with the addition that we will keep at least $l$ leafs. The function should take a design matrix \texttt{X}, an \texttt{y} variable and a minimal leaf size \texttt{l}. The function should return a list with the index set of the observations in \texttt{R1}, \texttt{R2}, the split value \texttt{s} and the covariate used for the split \texttt{j}. Below is a rough sketch how you can implement the function.
+\item (3p) Implement an R function to split observations binary greedily (ignore \texttt{NA} values). Here we use the \citet[][Eq. 9.12-9.14]{hastie2009elements}, but with the addition that we will keep at least $l$ leafs. The function should take a design matrix \texttt{X}, an \texttt{y} variable and a minimal leaf size \texttt{l}. The function should return a list with the index set of the observations in \texttt{R1}, \texttt{R2}, the split value \texttt{s} and the covariate used for the split \texttt{j}. Below is a rough sketch how you can implement the function.
 
 <<echo=TRUE, eval=FALSE>>=
 tree_split <- function(X, y, l){
@@ -147,11 +147,6 @@ tree_split <- function(X, y, l){
 }
 @
 
-\emph{Hint!} You will need to handle ties (i.e. different observations with different values). This should not be a very large problem. In the example code, I choose the 'first' minima as:
-<<echo=TRUE, eval=FALSE>>=
-which(min(SS), arr.ind = TRUE)[1,]
-@
-
 See below for an example how the function should work.
 
 <<echo = FALSE>>=
@@ -185,9 +180,9 @@ tree_split(X_check, y_check, l = 5)
 # We can also make a split without any limit on leaf size
 tree_split(X_check, y_check, l = 1)
 @
-\item What is the first split based on the whole training data \texttt{X\_train} and \texttt{y\_train}?
-\item What is the Sum of Squares (SS) for this first split?
-\item Use the function \texttt{tree\_split()} to create a function \texttt{grow\_tree()} that takes the arguments \texttt{X}, \texttt{y}, and \texttt{l} and then build a decision tree. The returned tree can be a \texttt{data.frame} that looks as below. This is just one example implementation, you are free to implement this however you want.
+\item (1p) What is the first split based on the whole training data \texttt{X\_train} and \texttt{y\_train}?
+\item (1p) What is the Sum of Squares (SS) for this first split?
+\item (3p) Use the function \texttt{tree\_split()} to create a function \texttt{grow\_tree()} that takes the arguments \texttt{X}, \texttt{y}, and \texttt{l} and then build a decision tree. The returned tree can be a \texttt{data.frame} that looks as below. This is just one example implementation, you are free to implement this however you want.
 
 \emph{Hint 1!} Use a list in R to store the set of indecies you are splitting up.
 
@@ -277,7 +272,7 @@ grow_tree <- function(X,y,l){
 tr <- grow_tree(X_check, y_check, l = 5)
 tr
 @
-\item Finally implement a function \texttt{predict\_with\_tree(new\_data, tree)}. Here is a starting template for the function.
+\item (3p) Finally implement a function \texttt{predict\_with\_tree(new\_data, tree)}. Here is a starting template for the function.
 <<echo = TRUE, eval=FALSE>>=
 predict_with_tree <- function(new_data, tree){
   checkmate::assert_matrix(new_data)
@@ -314,7 +309,7 @@ y_new
 pred_y <- predict_with_tree(new_data = X_new, tree = tr)
 pred_y
 @
-\item The function \texttt{rmse(x,y)} in the \texttt{uuml} R package computes the root mean squared error between \texttt{x} and \texttt{y}.
+\item (1p) The function \texttt{rmse(x,y)} in the \texttt{uuml} R package computes the root mean squared error between \texttt{x} and \texttt{y}.
 <<echo = TRUE>>=
 rmse
 @
@@ -332,7 +327,7 @@ What is the root mean squared error (RMSE) on the test set for a tree trained on
 The last part of the assignment consists of using Random Forest and XGBoost (Boosted regression trees). The data is taken in slightly different ways:
 
 \begin{enumerate}
-\item Use the \texttt{randomForest} R package to fit a random forest regression to the training data using the \texttt{randomForest} function.
+\item (1p) Use the \texttt{randomForest} R package to fit a random forest regression to the training data using the \texttt{randomForest} function.
 <<echo=TRUE,eval=FALSE>>=
 library(uuml)
 data("Hitters")
@@ -341,18 +336,18 @@ dat_test <- Hitters[1:30, c("Salary","Years", "Hits")]
 dat_train <- Hitters[31:nrow(Hitters), c("Salary","Years", "Hits")]
 Hitters.rf <- randomForest(Salary ~ Years + Hits, data = dat_train)
 @
-\item How many variables are used at each split. Why do you get this number?
-\item Use the trained random forest to predict using the \texttt{predict} function at test set and compute the RMSE of your predictions using the \texttt{rmse} function.
-\item Next, use the \texttt{xgboost} R package to fit a boosted regression tree model to the training data using the \texttt{xgboost} function.
+\item (1p) How many variables are used at each split. Why do you get this number?
+\item (1p) Use the trained random forest to predict using the \texttt{predict} function at test set and compute the RMSE of your predictions using the \texttt{rmse} function.
+\item (1p) Next, use the \texttt{xgboost} R package to fit a boosted regression tree model to the training data using the \texttt{xgboost} function.
 <<echo=TRUE,eval=FALSE>>=
-X_test <- dat_test[, c("Years", "Hits")]
-y_test <- dat_test[, c("Salary")]
-X_train <- dat_train[, c("Years", "Hits")]
-y_train <- dat_train[, c("Salary")]
+X_test <- dat_test[1:30, c("Years", "Hits")]
+y_test <- dat_test[1:30, c("Salary")]
+X_train <- dat_train[31:nrow(Hitters), c("Years", "Hits")]
+y_train <- dat_train[31:nrow(Hitters), c("Salary")]
 xgb <- xgboost(as.matrix(X_train), as.matrix(y_train), nrounds = 200)
 @
-\item What is the RMSE of the predictions (again using the \texttt{rmse} function) using the boosted regression tree model?
-\item How does that compare to the random forest regression model?
+\item (1p) What is the RMSE of the predictions (again using the \texttt{rmse} function) using the boosted regression tree model?
+\item (1p) How does that compare to the random forest regression model?
 \end{enumerate}
 
 \newpage
@@ -366,9 +361,9 @@ Now we can use our regression tree to do a Bagged Tree regression model. The mai
 See Section 8.7 in \citet{hastie2009elements}, and especially Eq. (8.51) for details.
 
 \begin{enumerate}
-\item Implement a bagged tree regression model training function called \texttt{train\_bagged\_trees(X, y, l, B)} using the \texttt{grow\_tree()} function that return an R list of $B$ grown trees.
-\item Use \texttt{predict\_with\_tree()} to create a function \texttt{predict\_with\_bagged\_trees()} that takes a list of grown trees and produce one prediction per observation.
-\item Train your bagged tree regression model on the training data and predict on the test data. Try the values $B=\{1, 10, 100, 500, 1000\}$. What is the RMSE (using your \texttt{rmse} function) of your predictions on the test set? \emph{Hint!} See Figure 15.1 in \citet{hastie2009elements}.
+\item (1p) Implement a bagged tree regression model training function called \texttt{train\_bagged\_trees(X, y, l, B)} using the \texttt{grow\_tree()} function that return an R list of $B$ grown trees.
+\item (1p) Use \texttt{predict\_with\_tree()} to create a function \texttt{predict\_with\_bagged\_trees()} that takes a list of grown trees and produce one prediction per observation.
+\item (1p) Train your bagged tree regression model on the training data and predict on the test data. Try the values $B=\{1, 10, 100, 500, 1000\}$. What is the RMSE (using your \texttt{rmse} function) of your predictions on the test set? \emph{Hint!} See Figure 15.1 in \citet{hastie2009elements}.
 \end{enumerate}
 
 
@@ -381,9 +376,9 @@ Using our previous functions we can now build our own random forest regression m
 See Section 15.2 in \citet{hastie2009elements}, and especially Algorithm 15.1 for details.
 
 \begin{enumerate}
-\item Create a new function \texttt{grow\_tree\_m()} with the additional argument $m$. The function should grow a tree, but at every split, it should draw a sample of size $m$ of the covariates to make the split.
-\item Implement a random forest regression model using \texttt{grow\_tree\_m()} and \texttt{predict\_with\_tree()}.
-\item Train your random forest regression model on the training data with $m=1$, $B=100$ and predict on the test data. What is the RMSE of your predictions on the test set (using your \texttt{rmse} function)?
+\item (1p) Create a new function \texttt{grow\_tree\_m()} with the additional argument $m$. The function should grow a tree, but at every split, it should draw a sample of size $m$ of the covariates to make the split.
+\item (1p) Implement a random forest regression model using \texttt{grow\_tree\_m()} and \texttt{predict\_with\_tree()}.
+\item (1p) Train your random forest regression model on the training data with $m=1$, $B=100$ and predict on the test data. What is the RMSE of your predictions on the test set (using your \texttt{rmse} function)?
 
 \emph{Note!} Since we only have just two covariates in the test and train data, the difference is small (if any) compared to the Bagging algorithm. Also, differences compared to the \texttt{randomForest} package probably comes from different way the \texttt{grow\_tree} functions are implemented in your code and the \texttt{randomForest} package.
 \end{enumerate}
