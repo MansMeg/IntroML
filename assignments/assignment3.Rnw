@@ -59,7 +59,7 @@
 \center
 \textsc{\LARGE Uppsala University}\\[1.5cm] % Name of your university/college
 \includegraphics[scale=.2]{files/uu_logo.png}\\[1cm]
-\textsc{\Large Introduction to Machine Learning, Big Data, and AI}\\[0.5cm]
+\textsc{\Large Machine Learning}\\[0.5cm]
 \textsc{\large }\\[0.5cm]
 
 \HRule \\[0.4cm]
