@@ -147,6 +147,11 @@ tree_split <- function(X, y, l){
 }
 @
 
+\emph{Hint!} You will need to handle ties (i.e. different observations with different values). This should not be a very large problem. In the example code, I choose the 'first' minima as:
+<<echo=TRUE, eval=FALSE>>=
+which(min(SS), arr.ind = TRUE)[1,]
+@
+
 See below for an example how the function should work.
 
 <<echo = FALSE>>=
@@ -327,7 +332,7 @@ What is the root mean squared error (RMSE) on the test set for a tree trained on
 The last part of the assignment consists of using Random Forest and XGBoost (Boosted regression trees). The data is taken in slightly different ways:
 
 \begin{enumerate}
-\item (1p) Use the \texttt{randomForest} R package to fit a random forest regression to the training data using the \texttt{randomForest} function.
+\item Use the \texttt{randomForest} R package to fit a random forest regression to the training data using the \texttt{randomForest} function.
 <<echo=TRUE,eval=FALSE>>=
 library(uuml)
 data("Hitters")
@@ -340,10 +345,10 @@ Hitters.rf <- randomForest(Salary ~ Years + Hits, data = dat_train)
 \item (1p) Use the trained random forest to predict using the \texttt{predict} function at test set and compute the RMSE of your predictions using the \texttt{rmse} function.
 \item (1p) Next, use the \texttt{xgboost} R package to fit a boosted regression tree model to the training data using the \texttt{xgboost} function.
 <<echo=TRUE,eval=FALSE>>=
-X_test <- dat_test[1:30, c("Years", "Hits")]
-y_test <- dat_test[1:30, c("Salary")]
-X_train <- dat_train[31:nrow(Hitters), c("Years", "Hits")]
-y_train <- dat_train[31:nrow(Hitters), c("Salary")]
+X_test <- dat_test[, c("Years", "Hits")]
+y_test <- dat_test[, c("Salary")]
+X_train <- dat_train[, c("Years", "Hits")]
+y_train <- dat_train[, c("Salary")]
 xgb <- xgboost(as.matrix(X_train), as.matrix(y_train), nrounds = 200)
 @
 \item (1p) What is the RMSE of the predictions (again using the \texttt{rmse} function) using the boosted regression tree model?
