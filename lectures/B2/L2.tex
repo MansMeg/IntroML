@@ -675,9 +675,9 @@ L(y, f_\text{boost}(x)) + \sum_b \Omega(\hat{T} (x_i | \Theta_b))
 \pause
 where
 \[
-\Omega(\hat{T} (x_i | \Theta_b)) = \lambda_1 |T| + \lambda_2 ||\gamma||^2
+\Omega(\hat{T} (x_i | \Theta_b)) = \lambda_1 Q_b + \lambda_2 ||\gamma_b||_2^2
 \]
-where $|T|$ is the number of leafs.
+where $Q_b$ is the number of leafs in tree $b$ and $||\cdot||_2$ is the Euclidian/$L^2$ norm.
 \pause
 \item Is scalable to very large data
 \end{itemize}
