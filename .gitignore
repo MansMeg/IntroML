@@ -8,6 +8,7 @@
 *.toc
 *.snm
 *.Rproj
+*.out
 assignments/*.tex
 project/*.tex
 assignments/*.bbl
