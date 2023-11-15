@@ -155,7 +155,7 @@ which(min(SS), arr.ind = TRUE)[1,]
 See below for an example how the function should work.
 
 <<echo = FALSE>>=
-tree_split <- function(X,y,l){
+tree_split <- function(X,y,l=5){
   if(l == 5){
   list(j = 1,
        s = 5,
