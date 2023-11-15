@@ -185,7 +185,7 @@ tree_split(X_check, y_check, l = 5)
 # We can also make a split without any limit on leaf size
 tree_split(X_check, y_check, l = 1)
 @
-\item (1p) What is the first split based on the whole training data \texttt{X\_train} and \texttt{y\_train}?
+\item (1p) What is the first split based on the whole training data \texttt{X\_train} and \texttt{y\_train}? Use \texttt{l=5}.
 \item (1p) What is the Sum of Squares (SS) for this first split?
 \item (3p) Use the function \texttt{tree\_split()} to create a function \texttt{grow\_tree()} that takes the arguments \texttt{X}, \texttt{y}, and \texttt{l} and then build a decision tree. The returned tree can be a \texttt{data.frame} that looks as below. This is just one example implementation, you are free to implement this however you want.
 
@@ -196,7 +196,7 @@ tree_split(X_check, y_check, l = 1)
 Here is an template how the function could be implemented, but you are free to implement it however you want.
 
 <<echo = TRUE, eval=FALSE>>=
-grow_tree <- function(X, y, l){
+grow_tree <- function(X, y, l=5){
   checkmate::assert_matrix(X)
   checkmate::assert_numeric(y, len = nrow(X))
   checkmate::assert_int(l)
@@ -322,7 +322,7 @@ rmse
 <<echo=TRUE,eval=TRUE>>=
 rmse(x = c(75, 105, 33), y = c(102, 99, 43))
 @
-What is the root mean squared error (RMSE) on the test set for a tree trained on the whole training data \texttt{X\_train} and \texttt{y\_train}?
+What is the root mean squared error (RMSE) on the test set for a tree trained on the whole training data \texttt{X\_train} and \texttt{y\_train}? Use \texttt{l=5}.
 \end{enumerate}
 
 \newpage
