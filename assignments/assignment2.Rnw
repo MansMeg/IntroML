@@ -368,7 +368,7 @@ See Section 8.7 in \citet{hastie2009elements}, and especially Eq. (8.51) for det
 \begin{enumerate}
 \item (1p) Implement a bagged tree regression model training function called \texttt{train\_bagged\_trees(X, y, l, B)} using the \texttt{grow\_tree()} function that return an R list of $B$ grown trees.
 \item (1p) Use \texttt{predict\_with\_tree()} to create a function \texttt{predict\_with\_bagged\_trees()} that takes a list of grown trees and produce one prediction per observation.
-\item (1p) Train your bagged tree regression model on the training data and predict on the test data. Try the values $B=\{1, 10, 100, 500, 1000\}$. What is the RMSE (using your \texttt{rmse} function) of your predictions on the test set? \emph{Hint!} See Figure 15.1 in \citet{hastie2009elements}.
+\item (1p) Train your bagged tree regression model on the training data and predict on the test data. Try the values $B=\{1, 10, 100, 500, 1000\}$. What is the RMSE of your predictions on the test set? \emph{Hint!} See Figure 15.1 in \citet{hastie2009elements}.
 \end{enumerate}
 
 
