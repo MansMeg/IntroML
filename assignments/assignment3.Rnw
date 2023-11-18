@@ -201,7 +201,7 @@ mini_net <- function(X, W, c, w, b){
 mini_net(X, W*0.9, c, w, b)
 @
 
-\item Now test changing the value $W_{1,1}$ to 0. What do you get for the results of the network?
+\item (1p) Now test changing the value $W_{1,1}$ to 0. What do you get for the results of the network?
 \item (1p) What is the current output function? Is the network output function reasonable? Do you have any other output function that might be better?
 \item (1p) Now implement a mean squared error loss function for the network. It should work as follows.
 <<echo = FALSE>>=
@@ -223,7 +223,7 @@ mini_net_loss <- function(y, X, W, c, w, b){
 mini_net_loss(y, X, 0.9*W, c, w, b)
 @
 
-\item Again, change the value $W_{1,1}$ to 0. What is the value of the loss function?
+\item (1p) Again, change the value $W_{1,1}$ to 0. What is the value of the loss function?
 %\item Now we are going to train our mini network using gradient descent. The gradient for the ReLU function is
 %\[
 %\frac{\partial \text{ReLU}(x)}{\partial x} =
