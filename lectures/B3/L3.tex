@@ -1,6 +1,6 @@
 %\documentclass[10pt,handout]{beamer}
 \documentclass[10pt]{beamer}
-\usepackage[english]{babel} % Anpassa efter svenska. Ger svensk logga.
+\usepackage{babel} % Anpassa efter svenska. Ger svensk logga.
 \usepackage[utf8]{inputenc} % Anpassa efter linux
 \usepackage{graphicx}
 \usepackage{../common/beamerthemeUppsala}
@@ -48,8 +48,9 @@
 
 \begin{frame}{Evaluation assignment 2}
 \begin{itemize}
-\item Still took too long (but better)
-\item Problem with the \texttt{grow\_tree} template/confusing template
+\item Better time-wise
+\item Still some problem with the \texttt{grow\_tree} template/confusing template.
+\item Difficulty of ties
 \end{itemize}
 \end{frame}
 
@@ -65,7 +66,8 @@
 
 \begin{frame}{On this weeks assignment}
 \begin{itemize}
-\item It can be tricky to get Tensorflow and R to work. Start early and use the zoom sessions.
+\item It can be tricky to get Tensorflow and R to work. \uured{Start early and use the zoom sessions}.
+\item Don't run Tensorflow in markdown.
 \end{itemize}
 \end{frame}
 
@@ -110,6 +112,16 @@ Work is very much ongoing:
 
 }
 
+\frame{\frametitle{The Hype: Large Language Models}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{fig/Zhao_2023_Fig2.png}
+\caption{Large Language Models timeline (Zhao et al (2023)}
+\end{figure}
+
+}
+
 \frame{\frametitle{The Hype}
 
 \begin{itemize}
@@ -121,10 +133,11 @@ Work is very much ongoing:
 }
 
 
-\frame{\frametitle{Areas of Use: All fields}
+\frame{\frametitle{Areas of Use}
 
 \begin{itemize}
 \item Supervised learning
+\item Self-Supervised learning
 \item Unsupervised learning
 \item Reinforcement learning
 \end{itemize}
@@ -322,7 +335,7 @@ where
 \[
 \sigma(z) = \frac{1}{1+\exp(-z)}\,,
 \]
-i.e. the \uured{logistic} or \uured{sigmoid} function. \pause
+i.e. the \uured{logistic} or \uured{sigmoid} function.
 \end{itemize}
 
 }
@@ -360,10 +373,7 @@ g_\text{sigmoid}(z)={\frac {e^{z}}{e^{z}+1}}={\frac {1}{1+e^{-z}}}
 g_\text{tanh}(z)={\frac {\sinh z}{\cosh z}}={\frac {e^{2z}-1}{e^{2z}+1}}
 \]
 \pause
-\item Now, usually variants of Rectified linear unit (ReLU)
-\[
-g_\text{ReLU}(z)=\max({0,z})
-\]
+\item Today, variants of Rectified linear unit (ReLU) is common
 \begin{itemize}
 \item Easier to estimate with SGD
 \item Easier for deep models
@@ -373,12 +383,49 @@ g_\text{ReLU}(z)=\max({0,z})
 }
 
 
-\frame{\frametitle{Activation functions ($g_l$)}
+
+
+\frame{\frametitle{Activation functions ($g_l$): ReLU}
+
+\[
+g_\text{ReLU}(z)=\max({0,z})
+\]
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.6\textwidth]{fig/ReLu.pdf}
-\caption{Rectified Linear Unit (Goodfellow et al, 2017, Fig. 6.3)}
+\includegraphics[width=0.6\textwidth]{fig/ReLU.svg.png}
+\caption{Rectified Linear Unit (Wikipedia)}
+\end{figure}
+
+}
+
+\frame{\frametitle{Activation functions ($g_l$): GeLU}
+
+\[
+g_\text{GeLU}(z)=z \Phi(z)
+\]
+where $\Phi(z)$ is a standard Gaussian.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{fig/GELU.png}
+\caption{Gaussian Error Linear Unit (Wikipedia)}
+\end{figure}
+
+}
+
+
+\frame{\frametitle{Activation functions ($g_l$): ELU}
+
+\[
+g_\text{ELU}(z)={\begin{cases}\alpha \left(e^{z}-1\right)&{\text{if }}z\leq 0\\z&{\text{if }}z>0\end{cases}}
+\]
+where $\alpha$ is commonly 1.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{fig/ELU.png}
+\caption{Exponential Linear Unit (Wikipedia)}
 \end{figure}
 
 }
@@ -405,9 +452,12 @@ g_\text{ReLU}(z)=\max({0,z})
 \begin{itemize}
 \item A feedforward network with a \uured{single layer} of sufficient size is can to represent any function.
 \item Also holds for ReLU (under some assumptions)\pause
-\item No garantuee we can learn the network\pause
-\item No garantuee that it will generalize\pause
+\item But...
+\begin{itemize}
+\item No garantuee we can \uured{learn} the network\pause
+\item No garantuee that it will \uured{generalize}\pause
 \item No indication of how large the network need to be\pause
+\end{itemize}
 \end{itemize}
 
 }
@@ -438,7 +488,7 @@ g_\text{ReLU}(z)=\max({0,z})
 
 \begin{itemize}
 \item Trial and error on validation sets
-\item Art rather than science
+\item Art rather than science\pause
 \item Specialized approaches (Bayesian Optimization)\pause
 \item Grid search (combinatorical explosion)
 \begin{itemize}
@@ -528,8 +578,11 @@ be the $L_1$ and $L_2$ regularization respectively.
 \end{align*}
 \item To update our weights with gradient descent
 \begin{align*}
-w \leftarrow & w - \epsilon( \nabla_w J(w) + 2\alpha w)\\
-w \leftarrow & (1 - 2\alpha \epsilon)w - \epsilon \nabla_w J(w)\\
+w \leftarrow & w - \epsilon( \nabla_w J(w) + 2\alpha w)
+\end{align*}
+\pause
+\begin{align*}
+w \leftarrow & (1 - 2\alpha \epsilon)w - \epsilon \nabla_w J(w)
 \end{align*}
 \end{itemize}
 
@@ -596,7 +649,7 @@ w \leftarrow & (1 - 2\alpha \epsilon)w - \epsilon \nabla_w J(w)\\
 \end{figure}
 
 \begin{itemize}
-\item Can be shown to be quivalent (under strict assumptions) to $L_2$ regularization
+\item Can be shown to be equivalent (under strict assumptions) to $L_2$ regularization (see Goodfellow et al, 2017)
 \item Efficient regularization
 \end{itemize}
 }
@@ -659,7 +712,7 @@ The best regularizer is... \pause \uured{to get more data}.
 \item Usually, a lot of data and many parameters ($\theta = (W, b)$)\pause
 \item We usually minimize our training cost function
 \[
-J(\theta) = \sum_i^N L(\text{NN}(x_i),y_i) + \Omega(\theta)\,,
+J(\theta) = \sum_i^N L(\text{NN}(x_i|\theta),y_i) + \Omega(\theta)\,,
 \]
 where $L$ is the observation level loss, $\text{NN}()$ is our neural network and $\Omega$ is the regularization term. \pause
 \item \uured{Learning Target}: Find $\hat{\theta}$ that minimize the \uured{generalization} error
@@ -702,7 +755,7 @@ where $L$ is the observation level loss, $\text{NN}()$ is our neural network and
 \item Neural Networks cost function $J(\theta)$ are (usually) \uured{not a convex} function
 \item We can have local minima
 \item \uured{When will this be a problem?}\pause
-\item A problem if local optima has a \uured{high cost}\pause
+\item A problem if local optima has a \uured{high cost/bad performance}\pause
 \item \uured{Good thing:} This is probably not the situation!\pause
 \item Many practitioners believe this is a problem\pause
 \item \uured{Diagnosis:} Plot the gradient norm, $\mathbf{g}^T \mathbf{g}$, where $\mathbf{g} = \hat{\nabla} J(\theta)$ \pause
@@ -733,14 +786,14 @@ where $L$ is the observation level loss, $\text{NN}()$ is our neural network and
 \frame{\frametitle{Problems: Plateaus and Saddle Points}
 % 8.2.3
 \begin{itemize}
-\item In a saddle point the Hessian is \uured{indefinite}, both positive and negative eigen values \pause
+\item In a saddle point the Hessian is \uured{indefinite}, both positive and negative eigenvalues \pause
 \item A local minimum: Hessian is \uured{positive definite}, only positive eigen values \pause
 \item In random functions of \uured{high dimension}: \uured{most points are saddle points}
 \item \uured{Intuition}: In random functions the sign of the eigen values of the Hessian is random \pause
 \item In random functions: eigen values become more positive in regions of lower cost. I.e. local minima more probable in low cost regions. Saddle points more common in high-cost regions\pause
 \item The problem of saddle points:
 \begin{itemize}
-\item Probably a reason why second order methds (using the Hessian) has not succeed
+\item Probably a reason why second order methods (using the Hessian) has not succeed
 \item Empirically, (stochastic) gradient descent seem to escape saddle points
 \end{itemize}
 \end{itemize}
@@ -771,7 +824,7 @@ where $L$ is the observation level loss, $\text{NN}()$ is our neural network and
 % 8.2.3
 \begin{itemize}
 \item In deep neural networks, gradients can \uured{vanish or explode}
-\item As an example: We want to compute the gradient for a situation where thw weights are multiplied $t$ times. Then using eigendecomposition
+\item As an example: We want to compute the gradient for a situation where the weights are multiplied $t$ times. Then using eigendecomposition
 \[
 W^t = V \text{diag}(\lambda)^t V^T
 \]
