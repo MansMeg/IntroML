@@ -1,6 +1,6 @@
 %\documentclass[10pt,handout]{beamer}
 \documentclass[10pt]{beamer}
-\usepackage[english]{babel} % Anpassa efter svenska. Ger svensk logga.
+\usepackage{babel} % Anpassa efter svenska. Ger svensk logga.
 \usepackage[utf8]{inputenc} % Anpassa efter linux
 \usepackage{graphicx}
 \usepackage{../common/beamerthemeUppsala}
@@ -64,10 +64,7 @@
 \begin{frame}{Assignment 3: Evaluation}
 
 \begin{itemize}
-\item A little too simple? Too uneven workload.
-\item Problems with computer labs
-\item Problems with Tensorflow and R
-\item Use python. Maybe as an VG assignment?
+\item TODO
 \end{itemize}
 
 \end{frame}
@@ -85,13 +82,11 @@
 \begin{frame}{Mini-project}
 
 \begin{itemize}
-\item Time to start think about the project.\pause
+\item Submission Wednesday!\pause
 \item {\color{uured} Supervised} problem of choice on {\color{uured} real data}.\pause
 \item 2-3 students.\pause
-\item Supply a {\color{uured} project proposal} of data and problem at the end of \emph{15th of December 23.59}.
-\item \emph{Hint!} Submit page 1-1.5 of the project as project proposal.
-\item Deadline is after all lectures on supervised learning\pause
-\item Feel free to combine it with your master thesis project!\pause
+\item \emph{Hint!} Submit page 1 of the project as project proposal.
+\item Feel free to combine it with your master thesis project!
 \item Check with me if you have questions.
 \item The project should result in a 4 page report (PDF) using the {\color{uured} ICML LaTeX template}.
 \end{itemize}
@@ -106,7 +101,8 @@
 \begin{itemize}
 \item \uured{Acknowledgements}: Anders Eklund, Link\"{o}ping University.\pause
 \item \uured{Convolutional} Neural Networks are behind great progress in the 2010s.
-\item It has revolutionized \uured{Computer Vision}.
+\item Revolutionized \uured{Computer Vision}.
+\pause
 \item Also called: ConvNets, Convolutional nets, Convolutional networks
 \end{itemize}
 
@@ -250,6 +246,10 @@ y(t) = \int x(\tau) k(t-\tau)d\tau = (x*k)(t)
 \item $k(t)$: Kernel, filter, "feature"
 \item $y(t)$: Output, feature map
 \end{enumerate}
+\vspace{5mm}
+\centering
+\href{https://phiresky.github.io/convolution-demo/}{DEMO}
+
 \end{itemize}
 }
 
@@ -259,13 +259,15 @@ y(t) = \int x(\tau) k(t-\tau)d\tau = (x*k)(t)
 \begin{itemize}
 \item If $t$ is discrete (as in a grid):
 \[
-y(t) = (x*k)(t) = \sum_{\tau=-\inf}^{\inf} x(\tau) k(t-\tau)
+y(t) = (x*k)(t) = \sum_{\tau=-{\infty}}^{\infty} x(\tau) k(t-\tau)
 \]
+\pause
 \item In the case of images we have 2 discrete dimensions
 \[
 Y(i,j) = (X * K) \sum_{m} \sum_{n} X(m, n) K(i-m, j-n)
 \]
-\item Sometimes the cross-correlation is called convolution:
+\pause
+\item Sometimes the \uured{cross-correlation} is called convolution:
 \[
 Y(i,j) = (X * K) \sum_{m} \sum_{n} X(m, n) K(i+m, j+n)
 \]
