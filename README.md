@@ -66,6 +66,9 @@ In addition, the following material will also be included (note that you might n
 - Rocca, J. 2019. Understanding Variational Autoencoders [online](https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73).
 - Verma, S. and Rubin, J. (2018) Fairness definitions explained. [online](https://dl.acm.org/doi/pdf/10.1145/3194770.3194776)
 - Beckman, L., Rosenberg, J, and Jebari, K. (2022) Artificial intelligence and democratic legitimacy. The problem of publicity in public authority. [online](https://link.springer.com/article/10.1007/s00146-022-01493-0)
+- Zhao et al (2023) A Survey on Large Language Models [online](https://arxiv.org/abs/2303.18223)
+
+
 
 The literature list might change slightly during the course.
 
