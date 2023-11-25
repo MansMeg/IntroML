@@ -1,0 +1,19 @@
+In context learning Demo
+
+Please help me classify the following following sentences. Here are three examples. Only give a one-word answer.
+
+Proposition: Freedom is the most important value.
+Answer: Blue
+Proposition: Equality is the most important value.
+Answer: Red
+Proposition: The family is the cornerstone of society.
+Answer: Yellow
+
+Please classify the following:
+Proposition: The economy is central and the cornerstone for a succesful society.
+
+Please classify the following:
+Proposition: Individuals need to be free to succeed, equality is less important.
+
+Please classify the following:
+Proposition: Society needs to take control of the economy.
