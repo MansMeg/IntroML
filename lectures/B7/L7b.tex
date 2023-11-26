@@ -477,37 +477,52 @@ where $I$ is the general instructions.
 
 \section{Architectures}
 
-% See 4.2
+\begin{frame}{The transformer (Vaswani et al., 2017)}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{fig/Vaswani_1_transformer}
+\caption{The transformer (Vaswani et al., 2017)}
+\end{figure}
+
+\end{frame}
 
 \begin{frame}{Architectures}
-% Use Table 3
 
-\end{frame}
-
-\begin{frame}{GPT-3.5/4}
-
-
-\end{frame}
-
-\begin{frame}{Llama 2}
-
+\begin{itemize}
+\item LLMs are usually based on the transformer \uured{decoder}
+\item "Decoder-only architectures"
+\item Why autoregressive decoders? Predicting the next word.
+\end{itemize}
 
 \end{frame}
 
 
-\begin{frame}{Others}
+\begin{frame}{Architecture configurations}
 
-% Table
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{fig/zhou_2023_tab4}
+\caption{Common configurations (Zhou et al., 2023)}
+\end{figure}
+where "sublayer" indicates the previous layer in the network.
+%\begin{itemize}
+%\item
+%\end{itemize}
 
 \end{frame}
 
 
-\begin{frame}{Parameters and Model Size}
+\begin{frame}{Common models and their configuration}
 
-% Parameters and Model Size: Use Table 1
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{fig/zhou_2023_tab3}
+\caption{Common configurations (Zhou et al., 2023)}
+\end{figure}
 
+% Parameters and Model Size: Use Table 1 in other
 % Uset table 3 here from Zhao
-
 
 \end{frame}
 
@@ -515,7 +530,8 @@ where $I$ is the general instructions.
 \begin{frame}{Decoding (word generation)}
 
 % Decoding (4.2.4) - sampling and temperature sampling
-
+% Add eq 6, 7, 8 here.
+% Also add information on temperature. When temperature is close to 0 -> greedy search
 
 \end{frame}
 
