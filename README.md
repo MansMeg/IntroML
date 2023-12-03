@@ -45,6 +45,7 @@ Below are the main references for the course. All books are available free onlin
 - DL: Goodfellow, Ian, Bengio, Yoshua, and Courville, Aaron. Deep learning. MIT Press, 2017. [online access](https://www.deeplearningbook.org/)
 - DLR: Chollet, François, and Joseph J. Allaire. Deep Learning with R. Manning, 2018.  [online access](https://www.manning.com/books/deep-learning-with-r#toc)
 - Sutton, R. S., and Barto, A. G. Reinforcement learning: An introduction. MIT Press, 2020. [online access](http://incompleteideas.net/book/RLbook2020.pdf)
+- JM: Jurafsky, D. and Martin, J. H. Speech and Language Processing (3rd ed. draft). [online access](https://web.stanford.edu/~jurafsky/slp3/)
 
 In addition, the following material will also be included (note that you might need to access the material through the Uppsala University network):
 
