@@ -1,6 +1,6 @@
 %\documentclass[10pt,handout]{beamer}
 \documentclass[10pt]{beamer}
-\usepackage[english]{babel} % Anpassa efter svenska. Ger svensk logga.
+\usepackage{babel} % Anpassa efter svenska. Ger svensk logga.
 \usepackage[utf8]{inputenc} % Anpassa efter linux
 \usepackage{graphicx}
 \usepackage{../common/beamerthemeUppsala}
@@ -61,9 +61,8 @@
 \begin{frame}{Practicalities}
 
 \begin{itemize}
-\item Remember the project proposition deadline the 12th of December
-\item One lecture later this week on word embeddings (Väinö Yrjänäinen)
-\item We are behind on correcting assignments
+\item One lecture later next week on word embeddings (Väinö Yrjänäinen)
+\item Transformers are new... but now there is finally a book chapter!
 \end{itemize}
 
 \end{frame}
@@ -72,7 +71,8 @@
 \begin{frame}{Assignment 4: Evaluation}
 
 \begin{itemize}
-\item Minor comments
+\item Validation or test set when evaluating the models not clear
+\item VGG could be expanded more to work more with fine-tuning
 \end{itemize}
 
 \end{frame}
@@ -426,7 +426,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 \begin{figure}[h]
 \centering
 \includegraphics[width=1\textwidth]{fig/alammar_encoder_with_tensors_2.png}
-\caption{The Encoder Layer (Alammar, 2018)}
+\caption{The Encoder Layer (Alammar, 2018b)}
 \end{figure}
 
 \end{frame}
@@ -463,7 +463,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 \begin{figure}[h]
 \centering
 \includegraphics[width=1\textwidth]{fig/alammar_transformer_self_attention_vectors.png}
-\caption{Attention heads (Alammar, 2018)}
+\caption{Attention heads (Alammar, 2018b)}
 \end{figure}
 
 \end{frame}
@@ -473,7 +473,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.8\textwidth]{fig/alammar_self-attention-output.png}
-\caption{Attention (Alammar, 2018)}
+\caption{Attention (Alammar, 2018b)}
 \end{figure}
 
 \end{frame}
@@ -497,7 +497,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 \begin{figure}[h]
 \centering
 \includegraphics[width=1\textwidth]{fig/alammar_transformer_attention_heads_qkv.png}
-\caption{Attention heads (Alammar, 2018)}
+\caption{Attention heads (Alammar, 2018b)}
 \end{figure}
 
 \end{frame}
@@ -508,7 +508,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 \begin{figure}[h]
 \centering
 \includegraphics[width=1\textwidth]{fig/alammar_transformer_multi-headed_self-attention-recap.png}
-\caption{Attention heads (Alammar, 2018)}
+\caption{Attention heads (Alammar, 2018b)}
 \end{figure}
 
 \end{frame}
@@ -531,7 +531,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 \begin{figure}[h]
 \centering
 \includegraphics[width=1\textwidth]{fig/alammar_transformer_positional_encoding_vectors.png}
-\caption{Attention heads (Alammar, 2018)}
+\caption{Attention heads (Alammar, 2018b)}
 \end{figure}
 
 \end{frame}
@@ -541,7 +541,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 \begin{figure}[h]
 \centering
 \includegraphics[width=1\textwidth]{fig/alammar_transformer_positional_encoding_example.png}
-\caption{Adding positional encodings to embeddings (Alammar, 2018)}
+\caption{Adding positional encodings to embeddings (Alammar, 2018b)}
 \end{figure}
 
 \end{frame}
@@ -553,7 +553,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.8\textwidth]{fig/alammar_transformer_resideual_layer_norm_2.png}
-\caption{Add and Normalize (Alammar, 2018)}
+\caption{Add and Normalize (Alammar, 2018b)}
 \end{figure}
 
 \end{frame}
@@ -585,8 +585,8 @@ Think of $h_t$ as the "state" at timepoint $t$
 \begin{frame}{BERT}
 
 \begin{itemize}
-\item Bidirectional Encoder Representations from Transformers
-\item Introduced in 2018/2019 in Devlin et al. (2017)
+\item Bidirectional Encoder Representations from Transformers (BERT)
+\item Introduced in 2018/2019 in Devlin et al. (2018)
 \pause
 \item {\color{uured} State-of-the-Art} in many text prediction tasks, such as
 \begin{itemize}
@@ -595,13 +595,11 @@ Think of $h_t$ as the "state" at timepoint $t$
 \item Text Classification
 \end{itemize}
 \pause
-\item Becoming the de facto new standard in industry and NLP
-\pause
 \item Many new versions has come out RoBERTa, DistillBERT, AlBERT etc.
 \pause
-\item {\color{uured} Pre-trained} on a large number of books
+\item {\color{uured} Pre-trained} on a large corpus
 \pause
-\item Available both in English and Swedish (The National Library)
+\item Available both in English, Swedish and many other languages (The National Library)
 \end{itemize}
 
 \end{frame}
@@ -612,7 +610,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 \begin{figure}[h]
 \centering
 \includegraphics[width=1\textwidth]{fig/bert-transfer-learning.png}
-\caption{Using BERT for Transfer Learning (Alammar, 2019)}
+\caption{Using BERT for Transfer Learning (Alammar, 2018c)}
 \end{figure}
 
 \end{frame}
@@ -623,7 +621,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{fig/bert-input-output.png}
-\caption{The BERT model (Alammar, 2019)}
+\caption{The BERT model (Alammar, 2018c)}
 \end{figure}
 
 \end{frame}
@@ -649,7 +647,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{fig/BERT-language-modeling-masked-lm.png}
-\caption{Masked Language Modeling (Alammar, 2019)}
+\caption{Masked Language Modeling (Alammar, 2018c)}
 \end{figure}
 
 \end{frame}
@@ -660,7 +658,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{fig/bert-next-sentence-prediction.png}
-\caption{Next Sentence Prediction (Alammar, 2019)}
+\caption{Next Sentence Prediction (Alammar, 2018c)}
 \end{figure}
 
 \end{frame}
@@ -674,7 +672,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{fig/bert-classifier.png}
-\caption{Using BERT for classification (Alammar, 2019)}
+\caption{Using BERT for classification (Alammar, 2018c)}
 \end{figure}
 
 \end{frame}
@@ -684,7 +682,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{fig/bert-contexualized-embeddings.png}
-\caption{Contextualized Embeddings (Alammar, 2019)}
+\caption{Contextualized Embeddings (Alammar, 2018c)}
 \end{figure}
 
 \end{frame}
@@ -694,7 +692,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{fig/bert-feature-extraction-contextualized-embeddings.png}
-\caption{Using Contextualized Embeddings (Alammar, 2019)}
+\caption{Using Contextualized Embeddings (Alammar, 2018c)}
 \end{figure}
 
 \end{frame}
