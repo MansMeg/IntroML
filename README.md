@@ -82,6 +82,7 @@ The literature list might change slightly during the course.
 - Dirac, L. (2019) LSTM is dead! Long live Transformers. [online access](https://www.youtube.com/watch?v=S27pHKBEp30) 
 - Ng, Andrew (2017) One convolutional layer. [online access](https://www.youtube.com/watch?v=jPOAS7uCODQ&list=PLkDaE6sCZn6Gl29AoE31iwdVwSG-KnDzF&index=7) 
 - Hand, Paul, Variational Autoencoders [online](https://www.youtube.com/watch?app=desktop&v=c27SHdQr4lw)
+- Phi (2020) Illustrated Guide to Transformers Neural Network: A step by step explanation [online](https://www.youtube.com/watch?v=4Bdc55j80l8)
 
 ## Recommended workflow for each block/assignment
 
