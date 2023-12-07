@@ -245,146 +245,6 @@ where $I$ is the general instructions.
 
 \end{frame}
 
-\subsection{Instruction tuning}
-
-\begin{frame}{Instruction tuning/following}
-
-% instruction tuning (discussed in Section 5.1)
-\begin{itemize}
-\item instruction tuning is the approach to fine-tuning pre-trained LLMs on a collection of formatted instances
-\item Generally, an instruction-formatted instance consists of a task description (called an instruction), an optional input, the corresponding output, and a small number of demon- strations (optional).
-\item For instruction tuning, there are two kinds of important instruction data, namely task-formatted instructions and daily chat instructions.
-\item There are multiple ways to create (supervised) data, manual (NLP datasets), using API interactions, creating synthetic data
-\item In- struction tuning is an effective approach to adapting existing general LLMs to be domain-specific experts. For instance, researchers propose to fine-tune Flan-PaLM [64] using medi- cal datasets to create Med-PaLM [282], a medical knowledge assistant that achieves performance levels comparable to those of expert clinicians.
-\item Key crucial aspects:
-\begin{itemize}
-\item Scaling - a large number of instances, but the effect is descreasing
-\item Including things to avoid, reasons, and suggestions, into instructions may have a negligible or even adverse effect on the performance of LLMs
-\item To summarize: diversity and quality of instructions seem to be more important than the number of instances
-\end{itemize}
-\item Effect: Performance improvement, a general approach to enhancing the abilities of existing language models
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}{Instruction tuning training}
-
-% instruction tuning (discussed in Section 5.1)
-\begin{itemize}
-\item Unlike pre-training, instruction tuning is often more efficient since only a moderate number of instances are used for training.
-\item the training objective (i.e., usually sequence-to-sequence loss)
-\item e.g., smaller batch size and learning rate)
-\item it is important to balance the proportion of different tasks during fine- tuning. A widely used method is the examples-proportional mixing strategy
-\item pre-training data during instruction tuning, which can be regarded as regularization for model tuning
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}{Fine-tuning Llama}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.99\textwidth]{fig/zhao_2023_tab7}
-\caption{Training time for fine-tuning Llama}
-\end{figure}
-
-\end{frame}
-
-
-\subsection{Alignment}
-
-\begin{frame}{Alignment tuning}
-
-% Aligning p 4 in Zhao
-
-\begin{itemize}
-\item Problems in LLMs: fabricating false information, producing harmful, misleading, and biased expressions
-% LLM may sometimes exhibit unintended behaviors, e.g., fabricating false information, pursuing inaccurate objectives, and producing harmful, misleading, and biased expressions [61, 293].
-\item Similar to instruction training, but require different criterias
-% However, unlike the original pre-training and adaptation tuning (e.g., instruction tuning), such an alignment requires considering very different crite- ria (e.g., helpfulness, honesty, and harmlessness).
-\item The three Hs: helpfulness, honesty, and harmlessness
-\item Alignment might harm the general abilities of LLMs to some extent: \uured{alignment tax}%, which is called alignment tax in related literature [295].
-\item \uured{Red teaming}: Probe LLMs in an adversarial way to generate harmful outputs and then updates LLMs to prevent such outputs.
-
-\end{itemize}
-
-\end{frame}
-
-
-\begin{frame}{Alignment tuning: Criterias}
-
-% Aligning p 4 in Zhao
-% RLHF
-
-\begin{itemize}
-\item Helpfulness
-\begin{itemize}
-\item To be helpful, the LLM should demon- strate a clear attempt to assist users in solving their tasks or answering questions in a concise and efficient manner as possible.
-\end{itemize}
-\item Honesty
-\begin{itemize}
-\item A LLM aligned to be honest should present accurate content to users instead of fabricating information. Additionally, it is crucial for the LLM to convey appropriate degrees of uncertainty in its output, in order to avoid any form of deception or misrepresentation of information. This requires the model to know about its capabilities and levels of knowledge (e.g., “know unknowns”).
-\end{itemize}
-\item Harmlessness
-\begin{itemize}
-\item To be harmless, it requires that the language produced by the model should not be offensive or discriminatory. To the best of its abilities, the model should be capable of detecting covert endeavors aimed at soliciting requests for malicious purposes.
-\end{itemize}
-\end{itemize}
-
-\end{frame}
-
-
-\begin{frame}{Alignment tuning: Human feedback}
-
-\begin{itemize}
-\item High-quality human feedback is extremely important for aligning LLMs with human pref- erences and values.
-\item Human Labeler Selection. In existing work, the dominant method for generating human feedback data is human annotation. usually native speakers.
-\item Three ways to collect feedback from humans:
-\begin{enumerate}
-\item Ranking based (choosing the best out of many suggestions)
-\item Answering question about the model output (multiple choice)
-\item Collect data about if the model is "breaking the rules" helpful, correct, and harmless. (as scores)
-\end{enumerate}
-\end{itemize}
-
-\end{frame}
-
-\subsection{RLHF}
-
-\begin{frame}{Reinforcement learning with human feedback (RLHF)}
-% (discussed in Section 5.2.3)
-%The RLHF system mainly comprises three key components: a pre-trained LM to be aligned, a reward model learning from human feedback, and a RL algorithm training the LM.
-
-\begin{itemize}
-\item One way to align a model (e.g. in chatGPT)
-\item Three components: Human feedback, Reward model training, Fine-tune with reward model.
-\item \uured{Idea:} The reward model (RM) learn human preferences
-\item  RM: A fine-tuned LM or a LM trained from scratch using human preference data.
-\item The reinforcement learning:
-\begin{itemize}
-\item the (LLM) agent  will perform an action by generate text
-\item the (RM) will give the agent a reward signal
-\end{itemize}
-\end{itemize}
-
-\end{frame}
-
-
-\begin{frame}{RLHF: Three steps}
-
-\begin{enumerate}
-\item Supervised finetuning %To make the LM initially perform desired behaviors, it usually needs to collect a supervised dataset containing input prompts (instruction) and desired outputs for fine-tuning the LM.
-\item Learn reward model % : OpenAI uses 6B GPT-3 and DeepMind uses 7B Gopher, but bigger is usually better
-\item Fine-tune the model with the reward model
-\end{enumerate}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.99\textwidth]{fig/zhao_2023_fig10}
-\caption{RLHF (Zhao, 2023, Figure 10)}
-\end{figure}
-
-\end{frame}
 
 
 \subsection{Hallucinations}
@@ -619,65 +479,205 @@ As $t\rightarrow 0$: greedy, and $t = 1$: ordinary sampling
 
 
 \begin{frame}{Tokenization}
-
-% Tokenization p 15
+% See p. 15
+\begin{itemize}
+\item Simple tokenization: Word based
+\begin{itemize}
+\item Difficult in some languages (e.g. Chinese)
+\item Generate large vocabularies with many different words
+\item Out-of-vocabulary problem
+\end{itemize}
+\item Byte-pair encoding (BPE): Combine most common characters until predefined vocabulary is reached
+\item Wordpiece encoding: Simplary to BPE, but uses a language model to score which to merge
+\item Unigram tokenizer: Like wordpiece, but start with a large vocabulary and trim it down.
+\end{itemize}
 
 \end{frame}
 
 \begin{frame}{Pretraining task/Loss}
 
-% Pretraining tasks (4.2.3)
-%% Kaddour (2023): Figure 3
+\begin{itemize}
+\item The most common task is language modeling(LM), i.e. maximizing
+\[
+L_{LM}(\mathbf{x}) = \sum_i^n \log P(x_i | \mathbf{x}_{<i})
+\]
+\item Why is this good?
+\begin{itemize}
+\item To better and better predict text we need to increase the \uured{understanding} of the model.
+\item E.g. "Biden and Xi and a meeting on the role of ..." (artificial intelligence)
+\end{itemize}
+\end{itemize}
+
 
 \end{frame}
 
 \begin{frame}{Optimization}
 
-% 3. Pre-Training Strategies
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{fig/zhou_2023_tab5}
+\caption{Optimization during pre-training (Zhao et al, 2023, Table 5)}
+\end{figure}
 
-% Optimization - batch sizes, lr, optimizer adam p 23
+\end{frame}
 
-% Weight decay, gradient clipping dropout p 23
+
+
+\section{Adaptation and Alignment}
+
+\begin{frame}{Instruction tuning/following}
+
+% instruction tuning (discussed in Section 5.1)
+\begin{itemize}
+\item We have a very large, pre-trained model
+\item We want it \uured{perform tasks} (e.g. chatbot): instruction tuning
+\item We want it \uured{to be safe}: alignment
+\end{itemize}
 
 \end{frame}
 
 
+\subsection{Instruction tuning}
 
-\section{Domain adaptation}
+\begin{frame}{Instruction tuning/following}
 
-\begin{frame}{Domain adaptation}
-
-% Fine tuning 5.1
-% Table 7. p 28
-% Kaddour (2023): 2.4
-
+% instruction tuning (discussed in Section 5.1)
+\begin{itemize}
+\item instruction tuning is the approach to fine-tuning pre-trained LLMs on a collection of formatted instances
+\item Generally, an instruction-formatted instance consists of a task description (called an instruction), an optional input, the corresponding output, and a small number of demon- strations (optional).
+\item For instruction tuning, there are two kinds of important instruction data, namely task-formatted instructions and daily chat instructions.
+\item There are multiple ways to create (supervised) data, manual (NLP datasets), using API interactions, creating synthetic data
+\item In- struction tuning is an effective approach to adapting existing general LLMs to be domain-specific experts. For instance, researchers propose to fine-tune Flan-PaLM [64] using medi- cal datasets to create Med-PaLM [282], a medical knowledge assistant that achieves performance levels comparable to those of expert clinicians.
+\item Key crucial aspects:
+\begin{itemize}
+\item Scaling - a large number of instances, but the effect is descreasing
+\item Including things to avoid, reasons, and suggestions, into instructions may have a negligible or even adverse effect on the performance of LLMs
+\item To summarize: diversity and quality of instructions seem to be more important than the number of instances
+\end{itemize}
+\item Effect: Performance improvement, a general approach to enhancing the abilities of existing language models
+\end{itemize}
 
 \end{frame}
 
+\begin{frame}{Instruction tuning training}
+
+% instruction tuning (discussed in Section 5.1)
+\begin{itemize}
+\item Unlike pre-training, instruction tuning is often more efficient since only a moderate number of instances are used for training.
+\item the training objective (i.e., usually sequence-to-sequence loss)
+\item e.g., smaller batch size and learning rate)
+\item it is important to balance the proportion of different tasks during fine- tuning. A widely used method is the examples-proportional mixing strategy
+\item pre-training data during instruction tuning, which can be regarded as regularization for model tuning
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Fine-tuning Llama}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{fig/zhao_2023_tab7}
+\caption{Training time for fine-tuning Llama}
+\end{figure}
+
+\end{frame}
+
+
+\subsection{Alignment}
 
 \begin{frame}{Alignment tuning}
 
-% Alignment tuning 5.2
-% Helpful, harmless, honest
+% Aligning p 4 in Zhao
 
+\begin{itemize}
+\item Problems in LLMs: fabricating false information, producing harmful, misleading, and biased expressions
+% LLM may sometimes exhibit unintended behaviors, e.g., fabricating false information, pursuing inaccurate objectives, and producing harmful, misleading, and biased expressions [61, 293].
+\item Similar to instruction training, but require different criterias
+% However, unlike the original pre-training and adaptation tuning (e.g., instruction tuning), such an alignment requires considering very different crite- ria (e.g., helpfulness, honesty, and harmlessness).
+\item The three Hs: helpfulness, honesty, and harmlessness
+\item Alignment might harm the general abilities of LLMs to some extent: \uured{alignment tax}%, which is called alignment tax in related literature [295].
+\item \uured{Red teaming}: Probe LLMs in an adversarial way to generate harmful outputs and then updates LLMs to prevent such outputs.
 
+\end{itemize}
 
 \end{frame}
 
-\begin{frame}{LoRA}
 
-% Parameter efficient fine tuning - LoRA
+\begin{frame}{Alignment tuning: Criterias}
 
-\end{frame}
-
-
-\begin{frame}{RLHF}
-
+% Aligning p 4 in Zhao
 % RLHF
-% Table 7. p 28
-% Kaddour (2023): 2.9
+
+\begin{itemize}
+\item Helpfulness
+\begin{itemize}
+\item To be helpful, the LLM should demon- strate a clear attempt to assist users in solving their tasks or answering questions in a concise and efficient manner as possible.
+\end{itemize}
+\item Honesty
+\begin{itemize}
+\item A LLM aligned to be honest should present accurate content to users instead of fabricating information. Additionally, it is crucial for the LLM to convey appropriate degrees of uncertainty in its output, in order to avoid any form of deception or misrepresentation of information. This requires the model to know about its capabilities and levels of knowledge (e.g., “know unknowns”).
+\end{itemize}
+\item Harmlessness
+\begin{itemize}
+\item To be harmless, it requires that the language produced by the model should not be offensive or discriminatory. To the best of its abilities, the model should be capable of detecting covert endeavors aimed at soliciting requests for malicious purposes.
+\end{itemize}
+\end{itemize}
 
 \end{frame}
+
+
+\begin{frame}{Alignment tuning: Human feedback}
+
+\begin{itemize}
+\item High-quality human feedback is extremely important for aligning LLMs with human pref- erences and values.
+\item Human Labeler Selection. In existing work, the dominant method for generating human feedback data is human annotation. usually native speakers.
+\item Three ways to collect feedback from humans:
+\begin{enumerate}
+\item Ranking based (choosing the best out of many suggestions)
+\item Answering question about the model output (multiple choice)
+\item Collect data about if the model is "breaking the rules" helpful, correct, and harmless. (as scores)
+\end{enumerate}
+\end{itemize}
+
+\end{frame}
+
+\subsection{RLHF}
+
+\begin{frame}{Reinforcement learning with human feedback (RLHF)}
+% (discussed in Section 5.2.3)
+%The RLHF system mainly comprises three key components: a pre-trained LM to be aligned, a reward model learning from human feedback, and a RL algorithm training the LM.
+
+\begin{itemize}
+\item One way to align a model (e.g. in chatGPT)
+\item Three components: Human feedback, Reward model training, Fine-tune with reward model.
+\item \uured{Idea:} The reward model (RM) learn human preferences
+\item  RM: A fine-tuned LM or a LM trained from scratch using human preference data.
+\item The reinforcement learning:
+\begin{itemize}
+\item the (LLM) agent  will perform an action by generate text
+\item the (RM) will give the agent a reward signal
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{RLHF: Three steps}
+
+\begin{enumerate}
+\item Supervised finetuning %To make the LM initially perform desired behaviors, it usually needs to collect a supervised dataset containing input prompts (instruction) and desired outputs for fine-tuning the LM.
+\item Learn reward model % : OpenAI uses 6B GPT-3 and DeepMind uses 7B Gopher, but bigger is usually better
+\item Fine-tune the model with the reward model
+\end{enumerate}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{fig/zhao_2023_fig10}
+\caption{RLHF (Zhao, 2023, Figure 10)}
+\end{figure}
+
+\end{frame}
+
 
 \begin{frame}{The values of LLMs}
 
