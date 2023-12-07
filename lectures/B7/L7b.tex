@@ -488,6 +488,7 @@ where $I$ is the general instructions.
 \end{frame}
 
 \begin{frame}{Architectures}
+% TODO: Add images from the Illustrated GPT-2
 
 \begin{itemize}
 \item LLMs are usually based on the transformer \uured{decoder}
@@ -518,20 +519,34 @@ where "sublayer" indicates the previous layer in the network.
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.99\textwidth]{fig/zhou_2023_tab3}
-\caption{Common configurations (Zhou et al., 2023)}
+\caption{Common configurations (Zhou et al., 2023, Table 3)}
 \end{figure}
-
-% Parameters and Model Size: Use Table 1 in other
-% Uset table 3 here from Zhao
 
 \end{frame}
 
 
 \begin{frame}{Decoding (word generation)}
 
-% Decoding (4.2.4) - sampling and temperature sampling
-% Add eq 6, 7, 8 here.
-% Also add information on temperature. When temperature is close to 0 -> greedy search
+\begin{itemize}
+\item LLMs are trained to predict the next word (called decoding), i.e the discret probability model (pmf)
+\[
+p_{x,i} = P(x_i|\mathbf{x}_{j<i})
+\]
+\item Two approaches to generate/decode:
+\begin{description}
+\item[greedy] $x_i = \arg_x \max P(x|\mathbf{x}_{j<i})$
+\item[sampling] $x_i \sim P(x|\mathbf{x}_{j<i})$
+\end{description}
+\item Temperature sampling:
+\[
+\tilde{P}(x_i|\mathbf{x}_{j<i}) = \frac{\exp(\log(p_{x,i})/t)}{\sum_{i'} \exp(\log(p_{x,i'})/t)}
+\]
+\[
+x_i \sim \tilde{P}(x_i|\mathbf{x}_{j<i})
+\]
+As $t\rightarrow 0$: greedy, and $t = 1$: ordinary sampling
+\item Top-$k$ sampling: sample proportionally from from top $k$ most probable words
+\end{itemize}
 
 \end{frame}
 
@@ -548,12 +563,15 @@ where "sublayer" indicates the previous layer in the network.
 
 \end{frame}
 
+
 \begin{frame}{Huge Data}
 
 % Kaddour (2023): Unfathomable datasets - what do we do.
 % Kaddour (2023): Table 1
 
 \end{frame}
+
+
 
 \begin{frame}{Tokenization}
 
