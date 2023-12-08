@@ -1,6 +1,6 @@
 %\documentclass[10pt,handout]{beamer}
 \documentclass[10pt]{beamer}
-\usepackage[english]{babel} % Anpassa efter svenska. Ger svensk logga.
+\usepackage{babel} % Anpassa efter svenska. Ger svensk logga.
 \usepackage[utf8]{inputenc} % Anpassa efter linux
 \usepackage{graphicx}
 \usepackage{../common/beamerthemeUppsala}
@@ -62,10 +62,7 @@
 \begin{frame}{Practicalities}
 
 \begin{itemize}
-\item Remember the project proposition deadline the \uured{today}
-\item Still behind with grading...
-\item New lecture by Holli Sargeant
-\item Swap between 19th and 21th
+\item Some rearranging of lectures next week.
 \end{itemize}
 
 \end{frame}
@@ -73,9 +70,7 @@
 \begin{frame}{Assignment 5}
 
 \begin{itemize}
-\item Difficult area in general
-\item More connections between the implementation and the Keras code
-\item Struggle with running the code
+\item ...
 \end{itemize}
 
 \end{frame}
@@ -138,7 +133,7 @@ In {\color{uured} unsupervised}  learning:
 Other names for $p(x)$:
 \begin{itemize}
 \item {\color{uured} Data} model\\ $p(x)$ is our \emph{data} generating mechanism
-\item {\color{uured} Generative} model\\ We can \emph{generate} samples from $p(x)$. \uured{Big right now!}
+\item {\color{uured} Generative} model\\ We can \emph{generate} samples from $p(x)$.
 \end{itemize}
 \pause
 Common use cases for unsupervised learning:
@@ -317,7 +312,7 @@ d_k(x_{i,k}, x_{j,k}) = (x_{i,k} - x_{j,k})^2
 \item {\color{uured} Model}: $x_i$ "is close to" one of $m_1,...,m_K$ vectors
 \item {\color{uured} Loss function}:
 \[
-l_\mathbf{m} (x) = \min_\mathbf{m} (x_i - m_k)^2
+L_\mathbf{m} (x) = \min_\mathbf{m} (x_i - m_k)^2
 \]
 \pause
 \item {\color{uured} Hyperparameter}: $K$ (the number of clusters)
