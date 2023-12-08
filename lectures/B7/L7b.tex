@@ -699,58 +699,73 @@ L_{LM}(\mathbf{x}) = \sum_i^n \log P(x_i | \mathbf{x}_{<i})
 
 \section{Usage}
 
-\begin{frame}{Text Generation}
-% Kaddour (2023): 3.3
+\begin{frame}{Usage of LLM}
+\begin{itemize}
+\item Many areas of applications
+\item Probably just in the starting phase
+\item Example applications:
+\begin{itemize}
+\item ChatBots/Question-answering in domains (Medical, Law etc)
+\item Virtual Assistants
+\item Text summarization
+\item Code Generation
+\item Information retrieval
+\end{itemize}
+\item Currently, still BERT is competetive in many large scale text analysis tasks (eg see Ollion et al, 2023, "Mind the hype")
+\end{itemize}
 
 \end{frame}
-
-\begin{frame}{Code Generation}
-% Kaddour (2023): 3.3
-
-
-\end{frame}
-
-\begin{frame}{Text classification}
-
-% The results from Etienne
-
-\end{frame}
-
-% Kaddour (2023): 3.3
-
-\begin{frame}{ChatBots}
-
-% Kaddour (2023): 3.1
-%C. Conversational Agents
-%1. Chatbots
-%2. Virtual Assistants
-
-\end{frame}
-
-
-\begin{frame}{Law and Generative (AI)}
-
-% Law and AI: 3.6
-
-\end{frame}
-
 
 
 \subsection{Prompt engineering}
 
-\begin{frame}{How to prompt}
+\begin{frame}{Prompt engineering}
 
-% take a deep breth and think.
-% section 8 Zhao
+\begin{itemize}
+\item prompt engineering: Designing prompts to produce good results with \uured{in context learning}
+\item In practice: Moving into the right initial position in embedding space.
+\item four different areas affecting the performance (Zhou et al (2023):
+\begin{itemize}
+\item Task description: Describe the task clearly.
+\item Input data: Describe the example data for the LLM so it can be used.
+\item Contextual information: Background information on the task
+\item Propt style:
+\begin{itemize}
+\item OpenAI suggest to sepratate examples with hashtags.
+\item Most pre-training data is in English, so using english improves performance
+\item "Think through this step by step", an unintuitive "Take a deep breadth and think it through".
+\end{itemize}
+\end{itemize}
+\end{itemize}
 
 \end{frame}
+
+
+\begin{frame}{How to prompt: Design Principles}
+
+\begin{itemize}
+\item See Zhou et al. (2023), Table 14.
+\item Design principles:
+\begin{itemize}
+\item Express your goal clearly, e.g. make the prompt self-contained (avoid propositions like they, it etc)
+\item Decompose into detailed, easy-to-solve sub-tasks, e.g. "Check if the above solution is correct"
+\item Provide few-shot examples
+\item Use model friendly formats, e.g. use qutation marks and hashtags to separate examples
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
 
 \section{Safety and Risks}
 
 \begin{frame}{Risks}
 
-% 1177 chatbot
-% See Zhao
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.99\textwidth]{fig/cederberg_2023}
+\caption{The 1177 debacle (Cederberg, 2023)}
+\end{figure}
 
 \end{frame}
 
