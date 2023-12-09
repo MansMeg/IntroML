@@ -191,10 +191,14 @@ phi <- extract_phi(tm)
 \item How do these two chosen topics evolve over the course in the book? If you want, you can take a rolling mean of the theta parameters to more easily show the changes in the topic over the book. \emph{Hint!} Here \texttt{zoo::rollmean()} might be a good function to use.
 \end{enumerate}
 
+\newpage
 
 \section{* Variational Autoencoders using Convolutional Neural Networks}
 
 \input{distinction_task.tex}
+
+You can choose to either do this task or the task below to get VG on this assignment.
+
 % https://learnopencv.com/variational-autoencoder-in-tensorflow/
 As we have seen previously, for images, we can get better performance using Convolutional Neural Networks. Hence we are going to repeat the exercise above using a convolutional neural network as encoder and decoder. You can find detailed code \href{https://github.com/rstudio/keras/blob/main/vignettes/examples/variational_autoencoder_deconv.R}{\textbf{here}}.
 
@@ -207,6 +211,65 @@ As we have seen previously, for images, we can get better performance using Conv
 \end{enumerate}
 
 \newpage
+
+\section{* Prompt engineering with ChatGPT}
+
+You can choose to either do this task or the task above to get VG on this assignment.
+
+\input{distinction_task.tex}
+
+For this assignment, you need to have a user account at Open AI to generate an API token. See \href{https://help.openai.com/en/articles/4936850-where-do-i-find-my-api-key} for details on how to get an API token to use.
+
+As a second step you need to install the \texttt{ropenaiapi} R package. This can be done as follows:
+<<eval=FALSE>>=
+library(remotes)
+remotes::install_github('MansMeg/ropenaiapi')
+@
+
+In the next step we set the API key as an environment variable with:
+<<eval=FALSE>>=
+library(ropenaiapi)
+set_openai_api_key("[YOUR KEY GOES HERE]")
+@
+
+We can now call the API with the \texttt{openai\_chat} function.
+
+<<eval=FALSE>>=
+x <- openai_chat("Who is Gustav Vasa? Give a short answer.")
+x
+@
+
+<<echo=FALSE,eval=TRUE>>=
+cat("assistant:
+Gustav Vasa was a Swedish king who led a successful rebellion
+against Danish rule and became the founder of modern Sweden in
+the 16th century.")
+@
+
+See the \texttt{ropenaiapi} documentation for further information on how to interact with the Open AI API.
+
+
+\subsection{Make ChatGPT hallucinate}
+
+We are now going to understand how and when transformer-based decoder models 'hallucinate', i.e. when the models give factual incorrect information. See \cite[][, Section 7.1.2]{zhao2023survey} for an introduction and \cite{huang2023survey} for details on hallucinations in LLMs.
+
+Now, create 3 different hallucinations with three different strategies (i.e. its not ok to use the same prompt for three incorrect generations) from the chatGPT models (you can choose whichone you like). For each generated hallucination return:
+
+\begin{enumerate}
+\item The prompt and a the \texttt{seed} supplied to the API. You are free to both create hallucinations through a longer conversation and tuning parameters.
+\item The response from the LLM.
+\item Why the respose is factually incorrect and weather it is an intrinsic or extrinsic hallucination.
+\item Describe the strategy you use and the analysis why the hallucination happended.
+\end{enumerate}
+
+
+
+\subsection{In-Context Learning for classification}
+
+
+
+\newpage
+
 \bibliography{bibliography}
 
 
