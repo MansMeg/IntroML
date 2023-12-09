@@ -125,7 +125,7 @@ mnist$test$x <- mnist$test$x/255
 @
 
 \begin{enumerate}
-\item As a first step, we visualize a couple of digits. Include the first three you can find in the training dataset in the report as an image.
+\item (1p) As a first step, we visualize a couple of digits. Include the first three you can find in the training dataset in the report as an image.
 <<echo=TRUE,eval=FALSE>>=
 idx <- 1
 im <- mnist$train$x[idx,,]
@@ -135,7 +135,7 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
         xaxt='n', yaxt='n', main=paste(mnist$train$y[idx]))
 @
 
-\item Implement a Convolutional Neural Network for the MNIST dataset. The network should have two convolutional layers as follows.
+\item (1p) Implement a Convolutional Neural Network for the MNIST dataset. The network should have two convolutional layers as follows.
 <<>>=
 ## _______________________________________________________________________
 ## Layer (type)                     Output Shape                Param #
@@ -156,10 +156,10 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
 ## Trainable params: 258,090
 ## Non-trainable params: 0
 @
-\item Explain why there are 320 parameters in the first layer. How many are kernel weights (and why), and how many biases?
-\item Train the network using Keras. What is your loss and accuracy on the MNIST dataset?
-\item Choose at least three hyper-parameters you would like to evaluate (\citet[see Table 11.1 in ][]{Goodfellow-et-al-2016}). Use random search \citet[see Ch. 11.4.4 in ][]{Goodfellow-et-al-2016} and train 10 different models with random hyper-parameter settings and store the validation accuracy of your network. Based on these result, choose the best hyper-parameter setting for your network. Print the code and the accuracy of your final model. You can choose the marginal distribution for the hyper-parameters yourself.
-\item As the next step, we will implement a convolutional neural network for the CIFAR-10 dataset using \texttt{dataset\_cifar10()}. See the \href{https://tensorflow.rstudio.com/examples/cifar10_cnn}{tutorial} for details on how to load data. Implement a similar CNN as in the tutorial. That is:
+\item (1p) Explain why there are 320 parameters in the first layer. How many are kernel weights (and why), and how many biases?
+\item (1p) Train the network using Keras. What is your loss and accuracy on the MNIST dataset?
+\item (3p) Choose at least three hyper-parameters you would like to evaluate (\citet[see Table 11.1 in ][]{Goodfellow-et-al-2016}). Use random search \citet[see Ch. 11.4.4 in ][]{Goodfellow-et-al-2016} and train 10 different models with random hyper-parameter settings and store the validation accuracy of your network. Based on these result, choose the best hyper-parameter setting for your network. Print the code and the accuracy of your final model. You can choose the marginal distribution for the hyper-parameters yourself.
+\item (1p) As the next step, we will implement a convolutional neural network for the CIFAR-10 dataset using \texttt{dataset\_cifar10()}. See the \href{https://tensorflow.rstudio.com/examples/cifar10_cnn}{tutorial} for details on how to load data. Implement a similar CNN as in the tutorial. That is:
 <<>>=
 ## Model: "sequential"
 ## ___________________________________________________________________________
@@ -188,9 +188,9 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
 
 @
 \emph{Note!} This problem is more complex than the MNIST problem, so don't be surprised if you get lower accuracy than you got on the MNIST dataset.
-\item Visualize one image of your choice from the CIFAR dataset together with its class/category.
-\item Why do we now have 896 parameters in the first convolutional layer?
-\item Try out and compare at least three different networks for the CIFAR data. Describe the networks (include the keras model output), why you choose them, and the Keras model output. \citet[Ch. 11-11.5]{Goodfellow-et-al-2016} and \citep[Ch. 5.3]{chollet2018deep} might give some suggestions. \label{item:three}
+\item (1p) Visualize one image of your choice from the CIFAR dataset together with its class/category.
+\item (1p) Why do we now have 896 parameters in the first convolutional layer?
+\item (2p) Try out and compare at least three different networks for the CIFAR data. Describe the networks (include the keras model output), why you choose them, and the Keras model output. \citet[Ch. 11-11.5]{Goodfellow-et-al-2016} and \citep[Ch. 5.3]{chollet2018deep} might give some suggestions. \label{item:three}
 \end{enumerate}
 
 \newpage
@@ -241,8 +241,8 @@ maxpool_layer <- function(X){
 
 
 \begin{enumerate}
-\item Visualize the MNIST example digit 4.
-\item Implement a convolution function called \texttt{convolution(X, K)} that takes an input MNIST image (\texttt{X}), an arbitrary large square kernel (\texttt{K}) and returns a valid feature map. Below is an example of how it should work.
+\item (1p) Visualize the MNIST example digit 4.
+\item (3p) Implement a convolution function called \texttt{convolution(X, K)} that takes an input MNIST image (\texttt{X}), an arbitrary large square kernel (\texttt{K}) and returns a valid feature map. Below is an example of how it should work.
 <<>>=
 X <- mnist_example[["4"]][12:15,12:15]
 X
@@ -254,20 +254,20 @@ K
 
 convolution(X, K)
 @
-\item Visualize the feature map of MNIST example digit 4 using the above two by two kernel \texttt{K}.
-\item Now implement all steps in a \texttt{convolutional\_layer(X, K, b, activation)} function that takes the kernel, bias and activation function. It should work as follows.
+\item (1p) Visualize the feature map of MNIST example digit 4 using the above two by two kernel \texttt{K}.
+\item (3p) Now implement all steps in a \texttt{convolutional\_layer(X, K, b, activation)} function that takes the kernel, bias and activation function. It should work as follows.
 <<>>=
 relu <- function(x) max(0, x)
 convolutional_layer(X, K, 100, relu)
 @
-\item Run your convolutional layer on MNIST example digit 4 with bias -150. Visualize the feature map as you visualize the original image. What does the filter seem to capture?
-\item Now transpose your filter and run your convolutional layer on MNIST example digit 4 with bias -150. Visualize the feature map. What does that transposed filter seem to capture?
-\item As the last step in our convolutional layer, implement a two by two, two stride max-pooling layer. It should work as follows.
+\item (2p) Run your convolutional layer on MNIST example digit 4 with bias -150. Visualize the feature map as you visualize the original image. What does the filter seem to capture?
+\item (1p) Now transpose your filter and run your convolutional layer on MNIST example digit 4 with bias -150. Visualize the feature map. What does that transposed filter seem to capture?
+\item (3p) As the last step in our convolutional layer, implement a two by two, two stride max-pooling layer. It should work as follows.
 <<>>=
 X <- mnist_example[["4"]][12:15,12:15]
 maxpool_layer(X)
 @
-\item Now put it all together and visualize the final output of your own convolutional layer. Visualize the feature map.
+\item (1p) Now put it all together and visualize the final output of your own convolutional layer. Visualize the feature map.
 <<eval=FALSE>>=
 X <- mnist_example[["4"]]
 relu <- function(x) max(0, x)
@@ -291,10 +291,10 @@ As the last step, we will look into using transfer learning as a quick way of im
 You can find the current state-of-the-art neural networks for the cifar-10 dataset \href{https://benchmarks.ai/cifar-10}{here}. Feel free to read some of the papers and be inspired on how to improve your neural network.
 
 \begin{enumerate}
-\item Using Keras, download the VGG16 convolutional neural network convolutional base. Just download the convolutional base. We are going to use the network on the cifar-10 dataset so change the \texttt{input\_size} to \texttt{c(32, 32, 3)}.
-\item Now add a dense layer with 64 hidden nodes (as in the previous exercise). Include the Keras model output in the assignment report. How many parameters do you have in the dense top layer (compared to the CNN in the previous part)?
-\item Now, freeze the convolutional base and train the dense top layer of your network on the cifar-10 dataset. Run it for five epochs. \emph{Note!} This will take time. Don't be surprised if you need roughly 200s per epoch or more. Also, remember to freeze the convolutional base!
-\item Report your final accuracy. How does this compare to the previous model for the cifar data?
+\item (2p) Using Keras, download the VGG16 convolutional neural network convolutional base. Just download the convolutional base. We are going to use the network on the cifar-10 dataset so change the \texttt{input\_size} to \texttt{c(32, 32, 3)}.
+\item (2p) Now add a dense layer with 64 hidden nodes (as in the previous exercise). Include the Keras model output in the assignment report. How many parameters do you have in the dense top layer (compared to the CNN in the previous part)?
+\item (2p) Now, freeze the convolutional base and train the dense top layer of your network on the cifar-10 dataset. Run it for five epochs. \emph{Note!} This will take time. Don't be surprised if you need roughly 200s per epoch or more. Also, remember to freeze the convolutional base!
+\item (2p) Report your final accuracy. How does this compare to the previous model for the cifar data?
 \end{enumerate}
 
 \newpage
