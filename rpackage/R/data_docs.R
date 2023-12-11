@@ -121,20 +121,6 @@
 #'
 "pride_and_prejudice"
 
-
-#' Pride and Prejudice (tokenized)
-#'
-#' @description
-#' A \code{tibble} with the chapter, paragraph and word for each token.
-#' All word has been turned to lower case and punctuation has been removed.
-#'
-#'
-#' @seealso
-#' \code{prideprejudice} in the \code{janeaustenr} R package.
-#'
-"pride_and_prejudice"
-
-
 #' Stopwords from three lexicons
 #'
 #' @description
@@ -143,3 +129,25 @@
 #'
 #'
 "stopwords"
+
+
+#' Political quotes
+#'
+#' @description
+#' A \code{data.frame} with quotes in Swedish from the Swedish
+#' conservative party (Moderaterna) and the social democrats
+#' (Socialdemokraterna). The quotes are taken from the parties
+#' manifestos. See references below.
+#'
+#' There is one training dataset with five observations per party
+#' and one dataset with ten test observations per party.
+#'
+#' @references
+#' Frihet och Ansvar: Ett moderat idéprogram för 2020-talet
+#' Vi bygger landet: Antagna riktlinjer Kongressen 2021
+#'
+#'
+"pc_train"
+
+#' @rdname pc_train
+"pc_test"
