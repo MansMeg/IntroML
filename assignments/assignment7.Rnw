@@ -258,14 +258,31 @@ Now, create 3 different hallucinations with three different strategies (i.e. its
 \begin{enumerate}
 \item The prompt and a the \texttt{seed} supplied to the API. You are free to both create hallucinations through a longer conversation and tuning parameters.
 \item The response from the LLM.
-\item Why the respose is factually incorrect and weather it is an intrinsic or extrinsic hallucination.
-\item Describe the strategy you use and the analysis why the hallucination happended.
+\item Why the response is factually incorrect and weather it is an intrinsic or extrinsic hallucination.
+\item Describe the strategy you use and the analysis why the hallucination happened.
 \end{enumerate}
 
 
+\subsection{In-Context Learning for few-shot classification}
 
-\subsection{In-Context Learning for classification}
+In-context learning is the idea to use large language models to complete tasks in a few-shot or zero-shot way. In this task we are going to try to classify political quotes in Swedish to weather they belong to the social democratic party manifesto or the conservative party (Moderaterna) manifesto.
 
+<<eval=FALSE>>=
+library(uuml)
+data("pc_test")
+data("pc_train")
+@
+
+See \cite[][, Section 8]{zhao2023survey} for details on how to best engineer prompts to solve the classification task.
+
+Now use the techniques \cite[][, Section 8]{zhao2023survey} to generate as good prompts as possible to classify weather a quote is from the social democratic or the conservative manifesto.
+
+\begin{enumerate}
+\item Start with zero-shot learning, ie only prompt the LLM without any demonstrations. Test to classify the quotes in the test set.
+\item Test how far you can get by using better prompt descriptions to classify the quotes. Try to get responses as classes from the model.
+\item Now add demonstrations by adding examples from the training set. Does that improve the accuracy on the testset?
+\item Try at least three different strategies from \cite[][, Section 8]{zhao2023survey} to improve the quality. Discuss your conclusions.
+\end{enumerate}
 
 
 \newpage
