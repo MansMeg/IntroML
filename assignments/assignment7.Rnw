@@ -218,7 +218,9 @@ You can choose to either do this task or the task above to get VG on this assign
 
 \input{distinction_task.tex}
 
-For this assignment, you need to have a user account at Open AI to generate an API token. See \href{https://help.openai.com/en/articles/4936850-where-do-i-find-my-api-key} for details on how to get an API token to use.
+For this assignment, you need to have a user account at Open AI to generate an API token. See \href{https://help.openai.com/en/articles/4936850-where-do-i-find-my-api-key}{[this link]} for details on how to get an API token to use.
+
+You also need to buy credits at Open AI. I think 1-2 dollars should be sufficient for this assignment.
 
 As a second step you need to install the \texttt{ropenaiapi} R package. This can be done as follows:
 <<eval=FALSE>>=
@@ -235,7 +237,8 @@ set_openai_api_key("[YOUR KEY GOES HERE]")
 We can now call the API with the \texttt{openai\_chat} function.
 
 <<eval=FALSE>>=
-x <- openai_chat("Who is Gustav Vasa? Give a short answer.")
+x <- openai_chat("Who is Gustav Vasa? Give a short answer.",
+                 model = "gpt-3.5-turbo")
 x
 @
 
@@ -246,14 +249,16 @@ against Danish rule and became the founder of modern Sweden in
 the 16th century.")
 @
 
-See the \texttt{ropenaiapi} documentation for further information on how to interact with the Open AI API.
+See the \texttt{ropenaiapi} documentation with ```?openai\_chat``` in R for further information on how to interact with the Open AI API.
+
+\emph{Note!} If you get ```Error: You exceeded your current quota, please check your plan and billing details.``` that means that you don't have any credits to use for the calls. You then need to buy some credits from Open AI, 1-2 dollars should be sufficient for this task.
 
 
 \subsection{Make ChatGPT hallucinate}
 
 We are now going to understand how and when transformer-based decoder models 'hallucinate', i.e. when the models give factual incorrect information. See \cite[][, Section 7.1.2]{zhao2023survey} for an introduction and \cite{huang2023survey} for details on hallucinations in LLMs.
 
-Now, create 3 different hallucinations with three different strategies (i.e. its not ok to use the same prompt for three incorrect generations) from the chatGPT models (you can choose whichone you like). For each generated hallucination return:
+Now, create 3 different hallucinations with three different strategies (i.e. its not ok to use the same prompt for three incorrect generations) from the chatGPT models (you can choose which one you like). For each generated hallucination return:
 
 \begin{enumerate}
 \item The prompt and a the \texttt{seed} supplied to the API. You are free to both create hallucinations through a longer conversation and tuning parameters.
@@ -267,15 +272,27 @@ Now, create 3 different hallucinations with three different strategies (i.e. its
 
 In-context learning is the idea to use large language models to complete tasks in a few-shot or zero-shot way. In this task we are going to try to classify political quotes in Swedish to weather they belong to the social democratic party manifesto or the conservative party (Moderaterna) manifesto.
 
-<<eval=FALSE>>=
+\emph{Note!} This data is included in \texttt{uuml} version 0.4.0 and later.
+
+<<eval=TRUE>>=
 library(uuml)
 data("pc_test")
 data("pc_train")
 @
 
+Below is an example on how you can combine the data to a text string that can be combined to be used in a prompt. Note, you need to develop further on this.
+
+<<eval=FALSE>>=
+example_string <- paste0(pc_train$quote,
+                         ": ",
+                         pc_train$party, collapse = "\n\n")
+cat(example_string)
+@
+
 See \cite[][, Section 8]{zhao2023survey} for details on how to best engineer prompts to solve the classification task.
 
 Now use the techniques \cite[][, Section 8]{zhao2023survey} to generate as good prompts as possible to classify weather a quote is from the social democratic or the conservative manifesto.
+
 
 \begin{enumerate}
 \item Start with zero-shot learning, ie only prompt the LLM without any demonstrations. Test to classify the quotes in the test set.
@@ -284,7 +301,6 @@ Now use the techniques \cite[][, Section 8]{zhao2023survey} to generate as good 
 \item Try at least three different strategies from \cite[][, Section 8]{zhao2023survey} to improve the quality. Discuss your conclusions.
 \end{enumerate}
 
-
 \newpage
 
 \bibliography{bibliography}
@@ -292,7 +308,5 @@ Now use the techniques \cite[][, Section 8]{zhao2023survey} to generate as good 
 
 \end{document}
 
-%%% Local Variables:
-%%% mode: latex
-%%% TeX-master: t
-%%% End:
+
+
