@@ -267,6 +267,14 @@ Now, create 3 different hallucinations with three different strategies (i.e. its
 \item Describe the strategy you use and the analysis why the hallucination happened.
 \end{enumerate}
 
+As a final step, when you have succeded to get the LLM to hallucinate, change the model to GPT-4 (include exact which model you use) and run the same prompt that you could get to hallucinate.
+
+\begin{enumerate}
+\item Return the response from GPT4 for each prompt.
+\item Is the response still factually incorrect? If not, see if you can get at least one hallucination for GPT-4. If you don't succeed, just state that.
+\end{enumerate}
+
+
 
 \subsection{In-Context Learning for few-shot classification}
 

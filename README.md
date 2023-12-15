@@ -83,6 +83,8 @@ The literature list might change slightly during the course.
 - Ng, Andrew (2017) One convolutional layer. [online access](https://www.youtube.com/watch?v=jPOAS7uCODQ&list=PLkDaE6sCZn6Gl29AoE31iwdVwSG-KnDzF&index=7) 
 - Hand, Paul, Variational Autoencoders [online](https://www.youtube.com/watch?app=desktop&v=c27SHdQr4lw)
 - Phi (2020) Illustrated Guide to Transformers Neural Network: A step by step explanation [online](https://www.youtube.com/watch?v=4Bdc55j80l8)
+- UnHeard (2023) Nick Bostrom: How AI will lead to tyranny [online](https://youtu.be/_Oo-m893-xA?si=fFingNh2oNqYX4we)
+
 
 ## Recommended workflow for each block/assignment
 
