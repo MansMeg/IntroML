@@ -838,13 +838,17 @@ e.g. fine-tune Flan-PaLM using medical datasets to create Med-PaLM
 \begin{frame}{Alignment tuning: Human feedback}
 
 \begin{itemize}
-\item High-quality human feedback is extremely important for aligning LLMs with human preferences and values.
-\item Human Labeler Selection. In existing work, the dominant method for generating human feedback data is human annotation. usually native speakers.
-\item Three ways to collect feedback from humans:
+\item High-quality human feedback is crucial for aligning LLMs
+\pause
+\item \uured{Human Labeler Selection}: Usually native speakers.
+\pause
+\item Three ways to collect feedback (from humans):
 \begin{enumerate}
 \item Ranking based (choosing the best out of many suggestions)
+\pause
 \item Answering question about the model output (multiple choice)
-\item Collect data about if the model is "breaking the rules" helpful, correct, and harmless. (as scores)
+\pause
+\item Collect data about if the LLM is "breaking the rules" %helpful, correct, and harmless (as scores)
 \end{enumerate}
 \end{itemize}
 
@@ -852,36 +856,45 @@ e.g. fine-tune Flan-PaLM using medical datasets to create Med-PaLM
 
 \subsection{RLHF}
 
-\begin{frame}{Reinforcement learning with human feedback (RLHF)}
+\begin{frame}{Reinforcement learning with human feedback}
 % (discussed in Section 5.2.3)
 %The RLHF system mainly comprises three key components: a pre-trained LM to be aligned, a reward model learning from human feedback, and a RL algorithm training the LM.
 
 \begin{itemize}
-\item One way to align a model (e.g. in chatGPT)
-\item Three components: Human feedback, Reward model training, Fine-tune with reward model.
+\item Method to align a model (e.g. in chatGPT)
+\item Three components:
+\begin{enumerate}
+\item Pre-trained LLM
+\item Reward Model (RM) learned from human feedback
+\item Reinforcement learning algorithm aligning the LLM
+\end{enumerate}
+\pause
 \item \uured{Idea:} The reward model (RM) learn human preferences
-\item  RM: A fine-tuned LM or a LM trained from scratch using human preference data.
-\item The reinforcement learning:
+\item RM: A fine-tuned smaller LM or a LM trained from scratch using human preference data.
+\pause
+\item The reinforcement learning algorithm:
 \begin{itemize}
 \item the (LLM) agent  will perform an action by generate text
 \item the (RM) will give the agent a reward signal
 \end{itemize}
 \end{itemize}
 
+
+%\begin{enumerate}
+%\item Supervised finetuning %To make the LM initially perform desired behaviors, it usually needs to collect a supervised dataset containing input prompts (instruction) and desired outputs for fine-tuning the LM.
+%\item Learn reward model % : OpenAI uses 6B GPT-3 and DeepMind uses 7B Gopher, but bigger is usually better
+%\item Fine-tune the model with the reward model
+%\end{enumerate}
+
+
 \end{frame}
 
 
 \begin{frame}{RLHF: Three steps}
 
-\begin{enumerate}
-\item Supervised finetuning %To make the LM initially perform desired behaviors, it usually needs to collect a supervised dataset containing input prompts (instruction) and desired outputs for fine-tuning the LM.
-\item Learn reward model % : OpenAI uses 6B GPT-3 and DeepMind uses 7B Gopher, but bigger is usually better
-\item Fine-tune the model with the reward model
-\end{enumerate}
-
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.99\textwidth]{fig/zhao_2023_fig10}
+\includegraphics[width=0.8\textwidth]{fig/zhao_2023_fig10}
 \caption{RLHF (Zhao, 2023, Figure 10)}
 \end{figure}
 
