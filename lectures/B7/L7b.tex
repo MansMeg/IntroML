@@ -500,13 +500,35 @@ where $I$ are the general instructions.
 
 \begin{figure}[h]
 \centering
-\only<1>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig11}}
+\only<1>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig18a}}
+\only<2>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig18b}}
+\only<3>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig19a}}
+\only<4>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig19b}}
+\only<5>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig19c}}
+\only<6>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig19d}}
+\only<7>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig19e}}
+\only<8>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig19f}}
+\only<9>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig19g}}
+\only<10>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig19h}}
+\only<11>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig19i}}
+\only<12>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig19j}}
+\only<13>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig19k}}
+\only<14>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig18a}}
 \caption{Alammar, J (2019). The Illustrated GPT2 [Blog post]. Retrieved from \href{https://jalammar.github.io/illustrated-gpt2/}{jalammar.github.io/illustrated-gpt2/}
 }
 \end{figure}
 
 \end{frame}
 
+\begin{frame}{The transformer}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{fig/Vaswani_1_transformer}
+\caption{The transformer (Vaswani et al., 2017)}
+\end{figure}
+
+\end{frame}
 
 \begin{frame}{Architecture configurations}
 
@@ -539,12 +561,14 @@ where "sublayer" indicates the previous layer in the network.
 \[
 p_{x,i} = P(x_i|\mathbf{x}_{j<i})
 \]
+\pause
 \item Two approaches to generate/decode:
 \begin{description}
 \item[greedy] $x_i = \arg_x \max P(x|\mathbf{x}_{j<i})$
 \item[sampling] $x_i \sim P(x|\mathbf{x}_{j<i})$
 \end{description}
-\item Temperature sampling:
+\pause
+\item \uured{Temperature sampling}:
 \[
 \tilde{P}(x_i|\mathbf{x}_{j<i}) = \frac{\exp(\log(p_{x,i})/t)}{\sum_{i'} \exp(\log(p_{x,i'})/t)}
 \]
@@ -552,6 +576,7 @@ p_{x,i} = P(x_i|\mathbf{x}_{j<i})
 x_i \sim \tilde{P}(x_i|\mathbf{x}_{j<i})
 \]
 As $t\rightarrow 0$: greedy, and $t = 1$: ordinary sampling
+\pause
 \item Top-$k$ sampling: sample proportionally from from top $k$ most probable words
 \end{itemize}
 
@@ -591,28 +616,6 @@ As $t\rightarrow 0$: greedy, and $t = 1$: ordinary sampling
 
 \end{frame}
 
-\begin{frame}{(Pre-training) Data}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.45\textwidth]{fig/kaddour_2023_tab1}
-\caption{Common datasets (Kaddour et al., 2023, Table 1)}
-\end{figure}
-
-\end{frame}
-
-
-\begin{frame}{(Pre-training) Data}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.99\textwidth]{fig/zhou_2023_fig5}
-\caption{Common pretraining datasets (Zhou et al., 2023, Figure 5)}
-\end{figure}
-
-\end{frame}
-
-
 \begin{frame}{Pre-training Data Processing Pipeline}
 
 \begin{figure}[h]
@@ -629,14 +632,20 @@ As $t\rightarrow 0$: greedy, and $t = 1$: ordinary sampling
 % See p. 15
 \begin{itemize}
 \item Simple tokenization: Word based
+\pause
 \begin{itemize}
 \item Difficult in some languages (e.g. Chinese)
+\pause
 \item Generate large vocabularies with many different words
+\pause
 \item Out-of-vocabulary problem
+\pause
 \end{itemize}
-\item Byte-pair encoding (BPE): Combine most common characters until predefined vocabulary is reached
-\item Wordpiece encoding: Simplary to BPE, but uses a language model to score which to merge
-\item Unigram tokenizer: Like wordpiece, but start with a large vocabulary and trim it down.
+\item \uured{Byte-pair encoding (BPE)}: \\Combine most common characters until predefined vocabulary is reached
+\pause
+\item \uured{Wordpiece encoding (WE)}: \\Simplary to BPE, but uses a language model to score which to merge
+\pause
+\item Unigram tokenizer: \\Like WE, but start with a large vocabulary and trim it down.
 \end{itemize}
 
 \end{frame}
@@ -648,17 +657,16 @@ As $t\rightarrow 0$: greedy, and $t = 1$: ordinary sampling
 \[
 L_{LM}(\mathbf{x}) = \sum_i^n \log P(x_i | \mathbf{x}_{<i})
 \]
-\item Why is this good?
+\item Why is this good/result in good models?\pause
 \begin{itemize}
-\item To better and better predict text we need to increase the \uured{understanding} of the model.
-\item E.g. "Biden and Xi and a meeting on the role of ..." (artificial intelligence)
+\item To better and better predict text we need to increase the \uured{understanding} of the model. \\ e.g. "Biden and Xi and a meeting on the role of ..." (truth: artificial intelligence)
 \end{itemize}
 \end{itemize}
 
 
 \end{frame}
 
-\begin{frame}{Optimization}
+\begin{frame}{Optimization/Training}
 
 \begin{figure}[h]
 \centering
