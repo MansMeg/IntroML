@@ -52,22 +52,36 @@
 \begin{itemize}
   \item Large Language Models (LLM) are commonly defined as:
   \begin{itemize}
-      \item large natural language models (usually transformer-based)
+      \item large natural language models
       \pause
-      \item generative and autoregressive, predicting a token at a time, based on previous \uured{context}
+      \item generative and autoregressive:
+      \\predicting a token at a time, based on previous \uured{context}
       \pause
       \item having some ability to achieve \uured{general-purpose language "understanding"}
-      \item show \uured{emergent} abilities to solve other more complex tasks
-      \pause
-      \item fit for few-shot learning and \uured{incontext} learning
+      \item show \uured{"emergent"} abilities to solve other more complex tasks
+      \item such as few-shot learning and \uured{incontext} learning
       \pause
       \item pre-trained on very large data
   \end{itemize}
-  \item Compared to pretrained language models (PLM), LLMs are
+  \item Large Language Models (LLM) are commonly also:
+  \begin{itemize}
+    \item usually decoder-type models
+    \pause
+    \item based on transformer architectures
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Comparing to pre-trained models (such as BERT)}
+
+\begin{itemize}
+  \item Compared to pretrained language models (PLM), LLMs are:
   \begin{itemize}
       \item larger (billions or trillions, rather than millions of parameters), in practice only possible to train by a few persons
       \item possible to use for in-context learning
       \item usually interacted with through the prompt
+      \item generate textual responses
   \end{itemize}
 \end{itemize}
 
@@ -109,11 +123,11 @@ Examples:
 
 \vspace{5mm}
 
-\href{https://www.llama2.ai/}{Llama 2}
+\href{https://www.llama2.ai/}{\texttt{Llama 2}}
 
 \vspace{10mm}
 
-\href{https://chat.openai.com/}{chatGPT}
+\href{https://chat.openai.com/}{\texttt{chatGPT}}
 
 \end{frame}
 
@@ -121,13 +135,14 @@ Examples:
 \begin{frame}{Why is this working now?}
 
 \begin{itemize}
-\item Scaling of pretrained models, performals (loss) improves by:
+\item Scaling of pretrained models:
 \begin{itemize}
+\item More computation thanks to the Transformer architecture
 \item Larger models (GPT3 175B, PaLM 540B)
 \item Larger datasets
-\item More computation
-\item Scaling laws (CITE, CITE) show that all three are important\\
+\item All three are important (Zhou et al., 2023)\\
 \uured{Can we connect this back to the standard ML framework?}
+% TODO: Fix citations
 % Scaling laws has shown that all three matters and is of importance.
 \end{itemize}
 \pause
@@ -147,8 +162,9 @@ Examples:
 
 %\end{frame}
 
+\subsection{"Emergent" abilities}
 
-\begin{frame}{Emergant abilities}
+\begin{frame}{"Emergent" abilities}
 % Emergent abilities
 % p 4 in Zhao
 \begin{itemize}
@@ -162,19 +178,25 @@ Examples:
 \end{itemize}
 \end{itemize}
 
-
-
 \end{frame}
 
+\subsection{In-context learning (ICL)}
 
 \begin{frame}{In-context learning (ICL)}
 
+"In context learning is a paradigm that allows language models to learn tasks given only a few examples in the form of demonstrations." (Dong et al, 2023)
+
 \begin{itemize}
-\item Learning tasks in the actual context (think chat).
-\item We demonstrate what to do with a few examples
-\item The model learn what todo \uured{in context}
-\item ICL only prompts LLMs for utilization
-\item Let
+\item Learning tasks in the actual \uured{context} (previous tokens).
+\pause
+\item No updates of the weight - only using existing weights.
+\pause
+\item We demonstrate what to do with a \uured{few examples}
+\pause
+\item The model "learn" what to do \uured{in context}.
+\pause
+\item We "prompt" LLMs for utilization
+\item Let data be
 \[
 D_k = \left(f(x_1, y_1),...,f(x_k, y_k) \right)
 \]
@@ -182,11 +204,7 @@ then
 \[
 \hat{y} = \text{LLM}(I, \underbrace{\left(f(x_1, y_1),...,f(x_k, y_k)\right)}_{demonstrations}, \underbrace{f(x_{k+1}}_{input} , ...)
 \]
-where $I$ is the general instructions.
-\item The problem is to design the instructions in a good way.
-\item What happens under the hood? We position the model in embeddings space.
-\item Crazy examples: "Take a deep breath and think hard."
-\item Several studies have shown that the effectiveness of ICL is highly affected by the design of demonstrations %[350, 370, 371]
+where $I$ are the general instructions.
 
 \end{itemize}
 
@@ -197,27 +215,46 @@ where $I$ is the general instructions.
 \end{frame}
 
 
+\begin{frame}{In-context learning (ICL)}
+
+\begin{itemize}
+\item The problem: How to design the instructions ($I$) in a good way? Prompt engineering.
+\pause
+\item What happens under the hood? \uured{We position the model in embeddings space.}
+\item What is good can be unintuitive?
+\begin{itemize}
+\item "Take a deep breath and think hard." %TODO: Fix citation
+\item Beeing nice. %TODO: Fix citation
+\end{itemize}
+\pause
+\item Several studies (Zhou et al., 2023) have shown that the effectiveness of ICL is highly affected by the design of demonstrations %[350, 370, 371]
+\end{itemize}
+
+\end{frame}
+
+% TODO Add section slides
+
 \begin{frame}{Demonstration}
 % Zhao see 6.1.2.
 % the selected demon- stration examples in ICL should contain sufficient informa- tion about the task to solve as well as be relevant to the test query, for the above two selection approaches.
 
 \begin{itemize}
-\item  Demonstration selection
+\item Not well explored
+\item Demonstration selection
 \begin{itemize}
-\item Not well explored: k-NN based retriever to select examples
-\item To resolve this issue, diversity-based selection strategies are proposed to choose the most representative set of examples for specific tasks
-\item LLM-based methods to choose examples. E.g. ome recent studies employ LLM itself as the demonstration generator without human intervention
+\item diversity-based selection strategies: choose the most representative set of examples
+\item k-NN
+\item LLM-based: e.g. let an LLM itself generate examples
 \end{itemize}
-\item Demonstration format
+\item Demonstration format/instruction
 \begin{itemize}
 \item "Lets think step by step", "Take a deep breath and think."
 \end{itemize}
 \item Demonstration order
 \begin{itemize}
-\item Indications of recency bias (they are prone to repeat answers that are near the end of demonstrations)
-\item Why?
+\item Indications of recency bias
+% (they are prone to repeat answers that are near the end of demonstrations)
 \end{itemize}
-
 \end{itemize}
 
 
