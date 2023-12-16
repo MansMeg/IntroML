@@ -769,6 +769,7 @@ e.g. fine-tune Flan-PaLM using medical datasets to create Med-PaLM
 
 \end{frame}
 
+% Im here
 
 \subsection{Alignment}
 
@@ -777,16 +778,28 @@ e.g. fine-tune Flan-PaLM using medical datasets to create Med-PaLM
 % Aligning p 4 in Zhao
 
 \begin{itemize}
-\item Problems in LLMs: fabricating false information, producing harmful, misleading, and biased expressions
-% LLM may sometimes exhibit unintended behaviors, e.g., fabricating false information, pursuing inaccurate objectives, and producing harmful, misleading, and biased expressions [61, 293].
-\item Similar to instruction training, but require different criterias
-% However, unlike the original pre-training and adaptation tuning (e.g., instruction tuning), such an alignment requires considering very different crite- ria (e.g., helpfulness, honesty, and harmlessness).
-\item The three Hs: helpfulness, honesty, and harmlessness
-\item Alignment might harm the general abilities of LLMs to some extent: \uured{alignment tax}%, which is called alignment tax in related literature [295].
-\item \uured{Red teaming}: Probe LLMs in an adversarial way to generate harmful outputs and then updates LLMs to prevent such outputs.
-
+\item \uured{Problems} with LLMs:
+\begin{itemize}
+\item fabricating false information (hallucinations)
+\item producing harmful, misleading, and biased output
 \end{itemize}
-
+% LLM may sometimes exhibit unintended behaviors, e.g., fabricating false information, pursuing inaccurate objectives, and producing harmful, misleading, and biased expressions [61, 293].
+\pause
+\item \uured{Alignment} of LLMs: Fine-tuning (like instruction tuning) but different criteria:
+\begin{itemize}
+\item helpfulness
+\item honesty
+\item harmlessness
+\end{itemize}
+% However, unlike the original pre-training and adaptation tuning (e.g., instruction tuning), such an alignment requires considering very different crite- ria (e.g., helpfulness, honesty, and harmlessness).
+\pause
+\item Alignment might harm the general performance of LLMs : \uured{alignment tax}%, which is called alignment tax in related literature [295].
+\item \uured{Red teaming}:
+\begin{enumerate}
+\item probe the model in an adversarial way to generate harmful outputs
+\item updates LLMs to prevent such outputs
+\end{enumerate}
+\end{itemize}
 \end{frame}
 
 
@@ -796,27 +809,36 @@ e.g. fine-tune Flan-PaLM using medical datasets to create Med-PaLM
 % RLHF
 
 \begin{itemize}
-\item Helpfulness
+\item \uured{Helpfulness}
 \begin{itemize}
-\item To be helpful, the LLM should demon- strate a clear attempt to assist users in solving their tasks or answering questions in a concise and efficient manner as possible.
+\item Demonstrate a clear attempt to assist users in solving their tasks
+\item Answering questions in a concise and efficient manner
 \end{itemize}
-\item Honesty
+\pause
+\item \uured{Honesty}
 \begin{itemize}
-\item A LLM aligned to be honest should present accurate content to users instead of fabricating information. Additionally, it is crucial for the LLM to convey appropriate degrees of uncertainty in its output, in order to avoid any form of deception or misrepresentation of information. This requires the model to know about its capabilities and levels of knowledge (e.g., “know unknowns”).
+\item Present accurate content to users instead of fabricating information
+\item Convey appropriate degrees of uncertainty in its output
+%iin order to avoid any form of deception or misrepresentation of information. This requires the model to know about its capabilities and levels of knowledge (e.g., “know unknowns”).
 \end{itemize}
-\item Harmlessness
+\pause
+\item \uured{Harmlessness}
 \begin{itemize}
-\item To be harmless, it requires that the language produced by the model should not be offensive or discriminatory. To the best of its abilities, the model should be capable of detecting covert endeavors aimed at soliciting requests for malicious purposes.
+\item No offensive or discriminatory language
+\item Detect covert endeavors aimed for malicious purposes.
 \end{itemize}
 \end{itemize}
 
+% TODO: Find examples
+
 \end{frame}
+
 
 
 \begin{frame}{Alignment tuning: Human feedback}
 
 \begin{itemize}
-\item High-quality human feedback is extremely important for aligning LLMs with human pref- erences and values.
+\item High-quality human feedback is extremely important for aligning LLMs with human preferences and values.
 \item Human Labeler Selection. In existing work, the dominant method for generating human feedback data is human annotation. usually native speakers.
 \item Three ways to collect feedback from humans:
 \begin{enumerate}
