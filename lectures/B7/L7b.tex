@@ -419,8 +419,91 @@ where $I$ are the general instructions.
 \begin{itemize}
 \item LLMs are usually based on the transformer \uured{decoder}
 \item "Decoder-only architectures"
-\item Why autoregressive decoders? Predicting the next word.
+\item Why autoregressive decoders? Why predicting the next word?
+\item Here, \uured{generative pre-trained transformer} (GPT) 2 is a running example.
+\item
 \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Decoder vs. Encoder models}
+% TODO: Add images from the Illustrated GPT-2
+
+\begin{figure}[h]
+\centering
+\only<1>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig1}}
+\caption{Alammar, J (2019). The Illustrated GPT2 [Blog post]. Retrieved from \href{https://jalammar.github.io/illustrated-gpt2/}{jalammar.github.io/illustrated-gpt2/}
+}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}{The GPT Architecture}
+% TODO: Add images from the Illustrated GPT-2
+
+\begin{figure}[h]
+\centering
+\only<1>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig2}}
+\only<2>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig3}}
+%\only<3>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig4}}
+\only<3>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig5}}
+\only<4>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig6}}
+\only<5>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig7}}
+\caption{Alammar, J (2019). The Illustrated GPT2 [Blog post]. Retrieved from \href{https://jalammar.github.io/illustrated-gpt2/}{jalammar.github.io/illustrated-gpt2/}
+}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}{The GPT input and output}
+% TODO: Add images from the Illustrated GPT-2
+
+\begin{figure}[h]
+\centering
+\only<1>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig8a}}
+\only<2>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig9}}
+\only<3>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig10}}
+\only<4>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig11}}
+\only<5>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig12}}
+\caption{Alammar, J (2019). The Illustrated GPT2 [Blog post]. Retrieved from \href{https://jalammar.github.io/illustrated-gpt2/}{jalammar.github.io/illustrated-gpt2/}
+}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}{The (masked) self attention}
+% TODO: Add images from the Illustrated GPT-2
+
+\begin{figure}[h]
+\centering
+\only<1>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig15saa}}
+\only<2>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig15sab}}
+\only<3>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig15sac}}
+\only<4>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig15sad}}
+\only<5>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig15sae}}
+\only<6>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig16a}}
+\only<7>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig17a}}
+\only<8>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig17b}}
+\only<9>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig17c}}
+
+\caption{Alammar, J (2019). The Illustrated GPT2 [Blog post]. Retrieved from \href{https://jalammar.github.io/illustrated-gpt2/}{jalammar.github.io/illustrated-gpt2/}
+}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}{The GPT output}
+% TODO: Add images from the Illustrated GPT-2
+
+\begin{figure}[h]
+\centering
+\only<1>{\includegraphics[width=0.99\textwidth]{fig/alammar2019_fig11}}
+\caption{Alammar, J (2019). The Illustrated GPT2 [Blog post]. Retrieved from \href{https://jalammar.github.io/illustrated-gpt2/}{jalammar.github.io/illustrated-gpt2/}
+}
+\end{figure}
 
 \end{frame}
 
@@ -433,9 +516,7 @@ where $I$ are the general instructions.
 \caption{Common configurations (Zhou et al., 2023)}
 \end{figure}
 where "sublayer" indicates the previous layer in the network.
-%\begin{itemize}
-%\item
-%\end{itemize}
+% TODO: Show sublayer mathematically
 
 \end{frame}
 
