@@ -227,7 +227,7 @@ where $I$ are the general instructions.
 \item Beeing nice. %TODO: Fix citation
 \end{itemize}
 \pause
-\item Several studies (Zhou et al., 2023) have shown that the effectiveness of ICL is highly affected by the design of demonstrations %[350, 370, 371]
+\item The effectiveness of ICL is highly affected by the \uured{design of demonstrations} (Zhou et al., 2023) %[350, 370, 371]
 \end{itemize}
 
 \end{frame}
@@ -239,17 +239,18 @@ where $I$ are the general instructions.
 % the selected demon- stration examples in ICL should contain sufficient informa- tion about the task to solve as well as be relevant to the test query, for the above two selection approaches.
 
 \begin{itemize}
-\item Not well explored
 \item Demonstration selection
 \begin{itemize}
 \item diversity-based selection strategies: choose the most representative set of examples
 \item k-NN
 \item LLM-based: e.g. let an LLM itself generate examples
 \end{itemize}
+\pause
 \item Demonstration format/instruction
 \begin{itemize}
 \item "Lets think step by step", "Take a deep breath and think."
 \end{itemize}
+\pause
 \item Demonstration order
 \begin{itemize}
 \item Indications of recency bias
@@ -268,11 +269,20 @@ where $I$ are the general instructions.
 % Zhao Section 6.2
 
 \begin{itemize}
-\item Prompting strategy to improve performance in "reasoning"
-\item Incorporates intermediate reasoning steps that can lead to the final output
-\item instead of (input, output), we use (input, cot, output)
+\item Prompting strategy to improve performance in \uured{"reasoning"}
+\pause
+\item Incorporates \uured{intermediate reasoning steps}
+\item Instead of (input, output), we use (input, chain-of-thought, output)
+\pause
 \item Zero-shot CoT: "Lets think step by step"
 \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Chain of thought (CoT) prompting}
+
+% Zhao Section 6.2
 
 \begin{figure}[h]
 \centering
@@ -281,7 +291,6 @@ where $I$ are the general instructions.
 \end{figure}
 
 \end{frame}
-
 
 
 \subsection{Hallucinations}
