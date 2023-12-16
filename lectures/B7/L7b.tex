@@ -678,6 +678,7 @@ L_{LM}(\mathbf{x}) = \sum_i^n \log P(x_i | \mathbf{x}_{<i})
 
 
 
+
 \section{Adaptation and Alignment}
 
 \begin{frame}{Instruction tuning/following}
@@ -685,10 +686,9 @@ L_{LM}(\mathbf{x}) = \sum_i^n \log P(x_i | \mathbf{x}_{<i})
 % instruction tuning (discussed in Section 5.1)
 \begin{itemize}
 \item We have a very large, pre-trained model
-\item We want it \uured{perform tasks} (e.g. chatbot): instruction tuning
-\item We want it \uured{to be safe}: alignment
+\item We want it \uured{perform tasks} (e.g. ICL): \uured{instruction tuning}
+\item We want it \uured{to be safe}: \uured{alignment}
 \end{itemize}
-
 \end{frame}
 
 
@@ -698,18 +698,40 @@ L_{LM}(\mathbf{x}) = \sum_i^n \log P(x_i | \mathbf{x}_{<i})
 
 % instruction tuning (discussed in Section 5.1)
 \begin{itemize}
-\item instruction tuning is the approach to fine-tuning pre-trained LLMs on a collection of formatted instances
-\item Generally, an instruction-formatted instance consists of a task description (called an instruction), an optional input, the corresponding output, and a small number of demon- strations (optional).
-\item For instruction tuning, there are two kinds of important instruction data, namely task-formatted instructions and daily chat instructions.
-\item There are multiple ways to create (supervised) data, manual (NLP datasets), using API interactions, creating synthetic data
-\item In- struction tuning is an effective approach to adapting existing general LLMs to be domain-specific experts. For instance, researchers propose to fine-tune Flan-PaLM [64] using medi- cal datasets to create Med-PaLM [282], a medical knowledge assistant that achieves performance levels comparable to those of expert clinicians.
-\item Key crucial aspects:
-\begin{itemize}
-\item Scaling - a large number of instances, but the effect is descreasing
-\item Including things to avoid, reasons, and suggestions, into instructions may have a negligible or even adverse effect on the performance of LLMs
-\item To summarize: diversity and quality of instructions seem to be more important than the number of instances
+\item \uured{Instruction tuning}: fine-tuning pre-trained LLMs on a collection of formatted instances
+\pause
+\item Effective approach to adapting existing general LLMs to be domain-specific experts\\
+e.g. fine-tune Flan-PaLM using medical datasets to create Med-PaLM
+\pause
+\item \uured{Effect of instruction tuning}: Performance improvement, a general approach to enhancing the abilities of existing language models
 \end{itemize}
-\item Effect: Performance improvement, a general approach to enhancing the abilities of existing language models
+
+\end{frame}
+
+% TODO: Add example of instruction tuning from instructGPT paper
+
+\begin{frame}{Instruction tuning/following}
+
+% instruction tuning (discussed in Section 5.1)
+\begin{itemize}
+\item An instruction-formatted instance consists of:
+\begin{itemize}
+\item a task description (called an instruction),
+\item an optional input,
+\item the corresponding output,
+\item and a small number of demonstrations (optional).
+\end{itemize}
+\item Two kinds of important instruction data,
+\begin{itemize}
+\item task-formatted instructions
+\item chat instructions.
+\end{itemize}
+\item Key aspects for instruction data:
+\begin{itemize}
+\item Scaling, more data is better (to a point) % - a large number of instances, but the effect is descreasing
+\item Diversity and quality of instructions more important than the number of instances
+\item Including things to (1) avoid, (2) reasons, and (3) suggestions may have a negligible or adverse effect
+\end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -718,14 +740,24 @@ L_{LM}(\mathbf{x}) = \sum_i^n \log P(x_i | \mathbf{x}_{<i})
 
 % instruction tuning (discussed in Section 5.1)
 \begin{itemize}
-\item Unlike pre-training, instruction tuning is often more efficient since only a moderate number of instances are used for training.
-\item the training objective (i.e., usually sequence-to-sequence loss)
-\item e.g., smaller batch size and learning rate)
-\item it is important to balance the proportion of different tasks during fine- tuning. A widely used method is the examples-proportional mixing strategy
-\item pre-training data during instruction tuning, which can be regarded as regularization for model tuning
+\item Unlike pre-training, instruction tuning is often \uured{more efficient}.
+\item Usually, \uured{only a moderate number of instances} are used for training.
+
+\pause
+\item The training objective (i.e., usually sequence-to-sequence loss with teacher forcing)
+% TODO: Elaborate on teacher forcing and seq-2-seq loss
+\pause
+\item Smaller batch size and learning rate
+\pause
+\item Balance the proportion of different tasks during fine-tuning
+\pause
+%A widely used method is the examples-proportional mixing strategy
+\item Pre-training data during instruction tuning as regularization% which can be regarded as regularization for model tuning
 \end{itemize}
 
 \end{frame}
+
+% TODO: Add slide on LoRA here.
 
 \begin{frame}{Fine-tuning Llama}
 
@@ -912,17 +944,17 @@ L_{LM}(\mathbf{x}) = \sum_i^n \log P(x_i | \mathbf{x}_{<i})
 \end{frame}
 
 
-\section{Safety and Risks}
+% \section{Safety and Risks}
 
-\begin{frame}{Risks}
+%\begin{frame}{Risks}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.99\textwidth]{fig/cederberg_2023}
-\caption{The 1177 debacle (Cederberg, 2023)}
-\end{figure}
+%\begin{figure}[h]
+%\centering
+%\includegraphics[width=0.99\textwidth]{fig/cederberg_2023}
+%\caption{The 1177 debacle (Cederberg, 2023)}
+%\end{figure}
 
-\end{frame}
+%\end{frame}
 
 
 \end{document}
