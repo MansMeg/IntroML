@@ -88,9 +88,9 @@
 
 \begin{frame}{Why variational autoencoders and topic models?}
 \begin{itemize}
-\item Popular approaches in {\color{uured}industry and academia}
-\item {\color{uured}Probabilistic} methods for unsupervised learning\pause
-\item {\color{uured}Aim} of this lecture:
+\item Popular approaches in \uured{industry and academia}
+\item \uured{Probabilistic} methods for unsupervised learning\pause
+\item \uured{Aim} of this lecture:
 \begin{itemize}
 \item Describe the models
 \item How to estimate these models
@@ -102,8 +102,8 @@
 \begin{frame}{Use Cases}
 
 \begin{itemize}
-\item Variational autoencoders: Unsupervised modeling of {\color{uured}images}
-\item Topic models: Unsupervised modeling of {\color{uured}documents}
+\item Variational autoencoders: Unsupervised modeling of \uured{images}
+\item Topic models: Unsupervised modeling of \uured{documents}
 \end{itemize}
 
 \pause
@@ -111,11 +111,11 @@
 \begin{itemize}
 \item Used for:
 \begin{itemize}
-\item Identify "{\color{uured}closeness}" in high-dimensional data\pause
-\item {\color{uured}Visualize/analyze} data\pause
-\item {\color{uured}Compression}\pause
-\item {\color{uured}Feature construction}\pause
-\item Analyze underlying {\color{uured}patterns}
+\item Identify "\uured{closeness}" in high-dimensional data\pause
+\item \uured{Visualize/analyze} data\pause
+\item \uured{Compression}\pause
+\item \uured{Feature construction}\pause
+\item Analyze underlying \uured{patterns}
 \end{itemize}
 \end{itemize}
 
@@ -140,7 +140,7 @@
 \begin{frame}{Autoencoder}
 
 \begin{itemize}
-\item An autoencoder is a neural network (e.g. feed-forward) that take an input $x$ and predict (the same) $x$ ($r$). \pause
+\item An autoencoder is a neural network (e.g. feed-forward) that take an input $x$ and predict (the same) $x$ ($r$, reconstruction). \pause
 \item Three parts:
 \begin{itemize}
 \item \uured{encoder} $f(x)$ (or $e(x)$)
@@ -190,13 +190,13 @@ L(\phi, \theta) = (x - d_\phi(e_\theta(x)))^2
 L(\phi, \theta) = \sum_{i=1}^N (x_i - W_\theta W_\phi x_i)^2
 \]
 \pause
-\item Remember \uured{ PCA loss}:
+\item Remember \uured{PCA loss}:
 \[
 L(P) = \sum_{i=1}^N (x_i - P_q P_q^T x_i)^2\,,
 \]
 where $P$ is an orthogonal matrix of rank $q$.
 \pause
-\item \uured{ Hence}: PCA can be seen as an autoencoder
+\item \uured{Hence}: PCA can be seen as an autoencoder
 \end{itemize}
 
 \begin{figure}[h]
@@ -210,15 +210,15 @@ where $P$ is an orthogonal matrix of rank $q$.
 
 \begin{frame}{Deep Autoencoders}
 \begin{itemize}
-\item \uured{Deep} Autoencoder: An autoencoder with \uured{ multilayer neural networks} as encoder and decoder
+\item \uured{Deep} Autoencoder: An autoencoder with \uured{multilayer neural networks} as encoder and decoder
 \begin{itemize}
-\item can be seen as a non-linear PCA
-\item learn nonlinear representations
+\item can be seen as a \uured{non-linear PCA}
+\item learn \uured{nonlinear representations}
 %\item project data onto a nonlinear manifold
 %(manifold is a topological space that locally resembles Euclidean space near each point)
 \end{itemize}
 \pause
-\item Problem: Deep autoencoders needs to be \uured{ regularized} to not \uured{ overfit} the latent state
+\item Problem: Deep autoencoders needs to be \uured{regularized} to not \uured{overfit} the latent state
 \end{itemize}
 
 \end{frame}
@@ -229,11 +229,11 @@ where $P$ is an orthogonal matrix of rank $q$.
 \begin{itemize}
 \item Problem: Autoencoders (as PCA) are not probabilistic models:
 \begin{itemize}
-\item cannot generate data.
-\item no notion of uncertainty
+\item cannot \uured{generate} data.
+\item no notion of \uured{uncertainty}
 \end{itemize}
 \pause
-\item We would like something like probabilistic PCA for (deep) autoencoders
+\item We would like something like probabilistic PCA for deep autoencoders
 \end{itemize}
 
 \end{frame}
@@ -251,9 +251,9 @@ x_i \sim N(\uured{b +  W} z_i^T, \sigma I)
 x_i \sim N(\uured{\text{NeuralNetwork}}_\phi (z_i), \sigma I)
 \]
 \pause
-\item This is an example of a \uured{ Deep Latent Variable model}\\(a probabilistic decoder)
+\item This is an example of a \uured{Deep Latent Variable model} (DLVM)\\(a probabilistic decoder)
 \pause
-\item Another example is the \uured{ Variational Autoencoder}
+\item One example of a DLVM is the \uured{Variational Autoencoder}
 \end{itemize}
 
 \end{frame}
@@ -264,8 +264,8 @@ x_i \sim N(\uured{\text{NeuralNetwork}}_\phi (z_i), \sigma I)
 
 \begin{frame}{The Variational Autoencoder (VAE)}
 \begin{itemize}
-\item The variational autoencoder (VAE) is a \uured{ deep probabilistic autoencoder}
-\item Used for unsupervised learning of \uured{ images}\pause
+\item The variational autoencoder (VAE) is a \uured{deep probabilistic autoencoder}
+\item Used for unsupervised learning of \uured{images}\pause
 \item Consists of:
 \begin{enumerate}
 \item The (probabilistic) encoder $q(z|\phi, x)$: \uured{inference model}\pause
@@ -273,9 +273,9 @@ x_i \sim N(\uured{\text{NeuralNetwork}}_\phi (z_i), \sigma I)
 \item The (probabilistic) decoder $p(x|\theta, z)$: \uured{observation model}
 \end{enumerate}
 \pause
-\item Encoding the \uured{ latent state as a distribution} forces the space to be "reasonable"/reduces overfitting
+\item Encoding the \uured{latent state as a distribution} forces the space to be "reasonable"/reduces overfitting
 \pause
-\item VAEs get their name from \uured{ variational inference} (used in training)
+\item VAEs get their name from \uured{variational inference} (used in training)
 \end{itemize}
 
 \end{frame}
@@ -331,7 +331,7 @@ x_i \sim N(\text{NeuralNetwork}(z,\theta), c I)
 \begin{frame}{The probabilistic encoder}
 
 \begin{itemize}
-\item The probabilistic encoder $q(z|x, \phi)$ (\uured{ inference model})
+\item The probabilistic encoder $q(z|x, \phi)$ (\uured{inference model})
 \pause
 \item We assume that $q_\phi(z|x)$ follows a specific distribution. Commonly:
 \[
@@ -390,11 +390,11 @@ and
 
 \begin{frame}{Training a VAE}
 \begin{itemize}
-\item \uured{ Goal}: estimating $\phi$, $\theta$ (and $z_i$)
+\item \uured{Goal}: estimating $\phi$, $\theta$ (and $z_i$)
 %\item We have a sampling step in the middle (the latent state $z$)
 \pause
 \item The encoder and decoder are (usually) complicated \\ (no close form solution)
-\item Estimate $\phi$ and $\theta$ using gradient ascent
+\item Estimate $\phi$ and $\theta$ using \uured{gradient ascent}
 \pause
 \item Target:
 \begin{itemize}
@@ -470,8 +470,8 @@ D_{KL}(q_\phi(z|x)||p_\theta(z|x)) \geq 0
 \pause
 \item Two problems:
 \begin{enumerate}
-\item How do we compute the expectation? \\ Solution: {\color{uured} Monte Carlo Approximation}\pause
-\item How compute the gradient wrt $\phi$?\\ Solution: {\color{uured}Change of variables}: $z = g(\epsilon, \phi, x)$\\This is called {\color{uured}the reparametrization trick}
+\item How do we compute the expectation? \\ Solution: \uured{ Monte Carlo Approximation}\pause
+\item How compute the gradient wrt $\phi$?\\ Solution: \uured{Change of variables}: $z = g(\epsilon, \phi, x)$\\This is called \uured{the reparametrization trick}
 \end{enumerate}
 \end{itemize}
 
@@ -487,11 +487,11 @@ D_{KL}(q_\phi(z|x)||p_\theta(z|x)) \geq 0
  \approx & \log \left(p_\theta(x,g(\epsilon, \phi, x))\right)- \log(q_\phi(g(\epsilon, \phi, x)|x))
 \end{align*}
 \pause
-\item A common approach: do the MC approximation with only {\color{uured}one sample per datapoint $x_i$}.\pause
+\item A common approach: do the MC approximation with only \uured{one sample per datapoint $x_i$}.\pause
 %\item unbiasedness
 \item We approximate both $\mathcal{L}_{\theta,\phi}(x)$ and $\nabla\mathcal{L}_{\theta,\phi}(x)$
 \pause
-\item Sometimes called a {\color{uured}doubly stochastic} algorithm.
+\item Sometimes called a \uured{doubly stochastic} algorithm.
 \end{itemize}
 
 \end{frame}
@@ -554,11 +554,11 @@ D_{KL}(q_\phi(z|x)||p_\theta(z|x)) \geq 0
 \begin{frame}{Probabilistic Topic Models}
 
 \begin{itemize}
-    \item Unsupervised method for {\color{uured} textual data}\pause
-    \item Popular in industry and academia to {\color{uured} analyze large corpora}\pause
-    \item The most common model: {\color{uured} Latent Dirichlet Allocation}
-    \item A {\color{uured} mixed membership} model (a mixture of multinomial mixtures model)\pause
-    \item Topic model builds on the the {\color{uured} distributional hypothesis}\pause
+    \item Unsupervised method for \uured{ textual data}\pause
+    \item Popular in industry and academia to \uured{ analyze large corpora}\pause
+    \item The most common model: \uured{ Latent Dirichlet Allocation}
+    \item A \uured{ mixed membership} model (a mixture of multinomial mixtures model)\pause
+    \item Topic model builds on the the \uured{ distributional hypothesis}\pause
     \item Use cases:
     \begin{itemize}
         \item Create \uured{features} for supervised models\pause
@@ -592,7 +592,7 @@ and where
     \sum_{i=1}^{K}x_{i}=1{\text{ and }}x_{i}\geq 0{\text{ for all }} i\in [1,K]
 \]
 \pause
-\item The parameters ${\boldsymbol {\alpha }}$ can be seen as {\color{uured} pseudo-counts}
+\item The parameters ${\boldsymbol {\alpha }}$ can be seen as \uured{ pseudo-counts}
 \end{itemize}
 \end{frame}
 
@@ -617,9 +617,9 @@ Interactive plot \href{https://chart-studio.plotly.com/~david_avakian/14.embed}{
 \begin{itemize}
     \item Harris (1954) and Firths (1957): \\ ``Word is characterized by the company it keeps''
     \pause
-    \item Semantics (broadly defined) is captured by {\color{uured} context}\pause
-    \item Rough definition: {\color{uured} word windows} of different sizes\pause
-    \item Different window sizes, different {\color{uured} semantic} content:
+    \item Semantics (broadly defined) is captured by \uured{ context}\pause
+    \item Rough definition: \uured{ word windows} of different sizes\pause
+    \item Different window sizes, different \uured{ semantic} content:
     \begin{itemize}
       \item Word embeddings (context: word windows)
       \item Topic models (context: documents)
@@ -655,7 +655,7 @@ where $\phi_k$ is the $k$th row in $\Phi$ (of dimension $K \times V$) and $\thet
 \frametitle{Generative model for LDA}
 
 
-Relies on the {\color{uured} bag-of-word} assumption
+Relies on the \uured{ bag-of-word} assumption
 % Not much better with BERT embeddings
 
 
@@ -906,7 +906,7 @@ n^{(d)}=\left[\begin{array}{ccc}
 
 \begin{itemize}
     \item Setting $K$, $\alpha$ and $\beta$ \pause
-    \item {\color{uured} Reducing the vocabulary}: stopwords, rare words, stemming \pause
+    \item \uured{ Reducing the vocabulary}: stopwords, rare words, stemming \pause
     \item "Junk" topics\pause
     \item We can analyze the topic indicators $z$ directly
 \end{itemize}
