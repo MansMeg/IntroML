@@ -1,6 +1,6 @@
 %\documentclass[10pt,handout]{beamer}
 \documentclass[10pt]{beamer}
-\usepackage[english]{babel} % Anpassa efter svenska. Ger svensk logga.
+\usepackage{babel} % Anpassa efter svenska. Ger svensk logga.
 \usepackage[utf8]{inputenc} % Anpassa efter linux
 \usepackage{graphicx}
 \usepackage{../common/beamerthemeUppsala}
@@ -53,8 +53,18 @@
 \begin{frame}{Assignment 6: Evaluation}
 
 \begin{itemize}
-\item Some clarifications
-\item Still behind with grading
+\item Some clarifications needed
+\item Hard to translate from math to code
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Practical}
+
+\begin{itemize}
+\item No more on-site lectures until presentation in January
+\item Deadline project part 2, 22 December
 \end{itemize}
 
 \end{frame}
@@ -66,6 +76,7 @@
 \begin{itemize}
 \item Variational autoencoders
 \item Probabilistic Topic Models
+\item Large Language Models
 \end{itemize}
 \end{frame}
 
@@ -132,9 +143,9 @@
 \item An autoencoder is a neural network (e.g. feed-forward) that take an input $x$ and predict (the same) $x$ ($r$). \pause
 \item Three parts:
 \begin{itemize}
-\item {\color{uured}encoder} $f(x)$ (or $e(x)$)
+\item \uured{encoder} $f(x)$ (or $e(x)$)
 \item \uured{code} $h$
-\item {\color{uured}decoder} $g(h)$ (or $d(z)$)
+\item \uured{decoder} $g(h)$ (or $d(z)$)
 \end{itemize}
 
 \begin{figure}[h]
@@ -145,7 +156,7 @@
 
 \pause
 
-\item Loss function ({\color{uured}reconstruction error}):
+\item Loss function (\uured{reconstruction error}):
 \[
 L(\phi, \theta) = (x - d_\phi(e_\theta(x)))^2
 \]
@@ -158,7 +169,7 @@ L(\phi, \theta) = (x - d_\phi(e_\theta(x)))^2
 \begin{frame}{The Undercomplete Autoencoder}
 
 \begin{itemize}
-\item More interesting: an {\color{uured}undercomplete} autoencoder:\\Dimension of code is {\color{uured}lower} than that of $x$
+\item More interesting: an \uured{undercomplete} autoencoder:\\Dimension of code is \uured{lower} than that of $x$
 \end{itemize}
 
 \begin{figure}[h]
@@ -179,13 +190,13 @@ L(\phi, \theta) = (x - d_\phi(e_\theta(x)))^2
 L(\phi, \theta) = \sum_{i=1}^N (x_i - W_\theta W_\phi x_i)^2
 \]
 \pause
-\item Remember {\color{uured} PCA loss}:
+\item Remember \uured{ PCA loss}:
 \[
 L(P) = \sum_{i=1}^N (x_i - P_q P_q^T x_i)^2\,,
 \]
 where $P$ is an orthogonal matrix of rank $q$.
 \pause
-\item {\color{uured} Hence}: PCA can be seen as an autoencoder
+\item \uured{ Hence}: PCA can be seen as an autoencoder
 \end{itemize}
 
 \begin{figure}[h]
@@ -199,7 +210,7 @@ where $P$ is an orthogonal matrix of rank $q$.
 
 \begin{frame}{Deep Autoencoders}
 \begin{itemize}
-\item \uured{Deep} Autoencoder: An autoencoder with {\color{uured} multilayer neural networks} as encoder and decoder
+\item \uured{Deep} Autoencoder: An autoencoder with \uured{ multilayer neural networks} as encoder and decoder
 \begin{itemize}
 \item can be seen as a non-linear PCA
 \item learn nonlinear representations
@@ -207,7 +218,7 @@ where $P$ is an orthogonal matrix of rank $q$.
 %(manifold is a topological space that locally resembles Euclidean space near each point)
 \end{itemize}
 \pause
-\item Problem: Deep autoencoders needs to be {\color{uured} regularized} to not {\color{uured} overfit} the latent state
+\item Problem: Deep autoencoders needs to be \uured{ regularized} to not \uured{ overfit} the latent state
 \end{itemize}
 
 \end{frame}
@@ -232,17 +243,17 @@ where $P$ is an orthogonal matrix of rank $q$.
 \begin{itemize}
 \item Remember the pPCA model (with $z$ as latent variable):
 \[
-x_i \sim N({\color{uured}b +  W} z_i^T, \sigma I)
+x_i \sim N(\uured{b +  W} z_i^T, \sigma I)
 \]
 \pause
 \item Now, swap the simple parameters with a neural network
 \[
-x_i \sim N({\color{uured}\text{NeuralNetwork}}_\phi (z_i), \sigma I)
+x_i \sim N(\uured{\text{NeuralNetwork}}_\phi (z_i), \sigma I)
 \]
 \pause
-\item This is an example of a {\color{uured} Deep Latent Variable model}\\(a probabilistic decoder)
+\item This is an example of a \uured{ Deep Latent Variable model}\\(a probabilistic decoder)
 \pause
-\item Another example is the {\color{uured} Variational Autoencoder}
+\item Another example is the \uured{ Variational Autoencoder}
 \end{itemize}
 
 \end{frame}
@@ -253,8 +264,8 @@ x_i \sim N({\color{uured}\text{NeuralNetwork}}_\phi (z_i), \sigma I)
 
 \begin{frame}{The Variational Autoencoder (VAE)}
 \begin{itemize}
-\item The variational autoencoder (VAE) is a {\color{uured} deep probabilistic autoencoder}
-\item Used for unsupervised learning of {\color{uured} images}\pause
+\item The variational autoencoder (VAE) is a \uured{ deep probabilistic autoencoder}
+\item Used for unsupervised learning of \uured{ images}\pause
 \item Consists of:
 \begin{enumerate}
 \item The (probabilistic) encoder $q(z|\phi, x)$: \uured{inference model}\pause
@@ -262,9 +273,9 @@ x_i \sim N({\color{uured}\text{NeuralNetwork}}_\phi (z_i), \sigma I)
 \item The (probabilistic) decoder $p(x|\theta, z)$: \uured{observation model}
 \end{enumerate}
 \pause
-\item Encoding the {\color{uured} latent state as a distribution} forces the space to be "reasonable"/reduces overfitting
+\item Encoding the \uured{ latent state as a distribution} forces the space to be "reasonable"/reduces overfitting
 \pause
-\item VAEs get their name from {\color{uured} variational inference} (used in training)
+\item VAEs get their name from \uured{ variational inference} (used in training)
 \end{itemize}
 
 \end{frame}
@@ -296,14 +307,14 @@ x_i \sim N({\color{uured}\text{NeuralNetwork}}_\phi (z_i), \sigma I)
 
 \begin{frame}{The probabilistic decoder}
 \begin{itemize}
-\item The probabilistic decoder $p(x|\theta, z)$ ({\color{uured} observation model})
+\item The probabilistic decoder $p(x|\theta, z)$ (\uured{ observation model})
 \item Usually a Normal distribution:
 \[
 x_i \sim N(\text{NeuralNetwork}(z,\theta), c I)
 \]
 \item $x_i$ for observation $i$ depends non-linearly on the latent state $z_i$
 \pause
-\item A probabilistic linear decoder: {\color{uured} pPCA}
+\item A probabilistic linear decoder: \uured{ pPCA}
 \end{itemize}
 
 \begin{figure}[h]
@@ -320,7 +331,7 @@ x_i \sim N(\text{NeuralNetwork}(z,\theta), c I)
 \begin{frame}{The probabilistic encoder}
 
 \begin{itemize}
-\item The probabilistic encoder $q(z|x, \phi)$ ({\color{uured} inference model})
+\item The probabilistic encoder $q(z|x, \phi)$ (\uured{ inference model})
 \pause
 \item We assume that $q_\phi(z|x)$ follows a specific distribution. Commonly:
 \[
@@ -338,7 +349,7 @@ and
 \pause
 \item Common assumption: $\Sigma$ is a diagonal matrix.
 \pause
-\item {\color{uured} Result}: $z_i$ for observation $i$ depends non-linearly on $x_i$
+\item \uured{ Result}: $z_i$ for observation $i$ depends non-linearly on $x_i$
 \end{itemize}
 
 \end{frame}
@@ -379,7 +390,7 @@ and
 
 \begin{frame}{Training a VAE}
 \begin{itemize}
-\item {\color{uured} Goal}: estimating $\phi$, $\theta$ (and $z_i$)
+\item \uured{ Goal}: estimating $\phi$, $\theta$ (and $z_i$)
 %\item We have a sampling step in the middle (the latent state $z$)
 \pause
 \item The encoder and decoder are (usually) complicated \\ (no close form solution)
@@ -389,7 +400,7 @@ and
 \begin{itemize}
 \item Maximize $\log p(x)$\\(Explain the data as well as possible)
 \end{itemize}\pause
-\item \uured{Optimization target}: \\Maximize the variational lower bound or {\color{uured} evidence lower bound (ELBO)}
+\item \uured{Optimization target}: \\Maximize the variational lower bound or \uured{ evidence lower bound (ELBO)}
 \end{itemize}
 \end{frame}
 
@@ -397,10 +408,10 @@ and
 \begin{frame}{The marginal log-likelihood}
 
 \begin{align*}
-\log p_\theta(x)&={\color{uured}\int q_\phi(z|x)} \log p_\theta(x) {\color{uured} dz}&  \\
-&={\color{uured}\mathbb{E}_{q_\phi(z|x)}}[\log p_\theta(x)] \\
-&=\mathbb{E}_{q_\phi(z|x)}\left[\log \left({\color{uured}\frac{p_\theta(x,z)}{p_\theta(z|x)}}\right)\right]\,, \text{using}\, p(z|x)= \frac{p(x,z)}{p(x)} \\
-&=\mathbb{E}_{q_\phi(z|x)}\left[\log \left(\frac{p_\theta(x,z)}{{\color{uured}q_\phi(z|x)}}\frac{{\color{uured}q_\phi(z|x)}}{p_\theta(z|x)}\right)\right] \\
+\log p_\theta(x)&=\uured{\int q_\phi(z|x)} \log p_\theta(x) \uured{ dz}&  \\
+&=\uured{\mathbb{E}_{q_\phi(z|x)}}[\log p_\theta(x)] \\
+&=\mathbb{E}_{q_\phi(z|x)}\left[\log \left(\uured{\frac{p_\theta(x,z)}{p_\theta(z|x)}}\right)\right]\,, \text{using}\, p(z|x)= \frac{p(x,z)}{p(x)} \\
+&=\mathbb{E}_{q_\phi(z|x)}\left[\log \left(\frac{p_\theta(x,z)}{\uured{q_\phi(z|x)}}\frac{\uured{q_\phi(z|x)}}{p_\theta(z|x)}\right)\right] \\
 &=\mathbb{E}_{q_\phi(z|x)}\left[\log \left(\frac{p_\theta(x,z)}{q_\phi(z|x)}\right)\right] + \mathbb{E}_{q_\phi(z|x)}\left[\log \left(\frac{q_\phi(z|x)}{p_\theta(z|x)}\right)\right] \\
 &=\underbrace{\mathcal{L}_{\theta,\phi}(x)}_{\text{ELBO}} + D_{KL}(q_\phi(z|x)||p_\theta(z|x))\\
 \end{align*}
@@ -415,7 +426,7 @@ and
 \begin{frame}{The Kullback-Leibler divergence}
 
 \begin{itemize}
-\item {\color{uured} The Kulback-Leibler divergence}: a way of measuring the "distance" between probability distributions
+\item \uured{ The Kulback-Leibler divergence}: a way of measuring the "distance" between probability distributions
 \[
 D_{KL}(q_\phi(z|x)||p_\theta(z|x)) = \mathbb{E}_{q_\phi(z|x)}\left[\log \left(\frac{q_\phi(z|x)}{p_\theta(z|x)}\right)\right]
 \]
