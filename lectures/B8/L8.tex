@@ -414,7 +414,7 @@ A_t = \arg \max_a \left( Q_{t} + c \sqrt{\frac{{\color{uured}\hat{\sigma}^2(a)}}
 
 \end{frame}
 
-% TODO: Add gradient bandits and Thompsson sampling
+% TODO: Add gradient bandits
 
 
 \begin{frame}{The Bayesian Bandit: Thompson sampling}
@@ -551,9 +551,21 @@ P(S_{t+1} = s', R_{t+1} = r| S_t = s, A_t = a)\,\,(1)
        P(S_{t+1} = s', R_{t+1} = r| S_1 = s, A_1 = a , ..., S_t = s, A_t = a) &  = \\
        P(S_{t+1} = s', R_{t+1} = r| S_t = s, A_t = a) &
 \end{align*}
-\pause
 \item The MDP is a good {\color{uured} approximation or model}:\\
-      All models are wrong, but some are useful.\pause
+      All models are wrong, but some are useful.
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}{The Markov Decision Process Marginals}
+
+\begin{itemize}
+\item The Markov Decision process (MDP):
+\[
+P(S_{t+1} = s', R_{t+1} = r| S_t = s, A_t = a)\,\,(1)
+\]
 \item From Eq. (1) we can get marginals of interest:
 \begin{itemize}
 \item State-action rewards:
@@ -568,6 +580,7 @@ p(s'|s,a) = P(S_{t+1}=s'|S_t=s, A_t=a)
 \end{itemize}
 
 \end{frame}
+
 
 
 \begin{frame}{The Value function}
