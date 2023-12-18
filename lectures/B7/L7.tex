@@ -394,13 +394,13 @@ and
 %\item We have a sampling step in the middle (the latent state $z$)
 \pause
 \item The encoder and decoder are (usually) complicated \\ (no close form solution)
-\item Estimate $\phi$ and $\theta$ using \uured{gradient ascent}
+\item Estimate $\phi$ and $\theta$ %using \uured{gradient ascent}
 \pause
 \item Target:
 \begin{itemize}
 \item Maximize $\log p(x)$\\(Explain the data as well as possible)
 \end{itemize}\pause
-\item \uured{Optimization target}: \\Maximize the variational lower bound or \uured{ evidence lower bound (ELBO)}
+\item \uured{Optimization target}: \\ Maximize the variational lower bound or \uured{evidence lower bound (ELBO)}
 \end{itemize}
 \end{frame}
 
@@ -426,7 +426,7 @@ and
 \begin{frame}{The Kullback-Leibler divergence}
 
 \begin{itemize}
-\item \uured{ The Kulback-Leibler divergence}: a way of measuring the "distance" between probability distributions
+\item \uured{The Kulback-Leibler divergence}: a way of measuring the "distance" between probability distributions
 \[
 D_{KL}(q_\phi(z|x)||p_\theta(z|x)) = \mathbb{E}_{q_\phi(z|x)}\left[\log \left(\frac{q_\phi(z|x)}{p_\theta(z|x)}\right)\right]
 \]
@@ -446,7 +446,7 @@ D_{KL}(q_\phi(z|x)||p_\theta(z|x)) \geq 0
 \begin{align*}
 \mathcal{L}_{\theta,\phi}(x) = \log p_\theta(x) - D_{KL}(q_\phi(z|x)||p_\theta(z|x))
 \end{align*}
-\item ELBO is a lower bound for the marginal log-likelihood\\ (similar to the EM algorithm)
+\item ELBO is a lower bound for the marginal log-likelihood%\\ (similar to the EM algorithm)
 \pause
 \item Maximizing the ELBO will do two things:
 \begin{itemize}
@@ -458,11 +458,10 @@ D_{KL}(q_\phi(z|x)||p_\theta(z|x)) \geq 0
 \end{frame}
 
 
-
 \begin{frame}{Optimizing the ELBO}
 
 \begin{itemize}
-\item Stochastic Gradient \emph{Ascent} to maximize:
+\item \uured{Stochastic Gradient Ascent} to maximize:
 \begin{align*}
 \mathcal{L}_{\theta,\phi}(x) =& \sum_i^N \mathcal{L}_{\theta,\phi}(x_i)\\
 =& \sum_i^N \mathbb{E}_{q_\phi(z_i|x_i)}\left[\log \left(p_\theta(x_i,z_i)\right) - \log(q_\phi(z_i|x_i))\right]
@@ -478,7 +477,7 @@ D_{KL}(q_\phi(z|x)||p_\theta(z|x)) \geq 0
 \end{frame}
 
 \begin{frame}{Optimizing the ELBO}
-
+% Im here. TODO Clarify the steps
 \begin{itemize}
 \item Using the reparametrization trick and Monte Carlo approximation, we get:
 \begin{align*}
@@ -534,7 +533,7 @@ D_{KL}(q_\phi(z|x)||p_\theta(z|x)) \geq 0
 \item The blurry image problem % Examples. probably due to the prior and latent state
 \end{itemize}
 \pause
-\item Still much ongoing research:
+\item Still much ongoing research
 \end{itemize}
 
 \begin{figure}[h]
@@ -561,8 +560,6 @@ D_{KL}(q_\phi(z|x)||p_\theta(z|x)) \geq 0
     \item Topic model builds on the the \uured{ distributional hypothesis}\pause
     \item Use cases:
     \begin{itemize}
-        \item Create \uured{features} for supervised models\pause
-        \item Integrated in neural networks for \uured{model efficient learning} (?)\pause
         \item \uured{Visualize} document collections\pause
         \item \uured{Analyzing large corpora} using statistical methods\pause
     \end{itemize}
