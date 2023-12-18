@@ -55,18 +55,17 @@
   \begin{itemize}
       \item large natural language models
       \pause
-      \item generative and autoregressive:
+      \item generative and \uured{autoregressive}:
       \\predicting a token at a time, based on previous \uured{context}
       \pause
       \item having some ability to achieve \uured{general-purpose language "understanding"}
-      \item show \uured{"emergent"} abilities to solve other more complex tasks
-      \item such as few-shot learning and \uured{incontext} learning
+      \item show \uured{"emergent"} abilities to solve other more complex tasks, such as few-shot learning and \uured{in-context learning}
       \pause
       \item pre-trained on very large data
   \end{itemize}
-  \item Large Language Models (LLM) are commonly also:
+  \item Large Language Models (LLM) are commonly:
   \begin{itemize}
-    \item usually decoder-type models
+    \item decoder-type models
     \pause
     \item based on transformer architectures
   \end{itemize}
@@ -79,9 +78,9 @@
 \begin{itemize}
   \item Compared to pretrained language models (PLM), LLMs are:
   \begin{itemize}
-      \item larger (billions or trillions, rather than millions of parameters), in practice only possible to train by a few persons
-      \item possible to use for in-context learning
-      \item usually interacted with through the prompt
+      \item larger (billions or trillions, rather than millions of parameters), in practice only possible to train by a few persons\pause
+      \item possible to use for in-context learning\pause
+      \item usually interacted with through the prompt\pause
       \item generate textual responses
   \end{itemize}
 \end{itemize}
@@ -96,9 +95,9 @@
 \caption{The development of LLMs (Figure 2, Zhao et al., 2023)}
 \end{figure}
 
-\begin{itemize}
-    \item Milestones (subjective): GPT-3, GPT-4, chatGPT, Llama 2
-\end{itemize}
+%\begin{itemize}
+%    \item Milestones (subjective): GPT-3, GPT-4, chatGPT, Llama 2
+%\end{itemize}
 
 \end{frame}
 
@@ -136,18 +135,18 @@ Examples:
 \begin{frame}{Why is this working now?}
 
 \begin{itemize}
-\item Scaling of pretrained models:
+\item Scaling of models:
 \begin{itemize}
-\item More computation thanks to the Transformer architecture
-\item Larger models (GPT3 175B, PaLM 540B)
-\item Larger datasets
+\item More computation thanks to the Transformer architecture\pause
+\item Larger models (GPT3 175B, PaLM 540B)\pause
+\item Larger datasets (1-2T tokens)
+\\ How long time to read 1T tokens at 10 t/s?\pause % 3171 years
 \item All three are important (Zhou et al., 2023)\\
 \uured{Can we connect this back to the standard ML framework?}
-% TODO: Fix citations
 % Scaling laws has shown that all three matters and is of importance.
 \end{itemize}
 \pause
-\item Fine-tuning for tuning models to follow instructions (InstructGPT)
+\item Fine-tuning for to follow instructions (InstructGPT)
 \end{itemize}
 
 \end{frame}
@@ -169,7 +168,7 @@ Examples:
 % Emergent abilities
 % p 4 in Zhao
 \begin{itemize}
-\item "the abilities that are not present in small models but arise in large models" (Zhao et al, 2023)
+\item "the abilities that are not present in small models but arise in large models" (Zhao et al, 2023)\pause
 \item One of the main differences between LLMs and PLMs
 \item Examples:
 \begin{itemize}
@@ -185,7 +184,7 @@ Examples:
 
 \begin{frame}{In-context learning (ICL)}
 
-"In context learning is a paradigm that allows language models to learn tasks given only a few examples in the form of demonstrations." (Dong et al, 2023)
+"In context learning is a paradigm that allows language models to learn tasks given only a few examples in the form of demonstrations." (Dong et al., 2023)
 
 \begin{itemize}
 \item Learning tasks in the actual \uured{context} (previous tokens).
@@ -313,8 +312,6 @@ where $I$ are the general instructions.
 
 
 \begin{frame}{Hallucinations: What is it?}
-% What is it?
-"Generated text that is fluent and natural but unfaithful"
 
 \begin{figure}[h]
 \centering
@@ -419,16 +416,14 @@ where $I$ are the general instructions.
 
 \begin{itemize}
 \item LLMs are usually based on the transformer \uured{decoder}
-\item "Decoder-only architectures"
-\item Why autoregressive decoders? Why predicting the next word?
+\item "Decoder-only architectures"\pause
+\item Why autoregressive decoders? Why predicting the next word?\pause
 \item Here, \uured{generative pre-trained transformer} (GPT) 2 is a running example.
-\item
 \end{itemize}
 
 \end{frame}
 
 \begin{frame}{Decoder vs. Encoder models}
-% TODO: Add images from the Illustrated GPT-2
 
 \begin{figure}[h]
 \centering
@@ -568,7 +563,14 @@ p_{x,i} = P(x_i|\mathbf{x}_{j<i})
 \item[greedy] $x_i = \arg_x \max P(x|\mathbf{x}_{j<i})$
 \item[sampling] $x_i \sim P(x|\mathbf{x}_{j<i})$
 \end{description}
-\pause
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Decoding (word generation)}
+
+\begin{itemize}
 \item \uured{Temperature sampling}:
 \[
 \tilde{P}(x_i|\mathbf{x}_{j<i}) = \frac{\exp(\log(p_{x,i})/t)}{\sum_{i'} \exp(\log(p_{x,i'})/t)}
@@ -578,11 +580,10 @@ x_i \sim \tilde{P}(x_i|\mathbf{x}_{j<i})
 \]
 As $t\rightarrow 0$: greedy, and $t = 1$: ordinary sampling
 \pause
-\item Top-$k$ sampling: sample proportionally from from top $k$ most probable words
+\item Top-$k$ sampling: sample proportionally from top $k$ most probable words
 \end{itemize}
 
 \end{frame}
-
 
 
 \section{Training}
@@ -647,7 +648,7 @@ As $t\rightarrow 0$: greedy, and $t = 1$: ordinary sampling
 \pause
 \item \uured{Wordpiece encoding (WE)}: \\Simplary to BPE, but uses a language model to score which to merge
 \pause
-\item Unigram tokenizer: \\Like WE, but start with a large vocabulary and trim it down.
+\item \uured{Unigram tokenizer}: \\Like WE, but start with a large vocabulary and trim it down.
 \end{itemize}
 
 \end{frame}
@@ -661,7 +662,7 @@ L_{LM}(\mathbf{x}) = \sum_i^n \log P(x_i | \mathbf{x}_{<i})
 \]
 \item Why is this good/result in good models?\pause
 \begin{itemize}
-\item To better and better predict text we need to increase the \uured{understanding} of the model. \\ e.g. "Biden and Xi and a meeting on the role of ..." (truth: artificial intelligence)
+\item To better and better predict text we need to increase the \uured{understanding} of the model. \\ e.g. "Biden and Xi had a meeting on the role of ..." (truth: artificial intelligence)
 \end{itemize}
 \end{itemize}
 
@@ -724,11 +725,13 @@ e.g. fine-tune Flan-PaLM using medical datasets to create Med-PaLM
 \item the corresponding output,
 \item and a small number of demonstrations (optional).
 \end{itemize}
+\pause
 \item Two kinds of important instruction data,
 \begin{itemize}
 \item task-formatted instructions
 \item chat instructions.
 \end{itemize}
+\pause
 \item Key aspects for instruction data:
 \begin{itemize}
 \item Scaling, more data is better (to a point) % - a large number of instances, but the effect is descreasing
@@ -745,7 +748,6 @@ e.g. fine-tune Flan-PaLM using medical datasets to create Med-PaLM
 \begin{itemize}
 \item Unlike pre-training, instruction tuning is often \uured{more efficient}.
 \item Usually, \uured{only a moderate number of instances} are used for training.
-
 \pause
 \item The training objective (i.e., usually sequence-to-sequence loss with teacher forcing)
 % TODO: Elaborate on teacher forcing and seq-2-seq loss
@@ -821,7 +823,7 @@ e.g. fine-tune Flan-PaLM using medical datasets to create Med-PaLM
 \item \uured{Honesty}
 \begin{itemize}
 \item Present accurate content to users instead of fabricating information
-\item Convey appropriate degrees of uncertainty in its output
+\item Convey appropriate degrees of uncertainty
 %iin order to avoid any form of deception or misrepresentation of information. This requires the model to know about its capabilities and levels of knowledge (e.g., “know unknowns”).
 \end{itemize}
 \pause
