@@ -1,6 +1,6 @@
 %\documentclass[10pt,handout]{beamer}
 \documentclass[10pt]{beamer}
-\usepackage[english]{babel} % Anpassa efter svenska. Ger svensk logga.
+\usepackage{babel} % Anpassa efter svenska. Ger svensk logga.
 \usepackage[utf8]{inputenc} % Anpassa efter linux
 \usepackage{graphicx}
 \usepackage{../common/beamerthemeUppsala}
@@ -67,7 +67,9 @@
 \end{itemize}
 \pause
 \item Computational approach of {\color{uured} learning from interaction}
+\pause
 \item Closest to human and animal learning: {\color{uured} trial, error, and planning.}
+\pause
 \item The learner is \emph{not} told which actions to take
 \pause
 \item Connections to:
@@ -89,29 +91,39 @@
 \item {\color{uured} Goal}: maximize return over a sequence of actions\pause
 \item Three characteristics:
 \begin{enumerate}
-\item Closed-loop: early actions affects later actions\pause
-\item No direct instructions\pause
-\item Reward signals over a long period of time
+\item \uured{Closed-loop}: early actions affects later actions\pause
+\item \uured{No instructions}\pause
+\item \uured{Reward signals} over a long period of time
 \end{enumerate}
 \end{itemize}
 
 \end{frame}
 
 
-
 \begin{frame}{Recent Achievements}
 
+\begin{figure}[h]
+\centering
+\only<1>{\includegraphics[width=0.99\textwidth]{fig/mnih2013rlatari}
+\caption{Mnih et al (2013) "Playing Atari with Deep Reinforcement Learning"
+}}
+\only<2>{\includegraphics[width=0.99\textwidth]{fig/leesedol}
+\caption{Lee Sedol vs. Alpha Go in 2016}}
+\only<3>{\includegraphics[width=0.5\textwidth]{fig/ChatGPT_logo}
+\caption{ChatGPT in 2022}}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}{Recent Achievements, also }
+
 \begin{itemize}
-\item RL agent won over Lee Sedol in 2016: {\color{uured} AlphaGo}\pause
-\item Won over human champions in {\color{uured} DOTA2} in 2019\pause
-\item \uured{ChatGPT}/InstructGPT in 2022\pause
 \item Industry automation: RL is used to reduce the energy cost of datacenter cooling\pause
 \item Automated trading\pause
 \item Elevator scheduling\pause
-\item A/B testing and personalized recommendations\pause
-\item Board games such as backgammon, chess and checkers
+\item A/B testing and personalized recommendations
 \end{itemize}
-% TODO: Add some images/change to images instead of bullets
 
 \end{frame}
 
@@ -266,7 +278,14 @@ A_t \sim U(1,...k)
 \pause
 \end{itemize}
 \item $Q_1(a) = 0$ (or used to encourage initial exploration)\pause
-\item For any $\epsilon > 0$, $Q_t(a) \rightarrow q^\star(a)$\pause
+\item For any $\epsilon > 0$, $Q_t(a) \rightarrow q^\star(a)$
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{$\epsilon$-greedy}
+
+\begin{itemize}
 \item We estimate $q^\star(a)$ using $Q_t(a)$ as
 \[
 Q_T(a) = \frac{1}{N(a)} \sum^{T-1}_t R_{t,A_t=a}\,,
@@ -330,7 +349,16 @@ Q_T(a) = Q_{T-1} + {\color{uured} \frac{1}{N_t(a)}} (R_{t,A_t=a} - Q_{T-1}(a))
 \[
 Q_T(a) = Q_{T-1} + {\color{uured} \alpha(t)} (R_{t, A_t=a} - Q_{T-1}(a))
 \]
-\pause
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Efficient computation and non-stationarity}
+
+\[
+Q_T(a) = Q_{T-1} + {\color{uured} \alpha(t)} (R_{t, A_t=a} - Q_{T-1}(a))
+\]
+\begin{itemize}
 \item Examples:
 \begin{itemize}
 \item $\alpha(t) = 1$: $Q_T(a) = R_{t,A_t=a}$\pause
