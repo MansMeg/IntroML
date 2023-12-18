@@ -586,12 +586,21 @@ p(s'|s,a) = P(S_{t+1}=s'|S_t=s, A_t=a)
 \begin{frame}{The Value function}
 
 \begin{itemize}
-\item The value function $v_{\pi}(s)$: \\the long-term value of $s$ given a policy $\pi(a|s)$:
+\item The value function $v_{\pi}(s)$: \\the long-term value of $s$ given a policy $\pi(a|s)$, i.e.
 \[
 v_{\pi}(s) = \mathbb{E}_\pi(G_t|S_t = s) = \mathbb{E}_\pi\left(\sum^\infty_{k=0} \gamma^k R_{t+k+1} | S_t=s \right)
 \]
 \pause
-\item Informally: How "good" is a state for the agent with the policy $\pi$.\pause
+\item Informally: How "good" is a state for the agent with the policy $\pi$.
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{The Value function}
+
+\begin{itemize}
 \item Estimating $v_{\pi}(s)$ is one of the most important problem in RL\pause
 \item Value functions are {\color{uured}recursive}:
 \begin{align*}
@@ -604,6 +613,7 @@ v_{\pi}(s) = \mathbb{E}_\pi(G_t|S_t = s) = \mathbb{E}_\pi\left(\sum^\infty_{k=0}
 \end{itemize}
 
 \end{frame}
+
 
 
 \begin{frame}{The value function}
@@ -622,9 +632,15 @@ v_{\pi}(s) = \mathbb{E}_\pi(G_t|S_t = s) = \mathbb{E}_\pi\left(\sum^\infty_{k=0}
 \item A policy $\pi$ is {\color{uured}better} than $\pi'$ if $v_\pi(s) \geq v_{\pi'}(s)$ for all $s \in \mathcal{S}$.\pause
 \item A policy that is better or equal to all other policies is the {\color{uured}optimal policy} $\pi_\star$.\pause
 \item The optimal value function: $v_{\pi_\star}(s) = v_\star(s)$\pause
-\item The optimal policy $\pi_\star$ is greedy wrt $v_{\pi_\star}(s)$: \\The best long term strategy\pause
-\item Computing optimal value function might be {\color{uured}impossible}:\\ we need to estimate/re-estimate/approximate it\pause
-\item One of the most important problem in RL\pause
+\item The optimal policy $\pi_\star$ is greedy wrt $v_{\pi_\star}(s)$: \\The best long term strategy
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{The Optimal Policy}
+
+\begin{itemize}
+\item Computing optimal value function might be {\color{uured}impossible}:\\ we need to estimate/re-estimate/approximate it
 \item {\color{uured}Example}: Chess, we cannot compute the optimal long-term moves, we need to approximate/estimate (based on computational budget)\pause
 \item We might also estimate $v_\star(s)$ better for commonly encountered states
 \end{itemize}
