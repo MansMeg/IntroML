@@ -125,9 +125,9 @@ For a more indepth description of the datasets, just run \texttt{?iris}, \texttt
 We are now going to build a k-means algorithm from scratch.
 
 \begin{enumerate}
-\item In the \texttt{iris} data we will use the \texttt{Speices} variable as one way to cluster the data. Visualize (for yourself) the \texttt{faithful} data and manually allocate each data point to two different clusters of your choosing.
-\item Visualize the \texttt{iris} as a scatterplot based on \texttt{Petal.length} and \texttt{Petal.width}. Show the different species using different colors. \emph{Hint!} Use \texttt{ggplot2} and \href{https://ggplot2.tidyverse.org/reference/geom_point.html}{geom\_point}.
-\item Similarily, visualize the \texttt{faithful} dataset as a scatterplot by \texttt{eruptions} and \texttt{waiting}. Show your manually assigned clusters in the Figure using different colors.
+\item In the \texttt{iris} data we will use the \texttt{Speices} variable as one way to cluster the data. Visualize the \texttt{iris} as a scatterplot based on \texttt{Petal.length} and \texttt{Petal.width}. Show the different species using different colors. \emph{Hint!} Use \texttt{ggplot2} and \href{https://ggplot2.tidyverse.org/reference/geom_point.html}{geom\_point}.
+\item Visualize (for yourself) the \texttt{faithful} data and manually allocate each data point to two different clusters of your choosing based on the \texttt{eruptions} and/or \texttt{waiting} variables.
+\item Now, visualize the \texttt{faithful} dataset as a scatterplot by \texttt{eruptions} and \texttt{waiting}. Show your manually defined clusters in the Figure using different colors.
 \item Now, we are going to implement the different parts of the k-means algorithm. This will follow Algorithm 14.1 in \citet{hastie2009elements}. First, implement Step 1 in this algorithm as a function called \texttt{compute\_cluster\_means(X, C)} that takes a $n \times p$ matrix \texttt{X} and a $p \times 1$ vector of cluster assignments called \texttt{C}, where $n$ is the number of rows (observations) and $p$ is the number of variables (columns). The algorithm should output the cluster means of the algorithm as a $K \times p$ matrix, where $K$ is the total number of clusters in \texttt{C}.
 <<eval = FALSE>>=
 set.seed(4711)
@@ -165,7 +165,9 @@ wps1 <- k_means_W(X, result1$C)
 result2 <- k_means(X, K = 2)
 wps2 <- k_means_W(X, result2$C)
 @
-\item Visualize the clustering for the worst and the best clustering according to the WPS. \emph{Note!} There might be multiple runs with the same (best) WPS.
+\item Visualize the clustering for the worst and the best clustering according to the WPS.
+
+\emph{Note!} There might be multiple runs with the same (best) WPS, so you can make your own initizialization of the cluster assignments to force the algorithm to end up in a bad result with respect to WPS.
 \item Describe and discuss the results you get.
 \end{enumerate}
 
@@ -215,10 +217,10 @@ theta0 <- list(mu_1 = 4.12, mu_2 = 0.94, sigma_1 = 2, sigma_2 = 2, pi = 0.5)
 \item Simulate data from a univariate mixture model by implementing a mixture model as in Eq. 8.36 in \citet{hastie2009elements}. That is, create a hiearchical simulation that first sample $\delta$ for each observation, and then sample $Y_i$ from the relevant component. The function should be called \texttt{r\_uni\_two\_comp(n, theta)} take have the arguments \texttt{n} (the number of observations to simulate) (the number of simulated observations) and \texttt{theta}, an R list with with values \texttt{mu1}, \texttt{mu2}, \texttt{sigma1}, \texttt{sigma2}, and \texttt{pi}.
 \item Simulate 200 observations using $\mu_1=-2$, $\mu_2=1.5$, $\sigma_1=2$, $\sigma_2=1$ and $\pi=0.3$. Visualize observations drawn in a histogram.
 \item Implement a function \texttt{d\_uni\_two\_comp(x, theta)} that computes the density value for a given set of parameters \texttt{theta} for values of \texttt{x}. \emph{Hint!} The function \texttt{dnorm} might be handy.
-\item Visualize the density for the mixture model above over the interval -4 to 4 (by steps of 0.01).
+\item Visualize the density for the mixture model above over the interval -6 to 6 (by steps of 0.01).
 \item Visualize the \texttt{eruptions} variable in the \texttt{faithful} dataset using a histogram.
 \item Manually choose values for $\mu_1$, $\mu_2$, $\sigma_1$, $\sigma_2$ and $\pi$ that gives a density you think is a good fit for the \texttt{eruptions} variable.
-\item Implement a function called \texttt{e\_uni\_two\_comp(X, theta)} that returns a  vector of gamma values for each row in \texttt{X} (for component 2).  This function should implement the expectation step in algorithm 8.1 in \citet{hastie2009elements}.
+\item Implement a function called \texttt{e\_uni\_two\_comp(X, theta)} that returns a  vector of gamma values for each row in \texttt{X} (for component 2).  This function should implement the expectation step in Algorithm 8.1 in \citet{hastie2009elements}. For definition of $\phi$ and $\theta$, see \citet[][, Section 8.5.1]{hastie2009elements}. Subscript in Algorithm 8.1, e.g. in $\theta_2$, indicates the component/cluster.
 <<eval = FALSE>>=
 gamma <- e_uni_two_comp(mixture_data, theta0)
 head(gamma)
@@ -264,7 +266,7 @@ theta_and_gamma_em20 <- em_uni_two_comp(mixture_data, theta0, iter = 20)
 ## Log Lik:  -41.53247
 ## ...
 @
-\item Run your EM algorithm on the \texttt{eruptions} variable of the \texttt{faithful} data and on the \texttt{Petal.Length} variable of the \texttt{iris} data. What are the estimated parameters for the two datasets?
+\item Run your EM algorithm on the \texttt{eruptions} variable of the \texttt{faithful} data and on the \texttt{Petal.Length} variable of the \texttt{iris} data until you judge it has converged. What are the estimated parameters for the two datasets and how do you assess convergence?
 \item Visualize the density for the two datasets in two different figures using the parameters estimated with your EM algorithm. Also show histograms for the real data in the same Figures (i.e. so you show the data and the estimated density). \emph{Hint!} You should be able to use \texttt{d\_uni\_two\_comp(x, theta)}.
 \end{enumerate}
 
