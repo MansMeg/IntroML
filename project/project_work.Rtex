@@ -77,7 +77,7 @@ knitr::opts_chunk$set(size = "small")
 
 \newpage
 
-\section{Project Instructions}
+\section{Mini-Project Instructions}
 
 The last two weeks will focus on a course project where 2-3 students choose data and create a supervised machine-learning predictor for a real-world dataset.
 
@@ -88,12 +88,12 @@ Requirements for the projects are:
 \item Minimally, two methods (or two different neural net architectures) should be compared and evaluated.
 \end{itemize}
 
-\emph{Tip!} Write the report so you can add your final report as an example of work you have done to future potential employers.
+\emph{Tip!} Write the report to use it as an example of work you have done for future potential employers.
 
-\emph{For PhD students}: You can choose to do a small project related to your research interest instead. Although, it should still be a 4-page paper output.
+\emph{For PhD students}: You can do a small project related to your research interest instead. Although, it should still be a 4-page paper output.
 
 
-\subsection{Suggested Reading}
+\section{Suggested Reading}
 
 The project will be a small practical exercise in supervised machine learning. Suggested reading (before starting the project) is:
 
@@ -101,15 +101,15 @@ The project will be a small practical exercise in supervised machine learning. S
 \item Chapter 11 in Ian Goodfellow, Yoshua Bengio, and Aaron Courville. 2016. \emph{Deep Learning}. The MIT Press.
 \end{itemize}
 
-\subsection{Project Group and Expected Workload}
-It is possible to have only one student in a group, although this is not recommended. One student group will, in practice, mean additional work due to the project's requirements.
+\section{Project Group and Expected Workload}
+Having only one student in a group is possible, although this is not recommended. One student group will, in practice, mean additional work due to the project's requirements.
 
-The project is expected to take 40h per student in the group. Hence a 3-group project should be the equivalent of a 120h project.
+The project is expected to take 40 hours per student in the group. Hence, a 3-group project should be the equivalent of a 120-hour project.
 
-\emph{Hint!} If you choose to work alone, try to choose a subject related to your master thesis project.
+\emph{Hint!} If you work alone, try to choose a subject related to your master thesis project.
 
 
-\subsection{Data Sets and Methods Recommendations}
+\section{Data Sets and Methods Recommendations}
 
 We recommend that you find a dataset you are interested in using yourself. If you have a hard time finding a dataset to use, there are a lot of available datasets (and problems) at:
 
@@ -126,123 +126,142 @@ You should not use the following data sets in the project:
 
 
 
+\section{Project Proposals}
+
+The project will be submitted multiple times during the course to even out the workload of the report and enable feedback.
+
 \subsection{Project Proposal Part 1}
-Students must turn in a half-page project and data description in the ICML paper format that can be found \href{https://icml.cc/Conferences/2020/StyleAuthorInstructions}{[here]}. The ICML format is also available in overleaf here: \href{https://www.overleaf.com/latex/templates/icml-2019-submission-template/vkqjjvzjvhdc}{[here]}.
+Students must turn in a half-page project and data description in the ICML paper format that can be found \href{https://icml.cc/Conferences/2020/StyleAuthorInstructions}{[here]}. The ICML format is also available in Overleaf here: \href{https://www.overleaf.com/latex/templates/icml-2019-submission-template/vkqjjvzjvhdc}{[here]}.
 
 \emph{The project report should include all the group members' names following the LaTeX template, i.e. your names should be as authors in the template.}
 
-The project proposal must include the following pieces:
+The project proposal must include the following pieces. See the details on the different parts in Section \ref{sec:disposition}.
 \begin{enumerate}
   \item Title
-  \begin{itemize}
-    \item The title should describe the problem and be like a real article title, i.e. don't write "Mini-project:" or similar in the title.
-  \end{itemize}
-  \item Abstract (1 paragraph)
-  \item Introduction (roughly 0.5 pages)
-  \begin{itemize}
-    \item Description of the problem.
-  \end{itemize}
-  \item Data and Methods (roughly 0.5 pages)
-  \begin{itemize}
-    \item Description of the data.
-  \end{itemize}
+  \item Abstract
+  \item Introduction
+  \item Data and Methods
 \end{enumerate}
-
+In the Data and Methods Section, you only need to include the Data subsection and describe the data you will use.
 
 \subsection{Project Proposal Part 2}
-Part 2 contain additional information regarding the proposed method and some first preliminary results. It should also fix comments to the previous proposal 1.
+Part 2 contains additional information on the proposed method and some preliminary results. It should also fix comments to the previous proposal 1. Students must submit a project proposal part 2 and data description in the ICML paper format (see above).
 
-Students must turn in a project proposal part 2 and data description in the ICML paper format (see above).
+\emph{The Project Proposal 2 should include all the group members' names following the LaTeX template, i.e. your names should be as authors in the template.}
 
-\emph{The project proposal 2 should include all the group members' names following the LaTeX template, i.e. your names should be as authors in the template.}
-
-The project proposal must include the following pieces:
+The project proposal must include the following pieces. See the details on the different parts in Section \ref{sec:disposition}.
 \begin{enumerate}
   \item Title
-  \begin{itemize}
-    \item The title should describe the problem and be like a real article title, i.e. don't write "Mini-project:" or similar in the title.
-  \end{itemize}
-  \item Abstract (1 paragraph)
-  \item Introduction (roughly 0.5 pages)
-  \begin{itemize}
-    \item Description of the problem.
-  \end{itemize}
-  \item Data and Methods (roughly 0.5 pages)
-  \begin{itemize}
-    \item Description of the data.
-    \item Description and motivation of the method
-    \item Description of how you conducted the evaluation
-  \end{itemize}
-  \item Results (roughly 0.5 page)
-  \begin{itemize}
-    \item A first very preliminary result
-  \end{itemize}
+  \item Abstract
+  \item Introduction
+  \item Data and Methods
+  \item Results
 \end{enumerate}
+In the Results section, you only need to include the preliminary result of one model/architecture.
 
-\subsection{Project Report}
+\section{Project Report}
 \label{project_report}
 
-The requirements for the projects are:
-\begin{itemize}
+The requirements for the project report are:
+\begin{enumerate}
 \item The Project outcome is a report in the ICML paper format that can be found \href{https://icml.cc/Conferences/2020/StyleAuthorInstructions}{[here]}.
-The ICML format is also available in overleaf here: \href{https://www.overleaf.com/latex/templates/icml-2019-submission-template/vkqjjvzjvhdc}{[here]}
-\item The project report should include all the group members' names, but following the LaTeX template. I.e. your names should be as authors in the template.
-\item The supervised problem should be well explained. This includes the target of the prediction $y$ and the features $x$. What variables are used here, and why is $y$ relevant to predict using $x$?
-\item If models with hyperparameters are used, there should be motivation. Why are they chosen and how? You should describe the method used to set the hyperparameters.
-\end{itemize}
-
-The paper should consist of \emph{between three and a half (3.5) and four (4) pages}, excluding references and eventual appendices. The paper should include the following four (4) sections:
-\begin{enumerate}
-  \item Title
-  \begin{itemize}
-    \item The title should describe the problem and be like a real article title, i.e. don't write "Mini-project:" or similar in the title.
-  \end{itemize}
-  \item Abstract
-  \item Introduction (roughly 0.5 pages)
-  \begin{itemize}
-    \item Description of the problem.
-  \end{itemize}
-  \item Data and Methods (roughly one page)
-  \begin{itemize}
-    \item Description of the data.
-    \item Description and motivation of the method
-    \item Description of how you conducted the evaluation
-  \end{itemize}
-  \item Results (roughly 1.5-2 pages)
-  \begin{itemize}
-    \item Results of the proposed methods
-    \item Evaluation of the proposed method
-  \end{itemize}
-  \item Conclusions (roughly 0.5-1 pages)
-  \begin{itemize}
-    \item Conclusions from the results. Did the method work as expected?
-    \item Discussion of problems and potential improvements
-    \item Discussion of potential ethical/fairness issues (in light of the guest lecture).
-  \end{itemize}
-  \item Acknowledgements (optional)
-  \begin{itemize}
-    \item If you are willing to let me use your project report as an example in the next course, please state that in the Acknowledgements. Just add the following sentence: "We hereby grant our consent for the utilization of this project report as a reference material within the context of future editions of the course."
-    \item Other people you might want to thank.
-  \end{itemize}
-\end{enumerate}
-
-\emph{The project report should have the same title as the project proposals.}
-
-Additional requirements and hints for the report:
-\begin{enumerate}
+The ICML format is also available in Overleaf here: \href{https://www.overleaf.com/latex/templates/icml-2019-submission-template/vkqjjvzjvhdc}{[here]}
+\item The project report should include all the group members' names but follow the LaTeX template, i.e. your names should be as authors in the template.
+\item The paper should consist of \emph{between three and a half (3.5) and four (4) pages}, excluding references, acknowledgements and eventual appendices.
+\item The report and project proposals should follow the disposition in Section \ref{sec:disposition}.
+\item The audience is students in the machine learning course, i.e., there is no need to go deep into details of what has been presented during the course. Although, if models not introduced in the course are used, you need to explain these models in more detail.
 \item All Figures using colour should have a colour-blind-friendly colour palette. See \href{http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette}{here} and \href{https://rdrr.io/cran/ggthemes/man/colorblind.html}{here}.
-\item Before you turn in the project, do a language check with a tool such as Grammarly. A project with poor English (errors you would have spotted with a tool such as Grammarly) will affect your grade.
-\item The final report should be like a research paper, i.e. try to avoid bullet lists and get a good flow in the text.
-\item You should use the correct reference systems. A tip is to use \texttt{\\citet}, \texttt{\\citep}, and \texttt{\\bibtex}. Using \texttt{\\bibtex} will simplify your future thesis work.
+\item Before you submit the project, do a language check with a tool such as Grammarly (\href{grammarly.com}). A project with poor English (errors you would have spotted with a tool like Grammarly) will affect your grade.
+\item The final report should be like a research paper, i.e., avoid bullet lists and get a good flow in the text.
+\item This is an academic text. Hence, the claims you make should be backed by references.
 \end{enumerate}
 
-\subsection{Project Presentations}
+
+\subsection{Project Report Disposition and Content}
+\label{sec:disposition}
+
+The paper should include the following four sections and subsections:
+\begin{enumerate}
+\item Introduction
+\item Data and Methods
+\begin{enumerate}
+\item Data
+\item Methods
+\item Evaluation
+\end{enumerate}
+\item Results
+\item Conclusions
+\end{enumerate}
+
+In addition, the report should also include a title, abstract, and a bibliography. The report can also include Acknowledgements and Appendices, but this is optional. Below are further information and requirements for the different parts.
+
+\subsubsection{Title}
+The title should describe the problem and be like an actual article title, i.e., don't write "Mini-project:" or something similar in the title.
+
+The project report and project proposals should have the same title.
+
+\subsubsection{Abstract}
+The abstract summarises your report in one paragraph of a maximum of 200 words. It should also be written in the present tense. We can write the abstract by writing one to two sentences on each of the following points:
+\begin{enumerate}
+    \item An introduction to the topic.
+    \item Explanation of why the topic is important.
+    \item Your main research question, aim or problem.
+    \item Your research data, methods and models.
+    \item Your most important findings.
+\end{enumerate}
+
+\subsubsection{Introduction (0.5 page)}
+In the introduction, you should:
+\begin{enumerate}
+    \item Give a sufficient background to understand the problem.
+    \item Description of the problem. The supervised problem should be well explained, including the target of the prediction ($y$) and the features ($x$) used. What variables are used here, and why is $y$ relevant to predict using $x$?
+    \item Explanation of why the topic/prediction setting is important/relevant.
+\end{enumerate}
+
+\subsubsection{Data and Methods (1 page)}
+In the Data and Methods section, you should have (at least) the following three subsections:
+\begin{enumerate}
+    \item Data
+    \item Methods
+    \item Evaluation
+\end{enumerate}
+
+\paragraph{Data}
+Describe the data you are using in your prediction model at a level so it is possible to replicate your analysis.
+
+\paragraph{Methods}
+The methods section should describe your methods so another student can replicate them in the course, independent of implementation language (e.g., R). The independence means that the hyperparameter settings should be explained and presented without reference to, for example, specific R function's default values.
+
+If models with hyperparameters or architectures are used, there should be motivation. Why are they chosen, and how? You should describe the method used to set the hyperparameters.
+
+\paragraph{Evaluation}
+The evaluation should describe how you evaluate different models and what metrics you use. Hence, describe if and how you use training, validation and test sets and motivate the choices made. Then, present the metrics you use for evaluation and motivate these as well.
+
+\subsubsection{Results (roughly 1.5-2 pages)}
+Summarize the results of your models and compare your model results. Analyze the performance of your model and discuss the results. Try to summarize results in Tables and Figures to help the reader understand the results.
+
+\subsubsection{Conclusion (roughly 0.5-1 pages)}
+Connect your results back to the introduction. Did the method work as expected? Are the results good or bad? Discussion of problems and potential improvements. Also, include a paragraph on potential ethical/fairness issues (in light of the guest lecture).
+
+\subsubsection{Bibliography}
+You should use the correct reference systems. A tip is to use \texttt{\\citet}, \texttt{\\citep}, and \texttt{\\bibtex}. Using \texttt{\\bibtex} will simplify your future thesis work.
+
+\subsubsection{Acknowledgements (optional)}
+If you can let me use your project report as an example in the next course, please state that in the Acknowledgement. Just add the following sentence: "We grant our consent for the utilization of this project report as a reference material within the context of future editions of the course."
+
+You can also add other people to thank.
+
+\subsubsection{Appendicies (optional)}
+Suppose there is additional material you want to include in the report that does not fit. You are then allowed to use appendices. Only include appendencies you also refer to from the main text. Also, the reader should not need to read the appendices to understand the main text.
+
+
+\section{Project Presentation}
 
 Presentation details:
 \begin{itemize}
   \item Each project needs to be presented in addition to submitting the mini-project report
   \item The presentation should be high level, but sufficiently detailed information should be readily available to facilitate answering questions from the audience
-  \item Within each session, about four groups, will be presenting
+  \item Within each session, about four groups will be presenting
   \item For 1-2 person groups, the presentation should be 10 minutes
   \item For three-person groups, the presentation should be 15 minutes
   \item Afterwards, questions will be asked first by other students and then by attending teachers.
@@ -250,7 +269,7 @@ Presentation details:
 
 Specific presentation recommendations:
 \begin{itemize}
-  \item The first slide needs to include the project title and names of the group members.
+  \item The first slide needs to include the project title and group members' names.
   \item The chosen methods(s) should be explained and justified (you are \textit{not} holding this presentation for a hypothetical customer who doesn't care about the details of your methods).
   You should use \item Big enough font size for text and figure labels to make it easy for the audience to read slides.
   \item A good rule of thumb is to expect one slide to take 2 minutes to present.
@@ -260,7 +279,7 @@ Specific presentation recommendations:
 \subsubsection*{Missing the project presentation}
 Suppose you cannot attend the presentations due to sickness or similar. In that case, you will have to turn in a video presentation where you present the whole project (i.e. the entire presentation). The teacher then grades this presentation.
 
-\subsection{Project Grading}
+\section{Project Grading}
 
 Below are the criteria used when grading the mini-projects. Some general comments on grading are:
 
@@ -273,17 +292,17 @@ To pass the report (G), you should fulfil the following criteria:
 
 \begin{enumerate}
 \item Turned in a correctly formatted report that follows the general outline of Section \ref{project_report}.
-\item Show basic knowledge and understanding of the core concepts of the course by using concepts correctly.
-\item Show an understanding of when certain methods should be used or not and how.
+\item Show basic knowledge and understanding of the course's core concepts by using concepts correctly.
+\item Show an understanding of when certain methods should be used and how they should be used.
 \item Use at least two (2) different methods (or architectures) and correctly compare them.
-\item State what has been done in the report with clarity, good English and rigour, so it is easy for a reader to understand and follow the paper.
-\item Correctly use references in the report following the guideline of the template in Section \ref{project_report}.
+\item State what has been done in the report with clarity, good English and rigour so it is easy for a reader to understand and follow the paper.
+\item Correctly use references in the report following the template guideline in Section \ref{project_report}.
 \end{enumerate}
 
 To pass the mini-project with distinction (VG), the additional criteria also apply:
 
 \begin{enumerate}
-\item Show deep knowledge and understanding of the core concepts and how to adapt them in a good way to a new situation.
+\item Show deep knowledge and understanding of the core concepts and how to adapt them well to a new situation.
 \item Connect the analysis in the report with other areas in statistics or machine learning or previous courses taken in the master's program, i.e. not just repeat what has been done in previous labs.
 \end{enumerate}
 
