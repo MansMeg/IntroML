@@ -213,13 +213,13 @@ Q1 <- rep(0, 5)
 nonstationary_algorithm(Q1, nonstationary_bandit, epsilon = 0.1, alpha = 0.2)
 ## $Qt
 ## [1] 7.055805 1.287957 1.243996 0.517214 2.569759
-## 
+##
 ## $Nt
 ## [1] 387 193  70  16 334
-## 
+##
 ## $R_bar
 ## [1] 2.818588
-## 
+##
 ## $Rt
 ## [1] -2.83748236  2.39631824  0.21350863  2.01754941 ...
 
@@ -228,21 +228,25 @@ Q1 <- rep(0, 5)
 nonstationary_algorithm(Q1, nonstationary_bandit, epsilon = 0.1, alpha = 0.2)
 ## $Qt
 ## [1] 7.2348941 1.3531388 0.1610887 0.2170131 1.8759312
-## 
+##
 ## $Nt
 ## [1] 352  35  14  19 580
-## 
+##
 ## $R_bar
 ## [1] 2.954196
-## 
+##
 ## $Rt
 ## [1] -4.390365979  1.428627000  0.199102837  0.088507660 ...
 @
 
-\item Run 500 simulations of each algorithm and compute the mean of the mean rewards for each of the algorithms. Do this for the greedy, epsilon-algorithm and non-stationary algorithm. Use $\alpha=0.5$, $\alpha=0.9$ and $\epsilon=0.1$. Summarize all the results in a table. In total you should have a four different results. \emph{Note!} The algorithm should run 1000 steps for each of the 500 simulations.
+\item Run 500 simulations of each algorithm and compute the mean of the mean rewards for each algorithm for both the stationary and non-stationary bandits. Do this for the greedy, the $\epsilon$-algorithm, and the non-stationary algorithm. Try both $\alpha=0.5$ and $\alpha=0.9$ for the non-stationary algorithm. For both the non-stationary and the $\epsilon$-algorithm, use $\epsilon=0.1$. Summarize all the results in a table. You should have eight different results (four per bandit and two per algorithm).
+
+\emph{Note!} The algorithm should run 1000 steps for each of the 500 simulations.
 \item What are your conclusions from these results? Which algorithm seems to be the best one, and why?
 \item Plot the average reward per step for the 500 runs for the worst and best algorithm, such as in Figure 2.2. in \citet{sutton2020reinforcement}. Use the output $R_t$ from your implementations.
 \end{enumerate}
+
+\newpage
 
 \section{Markov Decision Processes}
 
@@ -269,6 +273,7 @@ always_search_policy(mdp)
 \item Compare the two policies for MDP with $\alpha = \beta = 0.9$ and $\alpha = \beta = 0.4$ with $r_\text{wait} = 0.1 \text{ and } r_\text{search} = 1$. Run at least ten times per policy and compute the mean reward. What policy is prefered in the two MDPs?
 \end{enumerate}
 
+\newpage
 
 \section{* Some additional bandit algorithms}
 
