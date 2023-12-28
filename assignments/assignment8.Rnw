@@ -125,7 +125,7 @@ where $q^\star=(1.62, 1.20, 0.70, 0.72, 2.03)$. Below is an example of how it \e
 stationary_bandit<- function(a){
   if(a == 1) return(2.99044)
   if(a == 2) return(3.019735)
-  if(a == 3) return(0.7099425)
+  if(a == 3) return(0.6819202)
 }
 <<>>=
 set.seed(4711)
