@@ -210,33 +210,33 @@ epsilon_algorithm(Q1, stationary_bandit, 0.1)
 <<eval = FALSE>>=
 set.seed(4711)
 Q1 <- rep(0, 5)
-nonstationary_algorithm(Q1, stationary_bandit, epsilon = 0.1, alpha = 0.2)
+nonstationary_algorithm(Q1, nonstationary_bandit, epsilon = 0.1, alpha = 0.2)
 ## $Qt
-## [1] 1.414101 1.293336 1.237085 0.517214 2.134716
-##
+## [1] 7.055805 1.287957 1.243996 0.517214 2.569759
+## 
 ## $Nt
-## [1] 302  16  19  16 647
-##
+## [1] 387 193  70  16 334
+## 
 ## $R_bar
-## [1] 1.840128
-##
+## [1] 2.818588
+## 
 ## $Rt
-## [1]  1.772517635  2.816318235  0.633508626  2.017549413 ...
+## [1] -2.83748236  2.39631824  0.21350863  2.01754941 ...
 
 set.seed(4712)
 Q1 <- rep(0, 5)
-nonstationary_algorithm(Q1, stationary_bandit, epsilon = 0.1, alpha = 0.2)
+nonstationary_algorithm(Q1, nonstationary_bandit, epsilon = 0.1, alpha = 0.2)
 ## $Qt
-## [1] -0.03998096  2.63547855 -0.96654871 -0.56120367  0.09262541
-##
+## [1] 7.2348941 1.3531388 0.1610887 0.2170131 1.8759312
+## 
 ## $Nt
-## [1] 314 133  38  63 452
-##
+## [1] 352  35  14  19 580
+## 
 ## $R_bar
-## [1] 1.592736
-##
+## [1] 2.954196
+## 
 ## $Rt
-## [1]  0.219634021  1.848627000 ...
+## [1] -4.390365979  1.428627000  0.199102837  0.088507660 ...
 @
 
 \item Run each algorithm 500 times/simulations and compute the mean of the mean rewards (for each simulation) for each of the algorithms. Do this for both the stationary and non-stationary bandit. For the non-stationary algorithm, try $\alpha=0.5$ and $\alpha=0.9$ and $\epsilon=0.1$. Similarly, for the $\epsilon$-bandit and use $\epsilon=0.1$. Summarize all the results in a table. In total you should have a eight different results. \emph{Note!} The algorithm should run 1000 steps for each of the 500 simulations.
