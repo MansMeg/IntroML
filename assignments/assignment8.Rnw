@@ -239,7 +239,7 @@ nonstationary_algorithm(Q1, nonstationary_bandit, epsilon = 0.1, alpha = 0.2)
 ## [1] -4.390365979  1.428627000  0.199102837  0.088507660 ...
 @
 
-\item Run each algorithm 500 times/simulations and compute the mean of the mean rewards (for each simulation) for each of the algorithms. Do this for both the stationary and non-stationary bandit. For the non-stationary algorithm, try $\alpha=0.5$ and $\alpha=0.9$ and $\epsilon=0.1$. Similarly, for the $\epsilon$-bandit and use $\epsilon=0.1$. Summarize all the results in a table. In total you should have a eight different results. \emph{Note!} The algorithm should run 1000 steps for each of the 500 simulations.
+\item Run 500 simulations of each algorithm and compute the mean of the mean rewards for each of the algorithms. Do this for the greedy, epsilon-algorithm and non-stationary algorithm. Use $\alpha=0.5$, $\alpha=0.9$ and $\epsilon=0.1$. Summarize all the results in a table. In total you should have a four different results. \emph{Note!} The algorithm should run 1000 steps for each of the 500 simulations.
 \item What are your conclusions from these results? Which algorithm seems to be the best one, and why?
 \item Plot the average reward per step for the 500 runs for the worst and best algorithm, such as in Figure 2.2. in \citet{sutton2020reinforcement}. Use the output $R_t$ from your implementations.
 \end{enumerate}
