@@ -28,8 +28,6 @@ To get the grade VG on the course, a total of 6 or more VG points is needed. Eac
 
 Note that aiming for VG might mean that you need to put in more hours than the expected 20h per week. 
 
-be more clear about VG is probably going to mean that you need to do more if you are not very skilled.
-
 ### Reassessing grades
 Grades are not subject to appeal. However, a grading decision must be reassessed if it is clearly incorrect. Grades can never be lowered. If students want grades to be reassessed, they should contact the course administration who will distribute a form for reassessment the students have to fill out. 
 
