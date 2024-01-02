@@ -220,6 +220,8 @@ You can choose to either do this task or the task above to get VG on this assign
 
 For this assignment, you need to have a user account at Open AI to generate an API token. See \href{https://help.openai.com/en/articles/4936850-where-do-i-find-my-api-key}{[this link]} for details on how to get an API token to use.
 
+\textcolor{red}{\emph{Warning:}} Do not upload any files containing your API key to public repositories (Github, public google colab, etc.).
+
 You also need to buy credits at Open AI. I think 1-2 dollars should be sufficient for this assignment.
 
 As a second step you need to install the \texttt{ropenaiapi} R package. This can be done as follows:
