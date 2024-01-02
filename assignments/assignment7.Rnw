@@ -113,22 +113,22 @@ We are now going to implement a variational autoencoder in R using Tensorflow. Y
 \emph{Note!} Running Keras can be computationally heavy, and I suggest not to run the code in \texttt{markdown}. Instead, run the code in R and copy the results as output (see the assignment template for an example).
 
 \begin{enumerate}
-\item Start by loading the MNIST data in R. See the link above or previous assignments for details.
-\item Now, implement a one-layer (encoder and decoder) feed-forward variational autoencoder with two latent dimensions. Both the encoder layer and the decoder layer should have 200 hidden units. You should end up with a variational autoencoder with roughly 310 000 - 320 000 parameters.
+\item (1p) Start by loading the MNIST data in R. See the link above or previous assignments for details.
+\item (1p) Now, implement a one-layer (encoder and decoder) feed-forward variational autoencoder with two latent dimensions. Both the encoder layer and the decoder layer should have 200 hidden units. You should end up with a variational autoencoder with roughly 310 000 - 320 000 parameters.
 \item Print the model and include it in your report.
 \begin{enumerate}
-\item How many weights (parameters) are used to compute $\mu$ and $\sigma^2$ for the latent variables?
-\item What layer represent the latent variables?
-\item What does the lambda layer do in the model?
+\item (1p) How many weights (parameters) are used to compute $\mu$ and $\sigma^2$ for the latent variables?
+\item (1p) What layer represent the latent variables?
+\item (1p) What does the lambda layer do in the model?
 \end{enumerate}
 \item Now train your variational autoencoder on the MNIST data for 50 epochs. Visualize the latent state for the different numbers.
 \begin{enumerate}
-\item How do you interpret this latent state?
-\item What numbers are better represented by the latent state?
-\item What number is less well represented by the latent state?
+\item (1p) How do you interpret this latent state?
+\item (1p) What numbers are better represented by the latent state?
+\item (1p) What number is less well represented by the latent state?
 \end{enumerate}
-\item Finally, encode all the 2:s in the MNIST test dataset to the latent state using your encoder. What is the mean of the digits "2" in the two latent dimensions? \emph{Hint!} See \texttt{y\_test} for the MNIST numbers. \emph{Note!} Do not retrain your VAE. Just use the one you have already trained.
-\item Visualize this value of the latent state as a 28 by 28-pixel image using your decoder.
+\item (2p) Finally, encode all the 2:s in the MNIST test dataset to the latent state using your encoder. What is the mean of the digits "2" in the two latent dimensions? \emph{Hint!} See \texttt{y\_test} for the MNIST numbers. \emph{Note!} Do not retrain your VAE. Just use the one you have already trained.
+\item (1p) Visualize this value of the latent state as a 28 by 28-pixel image using your decoder.
 \end{enumerate}
 
 
@@ -150,19 +150,19 @@ data("stopwords")
 
 
 \begin{enumerate}
-\item As a first step, we will remove stopwords (common English words without much semantic information):
+\item (1p) As a first step, we will remove stopwords (common English words without much semantic information):
 <<>>=
 pap <- pride_and_prejudice
 pap <- anti_join(pap, y = stopwords[stopwords$lexicon == "snowball",])
 @
 
-\item Then we will remove rare words. Here we remove words that occur less than five times.
+\item (1p) Then we will remove rare words. Here we remove words that occur less than five times.
 <<>>=
 word_freq <- table(pap$word)
 rare_words <- data.frame(word = names(word_freq[word_freq <= 5]), stringsAsFactors = FALSE)
 pap <- anti_join(pap, y = rare_words)
 @
-\item Now we have a corpus we can used to implement a probabilistic topic model. We do this by using the \texttt{topicmodels} R package. As a first step we will compute a document term matrix using the \texttt{tm} package, where we treat each paragraph as a document. How many documents and terms (word types) do you have?
+\item (1p) Now we have a corpus we can used to implement a probabilistic topic model. We do this by using the \texttt{topicmodels} R package. As a first step we will compute a document term matrix using the \texttt{tm} package, where we treat each paragraph as a document. How many documents and terms (word types) do you have?
 <<eval=FALSE>>=
 library(tm)
 crp <- aggregate(pap$word, by = list(pap$paragraph), FUN = paste0, collapse = " ")
@@ -170,7 +170,7 @@ names(crp) <- c("paragraph", "text")
 s <- SimpleCorpus(VectorSource(crp$text))
 m <- DocumentTermMatrix(s)
 @
-\item To compute a topic model with ten topics, we use a Gibbs sampling algorithm. Below is an example of how we can run a Gibbs sampler for 2000 iterations. Run your topic model for 2000 iterations.
+\item (1p) To compute a topic model with ten topics, we use a Gibbs sampling algorithm. Below is an example of how we can run a Gibbs sampler for 2000 iterations. Run your topic model for 2000 iterations.
 <<eval=FALSE>>=
 library(topicmodels)
 K <- 10
@@ -178,17 +178,17 @@ K <- 10
 control <- list(keep = 1, delta = 0.1, alpha = 1, iter = 2000)
 tm <- LDA(m, k = K, method = "Gibbs", control)
 @
-\item In the \texttt{uuml} R package you have three convenience functions to extract $\Theta$, $\Phi$ and the log-likelihood values at each iteration. This is the parameter notation used in \citet{griffiths2004finding}.
+\item (1p) In the \texttt{uuml} R package you have three convenience functions to extract $\Theta$, $\Phi$ and the log-likelihood values at each iteration. This is the parameter notation used in \citet{griffiths2004finding}.
 <<eval=FALSE>>=
 library(uuml)
 lls <- extract_log_liks(tm)
 theta <- extract_theta(tm)
 phi <- extract_phi(tm)
 @
-\item As a first step, check that the model has converged by visualizing the log-likelihood over epochs/iterations. Does it seem like the model have converged?
-\item Extract the 20 top words for each topic (i.e. the words with the highest probability in each topic). Choose two topics you find coherent/best (the top words seem to belong together). Interpret these two topics based on the storyline of the book. What have these two topics captured?
-\item Visualize these two topics evolve over the paragraphs in the books by plotting the $\theta$ parameters for that topic over time (paragraphs) in the book. Think of this as the time-line of the book. On the y-axis, you should plot $\theta_i$ for your chosen topic $i$ and the x-axis should be the paragraph number (first paragraph has number 1 and so forth).
-\item How do these two chosen topics evolve over the course in the book? If you want, you can take a rolling mean of the theta parameters to more easily show the changes in the topic over the book. \emph{Hint!} Here \texttt{zoo::rollmean()} might be a good function to use.
+\item (2p) As a first step, check that the model has converged by visualizing the log-likelihood over epochs/iterations. Does it seem like the model have converged?
+\item (2p) Extract the 20 top words for each topic (i.e. the words with the highest probability in each topic). Choose two topics you find coherent/best (the top words seem to belong together). Interpret these two topics based on the storyline of the book. What have these two topics captured?
+\item (2p) Visualize these two topics evolve over the paragraphs in the books by plotting the $\theta$ parameters for that topic over time (paragraphs) in the book. Think of this as the time-line of the book. On the y-axis, you should plot $\theta_i$ for your chosen topic $i$ and the x-axis should be the paragraph number (first paragraph has number 1 and so forth).
+\item (2p) How do these two chosen topics evolve over the course in the book? If you want, you can take a rolling mean of the theta parameters to more easily show the changes in the topic over the book. \emph{Hint!} Here \texttt{zoo::rollmean()} might be a good function to use.
 \end{enumerate}
 
 \newpage
@@ -203,11 +203,11 @@ You can choose to either do this task or the task below to get VG on this assign
 As we have seen previously, for images, we can get better performance using Convolutional Neural Networks. Hence we are going to repeat the exercise above using a convolutional neural network as encoder and decoder. You can find detailed code \href{https://github.com/rstudio/keras/blob/main/vignettes/examples/variational_autoencoder_deconv.R}{\textbf{here}}.
 
 \begin{enumerate}
-\item Now implement a four-layer (encoder and decoder) convolutional neural network with two latent dimensions. There should be 50 filters in each convolutional layer. \emph{Note!} A dense layer should be included as the last step in the encoder and the first step in the decoder. These layers should have 100 hidden units. You should end up with a variational autoencoder with roughly 2M parameters.
-\item Print the model and include it in your report. How many weights (parameters) are used to compute $\mu$ and $\sigma^2$ for the latent variables? What layer represent the latent variables?
-\item Now train your CNN variational autoencoder on the MNIST data for five epochs. Visualize the latent state for the different numbers. How do you interpret this result? Compare these results with the results from the feed-forward autoencoder.
-\item Finally, encode all the 2:s in the MNIST test dataset to the latent state using your encoder (Hint!, see \texttt{y\_test} for numbers). What is the mean of the digits "2" in the two latent dimensions?
-\item Visualize the mean value of the digit 2 of the latent state as a 28 by 28-pixel image using your decoder.
+\item (3p) Now implement a four-layer (encoder and decoder) convolutional neural network with two latent dimensions. There should be 50 filters in each convolutional layer. \emph{Note!} A dense layer should be included as the last step in the encoder and the first step in the decoder. These layers should have 100 hidden units. You should end up with a variational autoencoder with roughly 2M parameters.
+\item (1p) Print the model and include it in your report. How many weights (parameters) are used to compute $\mu$ and $\sigma^2$ for the latent variables? What layer represent the latent variables?
+\item (1p) Now train your CNN variational autoencoder on the MNIST data for five epochs. Visualize the latent state for the different numbers. How do you interpret this result? Compare these results with the results from the feed-forward autoencoder.
+\item (1p) Finally, encode all the 2:s in the MNIST test dataset to the latent state using your encoder (Hint!, see \texttt{y\_test} for numbers). What is the mean of the digits "2" in the two latent dimensions?
+\item (1p) Visualize the mean value of the digit 2 of the latent state as a 28 by 28-pixel image using your decoder.
 \end{enumerate}
 
 \newpage
@@ -227,7 +227,6 @@ As a second step you need to install the \texttt{ropenaiapi} R package. This can
 library(remotes)
 remotes::install_github('MansMeg/ropenaiapi')
 @
-
 In the next step we set the API key as an environment variable with:
 <<eval=FALSE>>=
 library(ropenaiapi)
