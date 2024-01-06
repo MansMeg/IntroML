@@ -163,16 +163,16 @@ Q1 <- rep(0, 5)
 set.seed(4711)
 greedy_algorithm(Q1, stationary_bandit)
 ## $Qt
-## [1] 1.593045 0.000000 0.000000 0.000000 0.000000
+## [1] 1.602744 0.000000 0.000000 0.000000 0.000000
 ##
 ## $Nt
 ## [1] 1000    0    0    0    0
 ##
 ## $R_bar
-## [1] 1.593045
+## [1] 1.602744
 ##
 ## $Rt
-## [1]  1.772517635  2.816318235  0.633508626  0.111087954 ...
+## [1]  3.439735114  2.990439504  2.816318235  1.213120797 ...
 @
 \item Similarly, implement the $\epsilon$-bandit algorithm that takes an additional argument $\epsilon$ that is the probability that the algorithm instead takes makes an explorative action. Implement this algorithm as \texttt{epsilon\_algorithm(Q1, bandit, epsilon)}, note that it should return the same output structure as the greedy algorithm. It is also clear that the randomness of the exploration can give quite some different results in different runs.
 <<eval = FALSE>>=
@@ -264,10 +264,10 @@ set.seed(4711)
 always_search_policy(mdp)
 ## $Nt
 ## high  low
-##  288  712
+##  669  331
 ##
 ## $R_bar
-## [1] 0.452
+## [1] 0.699
 @
 \item Now implement a function \texttt{charge\_when\_low\_policy(MDP)} that takes an MPD specified above and run the MDP for 1000 steps. The policy should be that the agent always chooses to recharge if the energy level is low and always search if the energy level is high. The function should return the same output structure as above.
 \item Compare the two policies for MDP with $\alpha = \beta = 0.9$ and $\alpha = \beta = 0.4$ with $r_\text{wait} = 0.1 \text{ and } r_\text{search} = 1$. Run at least ten times per policy and compute the mean reward. What policy is prefered in the two MDPs?
