@@ -263,11 +263,11 @@ recycling_mdp(0.5, 0.8, 0.1, 1)
 set.seed(4711)
 always_search_policy(mdp)
 ## $Nt
-## high  low
-##  669  331
+## high low
+## 288  712
 ##
 ## $R_bar
-## [1] 0.699
+## [1] 0.452
 @
 \item (2p) Now implement a function \texttt{charge\_when\_low\_policy(MDP)} that takes an MPD specified above and run the MDP for 1000 steps. The policy should be that the agent always chooses to recharge if the energy level is low and always search if the energy level is high. The function should return the same output structure as above.
 \item (2p) Compare the two policies for MDP with $\alpha = \beta = 0.9$ and $\alpha = \beta = 0.4$ with $r_\text{wait} = 0.1 \text{ and } r_\text{search} = 1$. Run at least ten times per policy and compute the mean reward. What policy is prefered in the two MDPs?
