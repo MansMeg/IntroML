@@ -258,7 +258,7 @@ Now we are going to implement a Markov Decision Process (MDP) where the agent ma
 library(uuml)
 recycling_mdp(0.5, 0.8, 0.1, 1)
 @
-\item (2p) Now implement a function \texttt{always\_search\_policy(MDP)} that takes an MPD specified above and run the MDP for 1000 steps/actions. The policy should be that the agent always chooses to search, irrespective of the state. The function should return the reward divided by the total number of time steps and the number of time steps spent in each state. The robot should start in the state \texttt{high}. Below is an example of how it should work. Note again, since this is a random algorithm, you might get a slightly different answer.
+\item (2p) Now implement a function \texttt{always\_search\_policy(MDP)} that takes an MPD specified above and run the MDP for 1000 steps/actions. The policy should be that the agent always chooses to search, irrespective of the state. The function should return the average reward and the number of time steps spent in each state. The robot should start in the state \texttt{high}. Below is an example of how it should work. Note again, since this is a random algorithm, you might get a slightly different answer.
 <<eval=FALSE>>=
 set.seed(4711)
 always_search_policy(mdp)
