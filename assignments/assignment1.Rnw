@@ -289,9 +289,9 @@ rmse(pred_y_valfold, y_valfold)
 @
 \item Take the mean RMSE for the five folds.
 \end{enumerate}
-\item Now, compute the RMSE for $\lambda=1$ using 5-fold cross-validation.
-\item Test different values for the hyper parameter $\lambda$. What is the best RMSE you can get with 10-fold cross-validation? What is the $\lambda$ for this value?
-\item Now use the best model to do predictions on the test set. What is your RMSE on the test set?
+\item (1p) Now, compute the RMSE for $\lambda=1$ using 5-fold cross-validation.
+\item (2p) Test different values for the hyper parameter $\lambda$. What is the best RMSE you can get with 10-fold cross-validation? What is the $\lambda$ for this value?
+\item (1p) Now use the best model to do predictions on the test set. What is your RMSE on the test set?
 \end{enumerate}
 
 \newpage
