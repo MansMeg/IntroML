@@ -92,19 +92,12 @@ Requirements for the projects are:
 
 \emph{For PhD students}: You can do a small project related to your research interest instead. Although, it should still be a 4-page paper output.
 
-
-\section{Suggested Reading}
-
-The project will be a small practical exercise in supervised machine learning. Suggested reading (before starting the project) is:
-
-\begin{itemize}
-\item Chapter 11 in Ian Goodfellow, Yoshua Bengio, and Aaron Courville. 2016. \emph{Deep Learning}. The MIT Press.
-\end{itemize}
-
 \section{Project Group and Expected Workload}
 Having only one student in a group is possible, although this is not recommended. One student group will, in practice, mean additional work due to the project's requirements.
 
 The project is expected to take 40 hours per student in the group. Hence, a 3-group project should be the equivalent of a 120-hour project.
+
+One student (first author) is the correspondning author. Thats the one that submit the paper on studium.
 
 \emph{Hint!} If you work alone, try to choose a subject related to your master thesis project.
 
