@@ -39,32 +39,22 @@ Below are the main references for the course. All books are available free onlin
 
 ### Literature
 
+- BB: Bishop and Bishop. Deep learning - Foundations and Concepts. MIT Press, 2024. [online access](https://www.bishopbook.com/)
 - ESL: Hastie, Trevor, Tibshirani, Robert, and Friedman, Jerome. The elements of statistical learning: data mining, inference, and prediction. 2nd Edition. Springer Science & Business Media, 2009. [online access](https://web.stanford.edu/~hastie/ElemStatLearn/)
-- DL: Goodfellow, Ian, Bengio, Yoshua, and Courville, Aaron. Deep learning. MIT Press, 2017. [online access](https://www.deeplearningbook.org/)
-- DLR: Chollet, François, and Joseph J. Allaire. Deep Learning with R. Manning, 2018.  [online access](https://www.manning.com/books/deep-learning-with-r#toc)
+- DLR: Chollet, François, and Joseph J. Allaire. Deep Learning with R. Manning, 2018. [online access](https://www.manning.com/books/deep-learning-with-r#toc)
 - Sutton, R. S., and Barto, A. G. Reinforcement learning: An introduction. MIT Press, 2020. [online access](http://incompleteideas.net/book/RLbook2020.pdf)
-- JM: Jurafsky, D. and Martin, J. H. Speech and Language Processing (3rd ed. draft). [online access](https://web.stanford.edu/~jurafsky/slp3/)
 
 In addition, the following material will also be included (note that you might need to access the material through the Uppsala University network):
 
 - Ruder (2016). An overview of gradient descent optimization algorithms. [online access](https://arxiv.org/abs/1609.04747)
 - Efron (2020). Prediction, Estimation, and Attribution. Journal of the American Statistical Association, 115(530), 636-655. [online access](https://www.tandfonline.com/doi/full/10.1080/01621459.2020.1762613) *Note!* You need to be on the Uppsala University network to access the article.
-- Salganik, M. J. et al. Measuring the predictability of life outcomes with a scientific mass collaboration. Proceedings of the National Academy of Sciences Apr 2020, 117 (15) 8398-8403; DOI: 10.1073/pnas.1915006117 [online access](https://www.pnas.org/content/117/15/8398)
-- Precision and Recall at [Wikipedia](https://en.wikipedia.org/wiki/Precision_and_recall).
 - Kingma DP and Welling M. An Introduction to Variational Autoencoders, 2019. [online access](https://arxiv.org/pdf/1906.02691.pdf)
-- Smyth, P. The EM algorithm for Gaussian Mixtures, 2020. [online access](https://www.ics.uci.edu/~smyth/courses/cs274/notes/EMnotes.pdf)
-- Alamar, J. Visualizing neural machine translation mechanics, 2018a. [online](https://jalammar.github.io/visualizing-neural-machine-translation-mechanics-of-seq2seq-models-with-attention/)
-- Alamar, J. The illustrated Transformer, 2018b. [online](http://jalammar.github.io/illustrated-transformer/)
-- Alamar, J. The illustrated BERT, Elmo, and co. (How NLP Cracked Transfer Learning), 2018c. [online](http://jalammar.github.io/illustrated-bert/)
-- Devlin, J., Chang, M.W., Lee, K. and Toutanova, K., 2018. Bert: Pre-training of deep bidirectional transformers for language understanding. arXiv preprint arXiv:1810.04805. [online](https://arxiv.org/abs/1810.04805)
+- Alamar, J. The illustrated Transformer, 2018a. [online](http://jalammar.github.io/illustrated-transformer/)
+- Alamar, J. The illustrated BERT, Elmo, and co. (How NLP Cracked Transfer Learning), 2018b. [online](http://jalammar.github.io/illustrated-bert/)
 - Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A.N., Kaiser, Ł. and Polosukhin, I., 2017. Attention is all you need. In Advances in neural information processing systems (pp. 5998-6008). [online](https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html)
-- Olah, C. 2015. Understanding LSTM Networks. [online](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)
-- Ng, A. 2019. The EM algorithm. CS229, Lecture Notes [online](https://see.stanford.edu/materials/aimlcs229/cs229-notes8.pdf)
 - Griffiths, M. and Steyvers. 2004. Finding Scientific topics [online](https://www.pnas.org/content/pnas/101/suppl_1/5228.full.pdf)
 - Blei, D. 2012. Probabilistic Topic Models [online](http://www.cs.columbia.edu/~blei/papers/Blei2012.pdf)
-- Rocca, J. 2019. Understanding Variational Autoencoders [online](https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73).
 - Verma, S. and Rubin, J. (2018) Fairness definitions explained. [online](https://dl.acm.org/doi/pdf/10.1145/3194770.3194776)
-- Beckman, L., Rosenberg, J, and Jebari, K. (2022) Artificial intelligence and democratic legitimacy. The problem of publicity in public authority. [online](https://link.springer.com/article/10.1007/s00146-022-01493-0)
 - Zhao et al (2023) A Survey on Large Language Models [online](https://arxiv.org/abs/2303.18223)
 
 
@@ -113,7 +103,7 @@ The course consists of rougly 8 blocks (weeks) of material. Each week consists o
 ### Computer assignments
 Each week an individual computer assignment is done with a focus on implementing the main part of the material. Each assignment is completed individually and should follow the computer assignment template.
 
-Students should return the computer assignments no later than **Sunday 23.59 each week**. A second possibility to turn in assignments is possible at the end of the course. For a detailed list of deadlines, see the [rough course plan](https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing).
+Students should return the computer assignments no later than **Sunday 23.59 each week**. For a detailed list of deadlines, see the [rough course plan](https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing).
 
 There are two complementary turn-ins of assignments, the last day of the course and roughly 2-4 weeks after the course ends. After the last possible time to turn in the assignment no more chances will be given. In this case, you will be failed on the course and you will need to retake the course next year.
 
