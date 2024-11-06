@@ -150,7 +150,7 @@ L(y_0,\hat{f}(x_0))
     L(y_0,\hat{f}(x_0)) = I(y_0 = \hat{f}(x_0))
 \]
 \pause
-\item In general: The \uured{negative log likelihood} is a good loss function
+\item The \uured{negative log likelihood} is a good general loss function
 \end{itemize}
 
 
@@ -164,7 +164,7 @@ L(y_0,\hat{f}(x_0))
 \begin{itemize}
 \item When we predict probabilities $\hat{f}(x_0)=\hat{p}$:
 \[
-L(y_0, \hat{p}) = - (y_0 \log{\hat{p}}) + ((1 - y_0) \log{(1- \hat{p})})
+L(y_0, \hat{p}) = - [ (y_0 \log{\hat{p}}) + (1 - y_0) \log{(1- \hat{p})} ]
 \]
 \uured{Question:} Do you recognize the (cross-entropy) loss function?
 % Bernoulli negative log-likelihood?
@@ -398,7 +398,7 @@ The Precision has increased, but the Recall has decreased...
 \begin{frame}{A more problematic example}
 A highly unbalanced example. 1001 ham and 17 spam.
 
-Our new classifier: Everything is ham!\pause
+Our new classifier: \uured{Everything is ham!}\pause
 
 \begin{center}
 \begin{tabular}{ l | c | c }
