@@ -46,14 +46,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\begin{frame}{This weeks lectures}
-\begin{itemize}
-\item Regularization
-\item Model Selection and Assement
-\item Cross-Validation
-\item Evaluate classification models
-\end{itemize}
-\end{frame}
+%\begin{frame}{This weeks lectures}
+%\begin{itemize}
+%\item Regularization
+%\item Model Selection and Assement
+%\item Cross-Validation
+%\item Evaluate classification models
+%\end{itemize}
+%\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -77,15 +77,14 @@
 \end{itemize}
 \item Model diagnoses and \uured{how well the model fits the data}.
 \pause
-\item In statistics: focus on \uured{estimation} and \uured{attribution}.
-\item In supervised learning: focus on \uured{predictive performance}:
+\item Statistics: \uured{estimation} and \uured{attribution}
+\pause
+\item Supervised learning: \uured{predictive performance}
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}{Predictive Performance}
-
-% We are looking at predictive performance here
 
 
 How well our model $\hat{f}_\mathcal{T}$ trained on
@@ -104,16 +103,16 @@ where $L(y,x)$ is a \uured{loss function} (e.g. $L(x,y) = (x-y)^2$)
 
 \begin{frame}{Predictive Performance}
 \begin{itemize}
-\item ability to perform well on previously unobserved inputs is called \uured{generalization}
+\item The ability to perform well on previously unobserved inputs is called \uured{generalization}
 \item $\E\left[L(y_0,\hat{f}_\mathcal{T}(x_0))\right]$ is the \uured{generalization error}
 \pause
-\item Models can be \uured{overfit}%\footnote{See e.g. Picard, R.R., Cook, R.D. (1984). Cross-validation of regression models. \emph{Journal of the American Statistical Association}, \textbf{79(387)}, 575--583.}:
+\item Models can \uured{overfit}%\footnote{See e.g. Picard, R.R., Cook, R.D. (1984). Cross-validation of regression models. \emph{Journal of the American Statistical Association}, \textbf{79(387)}, 575--583.}:
 \begin{itemize}
 \item explain training data well
 \item poor generalizability
 \end{itemize}
 \pause
-\item Models can be \uured{underfit}
+\item Models can \uured{underfit}
 \begin{itemize}
 \item explain training data poorly
 \item poor generalizability
@@ -138,7 +137,7 @@ where $L(y,x)$ is a \uured{loss function} (e.g. $L(x,y) = (x-y)^2$)
 L(y_0,\hat{f}(x_0))
 \]
 \pause
-\item This is quite general and we choose based $L$ based on what we want the model performe well on.\pause
+\item This is quite general and we choose based $L$ based on what we want the model perform well on.\pause
 \item Examples:
 \begin{itemize}
 \item Regression problems (squared loss/error):
