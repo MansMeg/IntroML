@@ -508,12 +508,12 @@ $$\pi_i=\frac{\exp\Big(\beta_0+\sum_{j=1}^p\beta_jx_{ij}\Big)}{1+\exp\Big(\beta_
 
 
 
-\begin{frame}{An example: Spam and Ham}
+\begin{frame}{An example: E-mail classification}
 
 \begin{columns}
 	\begin{column}{0.47\textwidth}
 		\textbf{E-mail Spam}\\
-An e-mail provider what to help classify e-mails as spam (1) or ham (0). They have many previous e-mails that customers have already classified as spam, and e-mails people have responded (ham). They want to predict if a new, unseen e-mail is spam or ham.
+Predict if a new, unseen, e-mail is spam or ham.
 	\end{column}
 	\begin{column}{0.5\textwidth}
 		\includegraphics[width=\textwidth]{figs/spam.jpg}
@@ -620,20 +620,12 @@ where
 
 \begin{itemize}
 \item Many loss functions (and gradients) are a sum over $N$ observations (e.g. log-likelihoods).
+\pause
 \item We can estimate $\nabla L(\theta, X_{i}, y_{i})$ by choosing a random observation (with index $i$)
 \[
 E(\nabla L(\theta, X_{i}, y_{i})) = \frac{1}{Z} \nabla L(\theta, \mathbf{X}, \mathbf{y})\,,
 \]
 for some constant $Z$.
-\item Goal -- we want to estimate a total.
-\item This give us the following algorithm:
-\[
-\theta_t = \theta_{t-1} - \eta_t \hat{\nabla} L(\theta_{t-1}, X_{i}, y_{i})\,,
-\]
-where $i$ is random sampled index.
-\item \emph{Note!} \\We need to have an unbiased estimator for $\nabla L(\theta, \mathbf{X}, \mathbf{y})$
-\item \uured{What is an iteration?}\pause
-\item Epochs vs. Iterations
 \end{itemize}
 
 
@@ -644,9 +636,27 @@ where $i$ is random sampled index.
 
 
 \begin{itemize}
+\item This give us the following algorithm:
+\[
+\theta_t = \theta_{t-1} - \eta_t \hat{\nabla} L(\theta_{t-1}, X_{i}, y_{i})\,,
+\]
+where $i$ is random sampled index.
+\item \emph{Note!} \\We need to have an unbiased estimator for $\nabla L(\theta, \mathbf{X}, \mathbf{y})$
+\pause
+\item \uured{What is an iteration?}\pause
+\item Epochs vs. Iterations
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}{Stochastic Gradient Descent}
+
+
+\begin{itemize}
 \item Learning rate $\eta_t$ is important
 \item \uured{Will it converge to an optimum?}\pause
-\item We need to reduce $\eta_t$ over time
+\item We need to reduce $\eta_t$ over time\pause
 \item Robbins–Monro (1951) conditions:
 \begin{enumerate}
 \item $\eta_t \geq 0$ $\forall t \geq 0$
@@ -661,12 +671,13 @@ where $i$ is random sampled index.
 \begin{frame}{Mini-batch gradient descent}
 
 \begin{itemize}
-\item Can we estimate the gradient better?\pause
+\item Can we estimate the gradient in a better way?\pause
 \item We take a mini-batch of size $B$:
 \[
 \theta_t = \theta_{t-1} - \eta_t \nabla L(\theta, \mathbf{X}_{\mathcal(S)_i}, y_{\mathcal(S)_i})\,,
 \]
 where $\mathcal(S)_i$ is a set of random sample (without replacement) indices and $|\mathcal(S)_i| = B$.
+\pause
 \item $B$ is usually set to optimize hardware
 \end{itemize}
 
@@ -676,8 +687,8 @@ where $\mathcal(S)_i$ is a set of random sample (without replacement) indices an
 \begin{frame}{SGD with momentum}
 
 \begin{itemize}
-\item SGD can be slow to converge due to 'jumping' behaviour
-\item Can improve behaviour using momentum -- the rolling mean of gradients
+\item SGD can be slow to converge due to 'jumping' behaviour \pause
+\item Can improve behaviour using momentum -- the rolling mean of gradients \pause
 \item Additional hyperparemeter $\alpha$ to control the momentum
 \[
 m_t = \alpha m_{t-1} + \eta_t \hat{\nabla} L(\theta_{t-1}, X_{i}, y_{i})\,,
@@ -720,9 +731,9 @@ Example of SGD with momentum \href{https://distill.pub/2017/momentum/}{here}.
 \item Adapt $\eta_t$ to individual parameters
 \begin{align*}
 m_t =& \beta_1 m_{t-1} + (1-\beta_1) \hat{\nabla} L(\theta_{t-1}, X_{i}, y_{i}) \\
-v_t =& \beta_1 v_{t-1} + (1-\beta_2) \hat{\nabla} L(\theta_{t-1}, X_{i}, y_{i})^2
+v_t =& \beta_2 v_{t-1} + (1-\beta_2) \hat{\nabla} L(\theta_{t-1}, X_{i}, y_{i})^2
 \end{align*}
-\item Bias correction
+\item Bias correction \\(due to initialization at 0)
 \begin{align*}
 \hat{m}_t =& \frac {m_{t}}{1-\beta_1}\\
 \hat{v}_t =& \frac {v_{t}}{1-\beta_2}
@@ -731,7 +742,7 @@ v_t =& \beta_1 v_{t-1} + (1-\beta_2) \hat{\nabla} L(\theta_{t-1}, X_{i}, y_{i})^
 \[
 \theta_t = \theta_{t-1} - \frac{\eta}{\sqrt{\hat{v}_t} + \epsilon} \hat{m}_t,
 \]
-\item Common values: $\beta_1=0.9$, $\beta_2=0.999$, and $\epsilon=10^{-8}$
+\item Common values: $\beta_1=0.9$, $\beta_2=0.999$, and $\epsilon=10^{-8}$\pause
 \item RMSprop is another (similar) alternative
 \end{itemize}
 
