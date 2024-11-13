@@ -209,7 +209,7 @@ mbsgd <- function(y, X, sample_size, eta, epochs){
 
     # Store epoch, nll and output results
     results[j, "epoch"] <- j
-    results[j, "nll"] <- ll(y, X, theta)
+    results[j, "nll"] <- # negative log-likelihood
     results[j, -(1:2)] <- theta
   }
   return(results)
