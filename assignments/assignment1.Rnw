@@ -147,21 +147,21 @@ Although, in our case we instead want to minimize the negative log likelihood NL
 \item (4p) Derive the the gradient for NLL$(\theta, \mathbf{y}, \mathbf{X})$ with respect to $\theta$.\\\emph{Hint!} See \citet[Ch. 4.4]{hastie2009elements}.
 \item (2p) Implement the gradient as a function in R. Below are two examples of how it should work. Note, \texttt{l\_grad(y, X, theta)} return the gradient of $(1/n) l(\theta, \mathbf{y}, \mathbf{X})$. Show that your implementation give the same result as these test cases in your report.
 <<echo=FALSE,eval=TRUE>>=
-ll_grad <- function(y, X, theta){
+l_grad <- function(y, X, theta){
 c("(Intercept)" = -0.1825, "gre_sd" = 0.0857, "gpa_sd" = 0.0829)
 }
 @
 <<echo=TRUE,eval=TRUE>>=
-ll_grad(y, X, theta = c(0,0,0))
+l_grad(y, X, theta = c(0,0,0))
 @
 
 <<echo=FALSE,eval=TRUE>>=
-ll_grad <- function(y, X, theta){
+l_grad <- function(y, X, theta){
 c("(Intercept)" = 0.0217, "gre_sd" = -0.0395, "gpa_sd" = -0.0426)
 }
 @
 <<echo=TRUE,eval=TRUE>>=
-ll_grad(y, X, theta = c(-1,0.5,0.5))
+l_grad(y, X, theta = c(-1,0.5,0.5))
 @
 
 \end{enumerate}
