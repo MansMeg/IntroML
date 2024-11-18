@@ -147,21 +147,21 @@ Although, in our case we instead want to minimize the negative log likelihood NL
 \item (4p) Derive the the gradient for NLL$(\theta, \mathbf{y}, \mathbf{X})$ with respect to $\theta$.\\\emph{Hint!} See \citet[Ch. 4.4]{hastie2009elements}.
 \item (2p) Implement the gradient as a function in R. Below are two examples of how it should work. Note, \texttt{l\_grad(y, X, theta)} return the gradient of $(1/n) l(\theta, \mathbf{y}, \mathbf{X})$. Show that your implementation give the same result as these test cases in your report.
 <<echo=FALSE,eval=TRUE>>=
-ll_grad <- function(y, X, theta){
+l_grad <- function(y, X, theta){
 c("(Intercept)" = -0.1825, "gre_sd" = 0.0857, "gpa_sd" = 0.0829)
 }
 @
 <<echo=TRUE,eval=TRUE>>=
-ll_grad(y, X, theta = c(0,0,0))
+l_grad(y, X, theta = c(0,0,0))
 @
 
 <<echo=FALSE,eval=TRUE>>=
-ll_grad <- function(y, X, theta){
+l_grad <- function(y, X, theta){
 c("(Intercept)" = 0.0217, "gre_sd" = -0.0395, "gpa_sd" = -0.0426)
 }
 @
 <<echo=TRUE,eval=TRUE>>=
-ll_grad(y, X, theta = c(-1,0.5,0.5))
+l_grad(y, X, theta = c(-1,0.5,0.5))
 @
 
 \end{enumerate}
@@ -209,7 +209,7 @@ mbsgd <- function(y, X, sample_size, eta, epochs){
 
     # Store epoch, nll and output results
     results[j, "epoch"] <- j
-    results[j, "nll"] <- ll(y, X, theta)
+    results[j, "nll"] <- # negative log-likelihood
     results[j, -(1:2)] <- theta
   }
   return(results)
@@ -287,9 +287,9 @@ pred_y_valfold <- predict(mod, newx = X_valfold)
 <<eval=FALSE>>=
 rmse(pred_y_valfold, y_valfold)
 @
-\item Take the mean RMSE for the five folds.
+\item Take the mean RMSE for the 10 folds.
 \end{enumerate}
-\item Now, compute the RMSE for $\lambda=1$ using 5-fold cross-validation.
+\item Now, compute the RMSE for $\lambda=1$ using 10-fold cross-validation.
 \item Test different values for the hyper parameter $\lambda$. What is the best RMSE you can get with 10-fold cross-validation? What is the $\lambda$ for this value?
 \item Now use the best model to do predictions on the test set. What is your RMSE on the test set?
 \end{enumerate}
