@@ -629,7 +629,8 @@ L(y, f_\text{gb}(x))
 \[
 r_{ib} = - \frac{\partial L(y_i,f(x_i))}{\partial f(x_i)}
 \]
-\item Compute a regression tree $\hat{T} (x | \Theta_b)$ on $r_b$
+\\(its the residuls using a squared loss function)
+\item Compute a regression tree $\hat{T} (x | \Theta_b)$ on $r_{bi}$s
 \item Add the classifier to the ensemble
 \[
 \hat{f}_b(x) = \hat{f}_{b-1}(x) + \hat{T} (x | \Theta_b)
