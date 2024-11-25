@@ -735,8 +735,8 @@ v_t =& \beta_2 v_{t-1} + (1-\beta_2) \hat{\nabla} L(\theta_{t-1}, X_{i}, y_{i})^
 \end{align*}
 \item Bias correction \\(due to initialization at 0)
 \begin{align*}
-\hat{m}_t =& \frac {m_{t}}{1-\beta_1}\\
-\hat{v}_t =& \frac {v_{t}}{1-\beta_2}
+\hat{m}_t =& \frac {m_{t}}{1-\beta_1^{t}}\\
+\hat{v}_t =& \frac {v_{t}}{1-\beta_2^{t}}
 \end{align*}
 \item Update
 \[
