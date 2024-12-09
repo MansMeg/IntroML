@@ -47,8 +47,8 @@
 \begin{itemize}
 \item Word embeddings
 \item Recurrent Neural Networks
-\item Attention and Transformers
-\item BERT models
+\item Transformers
+\item Encoder-based (BERT) models
 \end{itemize}
 \end{frame}
 
@@ -61,21 +61,21 @@
 \begin{frame}{Practicalities}
 
 \begin{itemize}
-\item One lecture later next week on word embeddings (Väinö Yrjänäinen)
-\item Transformers are new... but now there is finally a book chapter!
+\item One lecture later this week on word embeddings (Väinö Yrjänäinen)
+\item There is finally a book chapter!
 \end{itemize}
 
 \end{frame}
 
 
-\begin{frame}{Assignment 4: Evaluation}
-
-\begin{itemize}
-\item Validation or test set when evaluating the models not clear
-\item VGG could be expanded more to work more with fine-tuning
-\end{itemize}
-
-\end{frame}
+%\begin{frame}{Assignment 4: Evaluation}
+%
+%\begin{itemize}
+%\item Validation or test set when evaluating the models not clear
+%\item VGG could be expanded more to work more with fine-tuning
+%\end{itemize}
+%
+%\end{frame}
 
 
 \section{Word embeddings}
@@ -448,6 +448,102 @@ Think of $h_t$ as the "state" at timepoint $t$
 \end{figure}
 
 \end{frame}
+
+\subsection{Tokenization}
+
+
+\begin{frame}{Tokenization}
+
+\begin{itemize}
+    \item Subword tokenization is commonly used
+    \pause
+    \item The main problem with tokenization
+    \begin{enumerate}
+        \item Very large vocabulary size
+        \item Out-of-vocabulary (OOV) tokens
+        \item Different meanings of very similar words
+    \end{enumerate}
+    \pause
+    \item Two common approaches:
+    \begin{enumerate}
+        \item Byte-pair encoding (GPT-2, RoBERTa)
+        \item WordPiece (BERT)
+    \end{enumerate}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Byte-pair encoding}
+
+\begin{itemize}
+    \item Gage, Philip (1994). "A New Algorithm for Data Compression"
+    \pause
+    \item Encode the most common pairs iteratively
+\begin{enumerate}
+    \item look for the most frequent pairing
+    \item merge them
+    \item repeat (until token or iteration limit)
+\end{enumerate}
+
+    \pause
+    \item Example (Wikipedia): \texttt{aaabdaaabac}\\ \pause \vspace{2mm}
+    Step 1: \texttt{ZabdZabac}\\
+    \texttt{Z=aa}\\ \pause \vspace{2mm}
+    Step 2: \texttt{ZYdZYac}\\
+    \texttt{Z=aa}\\
+    \texttt{Y=ab}\\ \pause \vspace{2mm}
+    Step 3: \texttt{XdXac}\\
+    \texttt{Z=aa}\\
+    \texttt{Y=ab}\\
+    \texttt{X=ZY}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Byte-pair encoding}
+
+\begin{enumerate}
+    \item look for the most frequent pairing
+    \item merge them
+    \item repeat (until token or iteration limit)
+\end{enumerate}
+
+\begin{itemize}
+     \item Example : 9:\texttt{text\_}, 10:\texttt{texting\_},11:\texttt{context\_}\\ \pause \vspace{2mm}
+    Step 1 (most common: "te"):
+    \{\texttt{te}\} \pause \vspace{2mm} \\
+    ... \\
+    Step i (most common: "text\_"):
+    \{\texttt{text\_}\} \pause \vspace{2mm} \\
+    ... \\
+    Step j (most common: "con"):
+    \{\texttt{text\_},\text{con}\} \pause \vspace{2mm} \\
+    ... \\
+    Step k (most common: "texting"):
+    \{\texttt{text\_},\text{con},\texttt{texting}\} \pause \vspace{2mm} \\
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{WordPiece}
+
+\begin{itemize}
+    \item BPE difficulty: Which pair to choose (if they are approx. equally frequent)?
+    \pause
+    \item Schuster and Kaisuke (2012) present the WordPiece model
+    \pause
+    \item Let $P(i,j)$ be the probability of observing the pair $ij$ and $P(i)$ observing $i$.
+    \pause
+    \item \uured{BPE}: Choose highest $P(i,j)$
+    \pause
+    \item \uured{Wordpiece}: Choose highest $P(i,j)/(P(i)P(j))$
+\end{itemize}
+
+\end{frame}
+
 
 \subsection{Positional encoding}
 
