@@ -579,9 +579,9 @@ Think of $h_t$ as the "state" at timepoint $t$
 
 \end{frame}
 
+\section{Transformer-Encoder Models}
 
-
-\begin{frame}{Transformer}
+\begin{frame}{Transformer-Encoder Models}
 
 \begin{figure}[h]
 \centering
@@ -600,27 +600,42 @@ Think of $h_t$ as the "state" at timepoint $t$
 %\end{figure}
 %\end{frame}
 
-\section{BERT}
-\frame{\sectionpage}
+\begin{frame}{Transformer-Encoder Models}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.48\textwidth]{fig/Vaswani_1_transformer_encoder_model.png}
+\caption{The Transformer Architecture (Vaswani et al., 2017)}
+\end{figure}
+\begin{itemize}
+\pause
+\item Common models are BERT and RoBERTa
+\end{itemize}
+\end{frame}
+
+\subsection{BERT}
 
 \begin{frame}{BERT}
 
 \begin{itemize}
 \item Bidirectional Encoder Representations from Transformers (BERT)
-\item Introduced in 2018/2019 in Devlin et al. (2018)
+\item Introduced in Devlin et al. (2018)
 \pause
 \item {\color{uured} State-of-the-Art} in many text prediction tasks, such as
 \begin{itemize}
-\item Question-Answering
 \item Named-Entity Recognition
 \item Text Classification
 \end{itemize}
 \pause
-\item Many new versions has come out RoBERTa, DistillBERT, AlBERT etc.
+\item Many flavors, such as RoBERTa, AlBERT, etc.
 \pause
 \item {\color{uured} Pre-trained} on a large corpus
 \pause
-\item Available both in English, Swedish and many other languages (The National Library)
+\item Then {\color{uured} fine-tuned} for a specific problem
+\pause
+\item Available English, Swedish and many other languages (The National Library)
+\pause
+\item And again, I rely o Alammar (2018) \uured{The illustrated BERT}
 \end{itemize}
 
 \end{frame}
@@ -631,7 +646,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 \begin{figure}[h]
 \centering
 \includegraphics[width=1\textwidth]{fig/bert-transfer-learning.png}
-\caption{Using BERT for Transfer Learning (Alammar, 2018c)}
+\caption{Using BERT for Transfer Learning (Alammar, 2018b)}
 \end{figure}
 
 \end{frame}
@@ -642,7 +657,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{fig/bert-input-output.png}
-\caption{The BERT model (Alammar, 2018c)}
+\caption{The BERT model (Alammar, 2018b)}
 \end{figure}
 
 \end{frame}
@@ -653,17 +668,16 @@ Think of $h_t$ as the "state" at timepoint $t$
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{fig/bert-encoders-input.png}
-\caption{Opening up BERT (Vaswani et al., 2017)}
+\caption{Opening up BERT (Alammar, 2018b)}
 \end{figure}
 
 \end{frame}
 
 
 
-\subsection{Training BERT}
+%\subsubsection{Training BERT}
 
-
-\begin{frame}{Task 1: Masked Language Model}
+\begin{frame}{Training Task 1: Masked Language Model}
 
 \begin{figure}[h]
 \centering
@@ -674,7 +688,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 \end{frame}
 
 
-\begin{frame}{Next Sentence Prediction}
+\begin{frame}{Training task 2: Next Sentence Prediction}
 
 \begin{figure}[h]
 \centering
@@ -686,7 +700,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 
 
 
-\subsection{Using BERT}
+% \subsection{Using BERT}
 
 \begin{frame}{Using BERT for Classification}
 
@@ -718,6 +732,29 @@ Think of $h_t$ as the "state" at timepoint $t$
 
 \end{frame}
 
+
+
+
+\subsection{RoBERTa}
+
+\begin{frame}{RoBERTa}
+% https://towardsdatascience.com/roberta-1ef07226c8d8
+\begin{itemize}
+    \item RoBERTa uses a similar model as BERT with some important modifications
+\begin{enumerate}
+    \item Dynamic masking instead of Static masking
+    \pause
+    \item Longer sequences included compared to BERT
+    \pause
+    \item No next sentence prediction
+    \pause
+    \item Increased vocabulary size
+    \pause
+    \item Trained on more data (160Gb vs. 13 Gb), for longer and with larger batch sizes
+\end{enumerate}
+\end{itemize}
+
+\end{frame}
 
 
 
