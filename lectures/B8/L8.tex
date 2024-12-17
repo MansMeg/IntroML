@@ -109,8 +109,8 @@
 }}
 \only<2>{\includegraphics[width=0.99\textwidth]{fig/leesedol}
 \caption{Lee Sedol vs. Alpha Go in 2016}}
-\only<3>{\includegraphics[width=0.5\textwidth]{fig/ChatGPT_logo}
-\caption{ChatGPT in 2022}}
+%\only<3>{\includegraphics[width=0.5\textwidth]{fig/ChatGPT_logo}
+%\caption{ChatGPT in 2022}}
 \end{figure}
 
 \end{frame}
@@ -135,7 +135,7 @@
 \item The {\color{uured} Agent}: The learning agent. \pause
 \item The {\color{uured} Environment}: Where the agent performs actions.\pause
 \item {\color{uured} Actions}: Made by the agent and affects the environment.\pause
-\item {\color{uured} Reward}: The evaluation of an action. A scalar value. Pleasure and pain.\pause
+\item {\color{uured} Reward}: The evaluation of an action. A scalar value. "Pleasure and pain" of actions.\pause
 \item {\color{uured} Return}: The aggregated reward over a long period.
 \end{enumerate}
 
@@ -170,7 +170,7 @@
 \end{enumerate}
 \pause
 \begin{itemize}
-\item Outside agent: {\color{uured} Reward signal}: The instant value of an action\pause
+\item Outside the agent: {\color{uured} Reward signal}: The instant value of an action\pause
 \item Problem: {\color{uured} Balance} the trade-off between long-term and short-term rewards
 \end{itemize}
 
@@ -202,7 +202,7 @@
 
 \begin{itemize}
 \item Set a policy without learning: {\color{uured} Evolutionary} Methods
-\item Good when agent cannot sense the environment\pause
+\item Good when the agent cannot sense the environment\pause
 \item {\color{uured} Example}: Bacteria don't learn, they evolve
 \end{itemize}
 
@@ -438,10 +438,11 @@ where $I$ is the indicator function.
 \[
 \tilde{\theta} \sim p(\theta|R, a)
 \]
-\item Conditional on $\tilde{\theta}$, choose action $A_t$
+\item Conditional on $\tilde{\theta}$, choose action $A_t$ proportional to
 \[
-A_t = \arg \max_{a'} \E(R|\tilde{\theta},a')]
+\arg \max_{a'} \E(R|\tilde{\theta},a')]\,,
 \]
+i.e. sample $A_t$ based on the probability of being the best action.
 \end{enumerate}
 
 \end{itemize}
