@@ -34,5 +34,7 @@ jobs:
         Rscript -e 'install.packages("utils")'
 
     - name: Run Makefile
+      working-directory: IntroML/assignments
       run: |
         make all
+
