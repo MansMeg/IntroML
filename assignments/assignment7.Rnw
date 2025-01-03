@@ -140,7 +140,7 @@ For this part of the assignment, \citet{griffiths2004finding} is the primary ref
 
 We will use a Gibbs sampler to estimate ten different topics occurring in Pride and Prejudice and study where they occur. A tokenized version of the book and a \texttt{data.frame} with stopwords can be loaded as follows:
 
-<<>>=
+<<message=FALSE>>=
 library(uuml)
 library(dplyr)
 library(tidytext)
