@@ -24,7 +24,7 @@ The course is graded with U (Underkänd/Fail), G (Godkänd/Pass), VG (väl godk�
 
 To pass, you should pass all assignments and the mini-project. 
 
-To get the grade VG on the course, a total of 6 or more VG points is needed. Each assignment has an additional task to complete to get VG on the assignment (and one VG-point). If the final mini-project gets VG, the students are awarded 2 VG points for the mini-project. VG-points will only be awarded on the first deadline of the assignment.
+To get the grade VG on the course, a total of 7 or more VG points is needed. Each assignment has an additional task to complete to get VG on the assignment (and one VG-point). If the final mini-project gets VG, the students are awarded 2 VG points for the mini-project. VG-points will only be awarded on the first deadline of the assignment.
 
 Note that aiming for VG might mean that you need to put in more hours than the expected 20h per week. 
 
