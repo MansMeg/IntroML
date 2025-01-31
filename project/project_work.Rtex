@@ -164,6 +164,7 @@ The ICML format is also available in Overleaf here: \href{https://www.overleaf.c
 \item The report and project proposals should follow the disposition in Section \ref{sec:disposition}.
 \item The audience is students in the machine learning course, i.e., there is no need to go deep into details of what has been presented during the course. Although, if models not introduced in the course are used, you need to explain these models in more detail.
 \item All Figures using colour should have a colour-blind-friendly colour palette. See \href{http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette}{here} and \href{https://rdrr.io/cran/ggthemes/man/colorblind.html}{here}.
+\item All legends in figures and text in tables should be the same size as the body text in the report.
 \item Before you submit the project, do a language check with a tool such as Grammarly (\href{grammarly.com}). A project with poor English (errors you would have spotted with a tool like Grammarly) will affect your grade.
 \item The final report should be like a research paper, i.e., avoid bullet lists and get a good flow in the text.
 \item This is an academic text. Hence, the claims you make should be backed by references.
