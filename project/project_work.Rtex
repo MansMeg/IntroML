@@ -234,6 +234,8 @@ The evaluation should describe how you evaluate different models and what metric
 \subsubsection{Results (roughly 1.5-2 pages)}
 Summarize the results of your models and compare your model results. Analyze the performance of your model and discuss the results. Try to summarize results in Tables and Figures to help the reader understand the results.
 
+If you don't have perfect accuracy, which you probably dont have, you need to include an error analysis of your models in the report. You should then have at least one subsection on called "\emph{Error analysis}" where you manually go through errors made by the model (or a random sample of errors) and analyze where (and maybe why) the model fails in the predictions.
+
 \subsubsection{Conclusion (roughly 0.5-1 pages)}
 Connect your results back to the introduction. Did the method work as expected? Are the results good or bad? Discussion of problems and potential improvements. Also, include a paragraph on potential ethical/fairness issues (in light of the guest lecture).
 
