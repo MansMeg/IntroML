@@ -126,6 +126,8 @@ The project will be submitted multiple times during the course to even out the w
 \subsection{Project Proposal Part 1}
 Students must turn in a half-page project and data description in the ICML paper format that can be found \href{https://icml.cc/Conferences/2020/StyleAuthorInstructions}{[here]}. The ICML format is also available in Overleaf here: \href{https://www.overleaf.com/latex/templates/icml-2019-submission-template/vkqjjvzjvhdc}{[here]}.
 
+\emph{Note!} You should also follow the formating instructions in the ICML template, e.g. regarding Tables, Figures etc.
+
 \emph{The project report should include all the group members' names following the LaTeX template, i.e. your names should be as authors in the template.}
 
 The project proposal must include the following pieces. See the details on the different parts in Section \ref{sec:disposition}.
@@ -159,6 +161,7 @@ The requirements for the project report are:
 \begin{enumerate}
 \item The Project outcome is a report in the ICML paper format that can be found \href{https://icml.cc/Conferences/2020/StyleAuthorInstructions}{[here]}.
 The ICML format is also available in Overleaf here: \href{https://www.overleaf.com/latex/templates/icml-2019-submission-template/vkqjjvzjvhdc}{[here]}
+\item You should follow the formating instructions in the ICML template, e.g. regarding Tables, Figures etc.
 \item The project report should include all the group members' names but follow the LaTeX template, i.e. your names should be as authors in the template.
 \item The paper should consist of \emph{between three and a half (3.5) and four (4) pages}, excluding references, acknowledgements and eventual appendices.
 \item The report and project proposals should follow the disposition in Section \ref{sec:disposition}.
