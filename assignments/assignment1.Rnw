@@ -1,3 +1,5 @@
+% !Rnw weave = knitr
+
 \documentclass[11pt,a4paper,english]{article}
 \usepackage[latin1]{inputenc}
 \usepackage{hyperref}
@@ -51,7 +53,6 @@
 \newcommand{\Prob}{\mathbb{P}}
 
 \begin{document}
-%\SweaveOpts{concordance=TRUE}
 
 \begin{titlepage}
 
@@ -74,16 +75,16 @@
 
 \input{general_info.tex}
 
-\HRule
-
 % General Knitr options
 % (this cannot be input since the file runs knitr before LaTeX)
-
-<<echo=FALSE, eval=TRUE>>=
+<<echo=FALSE,eval=TRUE>>=
 options(continue="  ", prompt="> ")
 knitr::opts_chunk$set(size = "small")
 @
 
+
+
+\HRule
 
 \newpage
 
@@ -145,23 +146,23 @@ Although, in our case we instead want to minimize the negative log likelihood NL
 
 \begin{enumerate}
 \item (4p) Derive the the gradient for NLL$(\theta, \mathbf{y}, \mathbf{X})$ with respect to $\theta$.\\\emph{Hint!} See \citet[Ch. 4.4]{hastie2009elements}.
-\item (2p) Implement the gradient as a function in R. Below are two examples of how it should work. Note, \texttt{l\_grad(y, X, theta)} return the gradient of $(1/n) l(\theta, \mathbf{y}, \mathbf{X})$. Show that your implementation give the same result as these test cases in your report.
+\item (2p) Implement the gradient as a function in R. Below are two examples of how it should work. Note, \texttt{nll\_grad(y, X, theta)} return the gradient of $(1/n) NLL(\theta, \mathbf{y}, \mathbf{X})$. Show that your implementation give the same result as these test cases in your report.
 <<echo=FALSE,eval=TRUE>>=
-l_grad <- function(y, X, theta){
-c("(Intercept)" = -0.1825, "gre_sd" = 0.0857, "gpa_sd" = 0.0829)
+nll_grad <- function(y, X, theta){
+c("(Intercept)" = 0.1825, "gre_sd" = -0.0857, "gpa_sd" = -0.0829)
 }
 @
 <<echo=TRUE,eval=TRUE>>=
-l_grad(y, X, theta = c(0,0,0))
+nll_grad(y, X, theta = c(0,0,0))
 @
 
 <<echo=FALSE,eval=TRUE>>=
-l_grad <- function(y, X, theta){
-c("(Intercept)" = 0.0217, "gre_sd" = -0.0395, "gpa_sd" = -0.0426)
+nll_grad <- function(y, X, theta){
+c("(Intercept)" = -0.0217, "gre_sd" = 0.0395, "gpa_sd" = 0.0426)
 }
 @
 <<echo=TRUE,eval=TRUE>>=
-l_grad(y, X, theta = c(-1,0.5,0.5))
+nll_grad(y, X, theta = c(-1,0.5,0.5))
 @
 
 \end{enumerate}
@@ -269,10 +270,10 @@ You should do the following and present the results in your report:
 <<eval=FALSE>>=
 fold <- sample(1:10, nrow(X), replace = TRUE)
 
-X_trainfold1 <- X[fold==1,]
-X_valfold1 <- X[fold!=1,]
-y_trainfold1 <- y[fold==1,]
-y_valfold1 <- y[fold!=1,]
+X_trainfold1 <- X[fold!=1,]
+X_valfold1 <- X[fold==1,]
+y_trainfold1 <- y[fold!=1,]
+y_valfold1 <- y[fold==1,]
 @
 \item (5p) Now implement 10-fold cross-validation on the training data.
 \emph{Hint!} Implement this as function called \texttt{glmnet\_cv()} that takes the \texttt{fold} variable, \texttt{X}, \texttt{y} and \texttt{lambda} and then outputs the RMSE.
