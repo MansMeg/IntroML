@@ -96,6 +96,38 @@ Artificial super intelligence (ASI) is "any intellect that greatly exceeds the c
 
 
 
+\begin{frame}{A Definition of AGI\\(Hendrycks et al., 2025)}
+
+\begin{itemize}
+\item \uured{AGI}: a model that matches or exceeds the \textbf{cognitive versatility and proficiency} of a well-educated adult.
+\item \uured{Cattell–Horn–Carroll (CHC)} theory of human cognition.
+\item Evaluates ten broad cognitive domains:
+  \begin{itemize}
+    \item Knowledge, Reading \& Writing, Math, Reasoning
+    \item Working/Long-term Memory, Visual, Auditory, Speed
+  \end{itemize}
+\item Current models total score: \uured{GPT-4: 27\%}, \uured{GPT-5: 57\%}.
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}{A Definition of AGI\\(Hendrycks et al., 2025)}
+
+\centering
+\includegraphics[width=0.8\textwidth]{figs/fig1_agi.png}
+\vspace{1mm}
+\scriptsize Figure 1: Cognitive abilities of GPT-4 vs GPT-5.
+
+\end{frame}
+
+\begin{frame}{What is Artificial Super Intelligence?}
+
+Artificial super intelligence (ASI) is "any intellect that greatly exceeds the cognitive performance of humans in virtually all domains of interest" -- Nick Bostrom
+
+\end{frame}
+
+
 \begin{frame}{What is Machine Learning?}
 
 Machine Learning is the field of study that gives the computer the ability to learn without being explicitly programmed. -- Arthur Samuel (1959)
@@ -104,6 +136,8 @@ A computer program is said to learn from experience E with respect to some class
 
 Learning from data. -- Hastie, Tibshirani, Friedman (2009)
 \end{frame}
+
+
 
 
 \begin{frame}{What is Machine Learning?}
@@ -162,14 +196,26 @@ regression (Stats)\pause
 \begin{itemize}
 \item Supervised learning
 \item Unsupervised learning
-\begin{itemize}
-\item Self-(un)supervised learning
-\end{itemize}
 \item Reinforcement learning
 \end{itemize}
 
 \end{frame}
 
+\begin{frame}{The Bitter Lesson (Rich Sutton, 2019)}
+
+\begin{itemize}
+\item Over 70 years of AI research show that \emph{methods leveraging computation} outperform those using human knowledge.
+\pause
+\item Researchers often try to build human understanding into systems — this helps short term, but limits long-term progress.
+\pause
+\item \emph{Computation, search, and learning} scale with Moore’s law — they keep improving as compute increases.
+\pause
+\item Examples: Chess, Go, speech recognition, vision, language models — all advanced by scaling compute, not by encoding expert knowledge.
+\pause
+\item The bitter truth: \uured{General-purpose, scalable methods} win; human-designed structure eventually holds us back.
+\end{itemize}
+
+\end{frame}
 
 \begin{frame}<handout:0>{Questions?}
 Questions?
@@ -260,7 +306,7 @@ Exact dates and details; see the course page.
 \begin{frame}{Examination}
 
 \begin{itemize}
-\item To pass (G): All labs, mini-project and oral exam needs to be passed (at 75\%)\pause
+\item To pass (G): All labs (at 75\%), mini-project and \uured{oral exam} needs to be passed\pause
 \item To pass with distinction (VG): 7/10 VG points\pause
 \item Each assignment has an extra (VG) task worth 1 VG point.\pause
 \item The mini-project is worth 2 VG-points (if it is passed with distinction).
@@ -677,6 +723,12 @@ where $i$ is random sampled index.
 \item $\sum^\infty_t \eta_t = \infty$
 \item $\sum^\infty_t \eta_t^2 < \infty$
 \end{enumerate}
+\pause
+\vspace{4mm}
+A simple solution is:
+\[
+\eta_t = \frac{1}{t}, \qquad (t \ge 1)
+\]
 \end{itemize}
 
 \end{frame}
