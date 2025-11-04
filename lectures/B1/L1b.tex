@@ -197,7 +197,10 @@ L(\mathbf{y}_0, \hat{\mathbf{p}}) = - \sum^M_{j=1} y_{0,j} \log{\hat{p}_j}
 
 \begin{frame}{The Confusion Matrix: Multi-class}
 
+
 \centering
+Table 1
+
 \begin{tabular}{lccc}
   & Prediction &  \\
   Actual & a & b & c \\
@@ -205,7 +208,11 @@ L(\mathbf{y}_0, \hat{\mathbf{p}}) = - \sum^M_{j=1} y_{0,j} \log{\hat{p}_j}
   b & $F_{ba}$ & $T_b$ & $F_{bc}$ \\
   c & $F_{ca}$ & $F_{cb}$ & $T_c$ \\
 \end{tabular}
-and
+
+
+
+Table 2
+
 \centering
 \begin{tabular}{lccc}
   & Prediction &  \\
@@ -213,6 +220,7 @@ and
   a & $T_a$ & $F_{ba} + F_{ca}$ & $F_{ab} + F_{ac}$ \\
   ... & ... & ... & ...
 \end{tabular}
+
 and $N$ is the sum over all cells.
 
 
@@ -335,24 +343,24 @@ Say that we want to classify spam vs. ham. \\[3mm]\pause
 
 \begin{center}
 \begin{tabular}{ l | c | c }
-  & $\hat{f}(x)=1$ & $\hat{f}(x)=0$\\
+  & $\hat{f}(x)=\text{ham}$ & $\hat{f}(x)=\text{spam}$\\
   \hline
-  $y=1$ & 515 & 91 \\
-  $y=0$ & 85 & 569 \\
+  $y=\text{ham}$ & 515 & 91 \\
+  $y=\text{spam}$ & 85 & 569 \\
   \hline
 \end{tabular}
 \end{center}
 The cell counts yield us estimates of
 \begin{enumerate}
 \item Accuracy: $\frac{515+569}{515+91+85+569}\approx 0.86$
-\item Precision: $\frac{515}{515+85}\approx 0.86$
-\item Recall: $\frac{515}{515+91}\approx 0.85$
-\item $F_1$: $\frac{2 \cdot 0.85 \cdot 0.86}{0.85 + 0.86}\approx 0.855$
+\item Precision(ham): $\frac{515}{515+85}\approx 0.86$
+\item Recall(ham): $\frac{515}{515+91}\approx 0.85$
+\item $F_1$(ham): $\frac{2 \cdot 0.85 \cdot 0.86}{0.85 + 0.86}\approx 0.855$
 \end{enumerate}
 
 \pause
 
-In this example, we let $\hat{y}_i=1$ whenever $\hat{\pi}_i>0.5$.
+In this example, we let $\hat{y}_i=\text{ham}$ whenever $\hat{\pi}_i>0.5$.
 
 What if we choose another cut-off level $\hat{\pi}_i>\alpha$ instead?
 
@@ -363,30 +371,30 @@ What if we choose another cut-off level $\hat{\pi}_i>\alpha$ instead?
 
 \begin{center}
 \begin{tabular}{ l | c | c }
- {\color{uured}$\alpha=0.5$} & $\hat{f}(x)=1$ & $\hat{f}(x)=0$\\
+ {\color{uured}$\alpha=0.5$} & $\hat{f}(x)=\text{ham}$ & $\hat{f}(x)=\text{spam}$\\
   \hline
-  $y=0$ & 515 & 91 \\
-  $y=1$ & 85 & 569 \\
+  $y=\text{ham}$ & 515 & 91 \\
+  $y=\text{spam}$ & 85 & 569 \\
   \hline
 \end{tabular}
 \end{center}
 \pause
-Now let $\alpha=0.3$ instead, so that we are more prone to say that $\hat{y}=1$:
+Now let $\alpha=0.3$ instead, so that we are more prone to say that $\hat{y}=\text{spam}$:
 \begin{center}
 \begin{tabular}{ l | c | c }
-  {\color{uured}$\alpha=0.3$} & $\hat{f}(x)=1$ & $\hat{f}(x)=0$\\
+  {\color{uured}$\alpha=0.3$} & $\hat{f}(x)=\text{ham}$ & $\hat{f}(x)=\text{spam}$\\
   \hline
-  $y=1$ & 462 & 144 \\
-  $y=0$ & 38 & 616 \\
+  $y=\text{ham}$ & 462 & 144 \\
+  $y=\text{spam}$ & 38 & 616 \\
   \hline
 \end{tabular}
 \end{center}
 The cell counts yield us estimates of
 \begin{enumerate}
 \item Accuracy: $\frac{462+616}{462+38+144+616}\approx 0.86$
-\item Precision: $\frac{462}{462+38}\approx 0.92$
-\item Recall: $\frac{462}{462+144}\approx 0.76$
-\item $F_1$: $\frac{2 \cdot 0.92 \cdot 0.76}{0.92 + 0.76}\approx 0.83$
+\item Precision(ham): $\frac{462}{462+38}\approx 0.92$
+\item Recall(ham): $\frac{462}{462+144}\approx 0.76$
+\item $F_1$(ham): $\frac{2 \cdot 0.92 \cdot 0.76}{0.92 + 0.76}\approx 0.83$
 \end{enumerate}
 
 The Precision has increased, but the Recall has decreased...
@@ -402,10 +410,10 @@ Our new classifier: \uured{Everything is ham!}\pause
 
 \begin{center}
 \begin{tabular}{ l | c | c }
-  & $\hat{f}(x)=1$ & $\hat{f}(x)=0$\\
+  & $\hat{f}(x)=\text{ham}$ & $\hat{f}(x)=\text{spam}$\\
   \hline
-  $y=1$ & 1001 & 0 \\
-  $y=0$ & 17 & 0 \\
+  $y=\text{ham}$ & 1001 & 0 \\
+  $y=\text{spam}$ & 17 & 0 \\
   \hline
 \end{tabular}
 \end{center}
@@ -413,11 +421,11 @@ Our new classifier: \uured{Everything is ham!}\pause
 The cell counts yield us estimates of
 \begin{enumerate}
 \item Accuracy: $\frac{1001}{1001+17}\approx 0.99$
-\item Precision: $\frac{1001}{1001+0}\approx 1.0$
-\item Recall: $\frac{1001}{1001+17}\approx 0.99$
-\item $F_1$: $\frac{2 \cdot 1 \cdot 0.99}{0.99 + 1}\approx 0.99$
+\item Precision(ham): $\frac{1001}{1001+0}\approx 1.0$
+\item Recall(ham): $\frac{1001}{1001+17}\approx 0.99$
+\item $F_1$(ham): $\frac{2 \cdot 1 \cdot 0.99}{0.99 + 1}\approx 0.99$
 \pause
-\item $F_1$ for negative class: $\frac{2 \cdot 0 \cdot 0}{0 + 0}$ Not defined, but 0 in the limit as Precision and Recall goes to 0.
+\item $F_1$ for spam: $\frac{2 \cdot 0 \cdot 0}{0 + 0}$ Not defined.
 \item And Specificity is 0!
 \end{enumerate}
 
@@ -440,7 +448,7 @@ Questions?
 \begin{frame}{Test Error}
 
 \begin{itemize}
-\item The main error of interest - \emph{generalization error}
+\item The main error of interest - \uured{generalization error}
 \item Conditional Test Error \\(Performance for the model trained on \uured{actual} training data):
 \[
 \text{Err}_\mathcal{T} = \E_{p(X_0,Y_0)}(L(Y_0,\hat{f}(X_0) | \mathcal{T})
@@ -449,7 +457,6 @@ Questions?
 \[
 \text{Err} = \E_{p(X,Y)}(L(Y_0,\hat{f}(X_0)))
 \]
-\item Sometimes refered to as \uured{generalization} error.
 \item Conditional Test Error is more difficult to estimate than the Expected Test Error (Bates, Hastie, and Tibshiriani, 2021)
 \end{itemize}
 
@@ -591,9 +598,16 @@ In linear regression we have:
 
 This give us the following error decomposition:
 
-\begin{align*}
-\frac{1}{N}\sum^N_i \text{Err}(x_i) &= \sigma^2_\epsilon + \frac{1}{N}\sum^N_i (f(x_i) - E(\hat{f}(x_i))^2 + \frac{p}{N} \sigma^2_\epsilon
-\end{align*}
+\[
+\frac{1}{N} \sum_{i=1}^{N} \text{Err}(x_i)
+=
+\underbrace{\sigma_{\epsilon}^2}_{\text{irreducible}}
++
+\underbrace{\frac{1}{N} \sum_{i=1}^{N} \big(f(x_i) - \mathbb{E}[\hat{f}(x_i)]\big)^2}_{\text{bias}^2}
++
+\underbrace{\frac{p}{N} \sigma_{\epsilon}^2}_{\text{variance}}
+\]
+where $N$ is the number of observations and $p$ the number of covariates.
 
 \end{frame}
 
@@ -601,7 +615,7 @@ This give us the following error decomposition:
 \begin{frame}{Bias and Variance}
 
 \begin{figure}[h]
-\caption{Test, training, and model complexity (Hastie et al, 2009, Figure 7)}
+\caption{Test (red), training (blue), and model complexity (Hastie et al, 2009, Figure 7)}
 \centering
 \includegraphics[width=0.65\textwidth]{figs/ESL_7_1.png}
 \end{figure}
@@ -627,50 +641,49 @@ This give us the following error decomposition:
 
 %\subsection{Optimism of Training Error}
 
-\begin{frame}{Optimism and training error}
+%\begin{frame}{Optimism and training error}
 
-The in-sample \uured{test} error:
-\[
-\text{Err}_\text{in} = \frac{1}{N}\sum^N_{i=1} \E_{Y^0}\{L(Y^0_i,\hat{f}(x_i))|\mathcal{T}\}\,,
-\]
-where $Y^0_i$ is a \uured{new variable conditioned on $x_i$}.\\[3mm]
-\pause
-We have that for many loss functions
-\[
-\E_\mathbf{y} (\text{Err}_\text{in}) = \E_\mathbf{y}(\overline{\text{err}}) + \underbrace{\frac{2}{N}\sum^N_{i=1} \text{Cov}(\hat{f}(x_i),y_i)}_{\text{optimism}}\,,
-\]
-or
-\[
-\text{op} = \E_\mathbf{y} (\text{Err}_\text{in}) - \E_\mathbf{y}(\overline{\text{err}})
-\]
-where $\overline{\text{err}}$ is the training error.
+%The in-sample \uured{test} error:
+%\[
+%\text{Err}_\text{in} = \frac{1}{N}\sum^N_{i=1} \E_{Y^0}\{L(Y^0_i,\hat{f}(x_i))|\mathcal{T}\}\,,
+%\]
+%where $Y^0_i$ is a \uured{new variable conditioned on $x_i$}.\\[3mm]
+%\pause
+%We have that for many loss functions
+%\[
+%\E_\mathbf{y} (\text{Err}_\text{in}) = \E_\mathbf{y}(\overline{\text{err}}) + \underbrace{\frac{2}{N}\sum^N_{i=1} \text{Cov}(\hat{f}(x_i),y_i)}_{\text{optimism}}\,,
+%\]
+%or
+%\[
+%\text{op} = \E_\mathbf{y} (\text{Err}_\text{in}) - \E_\mathbf{y}(\overline{\text{err}})
+%\]
+%where $\overline{\text{err}}$ is the training error.
 
-As $\hat{f}(x_i) \rightarrow y_i$, optimism will increase.
+%As $\hat{f}(x_i) \rightarrow y_i$, optimism will increase.
 
-\uured{Question}: Why?
+%\uured{Question}: Why?
+
+%\end{frame}
+
+%\begin{frame}{Estimating Optimism}
+
+%\begin{itemize}
+%\item Under certain conditions we can estimate this optimism.
+%\item AIC is an example of this -- asymptotic predictive performance.
+%\pause
+%\item \uured{Question}: What is the optimism in the Figure below?
+%\end{itemize}
 
 
-\end{frame}
-
-\begin{frame}{Estimating Optimism}
-
-\begin{itemize}
-\item Under certain conditions we can estimate this optimism.
-\item AIC is an example of this -- asymptotic predictive performance.
-\pause
-\item \uured{Question}: What is the optimism in the Figure below?
-\end{itemize}
-
-
-\begin{figure}[h]
-\caption{Test, training, and model complexity (Hastie et al, 2009, Figure 7)}
-\centering
-\includegraphics[width=0.65\textwidth]{figs/ESL_7_1.png}
-\end{figure}
+%\begin{figure}[h]
+%\caption{Test, training, and model complexity (Hastie et al, 2009, Figure 7)}
+%\centering
+%\includegraphics[width=0.65\textwidth]{figs/ESL_7_1.png}
+%\end{figure}
 
 % Answer the diff between the red and blue line
 
-\end{frame}
+%\end{frame}
 
 
 
@@ -705,7 +718,7 @@ Questions?
 
 
 \begin{itemize}
-\item We want to estimate \uured{$\text{Err}$} for different models and to \uured{choose the best model} where
+\item We want to estimate \uured{the generalization error $\text{Err}$} for different models and to \uured{choose the best model} where
 \begin{align*}
 \text{Err} & = \E_{p(X,Y)} (\text{Err}_\mathcal{T}) \\
  & = \E_{p(X,Y)} (\E_{p(X_0,Y_0)}(L(Y_0,X_0)|\mathcal{T})) %\\
@@ -798,15 +811,15 @@ where $\kappa(i)$ is the set of observations where $i$ is held-out.
 \end{frame}
 
 
-\begin{frame}{Leave-One-Out Cross Validation}
+%\begin{frame}{Leave-One-Out Cross Validation}
 
-\begin{figure}[h]
-\caption{Cross-Validation Bias (Hastie et al, 2009, Fig. 7.14)}
-\centering
-\includegraphics[width=0.7\textwidth]{figs/ESL_7_14.png}
-\end{figure}
+%\begin{figure}[h]
+%\caption{Cross-Validation Bias (Hastie et al, 2009, Fig. 7.14)}
+%\centering
+%\includegraphics[width=0.7\textwidth]{figs/ESL_7_14.png}
+%\end{figure}
 
-\end{frame}
+%\end{frame}
 
 
 % TODO: Add?
@@ -890,14 +903,14 @@ where $\kappa(i)$ is the set of observations where $i$ is held-out.
 
 \begin{frame}{What is CV estimating?}
 
-Let $\text{Err}_{XY} = \text{Err}_\mathcal{T}$. Further, assume the true model is
+Further, assume the true model is
 \[
 y_i = \mathbf{x}^T \theta + \epsilon_i
 \]
 where $\epsilon_i \sim N(0,\sigma^2)$.
 
 \begin{figure}[h]
-\caption{MSE and missclassification ($\alpha=10\%$, Bates et al, 2022)}
+\caption{MSE and misscoverage with $\text{Err}_{XY} = \text{Err}_\mathcal{T}$ (Bates et al, 2022)}
 \vspace{-5mm}
 \centering
 \includegraphics[width=0.75\textwidth]{figs/bales2021}
