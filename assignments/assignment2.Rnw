@@ -1,3 +1,5 @@
+% !Rnw weave = knitr
+
 \documentclass[11pt,a4paper,english]{article}
 \usepackage[latin1]{inputenc}
 \usepackage{hyperref}
@@ -51,6 +53,7 @@
 \newcommand{\Prob}{\mathbb{P}}
 
 \begin{document}
+%\SweaveOpts{concordance=TRUE}
 
 \begin{titlepage}
 
@@ -147,10 +150,12 @@ tree_split <- function(X, y, l){
 }
 @
 
-\emph{Hint!} You will need to handle ties (i.e. different observations with different values). This should not be a very large problem. In the example code, I choose the 'first' minima as:
+\emph{Hint 1!} You will need to handle ties (i.e. different observations with different values). This should not be a very large problem. In the example code, I choose the 'first' minima as:
 <<echo=TRUE, eval=FALSE>>=
 which(min(SS), arr.ind = TRUE)[1,]
 @
+
+\emph{Hint 2!} When making a split, if all possible split points for all input variables result in nodes with too few observations, then that node should be made into a leaf node. It is recommended to include this check inside \texttt{tree\_split()}. Otherwise, \texttt{grow\_tree()} (or the functions in the VG task) may get stuck in an infinite loop. If you suspect that your code is looping infinitely, try adding print statements inside \texttt{grow\_tree()} to display the iteration number or the length of S\_m at each step for debugging. This can help you see whether the tree is actually progressing.
 
 See below for an example how the function should work.
 
