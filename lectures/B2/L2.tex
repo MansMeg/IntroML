@@ -270,7 +270,26 @@ Gini(t)=1-1^2-0-\ldots-0=0.
 }
 
 
+%\subsection{CART}
 
+\frame{\frametitle{CART}
+
+\begin{itemize}
+\item The algorithm is a simplified "teaching" version of the Classification and Regression Trees algorithm \pause
+\item CART:
+
+\begin{itemize}
+\item Uses the same greedy splitting idea.\pause
+\item Splits are chosen using impurity/loss reduction (e.g., Gini, entropy, SSE).\pause
+\item Tree growth is usually depth-first.\pause
+%\item Output is a recursive binary tree object rather than the 'j, s, γ' lists.\pause
+\item CART includes \uured{cost-complexity pruning}
+\end{itemize}
+
+\end{itemize}
+
+
+}
 
 
 \begin{frame}{Cost-Complexity Pruning}
