@@ -56,25 +56,15 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Assignment 1}
-
-
-\begin{enumerate}
-\item Assignment 1: Overall satisfaction
-\end{enumerate}
-
-}
-
-
 \section{Decision trees}
 \frame{\sectionpage}
 
 \frame{\frametitle{Decision trees: basic idea}
 \begin{itemize}
-\item A popular method that can be used for both classification and regression is \uured{decision trees}.\pause
+%\item A popular method that can be used for both classification and regression is \uured{decision trees}.\pause
 \item Have you ever played the game ''20 questions''?\\[3mm]\pause
 \item Decision trees is more or less that game!\\[3mm]\pause
-\item In the case of classification, the idea is to classify the new observation by
+\item In the case of classification (prediction), the idea is to classify the new observation by
 \begin{enumerate}
 \item Asking a questions
 \item Based on the previous answer, ask new question
@@ -102,14 +92,14 @@ Pigeon & warm-blooded & no & yes & bird\\
 Penguin & warm-blooded & no & yes & bird
 \end{tabular}
 \end{table}}
-\pause
-Classify \uured{Komodo dragon} with a decision tree:
+%\pause
+
 \begin{enumerate}
 \item Does it give live birth? \pause (\uured{No!})
 \item Is it warm-blooded? \pause (\uured{No!})
 \item Does it have legs? \pause (\uured{Yes!}) $\rightarrow$ \uured{Reptile}
 \end{enumerate}
-
+\uured{Komodo dragon}!
 }
 
 
@@ -277,10 +267,55 @@ Gini(t)=1-1^2-0-\ldots-0=0.
 \end{itemize}
 
 
-
-
-
 }
+
+
+
+
+
+\begin{frame}{Cost-Complexity Pruning}
+
+\textbf{Goal:} Reduce overfitting by shrinking a large tree into a simpler subtree.
+
+\bigskip
+For any subtree $T$, define:
+
+\begin{itemize}
+    \item \textbf{Training error:}
+    \[
+    R(T) = \sum_{m=1}^{|T|} \sum_{i \in R_m} (y_i - \hat{\gamma}_m)^2
+    \]
+    \item \textbf{Tree size:} $|T| =$ number of terminal/leaf nodes/regions
+    \item \textbf{Cost-complexity measure:}
+    \[
+    R_{\alpha}(T) = R(T) + \alpha |T|
+    \]
+\end{itemize}
+
+\bigskip
+$\alpha \ge 0$ controls the penalty:
+\begin{itemize}
+    \item $\alpha = 0$: prefers a large tree (overfitting)
+    \item large $\alpha$: prefers a small tree (underfitting)
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Weakest-Link Pruning Algorithm}
+
+\begin{enumerate}
+    \item Grow a large tree $T_0$.
+    \item For each internal node, compute the increase in $R_\alpha(T)$ caused by pruning its children.
+    \item Prune the branch that increases $R_\alpha(T)$ the least.
+    \item Repeat to produce a sequence:
+    \[
+        T_0 \supset T_1 \supset T_2 \supset \cdots \supset T_K
+    \]
+    \item Use cross-validation to choose the optimal $\alpha$ and corresponding subtree $T$.
+\end{enumerate}
+
+\end{frame}
+
 
 
 %\frame{\frametitle{Decision trees: the best split}
