@@ -300,12 +300,12 @@ Gini(t)=1-1^2-0-\ldots-0=0.
 For any subtree $T$, define:
 
 \begin{itemize}
-    \item \textbf{Training error:}
+    \item \uured{Training error:}
     \[
     R(T) = \sum_{m=1}^{|T|} \sum_{i \in R_m} (y_i - \hat{\gamma}_m)^2
     \]
-    \item \textbf{Tree size:} $|T| =$ number of terminal/leaf nodes/regions
-    \item \textbf{Cost-complexity measure:}
+    \item \uured{Tree size:} $|T| =$ number of terminal/leaf nodes/regions
+    \item \uured{Full loss:}
     \[
     R_{\alpha}(T) = R(T) + \alpha |T|
     \]
@@ -335,20 +335,6 @@ $\alpha \ge 0$ controls the penalty:
 
 \end{frame}
 
-
-
-%\frame{\frametitle{Decision trees: the best split}
-%The situation becomes a bit more complicated if we take into account that the children can have different numbers of observations. \pause To account for this, we try to maximize the gain:
-%\[
-%Gain=Gini(t)-\sum_{j=1}^k \frac{n_{v_j}}{n_t}Gini(v_j)
-%\]
-%where $v_j$ are the children and $n_i$ are the number of observations at node $i$.\\[2mm]\pause
-%This is equivalent to minimizing $\sum_{j=1}^k \frac{n_{v_j}}{n_t}Gini(v_j).$\\[2mm]\pause
-%Sometimes other impurity measures than Gini are used. One example is the {\color{uured}entropy}:
-%\[
-%Entropy(t)=-\sum_{i=1}^cp(i|t)\log_2p(i|t).
-%\]
-%}
 
 \frame{\frametitle{Important concepts in trees}
 \begin{itemize}
@@ -383,6 +369,11 @@ Simulated example (Prize academy, see ESL):
 \pause
 \item For each category, the 15 experts are chosen at random from the 50.
 \end{enumerate}
+
+'Individual' = a single weak learner/member
+
+'Consensus' = the aggregated majority vote of many learners/members
+
 }
 
 
