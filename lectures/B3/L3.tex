@@ -181,7 +181,7 @@ nus one and human performance at zero. (Kiela et al., 2021)}
 \begin{itemize}
 \item {\color{uured} Feed-Forward Neural Network}: Basic building block\pause
 \item {\color{uured} Convolutional Neural Networks}: Computer Vision\pause
-\item {\color{uured} Transformer Neural Networks}: Textual data/Audio/Vision (generation)
+\item {\color{uured} Transformer Neural Networks}: Text/Audio/Vision
 \item {\color{uured} Diffusion Neural Networks}: Image generation
 \end{itemize}
 %\item The Neural Network Zoo:\\ \url{https://www.asimovinstitute.org/neural-network-zoo/}
@@ -207,7 +207,7 @@ nus one and human performance at zero. (Kiela et al., 2021)}
 
 {\color{uured} Important concepts}:
 
-Layers, neurons, input, output, weights, bias, architecture
+Layers\pause, neurons\pause, input\pause, output\pause, weights\pause, bias\pause, architecture
 
 }
 
@@ -235,7 +235,7 @@ y_i = \mathbf{w}^T \underbrace{g(\mathbf{W}^T\mathbf{x}_i + \mathbf{b}_1)}_{\mat
 \[
 y_i = \mathbf{w}^T g(\mathbf{W}^T\mathbf{x}_i + \mathbf{b}_1) + \mathbf{b}_2
 \]
-
+\pause
 \begin{equation*}
 W =
 \begin{pmatrix}
@@ -255,20 +255,21 @@ b_1 =
 b_2 =
 \begin{pmatrix}
 0 \\
-\end{pmatrix}
+\end{pmatrix},
+x_i =
+\begin{pmatrix}
+0 \\
+0 \\
+\end{pmatrix}\,.
 \end{equation*}
+
+\pause
 
 \begin{equation*}
 g(z) = \text{ReLU}(z) = \max(0,z)
 \end{equation*}
 
-\begin{equation*}
-x_i =
-\begin{pmatrix}
-0 \\
-0 \\
-\end{pmatrix}\,,
-\end{equation*}
+\pause
 
 \[
 y_i = \begin{pmatrix}
@@ -286,6 +287,7 @@ y_i = \begin{pmatrix}
 0 \\
 \end{pmatrix}
 \]
+\pause
 \[
 y_i = \begin{pmatrix}
 1 \\
