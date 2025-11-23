@@ -125,7 +125,7 @@ Work is very much ongoing:
 \begin{itemize}
 \item Although - Neural Networks are not a silver bullet\pause
 \item Remember the {\color{uured} Bayes error}\pause
-\item Some times a linear regression (or Random Forest) is enough
+\item Sometimes a linear regression (or Random Forest) is enough
 \end{itemize}
 
 }
@@ -348,7 +348,7 @@ i.e. the \uured{logistic} or \uured{sigmoid} function.
 \]
 where
 \[
-\text{softmax}(\mathbf{z}) = \frac{\exp(z_j)}{\sum_j \exp(z_j)}\,.
+\text{softmax}(\mathbf{z})_i = \frac{\exp(z_i)}{\sum_j \exp(z_j)}\,.
 \]
 \pause
 \item Other situations: Use the \uured{negative log-likelihood}, e.g. Poisson, ordinal logit, survival models
@@ -416,9 +416,13 @@ where $\Phi(z)$ is a standard Gaussian.
 \frame{\frametitle{Activation functions ($g_l$): ELU}
 
 \[
-g_\text{ELU}(z)={\begin{cases}\alpha \left(e^{z}-1\right)&{\text{if }}z\leq 0\\z&{\text{if }}z>0\end{cases}}
+g_\text{ELU}(z) =
+\begin{cases}
+\alpha\,(e^{z} - 1), & \text{if } z < 0,\\[6pt]
+z, & \text{if } z \ge 0.
+\end{cases}
 \]
-where $\alpha$ is commonly 1.
+where $\alpha$ is commonly set to 1.
 
 \begin{figure}[h]
 \centering
@@ -448,13 +452,13 @@ where $\alpha$ is commonly 1.
 \frame{\frametitle{Universal Approximation Theorem}
 
 \begin{itemize}
-\item A feedforward network with a \uured{single layer} of sufficient size is can to represent any function.
+\item A feedforward network with a \uured{single layer} of sufficient size can represent any function.
 \item Also holds for ReLU (under some assumptions)\pause
 \item But...
 \begin{itemize}
-\item No garantuee we can \uured{learn} the network\pause
-\item No garantuee that it will \uured{generalize}\pause
-\item No indication of how large the network need to be\pause
+\item No guarantee we can \uured{learn} the network\pause
+\item No guarantee that it will \uured{generalize}\pause
+\item No indication of how large the network needs to be\pause
 \end{itemize}
 \end{itemize}
 
@@ -487,10 +491,10 @@ where $\alpha$ is commonly 1.
 \begin{itemize}
 \item Trial and error on validation sets
 \item Art rather than science\pause
-\item Specialized approaches (Bayesian Optimization)\pause
-\item Grid search (combinatorical explosion)
+\item Specialized approaches (Bayesian optimization)\pause
+\item Grid search (combinatorial explosion)
 \begin{itemize}
-\item Really bad with many parameters with less effects
+\item Really bad if many hyperparameters has a little effect
 \item If we have 5 irrelevant parameters we try 3 values for: 125 training per relevant run
 \item Instead use...\pause
 \end{itemize}
@@ -518,7 +522,7 @@ where $\alpha$ is commonly 1.
 \frame{\frametitle{Regularization of Neural Networks}
 
 \begin{itemize}
-\item Reduce traing error but \uured{improve generalization error}\pause
+\item Reduce training error but \uured{improve generalization error}\pause
 \item Neural Networks are extremely flexible / high model capacity\pause
 \item Regularization is important for good generalizability
 \end{itemize}
@@ -565,7 +569,7 @@ be the $L_1$ and $L_2$ regularization respectively.
 \frame{\frametitle{Weight decay}
 
 \begin{itemize}
-\item Lets define the cost function as
+\item Let's define the cost function as
 \begin{align*}
 \tilde{J}(w) &= J(w) + \alpha \Omega_2(w)\\
              &= J(w) + \alpha w^T w
@@ -678,7 +682,7 @@ w \leftarrow & (1 - 2\alpha \epsilon)w - \epsilon \nabla_w J(w)
 \item not rely on individual nodes
 \item spread out the weights over more nodes
 \end{itemize}
-\item Can be seen as an ensamble method
+\item Can be seen as an ensemble method
 \end{itemize}
 }
 
