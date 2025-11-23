@@ -791,12 +791,11 @@ where $\eta_t$ denotes the learning rate at iteration $t$ and $\hat{\nabla} J(\t
 \begin{frame}{Forward Pass: Simple Example}
 \begin{itemize}
 
-    \item Consider a network with one hidden layer ($2$ units):
+\item Consider a network with one hidden layer ($2$ units, we skip biases for simplicity) and ReLU activation:
     \[
-        h_1 = g_1(x^\top W_1 + b_1), \qquad
-        \hat{y} = w^\top h_1 + b_2.
+        h_1 = g_1(x^\top W_1), \qquad
+        \hat{y} = w^\top h_1.
     \]
-
     \item Let
     \[
         x =
@@ -810,17 +809,17 @@ where $\eta_t$ denotes the learning rate at iteration $t$ and $\hat{\nabla} J(\t
         -1 & 1
         \end{bmatrix},
         \quad
-        b_1 =
-        \begin{bmatrix}
-        0 \\ 1
-        \end{bmatrix},
+%        b_1 =
+%        \begin{bmatrix}
+%        0 \\ 1
+%        \end{bmatrix},
         \quad
         w =
         \begin{bmatrix}
         1 \\ -2
-        \end{bmatrix},
-        \quad
-        b_2 = 0.
+        \end{bmatrix}.
+%        \quad
+%        b_2 = 0.
     \]
 
     \item Compute hidden pre-activation:
@@ -828,22 +827,22 @@ where $\eta_t$ denotes the learning rate at iteration $t$ and $\hat{\nabla} J(\t
         z_1 = x^\top W_1 + b_1
         =
         \begin{bmatrix}
-        -1 \\ 5
+        -1 \\ 4
         \end{bmatrix}.
     \]
 
     \item Apply ReLU:
     \[
-        h_1 = g_1(z_1) = \max(0, z_1)
+        h_1 = g_\text{ReLU}(z_1) = \max(0, z_1)
         =
         \begin{bmatrix}
-        0 \\ 5
+        0 \\ 4
         \end{bmatrix}.
     \]
 
     \item Output:
     \[
-        \hat{y} = w^\top h_1 = -10.
+        \hat{y} = w^\top h_1 = -8.
     \]
 
 \end{itemize}
@@ -858,7 +857,7 @@ where $\eta_t$ denotes the learning rate at iteration $t$ and $\hat{\nabla} J(\t
         J = \tfrac{1}{2}(\hat{y} - y)^2,
         \qquad y = 0,
         \qquad
-        \frac{\partial J}{\partial \hat{y}} = -10.
+        \frac{\partial J}{\partial \hat{y}} = -8.
     \]
 
     \item Output layer gradients:
@@ -868,10 +867,7 @@ where $\eta_t$ denotes the learning rate at iteration $t$ and $\hat{\nabla} J(\t
         =
         \begin{bmatrix}
         0 \\ -50
-        \end{bmatrix},
-        \qquad
-        \frac{\partial J}{\partial b_2}
-        = -10.
+        \end{bmatrix}.
     \]
 
     \item Backpropagated error:
