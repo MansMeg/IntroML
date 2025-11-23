@@ -293,7 +293,7 @@ y_i &=
 0
 \end{pmatrix}
 \\
-\pause
+%\pause
 &=
 \begin{pmatrix}
 1 \\
@@ -539,15 +539,18 @@ where $\alpha$ is commonly set to 1.
 
 \begin{itemize}
 \item Trial and error on validation sets
-\item Art rather than science\pause
+\item Art rather than science, however...\pause
+\begin{enumerate}
+\item \uured{Start}: get training error to zero\pause
+\item \uured{Regularize}: get validation error to minimum
+\end{enumerate}
 \item Specialized approaches (Bayesian optimization)\pause
 \item Grid search (combinatorial explosion)
 \begin{itemize}
 \item Really bad if many hyperparameters has a little effect
 \item If we have 5 irrelevant parameters we try 3 values for: 125 training per relevant run
-\item Instead use...\pause
 \end{itemize}
-\item Random search
+\item Instead use...\pause \uured{Random search}
 \end{itemize}
 
 }
