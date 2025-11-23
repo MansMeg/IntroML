@@ -76,54 +76,66 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\frame{\frametitle{The Hype: Computer Vision}
+\frame{\frametitle{The Hype: Deep Learning}
 
 \begin{figure}[h]
-\caption{ImageNet performance (Roessler, 2019)}
 \centering
-\includegraphics[width=0.8\textwidth]{fig/imageNet.png}
+\includegraphics[width=0.8\textwidth]{fig/dl-dev2.png}
+\caption{Benchmark saturation over time for popular
+benchmarks, normalized with initial performance at mi-
+nus one and human performance at zero. (Kiela et al., 2021)}
+
 \end{figure}
 }
 
 
-\frame{\frametitle{The Hype: Speech Recognition}
+\begin{frame}{The Hype: Large Language Models}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.8\textwidth]{fig/SP.jpeg}
-\caption{Speech recognition performance (source: \url{https://eff.org/ai/metrics})}
-\end{figure}
-}
+\begin{itemize}
 
-\frame{\frametitle{The Hype: Natural Language Processing}
+    \item \textbf{GPT-3 (2020)}
+    175B parameters; introduced few-shot prompting; breakthrough in general language capabilities.
+\pause
+    \item \textbf{2021–2022: Scaling + Instruction Tuning : ChatGPT}
+    \begin{itemize}
+        \item Models such as GPT-3.5, Gopher, Chinchilla, PaLM.
+        \item Emergence of instruction-following
+    \end{itemize}
+    \pause
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.8\textwidth]{fig/GLUE.png}
-\caption{General Language Understanding (source: \url{https://www.programmersought.com/article/4251948498/})}
-\end{figure}
+    \item \textbf{2023: GPT-4 Era}
+    \begin{itemize}
+        \item Stronger reasoning and tool-use abilities.
+        \item Multimodal models (image+text)
+        \item Open models: LLaMA, Falcon.
+    \end{itemize}
+    \pause
 
-Work is very much ongoing:
+    \item \textbf{2024: Open-Weights Explosion}
+    \begin{itemize}
+        \item LLaMA-2/3, Mistral, Mixtral (MoE).
+        \item Efficient inference and training.
+        \item Models surpassing GPT-3 performance at a fraction of the size.
+        \item Training data reached internet-size.
+    \end{itemize}
+    \pause
 
-\url{https://gluebenchmark.com/leaderboard}
+    \item \textbf{2025: Multimodal Models}
+    \begin{itemize}
+        \item Native multimodal architectures (audio–vision–text).
+        \item Agents: reasoning + planning + tool execution.
+        \item Increasing focus on safety, alignment, and retrieval-enhanced models.
+        \item GPT-5 released
+    \end{itemize}
 
+\end{itemize}
 
-}
-
-\frame{\frametitle{The Hype: Large Language Models}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.99\textwidth]{fig/Zhao_2023_Fig2.png}
-\caption{Large Language Models timeline (Zhao et al (2023)}
-\end{figure}
-
-}
+\end{frame}
 
 \frame{\frametitle{The Hype}
 
 \begin{itemize}
-\item Although - Neural Networks are not a silver bullet\pause
+\item Although - (Deep) Neural Networks are not a silver bullet\pause
 \item Remember the {\color{uured} Bayes error}\pause
 \item Sometimes a linear regression (or Random Forest) is enough
 \end{itemize}
