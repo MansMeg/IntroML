@@ -461,16 +461,43 @@ where $\alpha$ is commonly set to 1.
 
 }
 
-\frame{\frametitle{Universal Approximation Theorem}
+\begin{frame}{Universal Approximation Theorem}
 
 \begin{itemize}
-\item A feedforward network with a \uured{single layer} of sufficient size can represent any function.
-\item Also holds for ReLU (under some assumptions)\pause
-\item But...
+
+    \item A feed-forward neural network with \uured{one hidden layer} and a
+    \uured{non-polynomial activation} (e.g., sigmoid, tanh, ReLU) can approximate
+    \uured{any continuous function} on a compact set $K \subset \mathbb{R}^n$.
+    % A compact set is a finite, closed, “well-behaved" region in space.
+    \pause
+    \item Formally, for any continuous function $f : K \to \mathbb{R}^m$
+    and any $\varepsilon > 0$, there exists a one-hidden-layer network
+    \[
+        g(x) = C\,\sigma(Ax + b)
+    \]
+    such that
+    \[
+        \sup_{x \in K} \| f(x) - g(x) \| < \varepsilon.
+    \]
+
+    \pause
+
+    \item Interpretation: The \uured{worst-case error} between the network $g$ and the
+    target function $f$ on the entire set $K$ can be made \uured{arbitrarily small}
+    by using enough hidden units.
+
+\end{itemize}
+
+\end{frame}
+
+\frame{\frametitle{Universal Approximation Theorem, but...}
+
+\begin{itemize}
+\item Neural networks are \uured{universal function approximators}, but...\pause
 \begin{itemize}
 \item No guarantee we can \uured{learn} the network\pause
 \item No guarantee that it will \uured{generalize}\pause
-\item No indication of how large the network needs to be\pause
+\item No indication of how large the network needs to be
 \end{itemize}
 \end{itemize}
 
