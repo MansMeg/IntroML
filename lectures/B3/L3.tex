@@ -676,7 +676,7 @@ w \leftarrow & (1 - 2\alpha \epsilon)w - \epsilon \nabla_w J(w)
 \item Sample an indicator $I_i$ for each node $i$
 \item Set the value $h_i$ to 0 with probability $p$
 \end{itemize}
-\item The dropout probability is typically 0.8 for input nodes and 0.5 for hidden nodes
+\item The dropout probability (dropout rate) is typically 0.2 for input nodes and 0.5 for hidden nodes
 \item Forces the network to
 \begin{itemize}
 \item not rely on individual nodes
@@ -728,14 +728,16 @@ where $L$ is the observation level loss, $\text{NN}()$ is our neural network and
 \begin{itemize}
 \item Stochastic Gradient Descent methods
 \[
-\theta_t = \theta_{t-1} - \eta_t \hat{\nabla} J(\theta_{t-1})
+\theta_t = \theta_{t-1} - \eta_t \, \hat{\nabla} J(\theta_{t-1}),
 \]
+where $\eta_t$ denotes the learning rate at iteration $t$ and $\hat{\nabla} J(\theta_{t-1})$ is an estimate of the gradient of the objective function.
+\pause
 \item In practice, better optimizers are used:
 \begin{itemize}
-\item Adam
+\item Adam (the main optimizer today)
 \item RMSprop
 \end{itemize}\pause
-\item To compute gradients ($\hat{\nabla} J(\theta_{t-1})$):
+\item To compute $\hat{\nabla} J(\theta_{t-1})$:
 \begin{itemize}
 \item \uured{Backpropagation} algorithm (chain-rule for derivatives)
 \end{itemize}
@@ -745,6 +747,174 @@ where $L$ is the observation level loss, $\text{NN}()$ is our neural network and
 
 }
 
+\begin{frame}{Backpropagation}
+\begin{itemize}
+
+    \item Backpropagation provides an efficient procedure for computing all
+    parameter gradients $\nabla J(\theta)$ in a feed-forward neural network.
+
+    \item Uses the chain rule to propagate the error backward through layers:
+    \[
+        \frac{\partial J}{\partial W_l}
+        = h_{l-1}^\top \, \delta_l,
+    \qquad
+        \frac{\partial J}{\partial b_l}
+        = \delta_l,
+    \]
+    where $\delta_l$ is the error signal at layer $l$.
+
+    \item The algorithm consists of two passes:
+    \begin{itemize}
+        \item \textbf{Forward pass:} compute
+        \[
+            h_l = g_l(h_{l-1}^\top W_l + b_l)
+        \]
+        for each layer $l$.
+
+        \item \textbf{Backward pass:} compute error signals
+        \[
+            \delta_l = \bigl(\delta_{l+1} W_{l+1}^\top \bigr) \odot g_l'(z_l),
+        \qquad
+            z_l = h_{l-1}^\top W_l + b_l,
+        \]
+        starting from the output layer.
+    \end{itemize}
+
+    \pause
+
+    \item Enables efficient gradient-based optimization even for networks
+    with many layers and millions of parameters.
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Forward Pass: Simple Example}
+\begin{itemize}
+
+    \item Consider a network with one hidden layer ($2$ units):
+    \[
+        h_1 = g_1(x^\top W_1 + b_1), \qquad
+        \hat{y} = w^\top h_1 + b_2.
+    \]
+
+    \item Let
+    \[
+        x =
+        \begin{bmatrix}
+        1 \\ 2
+        \end{bmatrix},
+        \quad
+        W_1 =
+        \begin{bmatrix}
+        1 & 2 \\
+        -1 & 1
+        \end{bmatrix},
+        \quad
+        b_1 =
+        \begin{bmatrix}
+        0 \\ 1
+        \end{bmatrix},
+        \quad
+        w =
+        \begin{bmatrix}
+        1 \\ -2
+        \end{bmatrix},
+        \quad
+        b_2 = 0.
+    \]
+
+    \item Compute hidden pre-activation:
+    \[
+        z_1 = x^\top W_1 + b_1
+        =
+        \begin{bmatrix}
+        -1 \\ 5
+        \end{bmatrix}.
+    \]
+
+    \item Apply ReLU:
+    \[
+        h_1 = g_1(z_1) = \max(0, z_1)
+        =
+        \begin{bmatrix}
+        0 \\ 5
+        \end{bmatrix}.
+    \]
+
+    \item Output:
+    \[
+        \hat{y} = w^\top h_1 = -10.
+    \]
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Backward Pass: Simple Example}
+\begin{itemize}
+
+    \item Loss (squared error):
+    \[
+        J = \tfrac{1}{2}(\hat{y} - y)^2,
+        \qquad y = 0,
+        \qquad
+        \frac{\partial J}{\partial \hat{y}} = -10.
+    \]
+
+    \item Output layer gradients:
+    \[
+        \frac{\partial J}{\partial w}
+        = h_1 (\hat{y} - y)
+        =
+        \begin{bmatrix}
+        0 \\ -50
+        \end{bmatrix},
+        \qquad
+        \frac{\partial J}{\partial b_2}
+        = -10.
+    \]
+
+    \item Backpropagated error:
+    \[
+        \delta_1 = (\hat{y}-y)\, w =
+        \begin{bmatrix}
+        -10 \\ 20
+        \end{bmatrix},
+        \qquad
+        g'_1(z_1) =
+        \begin{bmatrix}
+        0 \\ 1
+        \end{bmatrix},
+    \]
+    \[
+        \delta_1 = \delta_1 \odot g'_1(z_1)
+        =
+        \begin{bmatrix}
+        0 \\ 20
+        \end{bmatrix}.
+    \]
+
+    \item Gradients for first layer:
+    \[
+        \frac{\partial J}{\partial W_1}
+        = x \, \delta_1^\top
+        =
+        \begin{bmatrix}
+        0 & 20 \\
+        0 & 40
+        \end{bmatrix},
+        \qquad
+        \frac{\partial J}{\partial b_1}
+        =
+        \begin{bmatrix}
+        0 \\ 20
+        \end{bmatrix}.
+    \]
+
+\end{itemize}
+\end{frame}
+
+\subsection{Difficulties in Neural Network Optimization}
 % TODO: Add
 %\subsection{Ill-Conditioning}
 % 8.2.1
