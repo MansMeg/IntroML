@@ -824,7 +824,7 @@ where $\eta_t$ denotes the learning rate at iteration $t$ and $\hat{\nabla} J(\t
 
     \item Compute hidden pre-activation:
     \[
-        z_1 = x^\top W_1 + b_1
+        z_1 = x^\top W_1
         =
         \begin{bmatrix}
         -1 \\ 4
@@ -857,53 +857,67 @@ where $\eta_t$ denotes the learning rate at iteration $t$ and $\hat{\nabla} J(\t
         J = \tfrac{1}{2}(\hat{y} - y)^2,
         \qquad y = 0,
         \qquad
-        \frac{\partial J}{\partial \hat{y}} = -8.
+        \frac{\partial J}{\partial \hat{y}} = \hat{y} - y = -8.
     \]
 
     \item Output layer gradients:
     \[
         \frac{\partial J}{\partial w}
+        = \frac{\partial J}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial w}
         = h_1 (\hat{y} - y)
         =
         \begin{bmatrix}
-        0 \\ -50
+        0 \\ -40
         \end{bmatrix}.
     \]
 
-    \item Backpropagated error:
-    \[
-        \delta_1 = (\hat{y}-y)\, w =
-        \begin{bmatrix}
-        -10 \\ 20
-        \end{bmatrix},
-        \qquad
-        g'_1(z_1) =
-        \begin{bmatrix}
-        0 \\ 1
-        \end{bmatrix},
-    \]
-    \[
-        \delta_1 = \delta_1 \odot g'_1(z_1)
-        =
-        \begin{bmatrix}
-        0 \\ 20
-        \end{bmatrix}.
-    \]
+    \item Backpropagated error signal:
+\[
+\delta_1
+:=
+\frac{\partial J}{\partial z_1}
+=
+\frac{\partial J}{\partial \hat{y}}
+\cdot
+\frac{\partial \hat{y}}{\partial h_1}
+\cdot
+\frac{\partial h_1}{\partial z_1}
+=
+(\hat{y} - y)\, w \;\odot\; g'_{\text{ReLU}}(z_1).
+\]
 
+\[
+(\hat{y}-y)\, w =
+\begin{bmatrix}
+-8 \\ 16
+\end{bmatrix},
+\qquad
+g'_{\text{ReLU}}(z_1) =
+\begin{bmatrix}
+0 \\ 1
+\end{bmatrix},
+\qquad
+\delta_1
+=
+\begin{bmatrix}
+0 \\ 16
+\end{bmatrix}.
+\]
     \item Gradients for first layer:
     \[
         \frac{\partial J}{\partial W_1}
+        = \frac{\partial J}{\partial \hat{y}}
+\cdot
+\frac{\partial \hat{y}}{\partial h_1}
+\cdot
+\frac{\partial h_1}{\partial z_1}
+\cdot
+\frac{\partial z_1}{\partial W_1}
         = x \, \delta_1^\top
         =
         \begin{bmatrix}
-        0 & 20 \\
-        0 & 40
-        \end{bmatrix},
-        \qquad
-        \frac{\partial J}{\partial b_1}
-        =
-        \begin{bmatrix}
-        0 \\ 20
+        0 & 16 \\
+        0 & 32
         \end{bmatrix}.
     \]
 
