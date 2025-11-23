@@ -589,10 +589,9 @@ where $\alpha$ is commonly set to 1.
 \begin{itemize}
 \item Let
 \[
-\tilde{J}(W,b) = J(W,b) + \alpha \Omega(W)\,,
+\tilde{J}(\theta) = J(\theta) + \alpha \Omega(\theta)\,,
 \]
-where $J(W,b)$ is the cost function and $\alpha \Omega(W)$ is the penalty for the weight matrices.
-\item $\alpha$ is the strength of the penalty.
+where $J(\theta)$ is the cost function, $\theta$ all weights and biases, and $\alpha \Omega(\theta)$ is the penalty for the weight matrices and where $\alpha$ is the strength of the penalty.
 \end{itemize}
 
 }
@@ -602,16 +601,16 @@ where $J(W,b)$ is the cost function and $\alpha \Omega(W)$ is the penalty for th
 \begin{itemize}
 \item Let
 \[
-\Omega_1 (W) = \sum_i \sum_j |w|_{i,j}\,,
+\Omega_1 (\theta) = \sum_i \sum_j |\theta|_{i,j}\,,
 \]
 and
 \[
-\Omega_2 (W) = \sum_i \sum_j w^2_{i,j}\,,
+\Omega_2 (\theta) = \sum_i \sum_j \theta^2_{i,j}\,,
 \]
 be the $L_1$ and $L_2$ regularization respectively.
 \item We can then get the cost function
 \[
-\tilde{J}(W,b) = J(W,b) + \sum_l \alpha_l \Omega_2(W_l)\,,
+\tilde{J}(\theta) = J(\theta) + \sum_l \alpha_l \Omega_2(\theta_l)\,,
 \]
 \end{itemize}
 
@@ -621,7 +620,7 @@ be the $L_1$ and $L_2$ regularization respectively.
 \frame{\frametitle{Weight decay}
 
 \begin{itemize}
-\item Let's define the cost function as
+\item Let's define the cost function for the weights $w$ as
 \begin{align*}
 \tilde{J}(w) &= J(w) + \alpha \Omega_2(w)\\
              &= J(w) + \alpha w^T w
