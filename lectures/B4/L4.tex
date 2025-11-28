@@ -61,7 +61,7 @@
 
 \begin{frame}{On this weeks assignment}
 \begin{itemize}
-\item It takes long time to run the models this week. Start early!
+\item It takes a long time to run the models this week. Start early!
 \end{itemize}
 \end{frame}
 
@@ -95,9 +95,9 @@
 \item Special architecture that works well for data with a \uured{grid structure}
 \begin{enumerate}
 \item 1D-grids: Time series\pause
-\item 2D-grids: Gray-scale Images (pixels)\pause
-\item 3D-grids: Color Images (pixels and chanels)\pause
-\item 4D-grids: Color Video (pixels, chanels, frames)
+\item 2D-grids (matrix): Gray-scale Images (pixels)\pause
+\item 3D-grids (3D tensor): Color Images (pixels and channels)\pause
+\item 4D-grids (4D tensor): Color Video (pixels, channels, frames, time)
 \end{enumerate}
 \end{itemize}
 
@@ -170,7 +170,7 @@ for analyzing orthopedic trauma radiographs, Acta Orthopaedica, 88:6, 581-586}
 \end{enumerate}\pause
 \item {\color{uured} Grayscale}: single channel
 \item {\color{uured} Color}: three channel (RGB)\pause
-\item Spatial and hiearchical correlation structures
+\item Spatial and hierarchical correlation structures
 \end{itemize}
 }
 
@@ -191,7 +191,7 @@ for analyzing orthopedic trauma radiographs, Acta Orthopaedica, 88:6, 581-586}
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.7\textwidth]{fig/DLR_Fig_5_2_cat.png}
-\caption{The representations of a cat (Chollet and Allair, 2018, Fig 5.2)}
+\caption{The representations of a cat (Chollet and Allaire, 2018, Fig 5.2)}
 \end{figure}
 \pause
 \item CNN uses \uured{Convolutional Layers} to learn \uured{parameter efficient} representations
@@ -399,7 +399,7 @@ Y=
 \begin{itemize}
 \item Handling {\color{uured} edges}
 \item \emph{Padding}: add 0 around the image
-\item Nessecary to {\color{uured} keep size} of feature maps
+\item Necessary to {\color{uured} keep size} of feature maps
 \end{itemize}
 
 }
@@ -411,7 +411,7 @@ Y=
 \centering
 \includegraphics[width=0.8\textwidth]{fig/DLR_fig_5_5_valid.png}
 \includegraphics[width=0.8\textwidth]{fig/DLR_fig_5_6_padded.png}
-\caption{Padding and valid edge handling (Chollet and Allair (2018), Fig. 5.5, 5.6)}
+\caption{Padding and valid edge handling (Chollet and Allaire (2018), Fig. 5.5, 5.6)}
 \end{figure}
 }
 
@@ -426,7 +426,7 @@ Y=
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.8\textwidth]{fig/DLR_fig_5_7_2g2_stride.png}
-\caption{Strides (Chollet and Allair (2018), Fig. 5.5, 5.6)}
+\caption{Strides (Chollet and Allaire (2018), Fig. 5.5, 5.6)}
 \end{figure}
 }
 
@@ -440,7 +440,7 @@ Y=
 \item The number and size of filters
 \item We use the same filters everywhere\pause
 \end{enumerate}
-\item Example: a 1 megapixel image ($1000 \times 1000$ pixels)
+\item Example: a 1 megapixel, single channel, image ($1000 \times 1000$ pixels)
 \begin{enumerate}
 \item Dense network with 100 nodes: {\color{uured} 100M} parameters
 \item CNN network with 100 $3\times 3$ filters: {\color{uured} 1000} parameters \\(900 from filters, 100 bias terms)
@@ -465,7 +465,7 @@ Y=
 \begin{enumerate}
 \item $\mathbf{W}$ is the filter\pause
 \item $\mathbf{X}$ is the input feature map\pause
-\item $\mathbf{X W}$ is the convolutional feature map\pause
+\item $\mathbf{X W}$ is the convolutional feature map ($X * W$)\pause
 \item $b$ is a bias (one per filter) \pause
 \item $\sigma$ is the activation function (usually a ReLU)
 \end{enumerate}
@@ -477,8 +477,10 @@ Y=
 \frame{\frametitle{Pooling layer}
 
 \begin{itemize}
-\item We take a function $f$ that return one value per pooling kernel\pause
+\item We take a function $f$ that returns one value per pooling kernel\pause
 \item Most commonly $f=\max$
+\item {\color{uured} Max Pooling}: Take the maximum value in the pooling kernel\pause
+\item Pooling has \uured{no trainable parameters}\pause
 \item Commonly a $2\times 2$ pooling kernel with stride 2
 \item {\color{uured} Why?} Reduce the size of feature map, but keep the activation\pause
 \item In Keras:\\
@@ -516,7 +518,7 @@ Y=
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.6\textwidth]{fig/DLR_fig_5_10_data_augmentation.png}
-\caption{Data Augmentation (Chollet and Allair, 2018, Fig 5.10)}
+\caption{Data Augmentation (Chollet and Allaire, 2018, Fig 5.10)}
 \end{figure}
 \pause
 \begin{itemize}
@@ -591,7 +593,7 @@ Y=
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.8\textwidth]{fig/DLR_fig_5_12_feature_extract.png}
-\caption{Using convnets as base for feature extraction (Chollet and Allair, 2018, Fig 5.12)}
+\caption{Using convnets as base for feature extraction (Chollet and Allaire, 2018, Fig 5.12)}
 \end{figure}
 
 }
@@ -601,7 +603,7 @@ Y=
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.45\textwidth]{fig/DLR_fig_5_15_a_fine_tune.png}\includegraphics[width=0.45\textwidth]{fig/DLR_fig_5_15_b_fine_tune.png}
-\caption{Finetuning a convolutional base (Chollet and Allair, 2018, Fig 5.15)}
+\caption{Finetuning a convolutional base (Chollet and Allaire, 2018, Fig 5.15)}
 \end{figure}
 
 }
@@ -611,7 +613,7 @@ Y=
 
 \begin{itemize}
 
-\item \uured{Catastophic forgetting} \pause
+\item \uured{Catastrophic forgetting} \pause
 \item \uured{Domain adaptation}: Same problem but at different input dataset\\ (e.g. language models for legal/medical/political data) \pause
 \item \uured{Concept drift}: Similar problem \pause
 \item Previously, popular with unsupervised pre-training.
