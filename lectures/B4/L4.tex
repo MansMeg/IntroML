@@ -430,6 +430,39 @@ Y=
 \end{figure}
 }
 
+\begin{frame}{How Convolutions Change Tensor Shapes}
+
+\begin{itemize}
+
+    \item Input tensor shape:
+    \[
+        X \in \mathbb{R}^{H \times W}
+    \]
+    where $H$ is the height and $W$ is the width of the image.
+
+    \item Convolution parameters:
+    \begin{itemize}
+        \item Kernel size: $k_h \times k_w$
+        \item Stride: $s$
+        \item Padding: $p$
+    \end{itemize}
+
+    \pause
+
+    \item Output tensor shape:
+    \[
+        Y \in \mathbb{R}^{H' \times W'}
+    \]
+    where
+    \[
+    H' = \left\lfloor \frac{H - k_h + 2p}{s} \right\rfloor + 1,
+    \qquad
+    W' = \left\lfloor \frac{W - k_w + 2p}{s} \right\rfloor + 1.
+    \]
+
+\end{itemize}
+
+\end{frame}
 
 \frame{\frametitle{Why Convolution Layers?}
 
