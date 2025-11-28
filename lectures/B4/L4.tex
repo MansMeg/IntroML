@@ -184,6 +184,47 @@ for analyzing orthopedic trauma radiographs, Acta Orthopaedica, 88:6, 581-586}
 
 }
 
+\begin{frame}{Why Not Use FFNN for Images?}
+
+\begin{itemize}
+
+    \item \uured{Parameter explosion:}
+    A fully-connected layer ignores image structure.
+    \[
+        256 \times 256 \times 3 \approx 200{,}000 \text{ inputs}
+    \]
+    A single hidden layer with 1{,}000 units would require
+    \[
+        200{,}000 \times 1{,}000 = 200 \text{ million parameters}.
+    \]
+
+    \pause
+
+    \item \uured{Locality is ignored:}
+    Nearby pixels are strongly correlated.
+    FFNNs treat all pixels as independent inputs.
+
+    \pause
+
+    \item \uured{Missing invariances:}
+    Images contain translation/shift invariance.
+    MLPs must \emph{learn} this from data instead of building it in.
+
+    \pause
+
+    \item \uured{\textbf{What CNNs do intuitively}}:
+    \begin{itemize}
+        \item Look at small local regions (receptive fields)
+        \item Reuse the same filter across the image (weight sharing)
+        \item Build hierarchical features: edges $\rightarrow$ textures $\rightarrow$ shapes
+    \end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+
+
 \frame{\frametitle{How to train models for images?}
 
 \begin{itemize}
