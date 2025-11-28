@@ -505,6 +505,45 @@ Y=
 
 \end{frame}
 
+\begin{frame}{Example: Computing Output Size}
+
+\begin{itemize}
+
+    \item Given an input image:
+    \[
+        32 \times 32 \times 3
+    \]
+
+    \item Convolution layer parameters:
+    \begin{itemize}
+        \item Kernel size: $3 \times 3$
+        \item Padding: $p = 1$
+        \item Stride: $s = 1$
+        \item Number of filters: $C_{\text{out}} = 16$
+    \end{itemize}
+
+    \pause
+
+    \item Output height and width:
+    \[
+        H' = \frac{32 - 3 + 2p}{s} + 1
+        = \frac{32 - 3 + 2}{1} + 1 = 32,
+    \]
+    \[
+        W' = \frac{32 - 3 + 2}{1} + 1 = 32.
+    \]
+
+    \pause
+
+    \item Final output tensor:
+    \[
+        32 \times 32 \times 16.
+    \]
+
+\end{itemize}
+
+\end{frame}
+
 \frame{\frametitle{Why Convolution Layers?}
 
 \begin{itemize}
@@ -585,6 +624,37 @@ Y=
 \caption{Learning invariances (Goodfellow et al., 2017, Fig. 9.9)}
 \end{figure}
 }
+
+\begin{frame}{Pooling Layers: Pros and Cons}
+
+\begin{itemize}
+
+    \item \uured{Pros}
+    \begin{itemize}
+        \item Provides translation invariance
+        \item Reduces spatial resolution → computational savings
+        \item Helps prevent overfitting by reducing model capacity
+    \end{itemize}
+
+    \pause
+
+    \item \uured{Cons}
+    \begin{itemize}
+        \item Discards fine-grained spatial information
+        \item Can hurt performance on tasks requiring precise localization
+              (e.g., segmentation, object detection)
+        \item Often replaced or reduced in modern architectures
+              (e.g., strided convolutions)
+    \end{itemize}
+
+    \vspace{5mm}
+
+    See \emph{Benefits of Max Pooling in Neural Networks: Theoretical
+and Experimental Evidence} by Matoba et al. (2023) for more details.
+
+\end{itemize}
+
+\end{frame}
 
 \subsection{Regularization}
 
@@ -694,6 +764,45 @@ Y=
 \end{itemize}
 
 }
+
+\begin{frame}{Transfer Learning: Practical Strategy}
+
+\begin{itemize}
+
+    \item \uured{Step 1: Load a pretrained CNN}
+    (e.g., ResNet, EfficientNet) trained on ImageNet.
+
+    \pause
+
+    \item \uured{Step 2: Freeze the convolutional base}
+    Train only the new classification head
+
+    \pause
+
+    \item \uured{Step 3: Train the head first}
+    Use a higher learning rate (e.g., $10^{-3}$).
+
+    \pause
+
+    \item \uured{Step 4: Unfreeze top convolutional blocks}
+    Fine-tune with a \emph{small} learning rate (e.g., $10^{-5}$)
+    to avoid destroying pretrained features.
+
+    \pause
+
+    \item \emph{When it works best:}
+    \begin{itemize}
+        \item You have limited data
+        \item Your task is visually similar to pretrained data (e.g. ImageNet)
+        \item You want fast convergence and stable training
+    \end{itemize}
+
+    \item \emph{When not to fine-tune:}
+    Extremely small datasets → risk of overfitting.
+
+\end{itemize}
+
+\end{frame}
 
 
 \section{Practical Methodology}
