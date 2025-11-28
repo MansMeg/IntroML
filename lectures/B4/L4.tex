@@ -103,6 +103,8 @@
 
 }
 
+\section{Computer Vision}
+
 \frame{\frametitle{Computer Vision}
 
 \begin{itemize}
@@ -240,22 +242,22 @@ y(t) = \int x(\tau) k(t-\tau)d\tau = (x*k)(t)
 \begin{itemize}
 \item If $t$ is discrete (as in a grid):
 \[
-y(t) = (x*k)(t) = \sum_{\tau=-{\infty}}^{\infty} x(\tau) k(t-\tau)
+y(t) = (x * k)(t) = \sum_{\tau=-{\infty}}^{\infty} x(\tau) k(t-\tau)
 \]
 \pause
 \item In the case of images we have 2 discrete dimensions
 \[
-Y(i,j) = (X * K) \sum_{m} \sum_{n} X(m, n) K(i-m, j-n)
+Y(i,j) = (X * K)(i,j) = \sum_{m} \sum_{n} X(m, n) K(i-m, j-n)
 \]
 \pause
 \item Sometimes the \uured{cross-correlation} is called convolution:
 \[
-Y(i,j) = (X * K) \sum_{m} \sum_{n} X(m, n) K(i+m, j+n)
+Y(i,j) = (X * K)(i, j) = \sum_{m} \sum_{n} X(m, n) K(i+m, j+n)
 \]
 \begin{enumerate}
 \item $X(i,j)$: Input (2D)
-\item $K(i,j)$: Kernel, filter, "feature" (2D)
-\item $Y(i,j)$: Output, feature map (2D)
+\item $K(i,j)$: Kernel, \uured{filter}, "feature" (2D)
+\item $Y(i,j)$: Output, \uured{feature map} (2D)
 \end{enumerate}
 \end{itemize}
 }
@@ -349,8 +351,8 @@ Y=
 \item Most convolutional neural networks have:
 \begin{enumerate}
 \item Many convolutional layers
-\item More kernels higher up in the network
-\item A classification head (usually a feed-forward neural network)
+\item More kernels/filters higher up in the network
+\item A classification head (usually a \uured{feed-forward} neural network)
 \end{enumerate}
 \pause
 \item Benefits:
@@ -490,7 +492,7 @@ Y=
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.8\textwidth]{fig/MaxpoolSample2.png}
-\caption{Strides (Computer Science Wikipedia)}
+\caption{Strides ("Computer Science" at Wikipedia)}
 \end{figure}
 }
 
