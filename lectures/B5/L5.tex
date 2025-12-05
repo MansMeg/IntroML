@@ -376,19 +376,24 @@ where $H$ is the number of hidden units and $D$ is the input dimension.
 \caption{Scaled Dot-Product Attention (Vaswani et al., 2017)}
 \end{figure}
 \[
-\text{Attention}(\mathbf{Q},\mathbf{K},\mathbf{V}) = \text{softmax}\left(\frac{\mathbf{Q} \mathbf{K}^T}{\sqrt {d_k}}\right) \mathbf{V}
+\text{Attention}(\mathbf{Q},\mathbf{K},\mathbf{V}) = \text{softmax}\left(\frac{\mathbf{Q} \mathbf{K}^T}{\sqrt {d_k}}\right) \mathbf{V}\,,
 \]
+where the scaling factor $\sqrt{d_k}$ stabilizes gradients.
 
 \end{frame}
 
 
 \begin{frame}{Attention components}
 
+Self-attention allows each word to decide which other words are most relevant to interpreting its meaning.
+
 \begin{itemize}
 \item (Q)uery: Word $i$ query other words
 \item (K)ey: The other words return their key to $i$
 \item (V)alue: The value of the other words to $i$
 \end{itemize}
+
+
 \end{frame}
 
 
@@ -433,6 +438,107 @@ where $H$ is the number of hidden units and $D$ is the input dimension.
 \includegraphics[width=1\textwidth]{fig/alammar_transformer_attention_heads_qkv.png}
 \caption{Attention heads (Alammar, 2018b)}
 \end{figure}
+
+\end{frame}
+
+\begin{frame}{Self-Attention Example: Setup}
+
+\textbf{Sentence:} ``The cat sat''
+
+\medskip
+Use simple 2D embeddings:
+
+\[
+\text{the} = \begin{bmatrix}1 \\ 0\end{bmatrix}, \quad
+\text{cat} = \begin{bmatrix}0 \\ 1\end{bmatrix}, \quad
+\text{sat} = \begin{bmatrix}1 \\ 1\end{bmatrix}
+\]
+
+We compute self-attention for the token \textbf{``cat''}.
+
+\medskip
+Projection matrices (toy example):
+
+\[
+W_Q = \begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}, \quad
+W_K = \begin{bmatrix}1 & 1 \\ 0 & 1\end{bmatrix}, \quad
+W_V = \begin{bmatrix}1 & 0 \\ 1 & 1\end{bmatrix}
+\]
+
+\end{frame}
+
+\begin{frame}{Step 1: Compute Q, K, and V}
+
+\textbf{Query for ``cat'':}
+\[
+Q_{\text{cat}} = W_Q \cdot \text{cat}
+= \begin{bmatrix}0 \\ 1\end{bmatrix}
+\]
+
+\medskip
+
+\textbf{Keys:}
+\[
+K_{\text{the}} = \begin{bmatrix}1 \\ 0\end{bmatrix}, \quad
+K_{\text{cat}} = \begin{bmatrix}1 \\ 1\end{bmatrix}, \quad
+K_{\text{sat}} = \begin{bmatrix}2 \\ 1\end{bmatrix}
+\]
+
+\medskip
+
+Values:
+\[
+V_{\text{the}} = \begin{bmatrix}1 \\ 1\end{bmatrix}, \quad
+V_{\text{cat}} = \begin{bmatrix}0 \\ 1\end{bmatrix}, \quad
+V_{\text{sat}} = \begin{bmatrix}1 \\ 2\end{bmatrix}
+\]
+
+\end{frame}
+
+\begin{frame}{Step 2: Attention Scores and Weights}
+
+\textbf{Dot-product scores for ``cat'':}
+\[
+\left[
+Q_{\text{cat}}^\top K_{\text{the}},
+Q_{\text{cat}}^\top K_{\text{cat}},
+Q_{\text{cat}}^\top K_{\text{sat}}
+\right]
+=
+[0,\; 1,\; 1]
+\]
+
+\medskip
+
+\textbf{Softmax weights:}
+\[
+\text{weights} = \mathrm{softmax}([0,\,1,\,1])
+= [0.21,\; 0.39,\; 0.39]
+\]
+
+\end{frame}
+
+\begin{frame}{Step 3: Output Representation for ``cat''}
+
+\textbf{Weighted sum of values:}
+
+\[
+\text{Output}_{\text{cat}}
+= 0.21 \cdot V_{\text{the}}
++ 0.39 \cdot V_{\text{cat}}
++ 0.39 \cdot V_{\text{sat}}
+\]
+
+\[
+= 0.21\begin{bmatrix}1\\1\end{bmatrix}
++ 0.39\begin{bmatrix}0\\1\end{bmatrix}
++ 0.39\begin{bmatrix}1\\2\end{bmatrix}
+=
+\begin{bmatrix}0.60 \\ 1.59\end{bmatrix}
+\]
+
+\medskip
+This is the new embedding for the token ``cat'' after self-attention.
 
 \end{frame}
 
@@ -543,7 +649,7 @@ where $H$ is the number of hidden units and $D$ is the input dimension.
 \begin{itemize}
     \item BPE difficulty: Which pair to choose (if they are approx. equally frequent)?
     \pause
-    \item Schuster and Kaisuke (2012) present the WordPiece model
+    \item Schuster and Nakajima (2012) present the WordPiece model
     \pause
     \item Let $P(i,j)$ be the probability of observing the pair $ij$ and $P(i)$ observing $i$.
     \pause
@@ -559,11 +665,16 @@ where $H$ is the number of hidden units and $D$ is the input dimension.
 
 \begin{frame}{Positional Encoding}
 
+
 \begin{figure}[h]
 \centering
 \includegraphics[width=1\textwidth]{fig/alammar_transformer_positional_encoding_vectors.png}
 \caption{Attention heads (Alammar, 2018b)}
 \end{figure}
+
+\pause
+Transformer attention is \uured{order-invariant}, so positional encodings inject order information.
+
 
 \end{frame}
 
@@ -619,7 +730,7 @@ where $H$ is the number of hidden units and $D$ is the input dimension.
 \end{figure}
 \begin{itemize}
 \pause
-\item Common models are BERT and RoBERTa
+\item Common models are BERT, RoBERTa and ModernBERT
 \end{itemize}
 \end{frame}
 
@@ -629,12 +740,12 @@ where $H$ is the number of hidden units and $D$ is the input dimension.
 
 \begin{itemize}
 \item Bidirectional Encoder Representations from Transformers (BERT)
-\item Introduced in Devlin et al. (2018)
+\item Introduced in Devlin et al.\ (2018)
 \pause
 \item {\color{uured} (Still) State-of-the-Art} in many text prediction tasks, such as
 \begin{itemize}
-\item Named-Entity Recognition
-\item Text Classification
+    \item Named-Entity Recognition
+    \item Text Classification
 \end{itemize}
 \pause
 \item Many flavors, such as RoBERTa, AlBERT, ModernBERT etc.
@@ -642,14 +753,25 @@ where $H$ is the number of hidden units and $D$ is the input dimension.
 \item {\color{uured} Pre-trained} on a large corpus
 \pause
 \item Then {\color{uured} fine-tuned} for a specific problem
-\pause
-\item Available English, Swedish and many other languages (The National Library)
-\pause
-\item And again, I rely o Alammar (2018) \uured{The illustrated BERT}
 \end{itemize}
 
 \end{frame}
 
+\begin{frame}{BERT (continued)}
+
+\begin{itemize}
+\item Available in English, Swedish, and many other languages (e.g.\ The National Library)
+\pause
+\item Note!
+\begin{itemize}
+    \item BERT = encoder-only (no generation)
+    \item As we will see, GPT = decoder-only (generation)
+\end{itemize}
+\pause
+\item And again, I rely on Alammar (2018): \uured{The Illustrated BERT}
+\end{itemize}
+
+\end{frame}
 
 \begin{frame}{BERT and transfer learning}
 
