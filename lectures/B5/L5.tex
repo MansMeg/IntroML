@@ -46,9 +46,9 @@
 \begin{frame}{This week's lectures}
 \begin{itemize}
 \item Word embeddings
-\item Recurrent Neural Networks
+\item (Recurrent Neural Networks)
 \item Transformers
-\item Encoder-based (BERT) models
+\item Encoder-based (BERT-type) models
 \end{itemize}
 \end{frame}
 
@@ -61,8 +61,7 @@
 \begin{frame}{Practicalities}
 
 \begin{itemize}
-\item One lecture later this week on word embeddings (Väinö Yrjänäinen)
-\item There is finally a book chapter!
+\item One lecture later this week on word embeddings (Väinö Yrjänäinen) and encoder models (Hannes Waldetoft)
 \end{itemize}
 
 \end{frame}
@@ -103,7 +102,7 @@
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.4\textwidth]{fig/DLR_6_1_WE.png}
-\caption{Representing words as word emnbeddings (Chollet and Allair, 2018, Fig. 6.1)}
+\caption{Representing words as word embeddings (Chollet and Allair, 2018, Fig. 6.1)}
 \end{figure}
 
 \end{frame}
@@ -126,7 +125,7 @@
 \end{quote}
 
 \begin{itemize}
-\item A word type represent {\color{uured} meaning in a low-dimensional semantic space}
+\item A word type represents {\color{uured} meaning in a low-dimensional semantic space}
 \item The distributional hypothesis:
 \begin{itemize}
   \item Harris (1954) and Firth (1957): \\ ``A word is characterized by the company it keeps''
@@ -169,6 +168,12 @@ But also (Bolukbasi et al., 2016):
 \caption{Context matters (Alammar, 2020)}
 \end{figure}
 
+\begin{itemize}
+\item \uured{Static embeddings} (word2vec, GloVe) assign \emph{one vector per word type}.
+\pause
+\item \uured{Contextual embeddings} (BERT/Transformers) create \emph{context-dependent vectors} per token.
+\end{itemize}
+
 \end{frame}
 
 
@@ -185,12 +190,10 @@ But also (Bolukbasi et al., 2016):
 \item Sequences of words (language models)
 \end{itemize}
 \pause
-\item Examples of applications:
+\item Examples of applications (but gets rarer and rarer due to Transformers):
 \begin{itemize}
-\item Text classification
-\item Sequence / word classification
 \item Time series predictions
-\item Audio data
+\item Reinforcement learning
 \end{itemize}
 
 \end{itemize}
@@ -217,7 +220,13 @@ o_t &= c + V h_{t} \\
 \hat{y}_t & = \sigma_{\text{output}}(o_t) = \text{softmax}(o_t)
 \end{align*}
 
-Think of $h_t$ as the "state" at timepoint $t$
+Think of $h_t$ as the "state" at timepoint $t$ and $\sigma$ is an activation function (e.g. tanh or ReLU) and
+\[
+W \in \mathbb{R}^{H \times H}, \qquad
+U \in \mathbb{R}^{H \times D}, \qquad
+V \in \mathbb{R}^{D \times H} \; \text{(if needed)}.
+\]
+where $H$ is the number of hidden units and $D$ is the input dimension.
 
 \end{frame}
 
@@ -277,9 +286,9 @@ Think of $h_t$ as the "state" at timepoint $t$
 
 \begin{itemize}
 \item Introduced in 2017 in Vaswani et al. (2017)
-\item Behind the recent progress in NLP: BERT, GPT-2, GPT-3, etc.
+\item Behind the recent progress in NLP: BERT, GPT-5, Gemini etc.
 \pause
-\item Becoming de-facto \uured{standard} in industry and academia
+\item De-facto \uured{standard} in industry and academia
 \pause
 \item Four benefits:
 \begin{itemize}
@@ -334,7 +343,7 @@ Think of $h_t$ as the "state" at timepoint $t$
 \item Encoder:
 \begin{itemize}
 \item Input: words (embeddings)
-\item Output: contextualized embeddings
+\item Output: \uured{contextualized} embeddings
 \end{itemize}
 \item Decoder:
 \begin{itemize}
@@ -466,7 +475,7 @@ Think of $h_t$ as the "state" at timepoint $t$
     \pause
     \item Two common approaches:
     \begin{enumerate}
-        \item Byte-pair encoding (GPT-2, RoBERTa)
+        \item Byte-pair encoding (GPT, RoBERTa)
         \item WordPiece (BERT)
     \end{enumerate}
 \end{itemize}
@@ -621,13 +630,13 @@ Think of $h_t$ as the "state" at timepoint $t$
 \item Bidirectional Encoder Representations from Transformers (BERT)
 \item Introduced in Devlin et al. (2018)
 \pause
-\item {\color{uured} State-of-the-Art} in many text prediction tasks, such as
+\item {\color{uured} (Still) State-of-the-Art} in many text prediction tasks, such as
 \begin{itemize}
 \item Named-Entity Recognition
 \item Text Classification
 \end{itemize}
 \pause
-\item Many flavors, such as RoBERTa, AlBERT, etc.
+\item Many flavors, such as RoBERTa, AlBERT, ModernBERT etc.
 \pause
 \item {\color{uured} Pre-trained} on a large corpus
 \pause
@@ -735,26 +744,26 @@ Think of $h_t$ as the "state" at timepoint $t$
 
 
 
-\subsection{RoBERTa}
+%\subsection{RoBERTa}
 
-\begin{frame}{RoBERTa}
+%\begin{frame}{RoBERTa}
 % https://towardsdatascience.com/roberta-1ef07226c8d8
-\begin{itemize}
-    \item RoBERTa uses a similar model as BERT with some important modifications
-\begin{enumerate}
-    \item Dynamic masking instead of Static masking
-    \pause
-    \item Longer sequences included compared to BERT
-    \pause
-    \item No next sentence prediction
-    \pause
-    \item Increased vocabulary size
-    \pause
-    \item Trained on more data (160Gb vs. 13 Gb), for longer and with larger batch sizes
-\end{enumerate}
-\end{itemize}
+%\begin{itemize}
+%    \item RoBERTa uses a similar model as BERT with some important modifications
+%\begin{enumerate}
+%    \item Dynamic masking instead of Static masking
+%    \pause
+%    \item Longer sequences included compared to BERT
+%    \pause
+%    \item No next sentence prediction
+%    \pause
+%    \item Increased vocabulary size
+%    \pause
+%    \item Trained on more data (160Gb vs. 13 Gb), for longer and with larger batch sizes
+%\end{enumerate}
+%\end{itemize}
 
-\end{frame}
+%\end{frame}
 
 
 
