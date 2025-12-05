@@ -417,6 +417,106 @@ Self-attention allows each word to decide which other words are most relevant to
 
 \end{frame}
 
+\begin{frame}{Self-Attention Example: Setup}
+
+Sentence: ``The cat sat''
+
+\medskip
+Use simple 2D embeddings:
+
+\[
+\text{the} = \begin{bmatrix}1 \\ 0\end{bmatrix}, \quad
+\text{cat} = \begin{bmatrix}0 \\ 1\end{bmatrix}, \quad
+\text{sat} = \begin{bmatrix}1 \\ 1\end{bmatrix}
+\]
+
+We compute self-attention for the token \uured{``cat''}.
+
+\medskip
+Parameter matrices (toy example):
+
+\[
+W_Q = \begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}, \quad
+W_K = \begin{bmatrix}1 & 1 \\ 0 & 1\end{bmatrix}, \quad
+W_V = \begin{bmatrix}1 & 0 \\ 1 & 1\end{bmatrix}
+\]
+
+\end{frame}
+
+\begin{frame}{Step 1: Compute Q, K, and V}
+
+Query for \uured{``cat''}:
+\[
+Q_{\text{cat}} = W_Q \cdot \text{cat}
+= \begin{bmatrix}0 \\ 1\end{bmatrix}
+\]
+
+\medskip
+
+Keys:
+\[
+K_{\text{the}} = \begin{bmatrix}1 \\ 0\end{bmatrix}, \quad
+K_{\text{cat}} = \begin{bmatrix}1 \\ 1\end{bmatrix}, \quad
+K_{\text{sat}} = \begin{bmatrix}2 \\ 1\end{bmatrix}
+\]
+
+\medskip
+
+Values:
+\[
+V_{\text{the}} = \begin{bmatrix}1 \\ 1\end{bmatrix}, \quad
+V_{\text{cat}} = \begin{bmatrix}0 \\ 1\end{bmatrix}, \quad
+V_{\text{sat}} = \begin{bmatrix}1 \\ 2\end{bmatrix}
+\]
+
+\end{frame}
+
+\begin{frame}{Step 2: Attention Scores and Weights}
+
+Dot-product scores for \uured{``cat''}:
+\[
+\left[
+Q_{\text{cat}}^\top K_{\text{the}},
+Q_{\text{cat}}^\top K_{\text{cat}},
+Q_{\text{cat}}^\top K_{\text{sat}}
+\right]
+=
+[0,\; 1,\; 1]
+\]
+
+\medskip
+
+Softmax weights ($\mathbf{Q} \mathbf{K}$):
+\[
+\text{weights} = \mathrm{softmax}([0,\,1,\,1])
+= [0.21,\; 0.39,\; 0.39]
+\]
+
+\end{frame}
+
+\begin{frame}{Step 3: Output Representation for ``cat''}
+
+Weighted sum of values:
+
+\[
+\text{Output}_{\text{cat}}
+= 0.21 \cdot V_{\text{the}}
++ 0.39 \cdot V_{\text{cat}}
++ 0.39 \cdot V_{\text{sat}}
+\]
+
+\[
+= 0.21\begin{bmatrix}1\\1\end{bmatrix}
++ 0.39\begin{bmatrix}0\\1\end{bmatrix}
++ 0.39\begin{bmatrix}1\\2\end{bmatrix}
+=
+\begin{bmatrix}0.60 \\ 1.59\end{bmatrix}
+\]
+
+\medskip
+This is the new embedding for the token ``cat'' after self-attention.
+
+\end{frame}
 
 \subsection{Multi-Head Attention}
 
@@ -438,107 +538,6 @@ Self-attention allows each word to decide which other words are most relevant to
 \includegraphics[width=1\textwidth]{fig/alammar_transformer_attention_heads_qkv.png}
 \caption{Attention heads (Alammar, 2018b)}
 \end{figure}
-
-\end{frame}
-
-\begin{frame}{Self-Attention Example: Setup}
-
-\textbf{Sentence:} ``The cat sat''
-
-\medskip
-Use simple 2D embeddings:
-
-\[
-\text{the} = \begin{bmatrix}1 \\ 0\end{bmatrix}, \quad
-\text{cat} = \begin{bmatrix}0 \\ 1\end{bmatrix}, \quad
-\text{sat} = \begin{bmatrix}1 \\ 1\end{bmatrix}
-\]
-
-We compute self-attention for the token \textbf{``cat''}.
-
-\medskip
-Projection matrices (toy example):
-
-\[
-W_Q = \begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}, \quad
-W_K = \begin{bmatrix}1 & 1 \\ 0 & 1\end{bmatrix}, \quad
-W_V = \begin{bmatrix}1 & 0 \\ 1 & 1\end{bmatrix}
-\]
-
-\end{frame}
-
-\begin{frame}{Step 1: Compute Q, K, and V}
-
-\textbf{Query for ``cat'':}
-\[
-Q_{\text{cat}} = W_Q \cdot \text{cat}
-= \begin{bmatrix}0 \\ 1\end{bmatrix}
-\]
-
-\medskip
-
-\textbf{Keys:}
-\[
-K_{\text{the}} = \begin{bmatrix}1 \\ 0\end{bmatrix}, \quad
-K_{\text{cat}} = \begin{bmatrix}1 \\ 1\end{bmatrix}, \quad
-K_{\text{sat}} = \begin{bmatrix}2 \\ 1\end{bmatrix}
-\]
-
-\medskip
-
-Values:
-\[
-V_{\text{the}} = \begin{bmatrix}1 \\ 1\end{bmatrix}, \quad
-V_{\text{cat}} = \begin{bmatrix}0 \\ 1\end{bmatrix}, \quad
-V_{\text{sat}} = \begin{bmatrix}1 \\ 2\end{bmatrix}
-\]
-
-\end{frame}
-
-\begin{frame}{Step 2: Attention Scores and Weights}
-
-\textbf{Dot-product scores for ``cat'':}
-\[
-\left[
-Q_{\text{cat}}^\top K_{\text{the}},
-Q_{\text{cat}}^\top K_{\text{cat}},
-Q_{\text{cat}}^\top K_{\text{sat}}
-\right]
-=
-[0,\; 1,\; 1]
-\]
-
-\medskip
-
-\textbf{Softmax weights:}
-\[
-\text{weights} = \mathrm{softmax}([0,\,1,\,1])
-= [0.21,\; 0.39,\; 0.39]
-\]
-
-\end{frame}
-
-\begin{frame}{Step 3: Output Representation for ``cat''}
-
-\textbf{Weighted sum of values:}
-
-\[
-\text{Output}_{\text{cat}}
-= 0.21 \cdot V_{\text{the}}
-+ 0.39 \cdot V_{\text{cat}}
-+ 0.39 \cdot V_{\text{sat}}
-\]
-
-\[
-= 0.21\begin{bmatrix}1\\1\end{bmatrix}
-+ 0.39\begin{bmatrix}0\\1\end{bmatrix}
-+ 0.39\begin{bmatrix}1\\2\end{bmatrix}
-=
-\begin{bmatrix}0.60 \\ 1.59\end{bmatrix}
-\]
-
-\medskip
-This is the new embedding for the token ``cat'' after self-attention.
 
 \end{frame}
 
