@@ -353,8 +353,14 @@ L_\mathbf{m} (x) = \min_\mathbf{m} (x_i - m_k)^2
 \item scaling to large data
 \pause
 \item generalized loss
+\end{itemize}
 \pause
-\item approaches to find a good $K$
+\item Choosing the number of clusters \(K\), common approaches:
+\begin{itemize}
+\item Elbow method (within-cluster variance)
+\item Information criteria: AIC, BIC (mixture models)
+\item Cross-validated log-likelihood
+\item Bayesian nonparametrics (e.g.\ Dirichlet process mixtures)
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -655,8 +661,16 @@ Hence, the EM algorithm is a {\color{uured} soft clustering} approach.
 \begin{frame}{Connections to other approaches}
 
 \begin{itemize}
-\item If we set $z_i = \text{argmax}(\gamma_i)$: {\color{uured} k-means}\pause
-\item If we sample $z_i$ according to $\gamma$: {\color{uured} stochastic EM}\pause
+\item k-means can be derived as a limiting case of GMM:
+Gaussian mixture with equal, spherical covariances
+\[
+\Sigma_k = \sigma^2 I
+\]
+where \(\sigma^2 \to 0\).
+Then EM assignments become hard clustering, recovering \uured{k-means}.
+\item Hence, if we set $z_i = \text{argmax}(\gamma_i)$: {\color{uured} k-means}\pause
+\pause
+\item Similarly, if we sample $z_i$ according to $\gamma$: {\color{uured} stochastic EM}\pause
 \item If we sample $z_i$ conditional on $\theta$: {\color{uured} Gibbs sampling}
 
 \end{itemize}
