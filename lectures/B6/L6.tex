@@ -305,7 +305,7 @@ d_k(x_{i,k}, x_{j,k}) = (x_{i,k} - x_{j,k})^2
 \item {\color{uured} Model}: $x_i$ "is close to" one of $m_1,...,m_K$ vectors
 \item {\color{uured} Loss function}:
 \[
-L_\mathbf{m} (x) = \min_\mathbf{m} (x_i - m_k)^2
+L(m) = \sum_{i=1}^n \min_{k \in \{1,\ldots,K\}} \| x_i - m_k \|^2
 \]
 \pause
 \item {\color{uured} Hyperparameter}: $K$ (the number of clusters)
@@ -407,10 +407,7 @@ The {\color{uured} finite mixture model} density can be expressed as:
 \[
 p(y_i) = \sum_{k=1}^K \pi_k \, \phi(y_i \mid \theta_k),
 \]
-where
-\[
-\pi_k \ge 0, \quad \sum_{k=1}^K \pi_k = 1.
-\]
+where $\pi_k \ge 0$, $\sum_{k=1}^K \pi_k = 1$, and $\phi(\cdot \mid \theta_k)$ is a density with parameters $\theta_k$.
 \pause
 Equivalent latent-variable representation:
 \[
@@ -651,8 +648,14 @@ y_i = \sum_{k=1}^K \pi_k \phi(\theta_k)\,,
 \item We can interpret the final $\gamma_i$ as the {\color{uured} expected cluster}\\
 Hence, the EM algorithm is a {\color{uured} soft clustering} approach.
 \end{itemize}
+\pause
 \item Expanding the likelihood with latent variables ($z$) is called {\color{uured} data augmentation}.
-\\ \emph{Note!} Not the same as data augmentation in CNNs.
+\begin{block}{Clarification}
+In EM, \uured{data augmentation} refers to introducing latent variables
+(e.g., $z_i$) to make optimization easier.
+This is unrelated to "data augmentation" in deep learning, where
+new training examples are synthetically generated.
+\end{block}
 \end{itemize}
 
 \end{frame}
@@ -829,20 +832,15 @@ x_i = b +  W h_i^T + \epsilon_i
 where $\epsilon \sim N(\mathbf{0}, \Psi)$
 \item pPCA is closely connected to PCA and Factor Analysis:
 \begin{itemize}
-\item $\sigma I \rightarrow 0$: pPCA $\rightarrow$ {\color{uured} PCA}
-\item $\Psi = \text{diag}(\sigma_1, ..., \sigma_p, ..., \sigma_P)$: pPCA $\rightarrow$ {\color{uured} Factor Analysis}
-\end{itemize}
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}{Why probabilistic PCA matters}
-pPCA:
+\item As $\sigma^2 \to 0$, noise vanishes and the latent-variable model
+reduces to finding \emph{directions of maximal variance}, i.e. \uured{PCA}.
+\item $\Psi = \text{diag}(\sigma_1, ..., \sigma_p, ..., \sigma_P)$: pPCA $\rightarrow$ {\color{uured} Factor Analysis},
+where
 \begin{itemize}
-\item Handles missing data naturally
-\item Allows likelihood-based model comparison
-\item Can be embedded in mixture models
-\item Generalizes to Bayesian PCA and factor models
+\item $H$ can be seen as latent factors
+\item $W$ can be seen as factor loadings
+\end{itemize}
+\end{itemize}
 \end{itemize}
 
 \end{frame}
