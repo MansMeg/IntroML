@@ -591,10 +591,10 @@ y_i = \sum_{k=1}^K \pi_k \phi(\theta_k)\,,
 \item But, we dont know $\mathbf{z}$.\pause
 \item Although, we could compute the {\color{uured} expected} cluster assignment
 \[
-\gamma_{i} = E_{z_i} (\mathcal{L}_{\text{full}}|\theta, y_i)\,.
+\gamma_{i,k} = \mathbb{E}_{z_i} (\mathcal{L}_{\text{full}}|\theta_k, y_i)\,.
 \]
 \pause
-\item $\gamma_{i}$ can be seen as observation $i$s {\color{uured} weights} for each cluster
+\item $\gamma_{i}$ can be seen as observation $i$s {\color{uured} weights} or probability for each cluster
 \pause
 \item $\gamma_{i}$ is sometimes refered to as the {\color{uured} responsibility}.
 \end{itemize}
@@ -711,7 +711,7 @@ X \approx b +  W H^T\,,
 \]
 \item The loss function, also called {\color{uured} reconstruction error}:
 \[
-J(b,W,H) = \sum_i^N ||x_i - b +  W h_i^T||^2
+J(b, W, H) = \sum_{i=1}^n \|x_i - (b + W h_i)\|^2.
 \]
 \pause
 \item This can be minmized using {\color{uured} Singular Value Decomposition}
