@@ -137,14 +137,25 @@
 \caption{A Neural Autoencoder (Goodfellow et al, 2018)}
 \end{figure}
 
-\pause
-
-\item Loss function (\uured{reconstruction error}):
-\[
-L(\phi, \theta) = (x - d_\phi(e_\theta(x)))^2
-\]
 \end{itemize}
 
+\end{frame}
+
+\begin{frame}{Autoencoder loss (Reconstruction error)}
+For a deterministic autoencoder:
+\[
+h = e(x), \qquad \hat{x} = d(h)
+\]
+
+A common reconstruction loss is:
+\[
+L(x) = \|x - \hat{x}\|^2 = \|x - d(e(x))\|^2
+\]
+
+This corresponds to maximum likelihood under
+\[
+x \mid h \sim \mathcal{N}(d(h), \sigma^2 I).
+\]
 \end{frame}
 
 
