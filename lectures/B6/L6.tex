@@ -62,8 +62,7 @@
 \begin{frame}{Practicalities}
 
 \begin{itemize}
-\item Last push!
-\item Industry lecture in january.
+\item Last push this week!
 \end{itemize}
 
 \end{frame}
@@ -268,7 +267,7 @@ Here: $x$ is \uured{unobserved/latent} and $y$ is \uured{observed}.
 \begin{frame}{Clustering}
 \begin{itemize}
 \item Separate observations $x_i$ into {\color{uured} groups} or {\color{uured} segments}\pause
-\item What is a cluster "is" depends on the {\color{uured} model/(dis)similarity}.
+\item What a cluster "is" depends on the {\color{uured} model/(dis)similarity}.
 \item (Dis)similarity:
 \[
 D(x_i, x_j) = \sum_{k = 1}^P d_k(x_{i,k}, x_{j,k})
@@ -286,7 +285,7 @@ d_k(x_{i,k}, x_{j,k}) = (x_{i,k} - x_{j,k})^2
 \pause
 \item Clustering can also be divided into:
 \begin{itemize}
-\item {\color{uured} Hiearchical} clustering
+\item {\color{uured} Hierarchical} clustering
 \item {\color{uured} Flat} clustering
 \end{itemize}
 \pause
@@ -439,7 +438,7 @@ y_i \mid z_i=k \sim \phi(\cdot \mid \theta_k).
 \item use the same density for all $k$.
 \end{itemize}
 \pause
-\item We can simulate data from the model as {\color{uured} compund probability distribution}:
+\item We can simulate data from the model as {\color{uured} compound probability distribution}:
 \begin{enumerate}
 \item Simulate cluster assignments for all $i$:
 \[
@@ -465,10 +464,30 @@ y_i \sim \phi_{z_i}(\theta_{z_i})
 y_i = \sum_{k=1}^K \pi_k \mathcal{N}(\mu_k, \Sigma_k)\,,
 \]
 where $\mu_k$ and $\Sigma_k$ depend on the dimensionality of $y_i$.\pause
-\item GMM is a {\color{uured} universial approximator} of densities
+% \item GMM is a {\color{uured} universal approximator} of densities
 % (Goodfellow et al. 2017, p. 67)
 % A Gaussian mixture model is a universal approximator of densities, in the sense that any smooth density can be approximated with any speciﬁc nonzero amount of error by a Gaussian mixture model with enough components.
 \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{GMM as Universal Approximators}
+
+Let $p(x)$ be any continuous probability density on $\mathbb{R}^d$ with compact support.
+For any $\varepsilon > 0$, there exists a Gaussian mixture model
+\[
+p_K(x) = \sum_{k=1}^K \pi_k \, \mathcal{N}(x \mid \mu_k, \sigma_k^2 \mathbf{I})
+\]
+such that
+\[
+\int |p(x) - p_K(x)| \, dx < \varepsilon.
+\]
+Hence, Gaussian mixture models are {\color{uured}\textbf{universal approximators}} of probability densities.
+
+\vspace{2mm}
+
+For an indepth proof, see Nguyen et. al (2020). \emph{Approximation by finite mixtures of continuous density functions that vanish at infinity} Cogent Mathematics and Statistics
 
 \end{frame}
 
