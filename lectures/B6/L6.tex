@@ -99,7 +99,7 @@ In {\color{uured} supervised} learning:
 \begin{itemize}
 \item We have \emph{training} data
 \[
-\mathbf{d} = \{(y_i, \mathbf{x}_i), i = 1, ..., n\} \,.
+\mathbf{d} = \{(y_i, \mathbf{x}_i), i = 1, \ldots, n\} \,.
 \]
 \item We train a model $p(y|x)$ to {\color{uured} predict} $y$
 \item We only care about the loss function during training
@@ -335,7 +335,7 @@ L_\mathbf{m} (x) = \min_\mathbf{m} (x_i - m_k)^2
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.75\textwidth]{fig/fig_10_6_kmeans_algo.png}
-\caption{The k-means cluser algorithm (Garreth et al, 2013, Fig. 10.6).}
+\caption{The k-means cluster algorithm (Garreth et al, 2013, Fig. 10.6).}
 \end{figure}
 
 \end{frame}
@@ -602,7 +602,7 @@ y_i = \sum_{k=1}^K \pi_k \phi(\theta_k)\,,
 \pause
 \item $\gamma_{i}$ can be seen as observation $i$s {\color{uured} weights} or probability for each cluster
 \pause
-\item $\gamma_{i}$ is sometimes refered to as the {\color{uured} responsibility}.
+\item $\gamma_{i}$ is sometimes referred to as the {\color{uured} responsibility}.
 \end{itemize}
 
 \end{frame}
@@ -684,7 +684,7 @@ Then EM assignments become hard clustering, recovering \uured{k-means}.
 
 \begin{itemize}
 \item So far focus has been on (clustering) {\color{uured} observations}
-\item Now, we will adress the other large area of UL: {\color{uured} dimensionality reduction}\pause
+\item Now, we will address the other large area of UL: {\color{uured} dimensionality reduction}\pause
 \item The starting point is {\color{uured} Principal Component Analysis} (PCA)
 \item PCA can be used for
 \begin{itemize}
@@ -836,5 +836,29 @@ where $\epsilon \sim N(\mathbf{0}, \Psi)$
 
 \end{frame}
 
+\begin{frame}{Why probabilistic PCA matters}
+pPCA:
+\begin{itemize}
+\item Handles missing data naturally
+\item Allows likelihood-based model comparison
+\item Can be embedded in mixture models
+\item Generalizes to Bayesian PCA and factor models
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Latent-variable models (general form)}
+A latent-variable model assumes:
+\[
+z_i \sim p(z), \qquad x_i \mid z_i \sim p(x \mid z_i).
+\]
+
+Examples:
+\begin{itemize}
+\item Mixture models: \(z_i\) = cluster
+\item PCA / pPCA: \(z_i\) = latent factor
+\item HMMs / State-space models: \(z_t\) = hidden state
+\end{itemize}
+\end{frame}
 
 \end{document}
