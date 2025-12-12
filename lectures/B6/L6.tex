@@ -98,7 +98,7 @@ In {\color{uured} supervised} learning:
 \begin{itemize}
 \item We have \emph{training} data
 \[
-\mathbf{d} = \{(y_i, \mathbf{x}_i), i = 1, \ldots, n\} \,.
+\mathcal{D}_{yx} = \{(y_i,x_i)\}_{i=1}^n
 \]
 \item We train a model $p(y|x)$ to {\color{uured} predict} $y$
 \item We only care about the loss function during training
@@ -108,7 +108,7 @@ In {\color{uured} unsupervised}  learning:
 \begin{itemize}
 \item We have \emph{training} data
 \[
-\mathbf{d} = \{(\mathbf{x}_i), i = 1, ..., n\} \,.
+\mathcal{D}_x = \{(x_i)\}_{i=1}^n
 \]
 \item We train a model $p(x)$ to {\color{uured} explain/model} $x$
 \item Our loss function (or model) can be the goal
@@ -172,11 +172,11 @@ Common use cases for unsupervised learning:
 \[
 L(x) = \|x - \hat{x}\|^2 = \|x - d(e(x))\|^2
 \]
-where $d(x|h)$ is the decoder and $e(h|x)$ is the encoder.\pause
-\item In probabilistic models we can use the log-likelihood ($\log p(x)$), or {\color{uured} perplexity} (a function of the log-likelihood).
+where $d(h)$ is the decoder and $e(x)$ is the encoder.\pause
+\item In probabilistic models we can use the log-likelihood, $\mathcal{L}(x) = \log p(x)$, or {\color{uured} perplexity} (a function of the log-likelihood).
 \begin{itemize}
-\item {\color{uured} High} $\mathcal{L}$: The observation is {\color{uured} well} explained by the model
-\item {\color{uured} Low} $\mathcal{L}$: The observation is {\color{uured} badly} explained by the model
+\item {\color{uured} High} $\mathcal{L}(x)$: The observation is {\color{uured} well} explained by the model
+\item {\color{uured} Low loss} $\mathcal{L}(x)$: The observation is {\color{uured} badly} explained by the model
 \end{itemize}
 \item Evaluate log-likelihood on a \uured{held-out validation set}
 \end{itemize}
@@ -268,10 +268,12 @@ Here: $x$ is \uured{unobserved/latent} and $y$ is \uured{observed}.
 \begin{itemize}
 \item Separate observations $x_i$ into {\color{uured} groups} or {\color{uured} segments}\pause
 \item What a cluster "is" depends on the {\color{uured} model/(dis)similarity}.
-\item (Dis)similarity:
+\item An example of (dis)similarity:
 \[
 D(x_i, x_j) = \sum_{k = 1}^P d_k(x_{i,k}, x_{j,k})
 \]
+(This assumes component-wise additive dissimilarity).
+\pause
 \item A common dissimilarity is the squared distance
 \[
 d_k(x_{i,k}, x_{j,k}) = (x_{i,k} - x_{j,k})^2
@@ -310,7 +312,7 @@ L(m) = \sum_{i=1}^n \min_{k \in \{1,\ldots,K\}} \| x_i - m_k \|^2
 \item {\color{uured} Hyperparameter}: $K$ (the number of clusters)
 \item {\color{uured} Parameters}:  $\mathbf{m}$ (a $K \times P$ matrix).
 \pause
-\item A {\color{uured} difficult} problem: $K^n$ possibilities
+\item The combinatorial assignment problem has $K^n$ possible clusterings, making global optimization infeasible.
 \end{itemize}
 
 \end{frame}
@@ -370,7 +372,7 @@ L(m) = \sum_{i=1}^n \min_{k \in \{1,\ldots,K\}} \| x_i - m_k \|^2
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.75\textwidth]{fig/fig_10_7_kmeans_local_modes.png}
-\caption{The k-means cluser algorithm (Garreth et al, 2013, Fig. 10.7).}
+\caption{The k-means cluster algorithm (Garreth et al, 2013, Fig. 10.7).}
 \end{figure}
 
 \end{frame}
@@ -456,12 +458,14 @@ y_i \sim \phi_{z_i}(\theta_{z_i})
 
 \end{frame}
 
+
+
 \begin{frame}{Gaussian Mixture Models (GMM)}
 
 \begin{itemize}
 \item The (finite) Gaussian mixture model:
 \[
-y_i = \sum_{k=1}^K \pi_k \mathcal{N}(\mu_k, \Sigma_k)\,,
+p(y_i) = \sum_{k=1}^K \pi_k \mathcal{N}(\mu_k, \Sigma_k)\,,
 \]
 where $\mu_k$ and $\Sigma_k$ depend on the dimensionality of $y_i$.\pause
 % \item GMM is a {\color{uured} universal approximator} of densities
@@ -536,6 +540,21 @@ where
 
 \end{frame}
 
+\begin{frame}{Label switching}
+
+Finite mixture models are \emph{not identifiable} up to label permutation.
+
+The likelihood is invariant under relabeling of components:
+\[
+(\pi_k, \theta_k)_{k=1}^K
+\equiv
+(\pi_{\sigma(k)}, \theta_{\sigma(k)})_{k=1}^K.
+\]
+
+This is known as \emph{label switching} and implies that cluster labels
+have no intrinsic meaning.
+
+\end{frame}
 
 \begin{frame}{Mixtures of Multinomial distributions}
 
@@ -546,7 +565,7 @@ Depends on your {\color{uured} data} ($y$).
 \pause
 
 \[
-y_i = \sum_{k=1}^K \pi_k \text{Multinomial}(\mathbf{p}_k)
+p(y_i) = \sum_{k=1}^K \pi_k \text{Multinomial}(\mathbf{p}_k)
 \]
 
 \begin{figure}[h]
@@ -559,10 +578,10 @@ y_i = \sum_{k=1}^K \pi_k \text{Multinomial}(\mathbf{p}_k)
 \end{frame}
 
 
-\section{Expectation Maximization}
+\section{Expectation-Maximization}
 
 
-\begin{frame}{Estimating Mixtures Models}
+\begin{frame}{Estimating Mixture Models}
 
 \begin{itemize}
 \item We are interested in estimating $\theta_k$ and $\pi_k$ for the model
@@ -578,7 +597,7 @@ y_i = \sum_{k=1}^K \pi_k \phi(\theta_k)\,,
   p(\mathbf{z}, \theta, \pi|\mathbf{y})
   \]
   \pause
-  \item Expectation maximization (Frequentist)
+  \item Expectation-Maximization (Frequentist)
 \end{itemize}
 \end{itemize}
 
@@ -586,7 +605,7 @@ y_i = \sum_{k=1}^K \pi_k \phi(\theta_k)\,,
 \end{frame}
 
 
-\begin{frame}{Estimating Mixtures Models}
+\begin{frame}{Estimating Mixture Models}
 
 \begin{itemize}
 \item Hence we want to maximize the log-likelihood
@@ -613,7 +632,15 @@ y_i = \sum_{k=1}^K \pi_k \phi(\theta_k)\,,
 \item But, we dont know $\mathbf{z}$.\pause
 \item Although, we could compute the {\color{uured} expected} cluster assignment
 \[
-\gamma_{i,k} = \mathbb{E}_{z_i} (\mathcal{L}_{\text{full}}|\theta_k, y_i)\,.
+\gamma^{(t)}_{i,k}
+=
+\Pr(z_i = k \mid y_i, \theta^{(t)})
+=
+\frac{
+\pi_k^{(t)} \, \phi(y_i \mid \theta_k^{(t)})
+}{
+\sum_{j=1}^K \pi_j^{(t)} \, \phi(y_i \mid \theta_j^{(t)})
+}
 \]
 \pause
 \item $\gamma_{i}$ can be seen as observation $i$s {\color{uured} weights} or probability for each cluster
@@ -627,13 +654,24 @@ y_i = \sum_{k=1}^K \pi_k \phi(\theta_k)\,,
 \begin{frame}{The Maximization}
 
 \begin{itemize}
-\item Now, given $\gamma$ we can (hopefully) easier maximize $\theta$.\pause
-\item We maximize $\mathcal{L}_{\text{full}}$ given $\gamma$ and $y$.\pause
+\item Now, given $\gamma$ we can (hopefully) easier maximize $(\pi,\theta)$.\pause
+\[
+\theta^{(t+1)}
+=
+\arg\max_(\pi,\theta)
+\;
+\mathbb{E}_{z \mid y, \pi^{(t)}, \theta^{(t)}}
+\left[
+\log p(y, z \mid \theta, \pi)
+\right]
+\]
 \item We usually choose $\phi$ (the density) so the maximization
 \begin{itemize}
 \item is a nice analytical expression.
 \item end up with a weighted MLE.
 \end{itemize}
+
+\uured{Note!} The E-step computes posterior probabilities of the latent variables. The M-step maximizes an expected log-likelihood using these probabilities as weights.
 
 \end{itemize}
 
@@ -661,7 +699,7 @@ y_i = \sum_{k=1}^K \pi_k \phi(\theta_k)\,,
 \item The EM-algorithm will converge to a {\color{uured} local mode}\pause
 \item Each iteration will {\color{uured} always} increase the likelihood
 \begin{itemize}
-\item Can be proven straight-forward using Jensens inequality% (see optional assignment)
+\item Can be proven straightforward using Jensen’s inequality% (see optional assignment)
 \end{itemize}
 \pause
 \item We can interpret the final $\gamma_i$ as the {\color{uured} expected cluster}\\
@@ -699,7 +737,7 @@ Then EM assignments become hard clustering, recovering \uured{k-means}.
 
 \end{frame}
 
-\section{probabilistic PCA}
+\section{Probabilistic PCA}
 \frame{\sectionpage}
 
 \begin{frame}{Dimensionality reduction}
@@ -728,10 +766,10 @@ Then EM assignments become hard clustering, recovering \uured{k-means}.
 \[
 X \approx b +  W H^T\,,
 \]
-where $H \in \mathbb{R}^{n \times k}$, $W \in \mathbb{R}^{k \times p}$, $b \in \mathbb{R}^{p}$ and $X \in \mathbb{R}^{n \times p}$.
-\item $H$ can be seen as a {\color{uured} latent factors}
+where $H \in \mathbb{R}^{n \times k}$, $W \in \mathbb{R}^{p \times k}$, $b \in \mathbb{R}^{p}$ and $X \in \mathbb{R}^{n \times p}$.
+\item $H$ can be seen as {\color{uured} latent factors}
 \pause
-\item $W$ can be seen as a {\color{uured} factor loadings}
+\item $W$ can be seen as {\color{uured} factor loadings}
 \pause
 \item We assume that $W$ is orthogonal: $W^T W = I$
 \end{itemize}
@@ -750,7 +788,7 @@ X \approx b +  W H^T\,,
 J(b, W, H) = \sum_{i=1}^n \|x_i - (b + W h_i)\|^2.
 \]
 \pause
-\item This can be minmized using {\color{uured} Singular Value Decomposition}
+\item This can be minimized using {\color{uured} Singular Value Decomposition}
 \end{itemize}
 
 \end{frame}
@@ -793,16 +831,16 @@ W\\
 
 % TODO Add latent Semantic Analysis as an example
 
-\begin{frame}{probabilistic PCA (pPCA)}
+\begin{frame}{Probabilistic PCA (pPCA)}
 
 \begin{itemize}
 \item PCA is not a {\color{uured} probabilistic model}\pause
-\item probabilistic PCA
+\item Probabilistic PCA
 \[
 x_i = b +  W h_i^T + \epsilon_i
 \]
 where $\epsilon \sim N(\mathbf{0}, \Psi)$
-\item In pPCA, we assume $\Psi = \sigma \mathbf{I}$
+\item In pPCA, we assume $\Psi = \sigma^2 \mathbf{I}$
 \item We also assume that $h_i \sim N(0, I)$\pause
 \item We can integrate out $H$ and get the model
 \[
@@ -813,7 +851,7 @@ x_i \sim N(b, W W^T + \Psi)
 \end{frame}
 
 
-\begin{frame}{probabilistic PCA}
+\begin{frame}{Probabilistic PCA}
 
 \begin{figure}[h]
 \centering
@@ -824,10 +862,10 @@ x_i \sim N(b, W W^T + \Psi)
 \end{frame}
 
 
-\begin{frame}{probabilistic PCA}
+\begin{frame}{Probabilistic PCA}
 
 \begin{itemize}
-\item probabilistic PCA
+\item Probabilistic PCA
 \[
 x_i = b +  W h_i^T + \epsilon_i
 \]
@@ -844,7 +882,7 @@ x_i = b +  W h_i^T + \epsilon_i
 \begin{frame}{Connections to PCA and Factor Analysis}
 
 \begin{itemize}
-\item probabilistic PCA
+\item Probabilistic PCA
 \[
 x_i = b +  W h_i^T + \epsilon_i
 \]
