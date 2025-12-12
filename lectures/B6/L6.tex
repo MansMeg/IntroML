@@ -169,12 +169,12 @@ Common use cases for unsupervised learning:
 
 \begin{frame}{Loss functions and evaluation}
 \begin{itemize}
-\item Autoencoder uses the difference between the original and reconstructed output
+\item For a deterministic autoencoder a common reconstruction loss is:
 \[
-L(x) = (d(e(h|x)|h) - x)^2\,,
+L(x) = \|x - \hat{x}\|^2 = \|x - d(e(x))\|^2
 \]
 where $d(x|h)$ is the decoder and $e(h|x)$ is the encoder.\pause
-\item In probabilistic models we can use the log-likelihood ($\mathcal{L}$) \\ Sometimes called {\color{uured} perplexity} or {\color{uured} surprise}.
+\item In probabilistic models we can use the log-likelihood ($\log p(x)$), or {\color{uured} perplexity} (a function of the log-likelihood).
 \begin{itemize}
 \item {\color{uured} High} $\mathcal{L}$: The observation is {\color{uured} well} explained by the model
 \item {\color{uured} Low} $\mathcal{L}$: The observation is {\color{uured} badly} explained by the model
@@ -397,11 +397,21 @@ We can solve these problems using {\color{uured} probabilistic models}
 
 \begin{frame}{Finite Mixture Models}
 
-% TODO: Derive the MM as a compound probability distribution.
-The {\color{uured} finite mixture model} can be expressed as:
-
+The {\color{uured} finite mixture model} density can be expressed as:
 \[
-y_i = \sum_{k=1}^K \pi_k \phi_k(\theta_k)\,,
+p(y_i) = \sum_{k=1}^K \pi_k \, \phi(y_i \mid \theta_k),
+\]
+where
+\[
+\pi_k \ge 0, \quad \sum_{k=1}^K \pi_k = 1.
+\]
+\pause
+Equivalent latent-variable representation:
+\[
+z_i \sim \text{Categorical}(\pi),
+\]
+\[
+y_i \mid z_i=k \sim \phi(\cdot \mid \theta_k).
 \]
 
 \begin{itemize}
