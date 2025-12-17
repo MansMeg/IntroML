@@ -825,10 +825,10 @@ while diffusion models prioritize sample quality.
     \item Popular in industry and academia to \uured{ analyze large corpora}\pause
     \item The most common model: \uured{ Latent Dirichlet Allocation}
     \item A \uured{ mixed membership} model (a mixture of multinomial mixtures model)\pause
-    \item Topic model builds on the the \uured{ distributional hypothesis}\pause
+    \item Topic model builds on the \uured{distributional hypothesis}\pause
     \item Use cases:
     \begin{itemize}
-        \item \uured{Visualize} document collections\pause
+        \item \uured{Explore} document collections\pause
         \item \uured{Analyzing large corpora} using statistical methods\pause
     \end{itemize}
     \item Example: \href{https://en.allears.ai/}{\uured{All ears}} media monitoring of speech data
@@ -842,22 +842,20 @@ while diffusion models prioritize sample quality.
 \begin{itemize}
     \item Probability distribution over the simplex with $K$ categories:
 \[
-f({\boldsymbol {x} }| {\boldsymbol {\alpha }}) = {\frac {1}{\mathrm {B} ({\boldsymbol {\alpha }})}} \prod _{i=1}^{K}x_{i}^{\alpha _{i}-1}\,
-\]
-where
-\[
+f({\boldsymbol {x} }| {\boldsymbol {\alpha }}) = {\frac {1}{\mathrm {B} ({\boldsymbol {\alpha }})}} \prod _{i=1}^{K}x_{i}^{\alpha _{i}-1}\,, \text{ where }
 {\displaystyle \mathrm {B} ({\boldsymbol {\alpha }})={\frac {\prod _{i=1}^{K}\Gamma (\alpha _{i})}{\Gamma {\bigl (}\sum _{i=1}^{K}\alpha _{i}{\bigr )}}}}\,,
 \]
-and where
-\[
-{\displaystyle {\boldsymbol {\alpha }}=(\alpha _{1},\ldots ,\alpha _{K})}
-\]\pause
+and  ${\displaystyle {\boldsymbol {\alpha }}=(\alpha _{1},\ldots ,\alpha _{K})}$
+\pause
 \item The probability distribution has the support on the simplex, that is
 \[
     \sum_{i=1}^{K}x_{i}=1{\text{ and }}x_{i}\geq 0{\text{ for all }} i\in [1,K]
 \]
 \pause
-\item The parameters ${\boldsymbol {\alpha }}$ can be seen as \uured{ pseudo-counts}
+\item The parameters ${\boldsymbol {\alpha }}$ can be seen as \uured{ pseudo-counts} and
+\[
+\mathbb{E}[x_i] = \frac{\alpha_i}{\sum_{j=1}^K \alpha_j}
+\]
 \end{itemize}
 \end{frame}
 
@@ -871,7 +869,7 @@ and where
 \caption{The Dirichlet Distribution (Wikipedia)}
 \end{figure}
 
-Interactive plot \href{https://chart-studio.plotly.com/~david_avakian/14.embed}{\uured{here}}.
+% Interactive plot \href{https://chart-studio.plotly.com/~david_avakian/14.embed}{\uured{here}}.
 
 \end{frame}
 
@@ -880,7 +878,7 @@ Interactive plot \href{https://chart-studio.plotly.com/~david_avakian/14.embed}{
 \begin{frame}{The distributional hypothesis}
 
 \begin{itemize}
-    \item Harris (1954) and Firths (1957): \\ ``Word is characterized by the company it keeps''
+    \item Harris (1954) and Firth (1957): \\ ``Word is characterized by the company it keeps''
     \pause
     \item Semantics (broadly defined) is captured by \uured{ context}\pause
     \item Rough definition: \uured{ word windows} of different sizes\pause
@@ -1133,39 +1131,39 @@ n^{(d)}=\left[\begin{array}{ccc}
 
 
 
-\begin{frame}{Topic Models as non-negative matrix factorization}
+% \begin{frame}{Topic Models as non-negative matrix factorization}
 %\Small
 %\begin{figure}
-\begin{centering}
-\[
-\begin{array}{ccccc}
-\\
-\left[\begin{array}{ccc}
- & \text{ }\\
-\\
-\text{ } & n_{dv} & \text{ }\\
- & (D\times V)\text{ }\\
-\\
-\end{array}\right] & \approx & \left[\begin{array}{c}
-\\
-\\
-\Theta\\
-(D\times K)\\
-\\
-\end{array}\right] & \times & \left[\begin{array}{ccccc}
- &  & \text{ }\\
-\text{ } & \text{ } & \Phi & \text{ } & \text{ }\\
- &  & (K\times V)
-\end{array}\right]\\
-\\
-\end{array}
-\]
-\end{centering}
+% \begin{centering}
+% \[
+% \begin{array}{ccccc}
+% \\
+% \left[\begin{array}{ccc}
+%  & \text{ }\\
+% \\
+% \text{ } & n_{dv} & \text{ }\\
+%  & (D\times V)\text{ }\\
+% \\
+% \end{array}\right] & \approx & \left[\begin{array}{c}
+% \\
+% \\
+% \Theta\\
+% (D\times K)\\
+% \\
+% \end{array}\right] & \times & \left[\begin{array}{ccccc}
+%  &  & \text{ }\\
+% \text{ } & \text{ } & \Phi & \text{ } & \text{ }\\
+%  &  & (K\times V)
+% \end{array}\right]\\
+% \\
+% \end{array}
+% \]
+% \end{centering}
 %\caption{Conceptual depiction of LDA as a matrix decomposition.}
 %\label{matrix_decomposition_view}
 %\end{figure}
 
-\end{frame}
+% \end{frame}
 
 \begin{frame}{Practicalities}
 
