@@ -123,12 +123,12 @@
 \begin{frame}{Autoencoder}
 
 \begin{itemize}
-\item An autoencoder is a neural network (e.g. feed-forward) that take an input $x$ and predict (the same) $x$ ($r$, reconstruction). \pause
+\item An autoencoder is a neural network (e.g. feed-forward) that takes an input $x$ and predict (the same) $x$ ($r$, reconstruction). \pause
 \item Three parts:
 \begin{itemize}
 \item \uured{encoder} $f(x)$ (or $e(x)$)
 \item \uured{code} $h$
-\item \uured{decoder} $g(h)$ (or $d(z)$)
+\item \uured{decoder} $g(h)$ (or $d(h)$)
 \end{itemize}
 
 \begin{figure}[h]
@@ -144,17 +144,19 @@
 \begin{frame}{Autoencoder loss (Reconstruction error)}
 For a deterministic autoencoder:
 \[
-h = e(x), \qquad \hat{x} = d(h)
+h = e_{\phi}(x), \qquad \hat{x} = d_{\theta}(h)
 \]
 
 A common reconstruction loss is:
 \[
-L(x) = \|x - \hat{x}\|^2 = \|x - d(e(x))\|^2
+L(\theta, \phi) = \| x - \hat{x} \|_2^2
+     = \| x - d_{\theta}(e_{\phi}(x)) \|_2^2
 \]
 
-This corresponds to maximum likelihood under
+
+Minimizing squared error is equivalent (up to constants) to maximizing the log-likelihood of a Gaussian decoder with fixed variance:
 \[
-x \mid h \sim \mathcal{N}(d(h), \sigma^2 I).
+x \mid h \sim \mathcal{N}(d_{\theta}(h), \sigma^2 I).
 \]
 \end{frame}
 
@@ -178,10 +180,11 @@ x \mid h \sim \mathcal{N}(d(h), \sigma^2 I).
 \begin{frame}{PCA and autoencoders}
 
 \begin{itemize}
-\item A linear autoencoder: $e_\theta(x) = W_\phi$, and $d_\theta(x) = W_\phi$
+\item A linear autoencoder: $e_\phi(x) = W_\phi$ x, and $d_\theta(h) = W_\phi$ h
 \item We want to minimize the loss (ignoring $b$/the mean):
 \[
-L(\phi, \theta) = \sum_{i=1}^N (x_i - W_\theta W_\phi x_i)^2
+L(\theta,\phi)
+= \sum_{i=1}^N \left\| x_i - W_{\theta} W_{\phi} x_i \right\|_2^2
 \]
 \pause
 \item Remember \uured{PCA loss}:
@@ -190,7 +193,7 @@ L(P) = \sum_{i=1}^N (x_i - P_q P_q^T x_i)^2\,,
 \]
 where $P$ is an orthogonal matrix of rank $q$.
 \pause
-\item \uured{Hence}: PCA can be seen as an autoencoder
+\item \uured{Hence}: PCA can be seen as an linear autoencoder (under squared loss and orthonormal constraints)
 \end{itemize}
 
 \begin{figure}[h]
@@ -380,7 +383,7 @@ and
 \end{figure}
 \end{frame}
 
-\subsection{Traing a variational autoencoder}
+\subsection{Training a variational autoencoder}
 
 \begin{frame}{Training a VAE}
 \begin{itemize}
