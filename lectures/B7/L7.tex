@@ -573,20 +573,131 @@ q_{\phi}(z \mid x) = p_{\theta}(z \mid x)
 %\end{frame}
 
 
-\begin{frame}{Training target}
+%\begin{frame}{Training target}
+
+%\begin{itemize}
+%\item \uured{Optimization target}: Maximize the ELBO
+%\begin{align*}
+%\mathcal{L}_{\theta,\phi}(x) = \log p_\theta(x) - D_{KL}(q_\phi(z|x)||p_\theta(z|x))
+%\end{align*}
+%\item ELBO is a lower bound for the marginal log-likelihood%\\ (similar to the EM algorithm)
+%\pause
+%\item Maximizing the ELBO will do two things:
+%\begin{itemize}
+%\item Maximize the marginal log-likelihood $\log p_\theta(x)$:\\Better generative model/decoder
+%\item Minimize the KL-divergence between $q_\phi(z|x)$ and $p_\theta(z|x)$:\\Better approximation of the latent space/encoder
+%\end{itemize}
+%\end{itemize}
+
+%\end{frame}
+
+\begin{frame}{Optimizing the ELBO}
+
+\uured{Objective}
+
+We want to maximize the ELBO with respect to encoder and decoder parameters:
+\[
+\max_{\theta,\phi}\;
+\mathcal{L}_{\theta,\phi}(x)
+=
+\mathbb{E}_{q_{\phi}(z \mid x)}
+\left[
+\log p_{\theta}(x,z)
+-
+\log q_{\phi}(z \mid x)
+\right]
+\]
+
+%\vspace{0.4cm}
+\pause
+\uured{Problem}
 
 \begin{itemize}
-\item \uured{Optimization target}: Maximize the ELBO
-\begin{align*}
-\mathcal{L}_{\theta,\phi}(x) = \log p_\theta(x) - D_{KL}(q_\phi(z|x)||p_\theta(z|x))
-\end{align*}
-\item ELBO is a lower bound for the marginal log-likelihood%\\ (similar to the EM algorithm)
-\pause
-\item Maximizing the ELBO will do two things:
-\begin{itemize}
-\item Maximize the marginal log-likelihood $\log p_\theta(x)$:\\Better generative model/decoder
-\item Minimize the KL-divergence between $q_\phi(z|x)$ and $p_\theta(z|x)$:\\Better approximation of the latent space/encoder
+  \item The expectation is over \( q_{\phi}(z \mid x) \)
+  \item We need gradients with respect to \( \phi \) and \( \theta \)
+  \item Direct differentiation through sampling is not possible
 \end{itemize}
+
+% \vspace{0.3cm}
+\pause
+
+\uured{Solution}
+
+\begin{itemize}
+  \item Approximate the expectation using Monte Carlo
+  \item Rewrite the sampling step so gradients can flow (reparameterization trick)
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{The Reparameterization Trick}
+
+\uured{Assumption}
+
+The variational posterior is Gaussian:
+\[
+q_{\phi}(z \mid x) = \mathcal{N}\bigl(\mu_{\phi}(x), \sigma^2_{\phi}(x) I\bigr)
+\]
+
+%\vspace{0.3cm}
+
+\uured{Key idea}
+
+Instead of sampling \( z \sim q_{\phi}(z \mid x) \), write:
+\[
+z = g(\phi, x, \epsilon) = \mu_{\phi}(x) + \sigma_{\phi}(x) \odot \epsilon,
+\quad
+\epsilon \sim \mathcal{N}(0,I)
+\]
+
+%\vspace{0.3cm}
+
+\uured{Why this helps}
+
+\begin{itemize}
+  \item Randomness is now isolated in \( \epsilon \)
+  \item \( z = g(\phi, x, \epsilon)\) is a differentiable function of \( \phi \)
+  \item \uured{Enables backpropagation through the sampling step}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Monte Carlo Optimization of the ELBO}
+
+\uured{ELBO rewritten}
+
+\[
+\mathcal{L}_{\theta,\phi}(x)
+=
+\mathbb{E}_{p(\epsilon)}
+\left[
+\log p_{\theta}(x, g(\phi,x,\epsilon))
+-
+\log q_{\phi}(g(\phi,x,\epsilon) \mid x)
+\right]
+\]
+
+% \vspace{0.3cm}
+
+\uured{Monte Carlo approximation}
+
+Using one sample \( \epsilon^{(1)} \sim \mathcal{N}(0,1) \):
+\[
+\mathcal{L}_{\theta,\phi}(x)
+\approx
+\log p_{\theta}(x, g(\phi,x,\epsilon^{(1)}) )
+-
+\log q_{\phi}(g(\phi,x,\epsilon^{(1)}) \mid x)
+\]
+
+% \vspace{0.3cm}
+
+\uured{Optimization}
+
+\begin{itemize}
+  \item Use stochastic gradient ascent (or descent on \(-\)ELBO)
+  \item Gradients flow through \( \mu_{\phi}(x) \) and \( \sigma_{\phi}(x) \) and we can compute $ \nabla \mathcal{L}_{\theta,\phi}(x)$
+  \item One or few samples $\epsilon$ per datapoint is usually sufficient
 \end{itemize}
 
 \end{frame}
