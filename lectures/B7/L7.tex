@@ -215,13 +215,13 @@ where $P$ is an orthogonal matrix of rank $q$.
 %(manifold is a topological space that locally resembles Euclidean space near each point)
 \end{itemize}
 \pause
-\item Problem: Deep autoencoders needs to be \uured{regularized} to not \uured{overfit} the latent state
+\item Problem: Deep autoencoders need to be \uured{regularized} to not \uured{overfit} the latent state
 \end{itemize}
 
 \end{frame}
 
 
-\begin{frame}{probabilistic PCA as an decoder}
+\begin{frame}{Probabilistic PCA as a decoder}
 
 \begin{itemize}
 \item Problem: Autoencoders (as PCA) are not probabilistic models:
@@ -240,15 +240,15 @@ where $P$ is an orthogonal matrix of rank $q$.
 \begin{itemize}
 \item Remember the pPCA model (with $z$ as latent variable):
 \[
-x_i \sim N(\uured{b +  W} z_i^T, \sigma I)
+x_i \sim N(\uured{b +  W} z_i, \sigma^2 I)
 \]
 \pause
 \item Now, swap the simple parameters with a neural network
 \[
-x_i \sim N(\uured{\text{NeuralNetwork}}_\phi (z_i), \sigma I)
+x_i \sim N(\uured{\text{NeuralNetwork}}_\theta (z_i), \sigma I)
 \]
 \pause
-\item This is an example of a \uured{Deep Latent Variable model} (DLVM)\\(a probabilistic decoder)
+\item This is an example of a \uured{Deep Latent Variable model} (DLVM)%(a probabilistic decoder)
 \pause
 \item One example of a DLVM is the \uured{Variational Autoencoder}
 \end{itemize}
@@ -337,14 +337,12 @@ z \sim N(\mu, \Sigma)
 \pause
 \item A neural network learns the parameters $\mu$ and $\Sigma$
 \[
-\mu = \text{NeuralNetwork}(x,\phi_\mu)\,,
+\mu(x) = \text{NeuralNetwork}(x,\phi_\mu)\,,
 \]
 and
 \[
-\Sigma = \text{NeuralNetwork}(x,\phi_\Sigma)\,.
+\log \sigma^2(x) = \text{NeuralNetwork}(x,\phi_\Sigma)\,.
 \]
-\pause
-\item Common assumption: $\Sigma$ is a diagonal matrix.
 \pause
 \item \uured{ Result}: $z_i$ for observation $i$ depends non-linearly on $x_i$
 \end{itemize}
@@ -388,52 +386,191 @@ and
 \begin{frame}{Training a VAE}
 \begin{itemize}
 \item \uured{Goal}: estimating $\phi$, $\theta$ (and $z_i$)
-%\item We have a sampling step in the middle (the latent state $z$)
 \pause
 \item The encoder and decoder are (usually) complicated \\ (no close form solution)
 \item Estimate $\phi$ and $\theta$ %using \uured{gradient ascent}
 \pause
-\item Target:
-\begin{itemize}
-\item Maximize $\log p(x)$\\(Explain the data as well as possible)
-\end{itemize}\pause
-\item \uured{Optimization target}: \\ Maximize the variational lower bound or \uured{evidence lower bound (ELBO)}
+\item Target: \item Maximize $\log p(x)$ (i.e. Explain the data as well as possible)
+
+%\item \uured{Optimization target}: \\ Maximize the variational lower bound or \uured{evidence lower bound (ELBO)}
 \end{itemize}
 \end{frame}
 
 
-\begin{frame}{The marginal log-likelihood}
+%\begin{frame}{The marginal log-likelihood}
 
-\begin{align*}
-\log p_\theta(x)&=\uured{\int q_\phi(z|x)} \log p_\theta(x) \uured{ dz}&  \\
-&=\uured{\mathbb{E}_{q_\phi(z|x)}}[\log p_\theta(x)] \\
-&=\mathbb{E}_{q_\phi(z|x)}\left[\log \left(\uured{\frac{p_\theta(x,z)}{p_\theta(z|x)}}\right)\right]\,, \text{using}\, p(z|x)= \frac{p(x,z)}{p(x)} \\
-&=\mathbb{E}_{q_\phi(z|x)}\left[\log \left(\frac{p_\theta(x,z)}{\uured{q_\phi(z|x)}}\frac{\uured{q_\phi(z|x)}}{p_\theta(z|x)}\right)\right] \\
-&=\mathbb{E}_{q_\phi(z|x)}\left[\log \left(\frac{p_\theta(x,z)}{q_\phi(z|x)}\right)\right] + \mathbb{E}_{q_\phi(z|x)}\left[\log \left(\frac{q_\phi(z|x)}{p_\theta(z|x)}\right)\right] \\
-&=\underbrace{\mathcal{L}_{\theta,\phi}(x)}_{\text{ELBO}} + D_{KL}(q_\phi(z|x)||p_\theta(z|x))\\
-\end{align*}
-\pause
-\begin{align*}
-\underbrace{\mathcal{L}_{\theta,\phi}(x)}_{\text{ELBO}} = \log p_\theta(x) - D_{KL}(q_\phi(z|x)||p_\theta(z|x))
-\end{align*}
+%\begin{align*}
+%\log p_\theta(x)&=\uured{\int q_\phi(z|x)} \log p_\theta(x) \uured{ dz}&  \\
+%&=\uured{\mathbb{E}_{q_\phi(z|x)}}[\log p_\theta(x)] \\
+%&=\mathbb{E}_{q_\phi(z|x)}\left[\log \left(\uured{\frac{p_\theta(x,z)}{p_\theta(z|x)}}\right)\right]\,, \text{using}\, p(z|x)= \frac{p(x,z)}{p(x)} \\
+%&=\mathbb{E}_{q_\phi(z|x)}\left[\log \left(\frac{p_\theta(x,z)}{\uured{q_\phi(z|x)}}\frac{\uured{q_\phi(z|x)}}{p_\theta(z|x)}\right)\right] \\
+%&=\mathbb{E}_{q_\phi(z|x)}\left[\log \left(\frac{p_\theta(x,z)}{q_\phi(z|x)}\right)\right] + \mathbb{E}_{q_\phi(z|x)}\left[\log \left(\frac{q_\phi(z|x)}{p_\theta(z|x)}\right)\right] \\
+%&=\underbrace{\mathcal{L}_{\theta,\phi}(x)}_{\text{ELBO}} + D_{KL}(q_\phi(z|x)||p_\theta(z|x))\\
+%\end{align*}
+%\pause
+%\begin{align*}
+%\underbrace{\mathcal{L}_{\theta,\phi}(x)}_{\text{ELBO}} = \log p_\theta(x) - D_{KL}(q_\phi(z|x)||p_\theta(z|x))
+%\end{align*}
 
-\end{frame}
+%\end{frame}
 
+\begin{frame}{The Kullback--Leibler (KL) Divergence}
 
-\begin{frame}{The Kullback-Leibler divergence}
+\uured{What is it?}
+
+A measure of how well one probability distribution approximates another.
+
+%\vspace{0.3cm}
+
+\uured{Definition}
+
+For two distributions \( p \) and \( q \):
+\[
+\mathrm{D}_{\mathrm{KL}}(p \,\|\, q)
+=
+\mathbb{E}_{p}
+\left[
+\log \frac{p(X)}{q(X)}
+\right]
+\]
+
+%\vspace{0.3cm}
+
+\uured{Key properties}
 
 \begin{itemize}
-\item \uured{The Kulback-Leibler divergence}: a way of measuring the "distance" between probability distributions
-\[
-D_{KL}(q_\phi(z|x)||p_\theta(z|x)) = \mathbb{E}_{q_\phi(z|x)}\left[\log \left(\frac{q_\phi(z|x)}{p_\theta(z|x)}\right)\right]
-\]
-
-\[
-D_{KL}(q_\phi(z|x)||p_\theta(z|x)) \geq 0
-\]
+  \item \( \mathrm{D}_{\mathrm{KL}}(p \,\|\, q) \ge 0 \)
+  \item \( \mathrm{D}_{\mathrm{KL}}(p \,\|\, q) = 0 \) iff \( p = q \)
+  \item Not symmetric:
+  \( \mathrm{D}_{\mathrm{KL}}(p \,\|\, q) \neq \mathrm{D}_{\mathrm{KL}}(q \,\|\, p) \)
 \end{itemize}
 
+% \vspace{0.3cm}
+
+\uured{Interpretation}
+
+\begin{itemize}
+  \item Measures information lost when using \( q \) to approximate \( p \)
+  \item Direction matters: \emph{which distribution is the truth}
+\end{itemize}
+
+
 \end{frame}
+
+
+\begin{frame}{From the marginal likelihood to the ELBO}
+
+\uured{Goal:} Compute or maximize the marginal log-likelihood
+\[
+\log p_{\theta}(x)
+\]
+
+%\vspace{0.3cm}
+
+\uured{Step 1: Introduce the latent variable}
+\[
+\log p_{\theta}(x)
+=
+\log \int p_{\theta}(x,z)\,dz
+\]
+
+% {\small (This integral is usually intractable.)}
+
+% \vspace{0.3cm}
+
+\uured{Step 2: Introduce a variational distribution}
+\[
+\log p_{\theta}(x)
+=
+\log \int q_{\phi}(z \mid x)
+\frac{p_{\theta}(x,z)}{q_{\phi}(z \mid x)}\,dz = \log \mathbb{E}_{q_{\phi}(z \mid x)}
+\left[ \frac{p_{\theta}(x,z)}{q_{\phi}(z \mid x)}\right]
+\]
+
+{\small (This equality always holds as long as \( q_{\phi}(z \mid x) > 0 \).)}
+
+%\vspace{0.3cm}
+
+\uured{Step 3: Apply Jensen's inequality} \\$(\text{For a concave function } f,\quad f\bigl(\mathbb{E}[X]\bigr) \ge \mathbb{E}\bigl[f(X)\bigr])$
+\[
+\log p_{\theta}(x)
+\ge
+\mathbb{E}_{q_{\phi}(z \mid x)}
+\left[
+\log \frac{p_{\theta}(x,z)}{q_{\phi}(z \mid x)}
+\right]
+\]
+
+\end{frame}
+
+
+
+\begin{frame}{The Evidence Lower Bound (ELBO)}
+
+\uured{Definition:} The Evidence Lower Bound (ELBO) is
+\[
+\mathcal{L}_{\theta,\phi}(x)
+=
+\mathbb{E}_{q_{\phi}(z \mid x)}
+\left[
+\log \frac{p_{\theta}(x,z)}{q_{\phi}(z \mid x)}
+\right]
+\]
+
+%\vspace{0.4cm}
+
+\uured{Key relationship:}
+\[
+\mathcal{L}_{\theta,\phi}(x)
+=
+\log p_{\theta}(x)
+-
+\mathrm{D}_{\mathrm{KL}}
+\bigl(
+q_{\phi}(z \mid x)
+\;\|\;
+p_{\theta}(z \mid x)
+\bigr)
+\]
+
+%\vspace{0.3cm}
+
+{\small (KL divergence is always non-negative.)}
+
+%\vspace{0.3cm}
+
+\uured{Interpretation:}
+\begin{itemize}
+  \item Maximizing the ELBO \emph{increases} \( \log p_{\theta}(x) \)
+  \item Minimizes the gap between \( q_{\phi}(z \mid x) \) and \( p_{\theta}(z \mid x) \)
+\end{itemize}
+
+%\vspace{0.3cm}
+
+\uured{Important:}
+\[
+\mathcal{L}_{\theta,\phi}(x) \le \log p_{\theta}(x),
+\quad
+\text{with equality iff }
+q_{\phi}(z \mid x) = p_{\theta}(z \mid x)
+\]
+
+\end{frame}
+
+%\begin{frame}{The Kullback–Leibler divergence}
+
+%\begin{itemize}
+%\item \uured{The Kullback–Leibler divergence}: a way of measuring the "distance" between probability distributions (however not a metric)
+%\[
+%D_{KL}(q_\phi(z|x)||p_\theta(z|x)) = \mathbb{E}_{q_\phi(z|x)}\left[\log \left(\frac{q_\phi(z|x)}{p_\theta(z|x)}\right)\right]
+%\]
+
+%\[
+%D_{KL}(q_\phi(z|x)||p_\theta(z|x)) \geq 0
+%\]
+%\end{itemize}
+
+%\end{frame}
 
 
 \begin{frame}{Training target}
