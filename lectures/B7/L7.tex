@@ -774,7 +774,7 @@ Using one sample \( \epsilon^{(1)} \sim \mathcal{N}(0,1) \):
 \end{itemize}
 \pause
 \item Still much ongoing research
-\item Diffusion models is getting increased attention as a rival method
+% \item Diffusion models is getting increased attention as a rival method
 \end{itemize}
 
 \begin{figure}[h]
@@ -785,7 +785,34 @@ Using one sample \( \epsilon^{(1)} \sim \mathcal{N}(0,1) \):
 
 \end{frame}
 
+\begin{frame}{VAE vs Diffusion Models}
 
+\uured{Variational Autoencoders (VAEs)}
+\begin{itemize}
+  \item Latent variable model: \( z \sim p(z) \)
+  \item Trained by maximizing the ELBO
+  \item Fast sampling (one forward pass)
+  \item Compact, interpretable latent space
+  \item Often produce blurrier samples
+\end{itemize}
+
+\uured{Diffusion Models}
+\begin{itemize}
+  \item No explicit low-dimensional latent space
+  \item Learn to reverse a noise process
+  \item Trained via denoising objectives
+  \item Very high-quality samples
+  \item Slow sampling (many steps)
+\end{itemize}
+
+
+%\vspace{0.3cm}
+
+\uured{Takeaway:}
+VAEs prioritize efficient inference and representation learning,
+while diffusion models prioritize sample quality.
+
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Probabilistic Topic Models}
