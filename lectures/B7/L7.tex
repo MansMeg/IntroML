@@ -703,42 +703,42 @@ Using one sample \( \epsilon^{(1)} \sim \mathcal{N}(0,1) \):
 \end{frame}
 
 
-\begin{frame}{Optimizing the ELBO}
+%\begin{frame}{Optimizing the ELBO}
 
-\begin{itemize}
-\item \uured{Stochastic Gradient Ascent} to maximize:
-\begin{align*}
-\mathcal{L}_{\theta,\phi}(x) =& \sum_i^N \mathcal{L}_{\theta,\phi}(x_i)\\
-=& \sum_i^N \mathbb{E}_{q_\phi(z_i|x_i)}\left[\log \left(p_\theta(x_i,z_i)\right) - \log(q_\phi(z_i|x_i))\right]
-\end{align*}
-\pause
-\item Two problems:
-\begin{enumerate}
-\item How do we compute the expectation? \\ Solution: \uured{ Monte Carlo Approximation}\pause
-\item How compute the gradient wrt $\phi$?\\ Solution: \uured{Change of variables}: $z = g(\epsilon, \phi, x)$\\This is called \uured{the reparametrization trick}
-\end{enumerate}
-\end{itemize}
+%\begin{itemize}
+%\item \uured{Stochastic Gradient Ascent} to maximize:
+%\begin{align*}
+%\mathcal{L}_{\theta,\phi}(x) =& \sum_i^N \mathcal{L}_{\theta,\phi}(x_i)\\
+%=& \sum_i^N \mathbb{E}_{q_\phi(z_i|x_i)}\left[\log \left(p_\theta(x_i,z_i)\right) - \log(q_\phi(z_i|x_i))\right]
+%\end{align*}
+%\pause
+%\item Two problems:
+%\begin{enumerate}
+%\item How do we compute the expectation? \\ Solution: \uured{ Monte Carlo Approximation}\pause
+%\item How compute the gradient wrt $\phi$?\\ Solution: \uured{Change of variables}: $z = g(\epsilon, \phi, x)$\\This is called \uured{the reparametrization trick}
+%\end{enumerate}
+%\end{itemize}
 
-\end{frame}
+%\end{frame}
 
-\begin{frame}{Optimizing the ELBO}
+%\begin{frame}{Optimizing the ELBO}
 % Im here. TODO Clarify the steps
-\begin{itemize}
-\item Using the reparametrization trick and Monte Carlo approximation, we get:
-\begin{align*}
-\mathcal{L}_{\theta,\phi}(x) =& \mathbb{E}_{q_\phi(z|x)}\left[\log \left(p_\theta(x,z)\right)- \log(q_\phi(z|x))\right]\\
- =& \mathbb{E}_{p(\epsilon)}\left[\log \left(p_\theta(x,g(\epsilon, \phi, x))\right)- \log(q_\phi(g(\epsilon, \phi, x)|x))\right]\\
- \approx & \log \left(p_\theta(x,g(\epsilon, \phi, x))\right)- \log(q_\phi(g(\epsilon, \phi, x)|x))
-\end{align*}
-\pause
-\item A common approach: do the MC approximation with only \uured{one sample per datapoint $x_i$}.\pause
+%\begin{itemize}
+%\item Using the reparametrization trick and Monte Carlo approximation, we get:
+%\begin{align*}
+%\mathcal{L}_{\theta,\phi}(x) =& \mathbb{E}_{q_\phi(z|x)}\left[\log \left(p_\theta(x,z)\right)- \log(q_\phi(z|x))\right]\\
+% =& \mathbb{E}_{p(\epsilon)}\left[\log \left(p_\theta(x,g(\epsilon, \phi, x))\right)- \log(q_\phi(g(\epsilon, \phi, x)|x))\right]\\
+% \approx & \log \left(p_\theta(x,g(\epsilon, \phi, x))\right)- \log(q_\phi(g(\epsilon, \phi, x)|x))
+%\end{align*}
+%\pause
+%\item A common approach: do the MC approximation with only \uured{one sample per datapoint $x_i$}.\pause
 %\item unbiasedness
-\item We approximate both $\mathcal{L}_{\theta,\phi}(x)$ and $\nabla\mathcal{L}_{\theta,\phi}(x)$
-\pause
-\item Sometimes called a \uured{doubly stochastic} algorithm.
-\end{itemize}
+%\item We approximate both $\mathcal{L}_{\theta,\phi}(x)$ and $\nabla\mathcal{L}_{\theta,\phi}(x)$
+%\pause
+%\item Sometimes called a \uured{doubly stochastic} algorithm.
+%\end{itemize}
 
-\end{frame}
+%\end{frame}
 
 
 \begin{frame}{The Autoencoding Variational Bayes Algorithm}
@@ -768,7 +768,7 @@ Using one sample \( \epsilon^{(1)} \sim \mathcal{N}(0,1) \):
 \item Benefits of VAE:
 \begin{itemize}
 \item Get a more \uured{interpretable} latent state
-\item We can estimate \uured{uncertainty}
+\item We can estimate \uured{uncertainty} (but its usually bad)
 \item \uured{Regularize} the latent state
 \item We can inject knowledge in our latent state
 \end{itemize}
