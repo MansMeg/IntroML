@@ -59,7 +59,7 @@
       \\predicting a token at a time, based on previous \uured{context}
       \pause
       \item having some ability to achieve \uured{general-purpose language "understanding"}
-      \item \uured{"emergent"} abilities to solve other more complex tasks, such as few-shot learning and \uured{in-context learning}, though this term "emergent" is debated.
+%      \item \uured{"emergent"} abilities to solve other more complex tasks, such as few-shot learning and \uured{in-context learning}, though this term "emergent" is debated.
       \pause
       \item pre-trained on very large data
   \end{itemize}
@@ -162,23 +162,23 @@ Examples:
 
 %\end{frame}
 
-\subsection{"Emergent" abilities}
+% \subsection{"Emergent" abilities}
 
-\begin{frame}{"Emergent" abilities}
+% \begin{frame}{"Emergent" abilities}
 % Emergent abilities
 % p 4 in Zhao
-\begin{itemize}
-\item "the abilities that are not present in small models but arise in large models" (Zhao et al, 2023)\pause
-\item One of the main differences between LLMs and PLMs
-\item Examples:
-\begin{itemize}
-\item In-context learning (basis for prompting)
-\item Instruction following % "LaMDA-PT started to significantly outperform the untuned one on unseen tasks when the model size reached 68B, but not for 8B or smaller model sizes."
-\item Step-by-step reasoning
-\end{itemize}
-\end{itemize}
+% \begin{itemize}
+% \item "the abilities that are not present in small models but arise in large models" (Zhao et al, 2023)\pause
+% \item One of the main differences between LLMs and PLMs
+% \item Examples:
+% \begin{itemize}
+% \item In-context learning (basis for prompting)
+% \item Instruction following % "LaMDA-PT started to significantly outperform the untuned one on unseen tasks when the model size reached 68B, but not for 8B or smaller model sizes."
+% \item Step-by-step reasoning
+% \end{itemize}
+% \end{itemize}
 
-\end{frame}
+% \end{frame}
 
 \subsection{In-context learning (ICL)}
 
@@ -595,6 +595,24 @@ As $t\rightarrow 0$: greedy, and $t = 1$: ordinary sampling
 
 \end{frame}
 
+\begin{frame}{Decoding (word generation): Top-$p$ sampling}
+
+\begin{itemize}
+\item Top-$p$ (nucleus) sampling samples from the smallest set of tokens whose
+cumulative probability exceeds a threshold $p \in (0,1)$.
+\item Let $\mathcal{V}_p$ be the smallest set such that
+\[
+\sum_{x \in \mathcal{V}_p} p_\theta(x \mid x_{<i}) \ge p.
+\]
+\item Sample
+\[
+x_i \sim p_\theta(x \mid x_{<i}), \quad x \in \mathcal{V}_p.
+\]
+\item Adapts the number of candidate tokens to model uncertainty.
+\item Common default in modern LLMs (e.g.\ $p = 0.9$).
+\end{itemize}
+
+\end{frame}
 
 \section{Training}
 \frame{\sectionpage}
@@ -666,9 +684,12 @@ As $t\rightarrow 0$: greedy, and $t = 1$: ordinary sampling
 \begin{frame}{Pretraining task/Loss}
 
 \begin{itemize}
-\item The most common task is language modeling(LM), i.e. maximizing
+\item The most common task is language modeling (LM), i.e. maximizing
 \[
-L_{LM}(\mathbf{x}) = \sum_i^n \log P(x_i | \mathbf{x}_{<i})
+\mathcal{L}(\theta)
+=
+- \sum_{i=1}^{n}
+\log p_\theta\!\left( x_i \mid x_{< i} \right).
 \]
 \item Why is this good/result in good models?\pause
 \begin{itemize}
