@@ -230,16 +230,18 @@
 \begin{frame}{The $k$-armed bandit problem}
 
 \begin{itemize}
-% TODO: Find an image here.
 \item {\color{uured} Goal}: Maximize the total or average reward after $N$ actions\pause
 \item {\color{uured} The actions}: Choose between $k$ arms, i.e. $A_t \in \{1,...,k \}$\pause
 \item The reward signal:
 \[
-R_{t} \sim p(R_t|a)\,,
+R_t \sim p(\cdot \mid A_t = a), \qquad \mathbb{E}[R_t \mid A_t = a] = q^\star(a).
 \]
-where $\mathbb{E}(R_{t}|A_t = a) = q^\star(a)$.\pause
+%where $\mathbb{E}(R_{t}|A_t = a) = q^\star(a)$.\pause
+\pause
 \item $q^\star(a)$ is {\color{uured} unknown}.\pause
-\item The estimated (expected) value if action $a$ at step $t$: $Q_t(a)$.\pause\vspace{3mm}
+\item Estimated expected reward of action $a$ at time $t$.
+\pause
+\vspace{3mm}
 \item This is a {\color{uured} tabular} method/problem: \\ We can represent the actions in a table.
 \item Tabular methods works in small problems\\ e.g. A/B testing and dynamic web pages.
 \end{itemize}
@@ -278,7 +280,10 @@ A_t \sim U(1,...k)
 \pause
 \end{itemize}
 \item $Q_1(a) = 0$ (or used to encourage initial exploration)\pause
-\item For any $\epsilon > 0$, $Q_t(a) \rightarrow q^\star(a)$
+\item For any fixed $\epsilon > 0$, under stationarity and with sample-average updates,
+\[
+Q_t(a) \xrightarrow{\text{a.s.}} q^\star(a) \quad \text{as } t \to \infty.
+\]
 \end{itemize}
 
 \end{frame}
@@ -288,9 +293,10 @@ A_t \sim U(1,...k)
 \begin{itemize}
 \item We estimate $q^\star(a)$ using $Q_t(a)$ as
 \[
-Q_T(a) = \frac{1}{N(a)} \sum^{T-1}_t R_{t,A_t=a}\,,
+%Q_T(a) = \frac{1}{N(a)} \sum^{T-1}_t R_{t,A_t=a}\,,
+Q_T(a) = \frac{1}{N_T(a)} \sum_{t=1}^T R_t \, \mathbf{1}\{A_t = a\}.
 \]
-where $N(a)$ is the total number of times action $a$ has been taken.
+where $N_T(a)$ is the total number of times action $a$ has been taken at time point $T$.
 \pause
 \item When should we explore?
 \begin{itemize}
@@ -302,6 +308,15 @@ where $N(a)$ is the total number of times action $a$ has been taken.
 
 \end{frame}
 
+\begin{frame}{The $\epsilon$-greedy algorithm}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\textwidth]{fig/sutton_bandit.png}
+\caption{The $\epsilon$-greedy algorithm}
+\end{figure}
+
+\end{frame}
 
 \begin{frame}{Bandit example}
 
@@ -344,6 +359,7 @@ where $N(a)$ is the total number of times action $a$ has been taken.
 \[
 Q_T(a) = Q_{T-1} + {\color{uured} \frac{1}{N_t(a)}} (R_{t,A_t=a} - Q_{T-1}(a))
 \]
+
 \pause
 \item Handling non-stationarity:
 \[
@@ -356,8 +372,12 @@ Q_T(a) = Q_{T-1} + {\color{uured} \alpha(t)} (R_{t, A_t=a} - Q_{T-1}(a))
 \begin{frame}{Efficient computation and non-stationarity}
 
 \[
-Q_T(a) = Q_{T-1} + {\color{uured} \alpha(t)} (R_{t, A_t=a} - Q_{T-1}(a))
+Q_{t+1}(a) = Q_t(a) + {\color{uured} \alpha_t} \bigl(R_{t+1} - Q_t(a)\bigr).
 \]
+
+%\[
+%Q_T(a) = Q_{T-1} + {\color{uured} \alpha(t)} (R_{t, A_t=a} - Q_{T-1}(a))
+%\]
 \begin{itemize}
 \item Examples:
 \begin{itemize}
@@ -365,25 +385,88 @@ Q_T(a) = Q_{T-1} + {\color{uured} \alpha(t)} (R_{t, A_t=a} - Q_{T-1}(a))
 \item $\alpha(t) = 0$: $Q_T(a) = Q_{1}(a)$\pause
 \item $\alpha(t) = \frac{1}{N_t(a)}$: Average reward\pause
 \end{itemize}
-\item $Q_T(a) \rightarrow q^\star(a)$, if:\pause
-\begin{enumerate}
-\item $\sum^\infty_t \alpha_t = \infty$
-\item $\sum^\infty_t \alpha^2_t < \infty$
-\end{enumerate}
-\item Where have we seen these criterias before?
+%\item $Q_T(a) \rightarrow q^\star(a)$, if:\pause
+%\begin{enumerate}
+%\item $\sum^\infty_t \alpha_t = \infty$
+%\item $\sum^\infty_t \alpha^2_t < \infty$
+%\end{enumerate}
+%\item Where have we seen these criteria before?
 \end{itemize}
 
 \end{frame}
 
-\begin{frame}{The $\epsilon$-greedy algorithm}
+\begin{frame}{Stochastic Approximation Conditions}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=1\textwidth]{fig/sutton_bandit.png}
-\caption{The $\epsilon$-greedy algorithm}
-\end{figure}
+%\textbf{Learning rate (step-size) sequence}
+
+%Let $\{\alpha_t\}_{t \ge 1}$ be the learning rates used in value updates, for example
+\[
+Q_{t+1}(a) = Q_t(a) + \alpha_t \bigl(R_{t+1} - Q_t(a)\bigr).
+\]
+
+%\vspace{0.4cm}
+
+\uured{Robbins--Monro conditions}
+
+For convergence of stochastic approximation algorithms, the learning rates must satisfy
+\[
+\sum_{t=1}^{\infty} \alpha_t = \infty,
+\qquad
+\sum_{t=1}^{\infty} \alpha_t^2 < \infty.
+\]
+
+%\vspace{0.4cm}
+
+\uured{Interpretation}
+\begin{itemize}
+  \item $\sum_{t} \alpha_t = \infty$: ensures continued learning and prevents premature convergence.
+  \item $\sum_{t} \alpha_t^2 < \infty$: controls the variance of the stochastic noise and prevents divergence.
+\end{itemize}
+
+%\vspace{0.3cm}
+
+
+
 
 \end{frame}
+
+
+\begin{frame}{Stochastic Approximation Conditions}
+
+%\textbf{Learning rate (step-size) sequence}
+
+%Let $\{\alpha_t\}_{t \ge 1}$ be the learning rates used in value updates, for example
+\[
+Q_{t+1}(a) = Q_t(a) + \alpha_t \bigl(R_{t+1} - Q_t(a)\bigr).
+\]
+
+\[
+\sum_{t=1}^{\infty} \alpha_t = \infty,
+\qquad
+\sum_{t=1}^{\infty} \alpha_t^2 < \infty.
+\]
+
+%\vspace{0.3cm}
+
+\begin{itemize}
+  \item These are \emph{not heuristics}, but results from \uured{stochastic approximation theory}
+  (Robbins \& Monro, 1951).
+  \item They guarantee convergence of value estimates under stationarity, sufficient exploration,
+  and bounded rewards.
+  \item Many RL algorithms (e.g.\ bandits, TD learning, Q-learning) rely on these conditions.
+\end{itemize}
+
+%\vspace{0.3cm}
+
+\uured{Examples}
+\begin{itemize}
+  \item Sample-average updates: $\alpha_t = \frac{1}{t}$ \quad \\(satisfies both conditions).
+  \item Constant step-size: $\alpha_t = \alpha$ \quad \\(violates $\sum_t \alpha_t^2 < \infty$; useful in non-stationary settings).
+\end{itemize}
+
+\end{frame}
+
+
 
 
 
@@ -493,7 +576,7 @@ i.e. sample $A_t$ based on the probability of being the best action.
 \begin{frame}{The Markov Decision process}
 
 \begin{itemize}
-\item Boundry between Agent and Environment:
+\item Boundary between Agent and Environment:
 \begin{itemize}
 \item The {\color{uured}total control} of the action\pause
 \item Reward is {\color{uured}external} to agent: Pain and pleasure
@@ -514,7 +597,7 @@ i.e. sample $A_t$ based on the probability of being the best action.
 \begin{frame}{Return and discount}
 
 \begin{itemize}
-\item Two type of interactions
+\item Two types of interactions
 \begin{itemize}
 \item {\color{uured}Episodic}: $T <\infty$, has terminal state
 \item {\color{uured}Continuing}: $T =\infty$
