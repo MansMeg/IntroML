@@ -728,9 +728,9 @@ x_i \sim p_\theta(x \mid x_{<i}), \quad x \in \mathcal{V}_p.
 % instruction tuning (discussed in Section 5.1)
 \begin{itemize}
 \item \uured{Instruction tuning}: fine-tuning pre-trained LLMs on a collection of formatted instances
-\pause
-\item Effective approach to adapting existing general LLMs to be domain-specific experts\\
-e.g. fine-tune Flan-PaLM using medical datasets to create Med-PaLM
+%\pause
+%\item Effective approach to adapting existing general LLMs to be domain-specific experts\\
+%e.g. fine-tune Flan-PaLM using medical datasets to create Med-PaLM
 \pause
 \item \uured{Effect of instruction tuning}: Performance improvement, a general approach to enhancing the abilities of existing language models
 \end{itemize}
@@ -761,7 +761,7 @@ e.g. fine-tune Flan-PaLM using medical datasets to create Med-PaLM
 \begin{itemize}
 \item Scaling, more data is better (to a point) % - a large number of instances, but the effect is descreasing
 \item Diversity and quality of instructions more important than the number of instances
-\item Including things to (1) avoid, (2) reasons, and (3) suggestions may have a negligible or adverse effect
+%\item Including things to (1) avoid, (2) reasons, and (3) suggestions may have a negligible or adverse effect
 \end{itemize}
 \end{itemize}
 
@@ -774,7 +774,7 @@ e.g. fine-tune Flan-PaLM using medical datasets to create Med-PaLM
 \item Unlike pre-training, instruction tuning is often \uured{more efficient}.
 \item Usually, \uured{only a moderate number of instances} are used for training.
 \pause
-\item The training objective (i.e., usually sequence-to-sequence loss with teacher forcing)
+\item The training objective (i.e., usually sequence-to-sequence loss)
 % TODO: Elaborate on teacher forcing and seq-2-seq loss
 \pause
 \item Smaller batch size and learning rate
@@ -789,17 +789,15 @@ e.g. fine-tune Flan-PaLM using medical datasets to create Med-PaLM
 
 % TODO: Add slide on LoRA here.
 
-\begin{frame}{Fine-tuning Llama}
+%\begin{frame}{Fine-tuning Llama}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.99\textwidth]{fig/zhao_2023_tab7}
-\caption{Training time for fine-tuning Llama}
-\end{figure}
+%\begin{figure}[h]
+%\centering
+%\includegraphics[width=0.99\textwidth]{fig/zhao_2023_tab7}
+%\caption{Training time for fine-tuning Llama}
+%\end{figure}
 
-\end{frame}
-
-% Im here
+%\end{frame}
 
 \subsection{Alignment}
 
@@ -973,7 +971,7 @@ e.g. fine-tune Flan-PaLM using medical datasets to create Med-PaLM
 \item Information retrieval
 \end{itemize}
 \pause
-\item Still BERT is competetive in many tasks (see Ollion et al, 2023)
+\item Still BERT is competetive in many ML tasks (e.g. see Sargeant et al 2025)% (see Ollion et al, 2023)
 \end{itemize}
 \end{frame}
 
@@ -985,26 +983,23 @@ e.g. fine-tune Flan-PaLM using medical datasets to create Med-PaLM
 \item a \emph{retrieval model} (search over external data)
 \item a \emph{generation model} (LLM)
 \end{itemize}
-\item Goal: improve factuality and reduce hallucinations.
+\pause
+\item \uured{Goal}: improve factuality and reduce hallucinations.
 \item Instead of relying only on parametric memory (weights),
-the model conditions on retrieved documents.
+the model conditions on \uured{retrieved documents}.
 \end{itemize}
-
-\vspace{0.3cm}
 
 \begin{center}
 User query $\rightarrow$ Retriever $\rightarrow$ Relevant documents $\rightarrow$ LLM $\rightarrow$ Output
 \end{center}
 
-\vspace{0.3cm}
-
 \begin{itemize}
 \item External data can be:
 \begin{itemize}
 \item databases, document collections, PDFs
-\item knowledge bases, APIs, logs
+\item knowledge bases, APIs, logs, Wikipedia
 \end{itemize}
-\item Knowledge can be updated without retraining the LLM.
+\item Knowledge can be updated \uured{without retraining} the LLM.
 \end{itemize}
 
 \end{frame}
@@ -1014,10 +1009,12 @@ User query $\rightarrow$ Retriever $\rightarrow$ Relevant documents $\rightarrow
 
 \begin{itemize}
 \item Let $q$ denote the user query.
+\pause
 \item A retriever selects a set of documents:
 \[
 D_q = \{d_1, \dots, d_k\} \sim p_\phi(d \mid q)
 \]
+\pause
 \item The LLM generates an answer conditioned on both query and documents:
 \[
 y \sim p_\theta(y \mid q, D_q)
@@ -1028,7 +1025,7 @@ p(y \mid q) = \sum_{D} p_\theta(y \mid q, D)\, p_\phi(D \mid q)
 \]
 \end{itemize}
 
-\vspace{0.3cm}
+% \vspace{0.3cm}
 
 \begin{itemize}
 \item Retriever often implemented via vector search (embeddings).
