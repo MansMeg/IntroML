@@ -521,28 +521,28 @@ where $I$ are the general instructions and $\theta$ are fixed pre-trained parame
 
 \end{frame}
 
-\begin{frame}{Architecture configurations}
+%\begin{frame}{Architecture configurations}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.99\textwidth]{fig/zhou_2023_tab4}
-\caption{Common configurations (Zhou et al., 2023)}
-\end{figure}
-where "sublayer" indicates the previous layer in the network.
+%\begin{figure}[h]
+%\centering
+%\includegraphics[width=0.99\textwidth]{fig/zhou_2023_tab4}
+%\caption{Common configurations (Zhou et al., 2023)}
+%\end{figure}
+%where "sublayer" indicates the previous layer in the network.
 % TODO: Show sublayer mathematically
 
-\end{frame}
+%\end{frame}
 
 
-\begin{frame}{Common models and their configuration}
+%\begin{frame}{Common models and their configuration}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.99\textwidth]{fig/zhou_2023_tab3}
-\caption{Common configurations (Zhou et al., 2023, Table 3)}
-\end{figure}
+%\begin{figure}[h]
+%\centering
+%\includegraphics[width=0.99\textwidth]{fig/zhou_2023_tab3}
+%\caption{Common configurations (Zhou et al., 2023, Table 3)}
+%\end{figure}
 
-\end{frame}
+%\end{frame}
 
 
 \begin{frame}{Decoding (word generation)}
@@ -557,8 +557,8 @@ P_\theta\!\left( X_i = x_i \mid X_{< i} = x_{< i} \right).
 \pause
 \item Two approaches to generate/decode:
 \begin{description}
-\item[greedy] $x_i = \arg_x \max P(x|\mathbf{x}_{j<i})$
-\item[sampling] $x_i \sim P(x|\mathbf{x}_{j<i})$
+\item[greedy] $x_i = \arg_x \max p_\theta(x|\mathbf{x}_{j<i})$
+\item[sampling] $x_i \sim p_\theta(x|\mathbf{x}_{j<i})$
 \end{description}
 \end{itemize}
 
