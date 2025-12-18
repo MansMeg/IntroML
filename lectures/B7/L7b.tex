@@ -59,7 +59,7 @@
       \\predicting a token at a time, based on previous \uured{context}
       \pause
       \item having some ability to achieve \uured{general-purpose language "understanding"}
-      \item show \uured{"emergent"} abilities to solve other more complex tasks, such as few-shot learning and \uured{in-context learning}
+      \item \uured{"emergent"} abilities to solve other more complex tasks, such as few-shot learning and \uured{in-context learning}, though this term "emergent" is debated.
       \pause
       \item pre-trained on very large data
   \end{itemize}
@@ -80,7 +80,7 @@
   \begin{itemize}
       \item larger (billions or trillions, rather than millions of parameters)\pause
       \item possible to use for in-context learning\pause
-      \item usually interacted with through the prompt\pause
+      \item usually interacted with through prompts\pause
       \item generate textual responses
   \end{itemize}
 \end{itemize}
@@ -140,7 +140,7 @@ Examples:
 \item More computation thanks to the Transformer architecture\pause
 \item Larger models (GPT3 175B, PaLM 540B)\pause
 \item Larger datasets (1-2T tokens)
-\\ How long time to read 1T tokens at 10 t/s?\pause % 3171 years
+\\ How long does it take to read 1T tokens at 10 tokens/s?\pause (3171 years) \pause
 \item All three are important (Zhou et al., 2023)\\
 \uured{Can we connect this back to the standard ML framework?}
 % Scaling laws has shown that all three matters and is of importance.
@@ -189,22 +189,23 @@ Examples:
 \begin{itemize}
 \item Learning tasks in the actual \uured{context} (previous tokens).
 \pause
-\item No updates of the weight - only using existing weights.
+\item No updates of the weights - only using existing weights.
 \pause
 \item We demonstrate what to do with a \uured{few examples}
 \pause
-\item The model "learn" what to do \uured{in context}.
+\item The model ‘learns’ what to do \uured{in context}.
 \pause
 \item We "prompt" LLMs for utilization
 \item Let data be
 \[
-D_k = \left(f(x_1, y_1),...,f(x_k, y_k) \right)
+\mathcal{D}_k = \{(x_i, y_i)\}_{i=1}^k,
 \]
-then
 \[
-\hat{y} = \text{LLM}(I, \underbrace{\left(f(x_1, y_1),...,f(x_k, y_k)\right)}_{demonstrations}, \underbrace{f(x_{k+1}}_{input} , ...)
+\hat{y}_{k+1} \sim p_\theta\!\left(
+y \mid I, (x_1, y_1), \ldots, (x_k, y_k), x_{k+1}
+\right).
 \]
-where $I$ are the general instructions.
+where $I$ are the general instructions and $\theta$ are fixed pre-trained parameters.
 
 \end{itemize}
 
@@ -224,7 +225,7 @@ where $I$ are the general instructions.
 \item What is good can be unintuitive?
 \begin{itemize}
 \item "Take a deep breath and think hard." %TODO: Fix citation
-\item Beeing nice. %TODO: Fix citation
+\item Being nice. %TODO: Fix citation
 \end{itemize}
 \pause
 \item The effectiveness of ICL is highly affected by the \uured{design of demonstrations} (Zhou et al., 2023) %[350, 370, 371]
@@ -247,7 +248,7 @@ where $I$ are the general instructions.
 \pause
 \item Demonstration format/instruction
 \begin{itemize}
-\item "Lets think step by step", "Take a deep breath and think."
+\item "Let's think step by step", "Take a deep breath and think."
 \end{itemize}
 \pause
 \item Demonstration order
@@ -553,9 +554,11 @@ where "sublayer" indicates the previous layer in the network.
 \begin{frame}{Decoding (word generation)}
 
 \begin{itemize}
-\item LLMs are trained to predict the next word (called decoding), i.e the discret probability model (pmf)
+\item LLMs are trained to predict the next word (called decoding), i.e the discrete probability model (pmf)
 \[
-p_{x,i} = P(x_i|\mathbf{x}_{j<i})
+p_\theta(x_i \mid x_{< i})
+\;=\;
+P_\theta\!\left( X_i = x_i \mid X_{< i} = x_{< i} \right).
 \]
 \pause
 \item Two approaches to generate/decode:
@@ -573,10 +576,17 @@ p_{x,i} = P(x_i|\mathbf{x}_{j<i})
 \begin{itemize}
 \item \uured{Temperature sampling}:
 \[
-\tilde{P}(x_i|\mathbf{x}_{j<i}) = \frac{\exp(\log(p_{x,i})/t)}{\sum_{i'} \exp(\log(p_{x,i'})/t)}
+\tilde{p}_\theta(x_i \mid x_{< i})
+=
+\frac{
+p_\theta(x_i \mid x_{< i})^{\tfrac{1}{T}}
+}{
+\sum_{x'}
+p_\theta(x' \mid x_{< i})^{\tfrac{1}{T}}
+}.
 \]
 \[
-x_i \sim \tilde{P}(x_i|\mathbf{x}_{j<i})
+x_i \sim \tilde{p}_\theta(x_i|\mathbf{x}_{j<i})
 \]
 As $t\rightarrow 0$: greedy, and $t = 1$: ordinary sampling
 \pause
@@ -646,7 +656,7 @@ As $t\rightarrow 0$: greedy, and $t = 1$: ordinary sampling
 \end{itemize}
 \item \uured{Byte-pair encoding (BPE)}: \\Combine most common characters until predefined vocabulary is reached
 \pause
-\item \uured{Wordpiece encoding (WE)}: \\Simplary to BPE, but uses a language model to score which to merge
+\item \uured{Wordpiece encoding (WE)}: \\Similar to BPE, but uses a language model to score which to merge
 \pause
 \item \uured{Unigram tokenizer}: \\Like WE, but start with a large vocabulary and trim it down.
 \end{itemize}
