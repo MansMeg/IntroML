@@ -87,29 +87,29 @@
 
 \end{frame}
 
-\begin{frame}{Historical development}
+%\begin{frame}{Historical development}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.99\textwidth]{fig/zhao_2023_v2_fig3}
-\caption{The development of LLMs (Figure 3, Zhao et al., 2023)}
-\end{figure}
+%\begin{figure}[h]
+%\centering
+%\includegraphics[width=0.99\textwidth]{fig/zhao_2023_v2_fig3}
+%\caption{The development of LLMs (Figure 3, Zhao et al., 2023)}
+%\end{figure}
 
 %\begin{itemize}
 %    \item Milestones (subjective): GPT-3, GPT-4, chatGPT, Llama 2
 %\end{itemize}
 
-\end{frame}
+%\end{frame}
 
-\begin{frame}{A subset of current LLMs}
+%\begin{frame}{A subset of current LLMs}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.82\textwidth]{fig/tab1_zhao_2023}
-\caption{Statistics of LLMs (Table 1, Zhao et al., 2023)}
-\end{figure}
+%\begin{figure}[h]
+%\centering
+%\includegraphics[width=0.82\textwidth]{fig/tab1_zhao_2023}
+%\caption{Statistics of LLMs (Table 1, Zhao et al., 2023)}
+%\end{figure}
 
-\end{frame}
+%\end{frame}
 
 \begin{frame}{Examples of LLM prompting}
 
@@ -120,12 +120,6 @@ Examples:
 \end{enumerate}
 
 \centering
-
-\vspace{5mm}
-
-\href{https://www.llama2.ai/}{\texttt{Llama 2}}
-
-\vspace{10mm}
 
 \href{https://chat.openai.com/}{\texttt{chatGPT}}
 
@@ -140,7 +134,7 @@ Examples:
 \item More computation thanks to the Transformer architecture\pause
 \item Larger models (GPT3 175B, PaLM 540B)\pause
 \item Larger datasets (1-2T tokens)
-\\ How long does it take to read 1T tokens at 10 tokens/s?\pause (3171 years) \pause
+\\ How long does it take to read 1T tokens at 10 tokens/s?\pause \uured{ (3171 years)} \pause
 \item All three are important (Zhou et al., 2023)\\
 \uured{Can we connect this back to the standard ML framework?}
 % Scaling laws has shown that all three matters and is of importance.
@@ -219,7 +213,7 @@ where $I$ are the general instructions and $\theta$ are fixed pre-trained parame
 \begin{frame}{In-context learning (ICL)}
 
 \begin{itemize}
-\item The problem: How to design the instructions ($I$) in a good way? Prompt engineering.
+\item The problem: How to design the instructions ($I$) in a good way? \uured{Prompt engineering}.
 \pause
 \item What happens under the hood? \uured{We position the model in embeddings space.}
 \item What is good can be unintuitive?
@@ -234,32 +228,32 @@ where $I$ are the general instructions and $\theta$ are fixed pre-trained parame
 \end{frame}
 
 
-\begin{frame}{Demonstration}
+%\begin{frame}{Demonstration}
 % Zhao see 6.1.2.
 % the selected demon- stration examples in ICL should contain sufficient informa- tion about the task to solve as well as be relevant to the test query, for the above two selection approaches.
 
-\begin{itemize}
-\item Demonstration selection
-\begin{itemize}
-\item diversity-based selection strategies: choose the most representative set of examples
-\item k-NN
-\item LLM-based: e.g. let an LLM itself generate examples
-\end{itemize}
-\pause
-\item Demonstration format/instruction
-\begin{itemize}
-\item "Let's think step by step", "Take a deep breath and think."
-\end{itemize}
-\pause
-\item Demonstration order
-\begin{itemize}
-\item Indications of recency bias
+%\begin{itemize}
+%\item Demonstration selection
+%\begin{itemize}
+%\item diversity-based selection strategies: choose the most representative set of examples
+%\item k-NN
+%\item LLM-based: e.g. let an LLM itself generate examples
+%\end{itemize}
+%\pause
+%\item Demonstration format/instruction
+%\begin{itemize}
+%\item "Let's think step by step", "Take a deep breath and think."
+%\end{itemize}
+%\pause
+%\item Demonstration order
+%\begin{itemize}
+%\item Indications of recency bias
 % (they are prone to repeat answers that are near the end of demonstrations)
-\end{itemize}
-\end{itemize}
+%\end{itemize}
+%\end{itemize}
 
 
-\end{frame}
+%\end{frame}
 
 
 
@@ -981,6 +975,67 @@ e.g. fine-tune Flan-PaLM using medical datasets to create Med-PaLM
 \pause
 \item Still BERT is competetive in many tasks (see Ollion et al, 2023)
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Retrieval-Augmented Generation (RAG)}
+
+\begin{itemize}
+\item Retrieval-Augmented Generation (RAG) combines:
+\begin{itemize}
+\item a \emph{retrieval model} (search over external data)
+\item a \emph{generation model} (LLM)
+\end{itemize}
+\item Goal: improve factuality and reduce hallucinations.
+\item Instead of relying only on parametric memory (weights),
+the model conditions on retrieved documents.
+\end{itemize}
+
+\vspace{0.3cm}
+
+\begin{center}
+User query $\rightarrow$ Retriever $\rightarrow$ Relevant documents $\rightarrow$ LLM $\rightarrow$ Output
+\end{center}
+
+\vspace{0.3cm}
+
+\begin{itemize}
+\item External data can be:
+\begin{itemize}
+\item databases, document collections, PDFs
+\item knowledge bases, APIs, logs
+\end{itemize}
+\item Knowledge can be updated without retraining the LLM.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Retrieval-Augmented Generation (RAG): Formalization}
+
+\begin{itemize}
+\item Let $q$ denote the user query.
+\item A retriever selects a set of documents:
+\[
+D_q = \{d_1, \dots, d_k\} \sim p_\phi(d \mid q)
+\]
+\item The LLM generates an answer conditioned on both query and documents:
+\[
+y \sim p_\theta(y \mid q, D_q)
+\]
+\item Overall, RAG approximates:
+\[
+p(y \mid q) = \sum_{D} p_\theta(y \mid q, D)\, p_\phi(D \mid q)
+\]
+\end{itemize}
+
+\vspace{0.3cm}
+
+\begin{itemize}
+\item Retriever often implemented via vector search (embeddings).
+\item Generator is a standard autoregressive LLM.
+\item Can be interpreted as latent-variable modeling.
+\end{itemize}
+
 \end{frame}
 
 
