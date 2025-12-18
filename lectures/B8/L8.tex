@@ -161,6 +161,8 @@
 \end{frame}
 
 
+
+
 \begin{frame}{Sub-elements of agents}
 
 \begin{enumerate}
@@ -173,6 +175,52 @@
 \item Outside the agent: {\color{uured} Reward signal}: The instant value of an action\pause
 \item Problem: {\color{uured} Balance} the trade-off between long-term and short-term rewards
 \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Key Distinctions in Reinforcement Learning}
+
+\uured{Reward vs.\ Return}
+
+\begin{itemize}
+  \item \emph{Reward} $R_{t+1}$:
+  \begin{itemize}
+    \item Immediate, scalar feedback from the environment.
+    \item Measures short-term desirability of an action.
+  \end{itemize}
+
+  \item \emph{Return} $G_t$:
+  \begin{itemize}
+    \item Cumulative (possibly discounted) future reward.
+    \item Objective the agent seeks to maximize.
+  \end{itemize}
+\end{itemize}
+
+\[
+G_t = \sum_{k=0}^{\infty} \gamma^k R_{t+k+1}
+\]
+
+%\vspace{0.4cm}
+
+\uured{Policy vs.\ Value Function}
+
+\begin{itemize}
+  \item \emph{Policy} $\pi(a \mid s)$:
+  \begin{itemize}
+    \item Defines how the agent chooses actions.
+    \item A probability distribution over actions given a state.
+  \end{itemize}
+
+  \item \emph{Value function} $v_\pi(s)$:
+  \begin{itemize}
+    \item Evaluates how good a state is under a policy.
+    \item Expected return starting from state $s$ and following $\pi$.
+  \end{itemize}
+\end{itemize}
+
+\[
+v_\pi(s) = \mathbb{E}_\pi \bigl[ G_t \mid S_t = s \bigr]
+\]
 
 \end{frame}
 
@@ -217,6 +265,30 @@
 \item We should give rewards for correct {\color{uured} behaviour}
 \item Do {\color{uured} not} use reward to guide {\color{uured} how} to reach the goal
 \item \href{https://openai.com/blog/faulty-reward-functions/}{{\color{blue} Be careful what you wish for...}}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Bandits vs.\ Markov Decision Processes}
+
+\uured{Two levels of sequential decision-making}
+
+\emph{Bandits}
+\begin{itemize}
+  \item \uured{No state}: each action is independent of past actions.
+  \item \uured{No dynamics}: actions do not change the environment.
+  \item Feedback is \uured{myopic}: reward depends only on the chosen action.
+  \item \uured{Objective}: identify and exploit the best action.
+\end{itemize}
+
+%\vspace{0.3cm}
+\pause
+\emph{Markov Decision Processes (MDPs)}
+\begin{itemize}
+  \item Explicit state describing the environment.
+  \item Actions influence future states and rewards.
+  \item Feedback is \uured{delayed}: consequences unfold over time.
+  \item \uured{Objective}: plan a sequence of actions to maximize long-term return.
 \end{itemize}
 
 \end{frame}
@@ -476,8 +548,10 @@ Q_{t+1}(a) = Q_t(a) + \alpha_t \bigl(R_{t+1} - Q_t(a)\bigr).
 \item Explore based on our uncertainty of $Q_t(a)$\pause
 \item The Upper-Confidence-Bound (UCB) method
 \[
-A_t = \arg \max_a \left( Q_{t} + c \sqrt{\frac{{\color{uured} \log t}}{N_t(a)}}  \right)
+A_t = \arg \max_a \left( Q_{t}(a) + c \sqrt{\frac{{\color{uured} \log t}}{N_t(a)}}  \right)
 \]
+where $c > 0$ is a hyperparameter controlling exploration.\pause
+
 An analogy:
 \[
 A_t = \arg \max_a \left( Q_{t} + c \sqrt{\frac{{\color{uured}\hat{\sigma}^2(a)}}{N_t(a)}} \right)
@@ -507,27 +581,16 @@ A_t = \arg \max_a \left( Q_{t} + c \sqrt{\frac{{\color{uured}\hat{\sigma}^2(a)}}
 \begin{enumerate}
 \item Setup a likelihood for $R$, $p(R|a,\theta)$
 \item Setup a prior for $\theta$, $p(\theta)$
-\item Compute posterior for $\theta$, $p(\theta|R, a)$
-\item Choose action $A_t$ proportional to
+\item Compute posterior for $\theta$, $p(\theta|D, a)$
+\item Choose action $A_t$ by
 \[
-\int I[\E(R|\theta,a^\star) = \arg \max_{a'} \E(R|\theta,a')] p(\theta|R,a) d\theta
+\theta \sim p(\theta \mid D), \qquad
+A_t = \arg\max_{a} \mathbb{E}[R \mid a, \theta]\,,
 \]
-where $I$ is the indicator function.
+where $D = \{(A_1, R_1), \ldots, (A_{t-1}, R_{t-1})\}$.
+\item Collect reward $R_t$.
 \end{enumerate}
-\item Repeat step 3-4 \pause
-\item Monte Carlo approximation of step 4:
-\begin{enumerate}
-\item Draw one sample from the posterior $\tilde{\theta}$
-\[
-\tilde{\theta} \sim p(\theta|R, a)
-\]
-\item Conditional on $\tilde{\theta}$, choose action $A_t$ proportional to
-\[
-\arg \max_{a'} \E(R|\tilde{\theta},a')]\,,
-\]
-i.e. sample $A_t$ based on the probability of being the best action.
-\end{enumerate}
-
+\item Repeat step 3-5. Step 4 can be approximated using Monte Carlo.
 \end{itemize}
 
 \end{frame}
@@ -605,7 +668,7 @@ i.e. sample $A_t$ based on the probability of being the best action.
 %\pause
 \item Discounting:
 \[
-G_t = R_{t+1} + \gamma R_{t+3} + \gamma^2 R_{t+3} + ... = \sum^\infty_{k=0} \gamma^k R_{t+k+1}
+G_t = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + ... = \sum^\infty_{k=0} \gamma^k R_{t+k+1}
 \]
 \pause
 \item Discount rate $\gamma$:
@@ -628,7 +691,7 @@ G_t = R_{t+1} + \gamma R_{t+3} + \gamma^2 R_{t+3} + ... = \sum^\infty_{k=0} \gam
 \[
 P(S_{t+1} = s', R_{t+1} = r| S_t = s, A_t = a)\,\,(1)
 \]
-\item Eq. (1) {\color{uured}fully specify} a MDP
+\item An MDP is fully specified by the tuple $(\mathcal{S}, \mathcal{A}, P, R, \gamma)$.
 \pause
 \item Markov property:
 \begin{align*}
