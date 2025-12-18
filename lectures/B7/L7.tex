@@ -302,12 +302,29 @@ x_i \sim N(\uured{\text{NeuralNetwork}}_\theta (z_i), \sigma I)
 
 \subsection{The probabilistic decoder}
 
+\begin{frame}{The Prior over the Latent Space}
+
+In a variational autoencoder, the latent variable is assumed to follow a simple prior:
+\[
+z \sim p(z) = \mathcal{N}(0, I).
+\]
+
+This prior defines where encoded data points are allowed to live in latent space.
+
+\begin{itemize}
+  \item Prevents arbitrary or irregular latent encodings
+  \item Encourages continuity and smooth interpolation
+  \item Enables easy generation by sampling from $p(z)$
+\end{itemize}
+
+\end{frame}
+
 \begin{frame}{The probabilistic decoder}
 \begin{itemize}
 \item The probabilistic decoder $p(x|\theta, z)$ (\uured{ observation model})
 \item Usually a Normal distribution:
 \[
-x_i \sim N(\text{NeuralNetwork}(z,\theta), c I)
+x_i \sim N(\text{NeuralNetwork}(z,\theta), \sigma_\theta^2 I)
 \]
 \item $x_i$ for observation $i$ depends non-linearly on the latent state $z_i$
 \pause
@@ -332,20 +349,23 @@ x_i \sim N(\text{NeuralNetwork}(z,\theta), c I)
 \pause
 \item We assume that $q_\phi(z|x)$ follows a specific distribution. Commonly:
 \[
-z \sim N(\mu, \Sigma)
+z \sim N(\mu, \Sigma_\phi)
 \]
+where $\Sigma_\phi = \operatorname{diag}\!\left(\sigma_{1,\phi}^2, \ldots, \sigma_{d,\phi}^2\right)$ (diagonal covariance) in practice.
 \pause
-\item A neural network learns the parameters $\mu$ and $\Sigma$
+\item A neural network learns the parameters $\mu$ and $\Sigma_\phi$
 \[
 \mu(x) = \text{NeuralNetwork}(x,\phi_\mu)\,,
 \]
 and
 \[
-\log \sigma^2(x) = \text{NeuralNetwork}(x,\phi_\Sigma)\,.
+\log \sigma_{d,\phi}^2(x) = \text{NeuralNetwork}(x,\phi_\Sigma)\,.
 \]
 \pause
 \item \uured{ Result}: $z_i$ for observation $i$ depends non-linearly on $x_i$
 \end{itemize}
+
+\uured{Note}: the decoder variance is typically fixed (e.g. $\sigma_\theta^2 I$), while the encoder learns a diagonal covariance.
 
 \end{frame}
 
@@ -543,6 +563,7 @@ p_{\theta}(z \mid x)
 \begin{itemize}
   \item Maximizing the ELBO \emph{increases} \( \log p_{\theta}(x) \)
   \item Minimizes the gap between \( q_{\phi}(z \mid x) \) and \( p_{\theta}(z \mid x) \)
+  \item The KL term regularizes the latent space by pushing $q_\phi(z \mid x)$ toward the prior $\mathcal{N}(0, I)$.
 \end{itemize}
 
 %\vspace{0.3cm}
