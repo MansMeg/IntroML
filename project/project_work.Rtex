@@ -135,9 +135,9 @@ The project proposal must include the following pieces. See the details on the d
   \item Title
   \item Abstract
   \item Introduction
-  \item Data and Methods
+  \item Data and Methods (only describe the data)
 \end{enumerate}
-In the Data and Methods Section, you only need to include the Data subsection and describe the data you will use.
+\emph{Note!} In the Data and Methods Section, \emph{only include the Data subsection and describe the data you will use}.
 
 \subsection{Project Proposal Part 2}
 Part 2 contains additional information on the proposed method and some preliminary results. It should also fix comments to the previous proposal 1. Students must submit a project proposal part 2 and data description in the ICML paper format (see above).
