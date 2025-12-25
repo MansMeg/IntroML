@@ -135,9 +135,8 @@ The project proposal must include the following pieces. See the details on the d
   \item Title
   \item Abstract
   \item Introduction
-  \item Data and Methods (only describe the data)
+  \item Data
 \end{enumerate}
-\emph{Note!} In the Data and Methods Section, \emph{only include the Data subsection and describe the data you will use}.
 
 \subsection{Project Proposal Part 2}
 Part 2 contains additional information on the proposed method and some preliminary results. It should also fix comments to the previous proposal 1. Students must submit a project proposal part 2 and data description in the ICML paper format (see above).
@@ -149,10 +148,12 @@ The project proposal must include the following pieces. See the details on the d
   \item Title
   \item Abstract
   \item Introduction
-  \item Data and Methods
+  \item Data
+  \item Methods
   \item Results
 \end{enumerate}
-In the Results section, you only need to include the preliminary result of one model/architecture.
+
+\emph{Note!} In the Results section,only include the preliminary result of one model/architecture.
 
 \section{Project Report}
 \label{project_report}
@@ -168,7 +169,7 @@ The ICML format is also available in Overleaf here: \href{https://www.overleaf.c
 \item The audience is students in the machine learning course, i.e., there is no need to go deep into details of what has been presented during the course. Although, if models not introduced in the course are used, you need to explain these models in more detail.
 \item All Figures using colour should have a colour-blind-friendly colour palette. See \href{http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette}{here} and \href{https://rdrr.io/cran/ggthemes/man/colorblind.html}{here}.
 \item All legends in figures and text in tables should be the same size as the body text in the report.
-\item Before you submit the project, do a language check with a tool such as Grammarly (\href{grammarly.com}). A project with poor English (errors you would have spotted with a tool like Grammarly) will affect your grade.
+\item Before you submit the project, do a language check with a tool such as Grammarly (\href{grammarly.com}{grammarly.com}). A project with poor English (errors you would have spotted with a tool like Grammarly) will affect your grade.
 \item The final report should be like a research paper, i.e., avoid bullet lists and get a good flow in the text.
 \item This is an academic text. Hence, the claims you make should be backed by references.
 \end{enumerate}
@@ -180,10 +181,9 @@ The ICML format is also available in Overleaf here: \href{https://www.overleaf.c
 The paper should include the following four sections and subsections:
 \begin{enumerate}
 \item Introduction
-\item Data and Methods
-\begin{enumerate}
 \item Data
 \item Methods
+\begin{enumerate}
 \item Evaluation
 \end{enumerate}
 \item Results
@@ -215,24 +215,16 @@ In the introduction, you should:
     \item Explanation of why the topic/prediction setting is important/relevant.
 \end{enumerate}
 
-\subsubsection{Data and Methods (1 page)}
-In the Data and Methods section, you should have (at least) the following three subsections:
-\begin{enumerate}
-    \item Data
-    \item Methods
-    \item Evaluation
-\end{enumerate}
-
-\paragraph{Data}
+\subsubsection{Data (0.25 page)}
 Describe the data you are using in your prediction model at a level so it is possible to replicate your analysis.
 
-\paragraph{Methods}
+\subsubsection{Data (0.75 page)}
 The methods section should describe your methods so another student can replicate them in the course, independent of implementation language (e.g., R). The independence means that the hyperparameter settings should be explained and presented without reference to, for example, specific R function's default values.
 
 If models with hyperparameters or architectures are used, there should be motivation. Why are they chosen, and how? You should describe the method used to set the hyperparameters.
 
 \paragraph{Evaluation}
-The evaluation should describe how you evaluate different models and what metrics you use. Hence, describe if and how you use training, validation and test sets and motivate the choices made. Then, present the metrics you use for evaluation and motivate these as well.
+The evaluation subsection should describe how you evaluate different models and what metrics you use. Hence, describe if and how you use training, validation and test sets and motivate the choices made. Then, present the metrics you use for evaluation and motivate these as well.
 
 \subsubsection{Results (roughly 1.5-2 pages)}
 Summarize the results of your models and compare your model results. Analyze the performance of your model and discuss the results. Try to summarize results in Tables and Figures to help the reader understand the results.
