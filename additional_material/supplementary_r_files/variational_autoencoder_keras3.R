@@ -21,15 +21,15 @@ z_mean <- layer_dense(h, units = latent_dim)
 z_log_var <- layer_dense(h, units = latent_dim)
 
 # Sampling layer with KL loss inside
-Sampling <- new_layer_class(
-  classname = "Sampling",
+Lambda <- new_layer_class(
+  classname = "Lambda",
   
   call = function(inputs) {
     z_mean <- inputs[[1]]
     z_log_var <- inputs[[2]]
     
     #epsilon <- tf$random$normal(shape = tf$shape(z_mean))
-    epsilon <- tf$random$normal(shape = c(batch_size, 1L),mean = 0,stddev = epsilon_std)
+    epsilon <- tf$random$normal(shape = tf$shape(z_mean),mean = 0,stddev = epsilon_std)
     z <- z_mean + tf$exp(0.5 * z_log_var) * epsilon
     
     kl_loss <- -0.5 * op_mean(
@@ -42,7 +42,7 @@ Sampling <- new_layer_class(
   }
 )
 
-z <- Sampling()(list(z_mean, z_log_var))
+z <- Lambda()(list(z_mean, z_log_var))
 
 # Decoder
 decoder_h <- layer_dense(units = intermediate_dim, activation = "relu")
