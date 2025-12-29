@@ -28,7 +28,8 @@ Sampling <- new_layer_class(
     z_mean <- inputs[[1]]
     z_log_var <- inputs[[2]]
     
-    epsilon <- tf$random$normal(shape = tf$shape(z_mean))
+    #epsilon <- tf$random$normal(shape = tf$shape(z_mean))
+    epsilon <- tf$random$normal(shape = c(batch_size, 1L),mean = 0,stddev = epsilon_std)
     z <- z_mean + tf$exp(0.5 * z_log_var) * epsilon
     
     kl_loss <- -0.5 * op_mean(
