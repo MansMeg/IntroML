@@ -512,6 +512,44 @@ g(z_t, t, c)
 
 \end{frame}
 
+
+%========================================================
+\begin{frame}
+\frametitle{Diffusion Ideas Beyond Images}
+
+\begin{itemize}
+\item Diffusion models popularized a key idea:
+\begin{itemize}
+    \item Learn complex objects by \uured{iterative denoising}
+\end{itemize}
+
+\pause
+
+\item \uured{AlphaFold~2} applies a related principle to protein structures:
+\begin{itemize}
+    \item Protein geometry is refined step-by-step
+    \item Each step reduces uncertainty and inconsistency
+\end{itemize}
+
+\item Important distinction:
+\begin{itemize}
+    \item AlphaFold~2 is \uured{not} a Denoising Diffusion Probabilistic Model
+    \item But it uses a diffusion-\emph{like} denoising process
+\end{itemize}
+
+\pause
+
+\item New generative biology models now use \uured{explicit diffusion models}
+\begin{itemize}
+    \item Protein backbone generation (Watson et al, 2023)
+    \item Molecular design (Hoogeboom et al, 2022)
+\end{itemize}
+
+\end{itemize}
+
+\end{frame}
+%========================================================
+
 \begin{frame}
 \frametitle{Key Takeaways}
 
