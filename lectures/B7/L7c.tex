@@ -352,12 +352,8 @@ p(z_{t-1} \mid z_t, w) =
 Key idea:
 \begin{itemize}
 \item Instead of predicting $z_{t-1}$
-\item Predict the noise $\varepsilon$ added to $x$
+\item Predict the noise $\varepsilon$ added to $x$: $g(z_t, t)$
 \end{itemize}
-
-\[
-z_t = \sqrt{\alpha_t}x + \sqrt{1-\alpha_t}\varepsilon
-\]
 
 \end{frame}
 
@@ -483,12 +479,6 @@ g(z_t, t, c)
     \item Image editing and inpainting
 \end{itemize}
 \end{itemize}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.7\textwidth]{fig/Fig_20_8_Bishop2.png}
-\caption{Figure 20.8 from Bishop \& Bishop (2024).}
-\end{figure}
 
 \end{frame}
 
