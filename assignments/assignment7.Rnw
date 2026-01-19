@@ -108,7 +108,7 @@ knitr::opts_chunk$set(size = "small")
 
 \section{Variational Autoencoders}
 
-We are now going to implement a variational autoencoder in R using Tensorflow. You can find a lot of the code needed for this assignment in the file \href{https://github.com/MansMeg/IntroML/tree/master/additional_material/supplementary_r_files/variational_autoencoder.R}{\texttt{variational\_autoencoder.R}}.
+We are now going to implement a variational autoencoder in R using Tensorflow. You can find a lot of the code needed for this assignment in the file \href{https://github.com/MansMeg/IntroML/tree/master/additional_material/supplementary_r_files/variational_autoencoder_keras3.R}{\texttt{variational\_autoencoder\_keras3.R}}.
 
 \emph{Note!} Running Keras can be computationally heavy, and I suggest not to run the code in \texttt{markdown}. Instead, run the code in R and copy the results as output (see the assignment template for an example).
 
@@ -200,7 +200,7 @@ phi <- extract_phi(tm)
 You can choose to either do this task or the task below to get VG on this assignment.
 
 % https://learnopencv.com/variational-autoencoder-in-tensorflow/
-As we have seen previously, for images, we can get better performance using Convolutional Neural Networks. Hence we are going to repeat the exercise above using a convolutional neural network as encoder and decoder. You can find detailed code in the file \href{https://github.com/MansMeg/IntroML/tree/master/additional_material/supplementary_r_files/variational_autoencoder_deconv.R}{\texttt{variational\_autoencoder\_deconv.R}}.
+As we have seen previously, for images, we can get better performance using Convolutional Neural Networks. Hence we are going to repeat the exercise above using a convolutional neural network as encoder and decoder. You can find detailed code in the file \href{https://github.com/MansMeg/IntroML/tree/master/additional_material/supplementary_r_files/variational_autoencoder_deconv_keras3.R}{\texttt{variational\_autoencoder\_deconv\_keras3.R}}.
 
 \begin{enumerate}
 \item (3p) Now implement a four-layer (encoder and decoder) convolutional neural network with two latent dimensions. There should be 50 filters in each convolutional layer. \emph{Note!} A dense layer should be included as the last step in the encoder and the first step in the decoder. These layers should have 100 hidden units. You should end up with a variational autoencoder with roughly 2M parameters.

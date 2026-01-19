@@ -1,3 +1,5 @@
+% !Rnw weave = knitr
+
 \documentclass[11pt,a4paper,english]{article}
 \usepackage[latin1]{inputenc}
 \usepackage{hyperref}
@@ -27,7 +29,6 @@
 
 \usepackage[round]{natbib}
 \bibliographystyle{unsrtnat}
-
 
 % Page size
 \addtolength{\hoffset}{-1cm}
@@ -83,6 +84,7 @@ knitr::opts_chunk$set(size = "small")
 
 \HRule
 
+
 \newpage
 
 \tableofcontents
@@ -125,10 +127,10 @@ For a more indepth description of the datasets, just run \texttt{?iris}, \texttt
 We are now going to build a k-means algorithm from scratch.
 
 \begin{enumerate}
-\item In the \texttt{iris} data we will use the \texttt{Speices} variable as one way to cluster the data. Visualize the \texttt{iris} as a scatterplot based on \texttt{Petal.length} and \texttt{Petal.width}. Show the different species using different colors. \emph{Hint!} Use \texttt{ggplot2} and \href{https://ggplot2.tidyverse.org/reference/geom_point.html}{geom\_point}.
-\item Visualize (for yourself) the \texttt{faithful} data and manually allocate each data point to two different clusters of your choosing based on the \texttt{eruptions} and/or \texttt{waiting} variables.
-\item Now, visualize the \texttt{faithful} dataset as a scatterplot by \texttt{eruptions} and \texttt{waiting}. Show your manually defined clusters in the Figure using different colors.
-\item Now, we are going to implement the different parts of the k-means algorithm. This will follow Algorithm 14.1 in \citet{hastie2009elements}. First, implement Step 1 in this algorithm as a function called \texttt{compute\_cluster\_means(X, C)} that takes a $n \times p$ matrix \texttt{X} and a $p \times 1$ vector of cluster assignments called \texttt{C}, where $n$ is the number of rows (observations) and $p$ is the number of variables (columns). The algorithm should output the cluster means of the algorithm as a $K \times p$ matrix, where $K$ is the total number of clusters in \texttt{C}.
+\item (1p) In the \texttt{iris} data we will use the \texttt{Speices} variable as one way to cluster the data. Visualize the \texttt{iris} as a scatterplot based on \texttt{Petal.length} and \texttt{Petal.width}. Show the different species using different colors. \emph{Hint!} Use \texttt{ggplot2} and \href{https://ggplot2.tidyverse.org/reference/geom_point.html}{geom\_point}.
+\item (1p) Visualize (for yourself) the \texttt{faithful} data and manually allocate each data point to two different clusters of your choosing based on the \texttt{eruptions} and/or \texttt{waiting} variables.
+\item (1p) Now, visualize the \texttt{faithful} dataset as a scatterplot by \texttt{eruptions} and \texttt{waiting}. Show your manually defined clusters in the Figure using different colors.
+\item (2p) Now, we are going to implement the different parts of the k-means algorithm. This will follow Algorithm 14.1 in \citet{hastie2009elements}. First, implement Step 1 in this algorithm as a function called \texttt{compute\_cluster\_means(X, C)} that takes a $n \times p$ matrix \texttt{X} and a $p \times 1$ vector of cluster assignments called \texttt{C}, where $n$ is the number of rows (observations) and $p$ is the number of variables (columns). The algorithm should output the cluster means of the algorithm as a $K \times p$ matrix, where $K$ is the total number of clusters in \texttt{C}.
 <<eval = FALSE>>=
 set.seed(4711)
 X <- as.matrix(faithful)
@@ -141,14 +143,14 @@ m
 ## [2,] 2  3.571106 71.44706
 ## [3,] 3  3.487659 70.72727
 @
-\item Next, implement the second step in Algorithm 14.1 of \citet{hastie2009elements} and call the function \texttt{compute\_cluster\_encoding(X, m)}. The function should take a $n\times p$ (design) matrix \texttt{X} and a $K\times p$ matrix \texttt{m} with one cluster mean per row. The function should return a $n \times 1$ vector of cluster assignments.
+\item (2p) Next, implement the second step in Algorithm 14.1 of \citet{hastie2009elements} and call the function \texttt{compute\_cluster\_encoding(X, m)}. The function should take a $n\times p$ (design) matrix \texttt{X} and a $K\times p$ matrix \texttt{m} with one cluster mean per row. The function should return a $n \times 1$ vector of cluster assignments.
 <<eval=FALSE>>=
 C <- compute_cluster_encoding(X, m)
 C[1:10]
 ## [1] 2 1 2 1 2 1 2 2 1 2
 @
-\item Now, use \texttt{compute\_cluster\_means(X, C)} and \texttt{compute\_cluster\_encoding(X, m)} to implement Algorithm 14.1 in \citet{hastie2009elements} as \texttt{k\_means(X,K)}. The \texttt{k\_means(X,K)} should take an $n\times p$ matrix \texttt{X} and the number of clusters $K$. The function should return a $n \times 1$ vector of cluster assignments \texttt{C} and a $K \times p$ mean matrix \texttt{m} after the algorithm has run until no cluster assignments change. Randomly initialize the cluster assignments as a part of the algorithm.
-\item Implement a function called \texttt{k\_means\_W(X,C)} that computes the k-means within-point scatter (WPS) of Eq. 14.31 in \citet{hastie2009elements}.
+\item (2p) Now, use \texttt{compute\_cluster\_means(X, C)} and \texttt{compute\_cluster\_encoding(X, m)} to implement Algorithm 14.1 in \citet{hastie2009elements} as \texttt{k\_means(X,K)}. The \texttt{k\_means(X,K)} should take an $n\times p$ matrix \texttt{X} and the number of clusters $K$. The function should return a $n \times 1$ vector of cluster assignments \texttt{C} and a $K \times p$ mean matrix \texttt{m} after the algorithm has run until no cluster assignments change. Randomly initialize the cluster assignments as a part of the algorithm.
+\item (2p) Implement a function called \texttt{k\_means\_W(X,C)} that computes the k-means within-point scatter (WPS) of Eq. 14.31 in \citet{hastie2009elements}.
 <<eval = FALSE>>=
 set.seed(4711)
 X <- as.matrix(faithful)
@@ -156,7 +158,7 @@ C <- sample(1:3, nrow(X), replace = TRUE)
 k_means_W(X, C)
 ## [1] 4601439
 @
-\item Now run your \texttt{k\_means(X,K)} a couple of times for both \texttt{faithful} with $K=2$ and \texttt{iris} with $K=3$ using the two variables used above. Use different seeds every time. Compute the WPS for the final cluster assignments. Below is an example how this could be done.
+\item (1p) Now run your \texttt{k\_means(X,K)} a couple of times for both \texttt{faithful} with $K=2$ and \texttt{iris} with $K=3$ using the two variables used above. Use different seeds every time. Compute the WPS for the final cluster assignments. Below is an example how this could be done.
 <<eval = FALSE>>=
 set.seed(4711)
 X <- as.matrix(faithful)
@@ -165,10 +167,10 @@ wps1 <- k_means_W(X, result1$C)
 result2 <- k_means(X, K = 2)
 wps2 <- k_means_W(X, result2$C)
 @
-\item Visualize the clustering for the worst and the best clustering according to the WPS.
+\item (1p) Visualize the clustering for the worst and the best clustering according to the WPS.
 
 \emph{Note!} There might be multiple runs with the same (best) WPS, so you can make your own initizialization of the cluster assignments to force the algorithm to end up in a bad result with respect to WPS.
-\item Describe and discuss the results you get.
+\item (2p) Describe and discuss the results you get.
 \end{enumerate}
 
 \newpage
@@ -178,23 +180,23 @@ wps2 <- k_means_W(X, result2$C)
 As a last part of the assignment, we will look into the probabilistic Principal Component analysis model. Here, Ch. 13 - 13.1 in \citet{Goodfellow-et-al-2016} is helpful.
 
 \begin{enumerate}
-\item Implement a function \texttt{pPCA(W, b, sigma2)} that simulate data $\mathbf{x} \in \mathbb{R}^{D}$ from the probabilistic PCA model with $\mathbf{h} \sim N(0,I_K)$ where $\mathbf{h} \in \mathbb{R}^{K \times 1}$, $\mathbf{W} \in \mathbb{R}^{D \times K}$, $\mathbf{b} \in \mathbb{R}^{D \times 1}$ and $\sigma^2 = 1$.
-\item Simulate 300 observation PCA model with $\mathbf{W}=(-1, 3)^T$, $\mathbf{b} = (0.5, 2)^T$, and $\sigma^2 = 1$. The resulting distribution should look something similar as in Figure \ref{pPCA}.
+\item (2p) Implement a function \texttt{pPCA(W, b, sigma2)} that simulate data $\mathbf{x} \in \mathbb{R}^{D}$ from the probabilistic PCA model with $\mathbf{h} \sim N(0,I_K)$ where $\mathbf{h} \in \mathbb{R}^{K \times 1}$, $\mathbf{W} \in \mathbb{R}^{D \times K}$, $\mathbf{b} \in \mathbb{R}^{D \times 1}$ and $\sigma^2 = 1$.
+\item (1p) Simulate 300 observation PCA model with $\mathbf{W}=(-1, 3)^T$, $\mathbf{b} = (0.5, 2)^T$, and $\sigma^2 = 1$. The resulting distribution should look something similar as in Figure \ref{pPCA}.
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.6\textwidth]{figs/pPCA.png}
 \caption{Data from a pPCA model with $\mathbf{W} = (-1, 3)^T$, $\mathbf{b} = (0.5, 2)^T$ and $\sigma^2 = 1$}
 \label{pPCA}
 \end{figure}
-\item Describe the different parts of the model. What are the parameters? What are the latent variables?
-\item Try some other parameter values for $W$ and $b$ and visualize the result in a similar scatter plot as in Fig. \ref{pPCA}.
-\item Now run principal component analysis on your simulated data (with $\mathbf{W} = (-1, 3)^T$, $\mathbf{b} = (0.5, 2)^T$) using
+\item (1p) Describe the different parts of the model. What are the parameters? What are the latent variables?
+\item (1p) Try some other parameter values for $W$ and $b$ and visualize the result in a similar scatter plot as in Fig. \ref{pPCA}.
+\item (1p) Now run principal component analysis on your simulated data (with $\mathbf{W} = (-1, 3)^T$, $\mathbf{b} = (0.5, 2)^T$) using
 <<eval = FALSE>>=
 pr <- prcomp(X, center = TRUE, scale. = FALSE)
 @
 Multiply the first \texttt{stdev} with the first principal component (\texttt{rotation}).
-\item What parameters in your pPCA model do these results correspond to. \emph{Note!} You might have to multiply your result/vector with -1.
-\item Finally, simulate values $\mathbf{x}$ of dimension five from a probabilistic PCA model for a given choice of parameters. The latent variables $\mathbf{h}$ should be of dimension two, i.e. $\mathbf{h} \in \mathbb{R}^{2 \times 1}$ for each simulated observation. You are free to choose the parameter values $\mathbf{W}$, $\mathbf{b}$ and $\sigma^2$ yourself, but the resulting distribution should have at least one negative and one positive correlation between the $X$s. Visualize the variables using a pair-wise scatterplot using \texttt{pairs(X)} in R.
+\item (1p) What parameters in your pPCA model do these results correspond to. \emph{Note!} You might have to multiply your result/vector with -1.
+\item (2p) Finally, simulate values $\mathbf{x}$ of dimension five from a probabilistic PCA model for a given choice of parameters. The latent variables $\mathbf{h}$ should be of dimension two, i.e. $\mathbf{h} \in \mathbb{R}^{2 \times 1}$ for each simulated observation. You are free to choose the parameter values $\mathbf{W}$, $\mathbf{b}$ and $\sigma^2$ yourself, but the resulting distribution should have at least one negative and one positive correlation between the $X$s. Visualize the variables using a pair-wise scatterplot using \texttt{pairs(X)} in R.
 \end{enumerate}
 
 \newpage
@@ -214,21 +216,21 @@ theta0 <- list(mu_1 = 4.12, mu_2 = 0.94, sigma_1 = 2, sigma_2 = 2, pi = 0.5)
 
 
 \begin{enumerate}
-\item Simulate data from a univariate mixture model by implementing a mixture model as in Eq. 8.36 in \citet{hastie2009elements}. That is, create a hiearchical simulation that first sample $\delta$ for each observation, and then sample $Y_i$ from the relevant component. The function should be called \texttt{r\_uni\_two\_comp(n, theta)} take have the arguments \texttt{n} (the number of observations to simulate) (the number of simulated observations) and \texttt{theta}, an R list with with values \texttt{mu1}, \texttt{mu2}, \texttt{sigma1}, \texttt{sigma2}, and \texttt{pi}.
-\item Simulate 200 observations using $\mu_1=-2$, $\mu_2=1.5$, $\sigma_1=2$, $\sigma_2=1$ and $\pi=0.3$. Visualize observations drawn in a histogram.
-\item Implement a function \texttt{d\_uni\_two\_comp(x, theta)} that computes the density value for a given set of parameters \texttt{theta} for values of \texttt{x}. \emph{Hint!} The function \texttt{dnorm} might be handy.
-\item Visualize the density for the mixture model above over the interval -6 to 6 (by steps of 0.01).
-\item Visualize the \texttt{eruptions} variable in the \texttt{faithful} dataset using a histogram.
-\item Manually choose values for $\mu_1$, $\mu_2$, $\sigma_1$, $\sigma_2$ and $\pi$ that gives a density you think is a good fit for the \texttt{eruptions} variable.
-\item Implement a function called \texttt{e\_uni\_two\_comp(X, theta)} that returns a  vector of gamma values for each row in \texttt{X} (for component 2).  This function should implement the expectation step in Algorithm 8.1 in \citet{hastie2009elements}. For definition of $\phi$ and $\theta$, see \citet[][, Section 8.5.1]{hastie2009elements}. Subscript in Algorithm 8.1, e.g. in $\theta_2$, indicates the component/cluster.
+\item (2p) Simulate data from a univariate mixture model by implementing a mixture model as in Eq. 8.36 in \citet{hastie2009elements}. That is, create a hiearchical simulation that first sample $\delta$ for each observation, and then sample $Y_i$ from the relevant component. The function should be called \texttt{r\_uni\_two\_comp(n, theta)} take have the arguments \texttt{n} (the number of observations to simulate) (the number of simulated observations) and \texttt{theta}, an R list with with values \texttt{mu1}, \texttt{mu2}, \texttt{sigma1}, \texttt{sigma2}, and \texttt{pi}.
+\item (1p) Simulate 200 observations using $\mu_1=-2$, $\mu_2=1.5$, $\sigma_1=2$, $\sigma_2=1$ and $\pi=0.3$. Visualize observations drawn in a histogram.
+\item (2p) Implement a function \texttt{d\_uni\_two\_comp(x, theta)} that computes the density value for a given set of parameters \texttt{theta} for values of \texttt{x}. \emph{Hint!} The function \texttt{dnorm} might be handy.
+\item (1p) Visualize the density for the mixture model above over the interval -6 to 6 (by steps of 0.01).
+\item (1p) Visualize the \texttt{eruptions} variable in the \texttt{faithful} dataset using a histogram.
+\item (1p) Manually choose values for $\mu_1$, $\mu_2$, $\sigma_1$, $\sigma_2$ and $\pi$ that gives a density you think is a good fit for the \texttt{eruptions} variable.
+\item (2p) Implement a function called \texttt{e\_uni\_two\_comp(X, theta)} that returns a  vector of gamma values for each row in \texttt{X} (for component 2).  This function should implement the expectation step in Algorithm 8.1 in \citet{hastie2009elements}. For definition of $\phi$ and $\theta$, see \citet[][, Section 8.5.1]{hastie2009elements}. Subscript in Algorithm 8.1, e.g. in $\theta_2$, indicates the component/cluster.
 <<eval = FALSE>>=
 gamma <- e_uni_two_comp(mixture_data, theta0)
 head(gamma)
 ## [1]  0.9106339 0.8716861 0.7797225 0.6645640 0.6484311 0.5178799
 @
 \emph{Note!} Gamma values for component 1 is just 1 - \texttt{gamma}.
-\item How can we interpret $\gamma$ here?
-\item Implement a function called \texttt{max\_uni\_two\_comp(X, gamma)} that returns a list with parameters \texttt{mu1}, \texttt{mu2}, \texttt{sigma1}, \texttt{sigma2} and \texttt{pi}. This function should implement the maximization step in algorithm 8.1 in \citet{hastie2009elements}.
+\item (1p) How can we interpret $\gamma$ here?
+\item (2p) Implement a function called \texttt{max\_uni\_two\_comp(X, gamma)} that returns a list with parameters \texttt{mu1}, \texttt{mu2}, \texttt{sigma1}, \texttt{sigma2} and \texttt{pi}. This function should implement the maximization step in algorithm 8.1 in \citet{hastie2009elements}.
 <<eval = FALSE>>=
 theta <- max_uni_two_comp(mixture_data, gamma)
 theta
@@ -248,26 +250,26 @@ theta
 ## [1] 0.4883709
 ##
 @
-\item Implement the log-likelihood of the model as \texttt{ll\_uni\_two\_comp(x, theta)}. \emph{Hint!} See Eq. 8.39 in \citet{hastie2009elements}.
+\item (1p) Implement the log-likelihood of the model as \texttt{ll\_uni\_two\_comp(x, theta)}. \emph{Hint!} See Eq. 8.39 in \citet{hastie2009elements}.
 <<eval = FALSE>>=
 ll_uni_two_comp(mixture_data, theta0)
 ## -43.1055
 @
-\item Now combine the implemented functions to an EM algorithm \texttt{em\_uni\_two\_comp(X, theta\_0, iter)} that takes in a $n \times p$ data matrix \texttt{X} and an initialization value for as \texttt{theta\_0}. Then the algorithm should be run \texttt{iter} number of iterations. For each iteration print out the log-likelihood value for that current iteration and store the value of $\theta$ for each iteration.
+\item (2p) Now combine the implemented functions to an EM algorithm \texttt{em\_uni\_two\_comp(X, theta\_0, iter)} that takes in a $n \times p$ data matrix \texttt{X} and an initialization value for as \texttt{theta\_0}. Then the algorithm should be run \texttt{iter} number of iterations. For each iteration print out the log-likelihood value for that current iteration and store the value of $\theta$ for each iteration.
 <<eval = FALSE>>=
 theta_and_gamma_em3 <- em_uni_two_comp(mixture_data, theta0, iter = 3)
 ## Log Lik:  -41.53247
 ## Log Lik:  -41.11211
 ## Log Lik:  -40.48348
 @
-\item Test your algorithm on the \texttt{mixture\_data} for 20 iterations. Do you get the same results for $\hat{\pi}$ as in \citet[p. 275]{hastie2009elements}? Note that you might get slightly different results (at the second decimal place). Also, compare your log-likelihoods with Figure 8.6 in \citet{hastie2009elements}. Do you have a similar result? \emph{Hint!} There can be a slight different order depending on if you compute the log-likelihood value before or after the update of $\theta$.
+\item (1p) Test your algorithm on the \texttt{mixture\_data} for 20 iterations. Do you get the same results for $\hat{\pi}$ as in \citet[p. 275]{hastie2009elements}? Note that you might get slightly different results (at the second decimal place). Also, compare your log-likelihoods with Figure 8.6 in \citet{hastie2009elements}. Do you have a similar result? \emph{Hint!} There can be a slight different order depending on if you compute the log-likelihood value before or after the update of $\theta$.
 <<eval = FALSE>>=
 theta_and_gamma_em20 <- em_uni_two_comp(mixture_data, theta0, iter = 20)
 ## Log Lik:  -41.53247
 ## ...
 @
-\item Run your EM algorithm on the \texttt{eruptions} variable of the \texttt{faithful} data and on the \texttt{Petal.Length} variable of the \texttt{iris} data until you judge it has converged. What are the estimated parameters for the two datasets and how do you assess convergence?
-\item Visualize the density for the two datasets in two different figures using the parameters estimated with your EM algorithm. Also show histograms for the real data in the same Figures (i.e. so you show the data and the estimated density). \emph{Hint!} You should be able to use \texttt{d\_uni\_two\_comp(x, theta)}.
+\item (1p) Run your EM algorithm on the \texttt{eruptions} variable of the \texttt{faithful} data and on the \texttt{Petal.Length} variable of the \texttt{iris} data until you judge it has converged. What are the estimated parameters for the two datasets and how do you assess convergence?
+\item (1p) Visualize the density for the two datasets in two different figures using the parameters estimated with your EM algorithm. Also show histograms for the real data in the same Figures (i.e. so you show the data and the estimated density). \emph{Hint!} You should be able to use \texttt{d\_uni\_two\_comp(x, theta)}.
 \end{enumerate}
 
 

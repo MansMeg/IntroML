@@ -115,7 +115,7 @@ knitr::opts_chunk$set(size = "small")
 If you have installed \texttt{keras}, you can load the MNIST dataset. This dataset contains data on handwritten digits that we want to classify. To access the data, we use \texttt{keras} as follows.
 
 <<echo=TRUE,eval=FALSE>>=
-library(keras)
+library(keras3)
 mnist <- dataset_mnist()
 mnist$train$x <- mnist$train$x/255
 mnist$test$x <- mnist$test$x/255
@@ -132,7 +132,7 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
         xaxt='n', yaxt='n', main=paste(mnist$train$y[idx]))
 @
 \item (1p) How large is the training and test set?
-\item (2p) Implement a simple feed-forward neural network in R using TensorFlow and Keras. See the introduction in \href{https://tensorflow.rstudio.com/tutorials/beginners/}{\textbf{[intro1]}} or in \href{https://cran.r-project.org/web/packages/keras/vignettes/index.html}{\textbf{[intro2]}}. Implement a neural network with one hidden layer with 16 units and the sigmoid as the activation function for the hidden layer. The output layer should be a softmax. Print your \texttt{keras} model description and include it in your report. \emph{Note} that depending on whether you use \texttt{keras} or \texttt{keras3}, how you pass the input layer of the network is slightly different. For \texttt{keras} the syntax used in \href{https://cran.r-project.org/web/packages/keras/vignettes/index.html}{\textbf{[intro2]}} works, while for \texttt{keras3}, the syntax used in \href{https://tensorflow.rstudio.com/tutorials/beginners/}{\textbf{[intro1]}} works.
+\item (2p) Implement a simple feed-forward neural network in R using TensorFlow and Keras. See the introduction in \href{https://github.com/MansMeg/IntroML/tree/master/additional_material/supplementary_r_files/tensorflow_feedforward_neural_network_tutorial.R}{\texttt{tensorflow\_feedforward\_neural\_network\_tutorial.R}}. Implement a neural network with one hidden layer with 16 units and the sigmoid as the activation function for the hidden layer. The output layer should be a softmax. Print your \texttt{keras} model description and include it in your report.
 \begin{enumerate}
 \item How many parameters do your model have in total?
 \item How many parameters does the input layer have?
