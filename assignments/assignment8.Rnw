@@ -297,38 +297,38 @@ always_search_policy(mdp)
 We are here going to implement two additional bandits and compare them to the previous implementations above.
 
 \begin{enumerate}
-\item (2p) Implement the UCB algorithm as a function called \texttt{ucb\_algorithm(Q1, bandit, c)}. \emph{Hint!} If $N_t(a) = 0$, then $a$ should be considered as the maximizing action (i.e. should be chosen).
+\item (2p) Implement the UCB algorithm as a function called \texttt{ucb\_algorithm(Q1, bandit, c)}. \emph{Hint!} If $N_t(a) = 0$, then $a$ should be considered as the maximizing action (i.e. should be chosen). This can be implemented in slightly different ways, so your output might not match the output below exactly even if the implementation is correct. The example output is based on choosing each arm randomly as long as any $N_t(a) = 0$.
 <<eval = FALSE>>=
 set.seed(4711)
 Q1 <- rep(0, 5)
 ucb_algorithm(Q1, stationary_bandit, c = 2)
 ## $Qt
-## [1]  1.43350715  1.09734192 -0.01287212  0.64762674  2.02954004
+## [1]  1.4792328 1.0928462 0.8417744 0.8360722 1.9867061
 ##
 ## $Nt
-## [1]  48  26   6  13 907
+## [1]  64 26 16 17 877
 ##
 ## $R_bar
-## [1] 1.946474
+## [1] 1.893108
 ##
 ## $Rt
-## [1]  3.43973511  2.57043950  1.89631824 ...
+## [1]  1.3525176 1.9163182 0.6335086 ...
 
 set.seed(4712)
 Q1 <- rep(0, 5)
 ucb_algorithm(Q1, stationary_bandit, c = 2)
 
 ## $Qt
-## [1] 1.4367906 1.0364514 0.4346884 0.4140891 1.9864393
+## [1] 1.5993426 0.9645111 0.4399236 0.6868328 1.9736659
 ##
 ## $Nt
-## [1]  57  24  11  10 898
+## [1]  98 21 10 14 857
 ##
 ## $R_bar
-## [1] 1.899517
+## [1] 1.882437
 ##
 ## $Rt
-## [1]  1.9818356939  1.1212566109  0.9286269996 ...
+## [1]  -0.200366 1.848627 -0.2808972 ...
 @
 \item (2p) Implement the gradient bandit algorithm as a function called \texttt{gradient\_bandit\_algorithm(bandit, alpha)}. Initialize all $H_t(a) = 1$. The algorithm should print the final preference and the probability of each action instead of $Q_t$.
 <<eval = FALSE>>=

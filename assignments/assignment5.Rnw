@@ -113,7 +113,7 @@ data("transformer_example")
 @
 
 \begin{enumerate}
-\item Start out by computing the query, key and value matrices for one attention head by implementing it in a function you call \texttt{qkv()}. The function should work like this.
+\item (1p) Start out by computing the query, key and value matrices for one attention head by implementing it in a function you call \texttt{qkv()}. The function should work like this.
 <<eval=FALSE, >>=
 # Pick out the matrix for the first attention head
 Wq <- transformer_example$Wq[,,1]
@@ -143,7 +143,7 @@ qkv(X, Wq, Wk, Wv)
 ## quick  0.009929565  0.04208206 -0.15412097
 ## brown -0.316413241  0.27717408  0.02725089
 @
-\item Now, based on your query, key and value, compute the attention of that given attention head for the three chosen tokens.
+\item (2p) Now, based on your query, key and value, compute the attention of that given attention head for the three chosen tokens.
 <<eval=FALSE>>=
 attention(res$Q, res$K, res$V)
 ## $Z
@@ -158,8 +158,8 @@ attention(res$Q, res$K, res$V)
 ## quick 0.3088780 0.3582373 0.3328847
 ## brown 0.3300375 0.3360583 0.3339042
 @
-\item Interpret the attention values. What does the second row mean?
-\item Now we have everything in place for implementing it all as a multi-head attention layer. The layer will take in embeddings and then return a 3-dimensional embedding per word. Run your code on all words in the included example.
+\item (1p) Interpret the attention values. What does the second row mean?
+\item (2p) Now we have everything in place for implementing it all as a multi-head attention layer. The layer will take in embeddings and then return a 3-dimensional embedding per word. Run your code on all words in the included example.
 <<eval=FALSE>>=
 multi_head_self_attention(X,
                           transformer_example$Wq,
@@ -190,7 +190,7 @@ data("rnn_example")
 @
 
 \begin{enumerate}
-\item We start out by implementing a simple RNN linear unit that takes the parameters \texttt{W}, \texttt{U}, \texttt{b}, the previous hidden state \texttt{h\_t\_minus\_one} and an input embedding \texttt{x\_t} and return the activation input $a_t$. It should work as follows.
+\item (2p) We start out by implementing a simple RNN linear unit that takes the parameters \texttt{W}, \texttt{U}, \texttt{b}, the previous hidden state \texttt{h\_t\_minus\_one} and an input embedding \texttt{x\_t} and return the activation input $a_t$. It should work as follows.
 <<eval=FALSE, >>=
 X <- rnn_example$embeddings[1,,drop=FALSE]
 h_t_minus_one <- matrix(0, nrow = hidden_dim, ncol = 1)
@@ -207,7 +207,7 @@ a_t
 ## [4,]  1.4891931
 ##
 @
-\item Now implement the \texttt{tanh()} activation function.
+\item (1p) Now implement the \texttt{tanh()} activation function.
 <<eval=FALSE, >>=
 h_t <- activation(a_t)
 h_t
@@ -219,7 +219,7 @@ h_t
 ## [4,]  0.9031762
 ##
 @
-\item As the next step, implement the output function and the softmax function. These functions should work in the following way.
+\item (1p) As the next step, implement the output function and the softmax function. These functions should work in the following way.
 <<eval=FALSE, >>=
 yhat_t <- softmax(output_rnn(h_t, rnn_example$V, rnn_example$c))
 yhat_t
@@ -230,7 +230,7 @@ yhat_t
 ## [3,] 0.4005502
 ##
 @
-\item Now we are ready to implement the full recurrent layer. It should take an input matrix X and the neural network parameters and return the hidden states and the softmax output as follows.
+\item (2p) Now we are ready to implement the full recurrent layer. It should take an input matrix X and the neural network parameters and return the hidden states and the softmax output as follows.
 <<eval=FALSE, >>=
 X <- rnn_example$embeddings[1:3,,drop=FALSE]
 rnn_layer(X,
@@ -252,7 +252,7 @@ rnn_layer(X,
 ## quick 0.2838013 0.3490452 0.3671536
 ## brown 0.2878002 0.3666877 0.3455121
 @
-\item Now, what is the value of the hidden state \texttt{h\_t} for the token \texttt{dog}?
+\item (1p) Now, what is the value of the hidden state \texttt{h\_t} for the token \texttt{dog}?
 \end{enumerate}
 
 \newpage
@@ -280,15 +280,15 @@ input_test <- pad_sequences(input_test, maxlen = maxlen)
 \emph{Note!} Running Keras can be computationally heavy, and I suggest not to run the code in \texttt{markdown}. Instead, run the code in R and copy the results as output (see the assignment template for an example).
 
 \begin{enumerate}
-\item Create a simple ordinary neural network for text classification in Keras using an embedding layer of dimension 16 and a hidden layer with 32 hidden states (and an output layer with one unit). Use a validation split of 20\% observations in the validation set and a batch size of 128. Train your network using rmsprop and use binary cross-entropy as the loss function. Print the model and return your validation accuracy after ten epochs. Most of these settings we will reuse later in the assignments.
-\item Explain what the embedding layer is doing.
-\item Now setup a simple Recurrent Neural Network with 32 hidden units based on the same embedding layer. Print the model and present your result.
-\item The model you have implemented now. Which recurrent network does best describes the model you have now implemented out of Fig. 10.3 and 10.5 in \citet{Goodfellow-et-al-2016}? Motivate why.
-\item Explain the role of the parameters $U$, $W$ in the recurrent net (see Goodfellow et al., 2017 Section 10.2). How large are these parameters in your model specified above, and where are they included in the Keras output?
-\item Now, explain the role of the parameters $V$ (see Goodfellow et al., 2017 Section 10.2). How many parameters are included in $V$, and where are they included in the Keras output?
-\item We are now going to implement an LSTM network. Implement a standard LSTM network with 32 hidden units using Keras. Print your model and your validation accuracy.
-\item Extend your network in ways you think fit. Report at least two other extensions/modifications of your network and why you chose them. Report the Keras model output and validation accuracy.
-\item Reason why we cannot get as good performance as with the MNIST dataset. Is the problem bias, variance, or the Bayes error? Why?
+\item (2p) Create a simple ordinary neural network for text classification in Keras using an embedding layer of dimension 16 and a hidden layer with 32 hidden states (and an output layer with one unit). Use a validation split of 20\% observations in the validation set and a batch size of 128. Train your network using rmsprop and use binary cross-entropy as the loss function. Print the model and return your validation accuracy after ten epochs. Most of these settings we will reuse later in the assignments.
+\item (1p) Explain what the embedding layer is doing.
+\item (1p) Now setup a simple Recurrent Neural Network with 32 hidden units based on the same embedding layer. Print the model and present your result.
+\item (1p) The model you have implemented now. Which recurrent network does best describes the model you have now implemented out of Fig. 10.3 and 10.5 in \citet{Goodfellow-et-al-2016}? Motivate why.
+\item (1p) Explain the role of the parameters $U$, $W$ in the recurrent net (see Goodfellow et al., 2017 Section 10.2). How large are these parameters in your model specified above, and where are they included in the Keras output?
+\item (1p) Now, explain the role of the parameters $V$ (see Goodfellow et al., 2017 Section 10.2). How many parameters are included in $V$, and where are they included in the Keras output?
+\item (1p) We are now going to implement an LSTM network. Implement a standard LSTM network with 32 hidden units using Keras. Print your model and your validation accuracy.
+\item (1p) Extend your network in ways you think fit. Report at least two other extensions/modifications of your network and why you chose them. Report the Keras model output and validation accuracy.
+\item (1p) Reason why we cannot get as good performance as with the MNIST dataset. Is the problem bias, variance, or the Bayes error? Why?
 \end{enumerate}
 
 
@@ -305,15 +305,15 @@ Unfortunately, there is yet to be a simple way to run BERT directly from R. Alth
 Follow the tutorial on Google Colab \href{https://github.com/MansMeg/IntroML/blob/master/assignments/swedish_bert_classification.ipynb}{\color{blue}{here}}. Then do the following things.
 
 \begin{enumerate}
-\item Try to improve on the relatively low classification accuracy and get above 80\% overall accuracy. You are free to elaborate how much you want yourself, but some suggestions are:
+\item (2p) Try to improve on the relatively low classification accuracy and get above 80\% overall accuracy. You are free to elaborate how much you want yourself, but some suggestions are:
 \begin{enumerate}
 \item Fine-tune a larger part of the BERT model (not just the classification head)
 \item Run the model for more epochs
 \item Try out other learning rates (scheduling)
 \end{enumerate}
 \emph{Note!} Training these large neural networks might take some time. It can take more than an hour at Google Colab to fine-tune the whole BERT model.
-\item Write down the steps you take, the overall accuracy you get along the way, and the final accuracy of your fine-tuned BERT model, both overall and per party.
-\item Reason based on your final confusion matrix on the difficulties for the model. Can the errors be reduced further or not? Why?
+\item (1p) Write down the steps you take, the overall accuracy you get along the way, and the final accuracy of your fine-tuned BERT model, both overall and per party.
+\item (2p) Reason based on your final confusion matrix on the difficulties for the model. Can the errors be reduced further or not? Why?
 \end{enumerate}
 
 

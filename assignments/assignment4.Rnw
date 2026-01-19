@@ -113,12 +113,12 @@ knitr::opts_chunk$set(size = "small")
 
 \section{Convolutional neural networks using Keras}
 
-We are now going to implement a convolutional neural network using Keras. Here Ch. 5.1-5.3 in \citet{chollet2018deep} and the \href{https://tensorflow.rstudio.com/examples/cifar10_cnn}{following tutorial} might be useful, especially for details on how to load the data. Remember to load the \texttt{tensorflow} R package before loading the \texttt{keras} R package.
+We are now going to implement a convolutional neural network using Keras. Here Ch. 5.1-5.3 in \citet{chollet2018deep} and the \href{https://github.com/MansMeg/IntroML/tree/master/additional_material/supplementary_r_files/cnn_example_cifar_10.R}{\texttt{cnn\_example\_cifar\_10.R}} might be usefulfor getting started. Remember to load the \texttt{tensorflow} R package before loading the \texttt{keras3} R package.
 
-If you have installed \texttt{keras}, you can load the MNIST dataset. This dataset contains data on handwritten digits that we want to classify. To access the data, we use \texttt{keras} as follows.
+If you have installed \texttt{keras3}, you can load the MNIST dataset. This dataset contains data on handwritten digits that we want to classify. To access the data, we use \texttt{keras3} as follows.
 
 <<echo=TRUE,eval=FALSE>>=
-library(keras)
+library(keras3)
 mnist <- dataset_mnist()
 mnist$train$x <- mnist$train$x/255
 mnist$test$x <- mnist$test$x/255
@@ -159,7 +159,7 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
 \item (1p) Explain why there are 320 parameters in the first layer. How many are kernel weights (and why), and how many biases?
 \item (1p) Train the network using Keras. What is your loss and accuracy on the MNIST dataset?
 \item (3p) Choose at least three hyper-parameters you would like to evaluate (\citet[see Table 11.1 in ][]{Goodfellow-et-al-2016}). Use random search \citet[see Ch. 11.4.4 in ][]{Goodfellow-et-al-2016} and train 10 different models with random hyper-parameter settings and store the validation accuracy of your network. Based on these result, choose the best hyper-parameter setting for your network. Print the code and the accuracy of your final model. You can choose the marginal distribution for the hyper-parameters yourself.
-\item (1p) As the next step, we will implement a convolutional neural network for the CIFAR-10 dataset using \texttt{dataset\_cifar10()}. See the \href{https://tensorflow.rstudio.com/examples/cifar10_cnn}{tutorial} for details on how to load data. Implement a similar CNN as in the tutorial. That is:
+\item (1p) As the next step, we will implement a convolutional neural network for the CIFAR-10 dataset using \texttt{dataset\_cifar10()}. See the file \href{https://github.com/MansMeg/IntroML/tree/master/additional_material/supplementary_r_files/cnn_example_cifar_10.R}{\texttt{cnn\_example\_cifar\_10.R}} for details on how to load data. Implement a similar CNN as in the tutorial. That is:
 <<>>=
 ## Model: "sequential"
 ## ___________________________________________________________________________
