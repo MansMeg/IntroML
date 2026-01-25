@@ -187,6 +187,9 @@ The paper should include the following four sections and subsections:
 \item Evaluation
 \end{enumerate}
 \item Results
+\begin{enumerate}
+\item Error analysis
+\end{enumerate}
 \item Conclusions
 \end{enumerate}
 
@@ -218,7 +221,7 @@ In the introduction, you should:
 \subsubsection{Data (0.25 page)}
 Describe the data you are using in your prediction model at a level so it is possible to replicate your analysis.
 
-\subsubsection{Data (0.75 page)}
+\subsubsection{Methods (0.75 page)}
 The methods section should describe your methods so another student can replicate them in the course, independent of implementation language (e.g., R). The independence means that the hyperparameter settings should be explained and presented without reference to, for example, specific R function's default values.
 
 If models with hyperparameters or architectures are used, there should be motivation. Why are they chosen, and how? You should describe the method used to set the hyperparameters.
