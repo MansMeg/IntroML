@@ -117,7 +117,7 @@ A guest lecture will be given on AI and ethics by [Karim Jebari](https://www.iff
 ## Course Project
 The last two weeks will focus on a course project where 2-3 students choose their data and create a supervised machine learning predictive model for a real-world dataset. 
 
-You can find details and instructions on the project work [here](https://github.com/MansMeg/IntroML/blob/master/project/).
+You can find details and instructions on the project work [here](https://github.com/MansMeg/IntroML/blob/master/project/). An example report from a previous course (2025) can be found [here](https://github.com/MansMeg/IntroML/blob/master/project/report_example.pdf). Note that there can be new instructions since 2026, so see the example rather as an inspiration and example.
 
 
 ## Frequently Asked Questions (FAQ)
