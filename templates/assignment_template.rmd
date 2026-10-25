@@ -20,6 +20,14 @@ Here general information is included that is needed for administrative/course pu
 
 **NOTE!** The assignments will be graded anonymously. **Do not include your name anywhere in the assignment! If the name is included, the assignment will be failed.**
 
+# LLM use and integrity
+
+You may use large language models (LLMs), such as ChatGPT, like you may discuss with fellow students: to learn, ask for explanations, and get feedback. You may not use LLMs to produce the solution you submit. You must be able to explain every part of your submitted work orally.
+
+Where an exercise explicitly asks you to run an LLM and report its output, you may do so for that experiment. Your explanations and analysis must be your own. This permission does not apply to the oral exam question contribution, for which LLM use is prohibited entirely.
+
+Do not copy or upload the full assignment text into an LLM.
+
 # Oral exam question contribution
 
 For every assignment, include one possible oral exam question of your own together with a short model answer. The question should concern this assignment or its associated reading or lectures, be suitable for a 2-4 minute oral answer, and test conceptual understanding rather than only calculation or code. It must not already be in the [oral exam question list](https://github.com/MansMeg/IntroML/blob/master/oral_exam/oral_exam_q.pdf) or be very close to an existing question, for example by only changing numbers.

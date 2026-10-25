@@ -113,6 +113,8 @@ Each week an individual computer assignment is done with a focus on implementing
 
 Every assignment report must also include **one oral exam question of your own and a short model answer**. The question should concern the assignment or its associated reading or lectures, be suitable for a 2–4 minute oral answer, and test conceptual understanding rather than only calculation or code. It must not already be in the oral exam question list or be very close to an existing question, for example by only changing numbers. **You are not allowed to use large language models, such as ChatGPT, at all for this contribution.** State **Yes** or **No** to whether course staff may use or adapt your question and answer in a future oral exam. See the assignment instructions and [report template](templates/assignment_template.rmd) for the required format.
 
+You may use large language models (LLMs), such as ChatGPT, like you may discuss with fellow students: to learn, ask for explanations, and get feedback. You may not use LLMs to produce the solution you submit. You must be able to explain every part of your submitted work orally.
+
 Students should return the computer assignments no later than **Sunday 23.59 each week**. For a detailed list of deadlines, see the [rough course plan](https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing).
 
 There are two complementary turn-ins of assignments, the last day of the course and roughly 2-4 weeks after the course ends. After the last possible time to turn in the assignment no more chances will be given. In this case, you will be failed on the course and you will need to retake the course next year.
