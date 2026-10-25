@@ -52,6 +52,21 @@
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Prob}{\mathbb{P}}
 
+% Highlighted illustrations, matching Assignments 1 and 2.
+\newsavebox{\exampleboxcontent}
+\newenvironment{examplebox}[1]{%
+  \par\medskip\noindent
+  \setlength{\fboxsep}{6pt}%
+  \begin{lrbox}{\exampleboxcontent}%
+  \begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+  \small\textbf{Example: #1}\hfill{\footnotesize\itshape No submission required}\par\smallskip
+}{%
+  \end{minipage}%
+  \end{lrbox}%
+  \fcolorbox{blue!45!black}{blue!4}{\usebox{\exampleboxcontent}}%
+  \par\medskip
+}
+
 \begin{document}
 
 \begin{titlepage}
@@ -143,39 +158,68 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
 @
 \item (1p) Explain why there are 320 parameters in the first layer. How many are kernel weights (and why), and how many biases?
 \item (1p) Train the network using Keras. What is your loss and accuracy on the MNIST dataset?
-\item (3p) Choose at least three hyper-parameters you would like to evaluate (\citet[see Table 11.1 in ][]{Goodfellow-et-al-2016}). Use random search \citet[see Ch. 11.4.4 in ][]{Goodfellow-et-al-2016} and train 10 different models with random hyper-parameter settings and store the validation accuracy of your network. Based on these result, choose the best hyper-parameter setting for your network. Print the code and the accuracy of your final model. You can choose the marginal distribution for the hyper-parameters yourself.
-\item (1p) As the next step, we will implement a convolutional neural network for the CIFAR-10 dataset using \texttt{dataset\_cifar10()}. See the file \href{https://github.com/MansMeg/IntroML/tree/master/additional_material/supplementary_r_files/cnn_example_cifar_10.R}{\texttt{cnn\_example\_cifar\_10.R}} for details on how to load data. Implement a similar CNN as in the tutorial. That is:
+\item (3p) Choose and briefly justify at least three hyper-parameters and their sampling distributions (\citet[see Table 11.1 in ][]{Goodfellow-et-al-2016}). Use random search \citet[see Ch. 11.4.4 in ][]{Goodfellow-et-al-2016} to train 10 fresh models. Keep the training/validation split and number of epochs fixed, and record each model's settings and final-epoch validation accuracy. Select the best setting using validation accuracy, then report the code and test accuracy of your final model. Keep the test data out of the search.
+
+\begin{examplebox}{A random-search loop}
+This scaffold uses \texttt{keras3}. First prepare fixed training and validation arrays \texttt{x\_train} and \texttt{x\_val} with dimensions \texttt{c(n, 28, 28, 1)}, scaled to $[0,1]$, and matching label vectors with values 0--9. Write \texttt{build\_model(filters, learning\_rate)} to create and compile a fresh CNN using sparse categorical cross-entropy and the supplied settings. The choices below are illustrative; adapt them to your search.
+<<random-search-example,echo=TRUE,eval=FALSE>>=
+set.seed(4711)
+settings <- data.frame(
+  filters = sample(c(16L, 32L, 64L), 10, replace = TRUE),
+  learning_rate = 10^runif(10, -4, -2),
+  batch_size = sample(c(32L, 64L, 128L), 10, replace = TRUE)
+)
+settings$val_accuracy <- NA_real_
+for (i in seq_len(nrow(settings))) {
+  clear_session()
+  model <- build_model(settings$filters[i],
+                       settings$learning_rate[i])
+  history <- fit(model, x_train, y_train,
+    validation_data = list(x_val, y_val),
+    epochs = 5, batch_size = settings$batch_size[i],
+    verbose = 0)
+  settings$val_accuracy[i] <-
+    tail(history$metrics$val_accuracy, 1)
+}
+best <- settings[which.max(settings$val_accuracy), ]
+best
+@
+Rebuild the selected configuration and fit it before evaluating it on the test data. Here \texttt{10\^{}runif(10, -4, -2)} samples learning rates uniformly on a logarithmic scale, from $10^{-4}$ to $10^{-2}$.
+\end{examplebox}
+
+\newpage
+\item (1p) Load CIFAR-10 using \texttt{dataset\_cifar10()} (see the \href{https://github.com/MansMeg/IntroML/tree/master/additional_material/supplementary_r_files/cnn_example_cifar_10.R}{CIFAR example}). Implement the following CNN as your \emph{baseline}; reuse it in the comparison below.
 <<>>=
 ## Model: "sequential"
-## ___________________________________________________________________________
+## ______________________________________________________________________
 ## Layer (type)                     Output Shape                  Param #
-## ===========================================================================
+## ======================================================================
 ## conv2d (Conv2D)                  (None, 30, 30, 32)            896
-## ___________________________________________________________________________
+## ______________________________________________________________________
 ## max_pooling2d (MaxPooling2D)     (None, 15, 15, 32)            0
-## ___________________________________________________________________________
+## ______________________________________________________________________
 ## conv2d_1 (Conv2D)                (None, 13, 13, 64)            18496
-## ___________________________________________________________________________
+## ______________________________________________________________________
 ## max_pooling2d_1 (MaxPooling2D)   (None, 6, 6, 64)              0
-## ___________________________________________________________________________
+## ______________________________________________________________________
 ## conv2d_2 (Conv2D)                (None, 4, 4, 64)              36928
-## ___________________________________________________________________________
+## ______________________________________________________________________
 ## flatten (Flatten)                (None, 1024)                  0
-## ___________________________________________________________________________
+## ______________________________________________________________________
 ## dense (Dense)                    (None, 64)                    65600
-## ___________________________________________________________________________
+## ______________________________________________________________________
 ## dense_1 (Dense)                  (None, 10)                    650
-## ===========================================================================
+## ======================================================================
 ## Total params: 122,570
 ## Trainable params: 122,570
 ## Non-trainable params: 0
-## ___________________________________________________________________________
+## ______________________________________________________________________
 
 @
 \emph{Note!} This problem is more complex than the MNIST problem, so don't be surprised if you get lower accuracy than you got on the MNIST dataset.
 \item (1p) Visualize one image of your choice from the CIFAR dataset together with its class/category.
 \item (1p) Why do we now have 896 parameters in the first convolutional layer?
-\item (2p) Try out and compare at least three different networks for the CIFAR data. Describe the networks (include the keras model output), why you choose them, and the Keras model output. \citet[Ch. 11-11.5]{Goodfellow-et-al-2016} and \citep[Ch. 5.3]{chollet2018deep} might give some suggestions. \label{item:three}
+\item (2p) Train and compare three CIFAR networks: the baseline above and two variations, each making one motivated change to the baseline (for example, changing the number of filters or adding dropout). Keep the training/validation split, preprocessing, optimizer, learning rate, batch size, and number of epochs fixed. Reuse the baseline run. Include each model's Keras summary and a table of training and validation accuracies at the final epoch. Briefly state your expected effect and explain the observed difference from the baseline; an improvement is not required. Use validation results for the comparison and keep the test data out of model selection. \label{item:three}
 \end{enumerate}
 
 \newpage
