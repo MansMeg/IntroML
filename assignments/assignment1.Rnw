@@ -137,7 +137,7 @@ This is the binary cross-entropy averaged over observations. Both the loss and i
 
 \begin{enumerate}
 \item (4p) Derive the gradient of the mean negative log-likelihood $\text{NLL}(\theta, \mathbf{y}, \mathbf{X})$ with respect to $\theta$.\\\emph{Hint!} See \citet[Ch. 4.4]{hastie2009elements}.
-\item (2p) Implement the gradient as \texttt{nll\_grad(y, X, theta)}. It should return the gradient of the mean loss $\text{NLL}$ defined above. Show that your implementation reproduces the following two test cases to four decimal places in your report.
+\item (2p) Implement \texttt{nll\_grad(y, X, theta)}, returning the mean-loss gradient as a numeric vector in the same order as the columns of \texttt{X}. Include the function code and your actual outputs for the two calls below; compare them with the supplied results to four decimal places.
 <<echo=FALSE,eval=TRUE>>=
 nll_grad <- function(y, X, theta){
 c("(Intercept)" = 0.1825, "gre_sd" = -0.0857, "gpa_sd" = -0.0829)
@@ -182,7 +182,7 @@ For SGD and mini-batch updates, evaluate \texttt{nll\_grad()} on the current obs
 \item \texttt{batch\_size = 1} gives stochastic gradient descent;
 \item \texttt{batch\_size = 10} gives mini-batch gradient descent.
 \end{itemize}
-Print the function once in your report and use it for all three settings in the experiments below. You do not need separate implementations or wrapper functions for the three methods.
+Print the function once in your report. Reuse the figures and explanations from Experiments A and B as evidence, referring to them where relevant; no extra runs or output tables are required. Run for the specified number of epochs and assess convergence from the trajectories.
 
 Each epoch must process every observation exactly once. For batches smaller than $n$, shuffle the observation indices once per epoch and split them into non-overlapping batches. Include any smaller final batch when $n$ is not divisible by the batch size. Make one parameter update per batch, using the mean gradient of that batch, and record the full-training-data mean NLL and parameters after the complete epoch.
 
@@ -309,7 +309,7 @@ X_valfold1 <- X[fold==1,]
 y_trainfold1 <- y[fold!=1,]
 y_valfold1 <- y[fold==1,]
 @
-\item (5p) Now implement 10-fold cross-validation on the training data.
+\item (5p) Implement 10-fold cross-validation on the training data. Include the function code once and use the $\lambda=1$ result requested below to demonstrate it.
 \emph{Hint!} Implement this as \texttt{glmnet\_cv(fold, X, y, lambda)}. Use the supplied ten folds and return one number: the mean of the ten validation-fold RMSEs. Accept either a response vector or a one-column response matrix. Use lasso (\texttt{alpha = 1}) with the default Gaussian family, intercept, and standardisation in \texttt{glmnet()}. Keep the same folds when comparing different values of \texttt{lambda}.
 
 \begin{enumerate}
@@ -360,7 +360,7 @@ where $\text{NLL}$ is the mean negative log-likelihood defined in task 1 and $\l
 
 \begin{enumerate}
 \item (2p) Derive the the gradient for $\text{NLL}_r(\theta, \mathbf{y}, \mathbf{X},\lambda)$ with respect to $\theta$.
-\item (1p) Implement the gradient as \texttt{nllr\_grad(y, X, theta, lambda)}. It should return the gradient of $\text{NLL}_r$, including the penalty, with the intercept unpenalized. Show that your implementation reproduces the following three test cases to four decimal places in your report.
+\item (1p) Implement the gradient as \texttt{nllr\_grad(y, X, theta, lambda)}. It should return the gradient of $\text{NLL}_r$, including the penalty, with the intercept unpenalized. Include the function code and your actual outputs for the three calls below; compare them with the supplied results to four decimal places.
 <<echo=FALSE,eval=TRUE>>=
 nllr_grad <- function(y, X, theta, lambda){
 c("(Intercept)" = 0.1825, "gre_sd" = -0.0857, "gpa_sd" = -0.0829)
@@ -387,7 +387,7 @@ nllr_grad <- function(y, X, theta, lambda){
 <<echo=TRUE,eval=TRUE>>=
 nllr_grad(y, X, theta = c(-1,0.5,0.5), lambda = 1)
 @
-\item (1p) Implement the penalized loss $\text{NLL}_r$ as \texttt{nllr(y, X, theta, lambda)}. Show that your implementation reproduces the following three test cases to four decimal places in your report.
+\item (1p) Implement the penalized loss $\text{NLL}_r$ as \texttt{nllr(y, X, theta, lambda)}. Include the function code and your actual outputs for the three calls below; compare them with the supplied results to four decimal places.
 <<echo=FALSE,eval=TRUE>>=
 nllr <- function(y, X, theta, lambda){
 0.6931
@@ -467,17 +467,32 @@ adam <- function(y, X, sample_size, eta, beta1, beta2, epochs){
   return(results)
 }
 @
-The function can then be called as:
+For example, run the baseline as follows:
 <<echo=TRUE,eval=FALSE>>=
-result <- adam(y, X, sample_size = 10, eta = 0.1,
-               beta1 = 0.9, beta2 = 0.999, epochs = 500)
+set.seed(4711)
+baseline <- adam(y, X, sample_size = 10, eta = 0.01,
+                 beta1 = 0.9, beta2 = 0.999, epochs = 500)
 @
-\item Print the function in your report.
-\item Try different learning parameters $\eta$, $\beta_1$ and $\beta_2$, and run the algorithm for roughly 500 epochs. You should test three different parameters setup. Use the plotting hint above to present your three settings together, showing the following quantities:
+\item Print the function once in your report.
+\item Run these three settings, each using the same data, batch size 10, and 500 epochs. Set the seed to 4711 before each run and reset parameters and both moments to zero.
+\begin{center}
+\begin{tabular}{lccc}
+\hline
+Setting & $\eta$ & $\beta_1$ & $\beta_2$ \\
+\hline
+Baseline & 0.01 & 0.9 & 0.999 \\
+Larger learning rate & 0.1 & 0.9 & 0.999 \\
+Longer gradient memory & 0.01 & 0.99 & 0.999 \\
+\hline
+\end{tabular}
+\end{center}
+
+Submit \emph{one figure with two panels}, overlaying the three runs and adding the corresponding \texttt{glm()} reference lines. Reuse the plotting hint above to show:
 \begin{enumerate}
-\item (1p) The mean negative log-likelihood \texttt{nll(y, X, theta)} evaluated on \emph{all training observations} for the current $\theta$ (y-axis), against epochs (full data iterations, x-axis).
-\item (1p) The value of one $\theta$ parameter of your choice (y-axis) and the epochs (full data iterations, x-axis). Also include the true values you got from using the \texttt{glm()} function above as a horizontal line in the figure.
+\item (1p) Full-training-data mean NLL against epoch.
+\item (1p) One coefficient against epoch.
 \end{enumerate}
+Briefly compare each modified run with the baseline: how do the learning rate and gradient memory affect progress and fluctuations? Small observed differences are valid.
 \end{enumerate}
 
 \newpage
