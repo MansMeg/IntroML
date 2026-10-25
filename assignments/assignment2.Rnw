@@ -454,6 +454,20 @@ See Section 15.2 in \citet{hastie2009elements}, and especially Algorithm 15.1 fo
 
 \begin{enumerate}
 \item (1p) Create a new function \texttt{grow\_tree\_m()} with the additional argument $m$. The function should grow a tree, but at every split, it should draw a sample of size $m$ of the covariates to make the split.
+
+\emph{Hint!} At every node, including the root, sample $m$ different predictors without replacement. Search for the best split using only those predictors, drawing a fresh subset for each node. With our two predictors, $m=1$ considers one randomly selected predictor; $m=2$ considers both, as in bagging.
+
+Let \texttt{X\_node} and \texttt{y\_node} contain the observations reaching the current node, with all predictor columns retained. The new step is:
+<<feature-sampling-hint,echo=TRUE,eval=FALSE>>=
+cols <- sample.int(ncol(X_node), size = m, replace = FALSE)
+split <- tree_split(X_node[, cols, drop = FALSE], y_node, l)
+
+if (!is.null(split)) {
+  split$j <- cols[split$j]
+}
+@
+If \texttt{cols = 2}, \texttt{tree\_split()} reports column 1 of its input; the tree must store column 2 of the original predictor matrix. Apply the same stopping and leaf rules as in \texttt{grow\_tree()} when the selected predictors admit no valid split.
+
 \item (1p) Implement a random forest regression model using \texttt{grow\_tree\_m()} and \texttt{predict\_with\_tree()}.
 \item (1p) Train your random forest regression model on the training data with $m=1$, $B=100$ and predict on the test data. What is the RMSE of your predictions on the test set (using your \texttt{rmse} function)?
 
