@@ -155,21 +155,23 @@ data("stopwords")
 @
 
 
+\newpage
+
 \begin{enumerate}
-\item (1p) As a first step, we will remove stopwords (common English words without much semantic information):
+\item \textbf{Setup (ungraded).} Remove stopwords (common English words without much semantic information):
 <<>>=
 pap <- pride_and_prejudice
 pap <- anti_join(pap, y = stopwords[stopwords$lexicon == "snowball",])
 @
 
-\item (1p) Then we will remove rare words. Here we remove words that occur less than five times.
+\item \textbf{Setup (ungraded).} Remove words that occur at most five times:
 <<>>=
 word_freq <- table(pap$word)
 rare_words <- data.frame(word = names(word_freq[word_freq <= 5]),
                          stringsAsFactors = FALSE)
 pap <- anti_join(pap, y = rare_words)
 @
-\item (1p) Now we have a corpus we can used to implement a probabilistic topic model. We do this by using the \texttt{topicmodels} R package. As a first step we will compute a document term matrix using the \texttt{tm} package, where we treat each paragraph as a document. How many documents and terms (word types) do you have?
+\item (1p) The supplied code builds a document-term matrix, treating each paragraph as a document. Report the number of documents and terms (word types).
 <<eval=FALSE>>=
 library(tm)
 crp <- aggregate(pap$word, by = list(pap$paragraph),
@@ -178,7 +180,7 @@ names(crp) <- c("paragraph", "text")
 s <- SimpleCorpus(VectorSource(crp$text))
 m <- DocumentTermMatrix(s)
 @
-\item (1p) Fit a topic model with ten topics using Gibbs sampling for 2000 iterations and the fixed seed below. Fit the model once and reuse the fitted model \texttt{tm} for the likelihood trace, topic interpretation, and paragraph plots.
+\item \textbf{Setup (ungraded).} Fit a topic model with ten topics using Gibbs sampling for 2000 iterations and the fixed seed below. Fit the model once and reuse the fitted model \texttt{tm} for the likelihood trace, topic interpretation, and paragraph plots.
 <<eval=FALSE>>=
 library(topicmodels)
 K <- 10
@@ -187,7 +189,7 @@ control <- list(keep = 1, delta = 0.1, alpha = 1, iter = 2000,
                 seed = 4711)
 tm <- LDA(m, k = K, method = "Gibbs", control)
 @
-\item (1p) In the \texttt{uuml} R package you have three convenience functions to extract $\Theta$, $\Phi$ and the log-likelihood values at each iteration. This is the parameter notation used in \citet{griffiths2004finding}.
+\item \textbf{Setup (ungraded).} Extract $\Theta$, $\Phi$, and the log-likelihood values using the supplied code. This is the parameter notation used in \citet{griffiths2004finding}.
 <<eval=FALSE>>=
 library(uuml)
 lls <- extract_log_liks(tm)
@@ -195,7 +197,10 @@ theta <- extract_theta(tm)
 phi <- extract_phi(tm)
 @
 \item (2p) As a first step, check that the model has converged by visualizing the log-likelihood over epochs/iterations. Does it seem like the model have converged?
-\item (2p) Extract the 20 top words for each topic (i.e. the words with the highest probability in each topic). Choose two topics you find coherent/best (the top words seem to belong together). Interpret these two topics based on the storyline of the book. What have these two topics captured?
+\begin{samepage}
+\item (2p) Inspect the 20 top words for each topic (the words with the highest probability). Choose two topics whose top words seem to belong together. Include the two word lists in your report and interpret the topics based on the storyline of the book. What have these two topics captured?
+\par
+\end{samepage}
 \item (2p) Visualize these two topics evolve over the paragraphs in the books by plotting the $\theta$ parameters for that topic over time (paragraphs) in the book. Think of this as the time-line of the book. On the y-axis, you should plot $\theta_i$ for your chosen topic $i$ and the x-axis should be the paragraph number (first paragraph has number 1 and so forth).
 \item (2p) How do these two chosen topics evolve over the course in the book? If you want, you can take a rolling mean of the theta parameters to more easily show the changes in the topic over the book. \emph{Hint!} Here \texttt{zoo::rollmean()} might be a good function to use.
 \end{enumerate}
