@@ -320,8 +320,8 @@ Keras groups several mathematical parameters into a single layer's count. The \t
 
 \item (1p) Explain the role of the parameters $U$, $W$ in the recurrent net (see Goodfellow et al., 2017 Section 10.2). How large are these parameters in your model specified above, and where are they included in the Keras output?
 \item (1p) Now, explain the role of the parameters $V$ (see Goodfellow et al., 2017 Section 10.2). How many parameters are included in $V$, and where are they included in the Keras output?
-\item (1p) We are now going to implement an LSTM network. Implement a standard LSTM network with 32 hidden units using Keras. Print your model and your validation accuracy.
-\item (1p) Extend your network in ways you think fit. Report at least two other extensions/modifications of your network and why you chose them. Report the Keras model output and validation accuracy.
+\item (1p) Implement an LSTM baseline with 32 hidden units and \texttt{dropout = 0}, using the same embedding dimension and training setup as above. Print your model and validation accuracy.
+\item (1p) Starting from your LSTM baseline, design and test two modifications of your choice. Before training, explain what you expect each modification to change and why. Change one aspect at a time, keeping the data split and other settings fixed. Include the model summaries and a compact table of validation accuracy and training time for all three models. Discuss whether the results support your expectations. Improved accuracy is not required for full credit.
 \item (1p) Reason why we cannot get as good performance as with the MNIST dataset. Is the problem bias, variance, or the Bayes error? Why?
 \end{enumerate}
 
