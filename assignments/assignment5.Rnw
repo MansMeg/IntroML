@@ -52,6 +52,20 @@
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Prob}{\mathbb{P}}
 
+% Highlighted illustrations, matching Assignment 1.
+\newcommand{\examplebox}[2]{%
+  \par\medskip\noindent
+  \begingroup
+  \setlength{\fboxsep}{6pt}%
+  \fcolorbox{blue!45!black}{blue!4}{%
+    \begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+    \small\textbf{Example: #1}\hfill{\footnotesize\itshape No submission required}\par\smallskip
+    #2
+    \end{minipage}}%
+  \endgroup
+  \par\medskip
+}
+
 \begin{document}
 
 \begin{titlepage}
@@ -287,6 +301,22 @@ input_test <- pad_sequences(input_test, maxlen = maxlen)
 \item (1p) Explain what the embedding layer is doing.
 \item (1p) Now setup a simple Recurrent Neural Network with 32 hidden units based on the same embedding layer. Print the model and present your result.
 \item (1p) The model you have implemented now. Which recurrent network does best describes the model you have now implemented out of Fig. 10.3 and 10.5 in \citet{Goodfellow-et-al-2016}? Motivate why.
+
+\examplebox{RNN parameter counts}{
+Consider a simple RNN with 3 input features, 2 hidden units and 1 output, with biases:
+\begin{center}
+\begin{tabular}{llr}
+\textbf{Parameters} & \textbf{Dimensions} & \textbf{Count} \\
+$U$: input-to-hidden weights & $2\times3$ & 6 \\
+$W$: recurrent weights & $2\times2$ & 4 \\
+Hidden biases & $2$ & 2 \\
+$V$: hidden-to-output weights & $1\times2$ & 2 \\
+Output bias & $1$ & 1
+\end{tabular}
+\end{center}
+Keras groups several mathematical parameters into a single layer's count. The \texttt{SimpleRNN} layer reports $6+4+2=12$ parameters; the \texttt{Dense} output layer reports $2+1=3$. Any embedding-layer parameters are counted separately.
+}
+
 \item (1p) Explain the role of the parameters $U$, $W$ in the recurrent net (see Goodfellow et al., 2017 Section 10.2). How large are these parameters in your model specified above, and where are they included in the Keras output?
 \item (1p) Now, explain the role of the parameters $V$ (see Goodfellow et al., 2017 Section 10.2). How many parameters are included in $V$, and where are they included in the Keras output?
 \item (1p) We are now going to implement an LSTM network. Implement a standard LSTM network with 32 hidden units using Keras. Print your model and your validation accuracy.
