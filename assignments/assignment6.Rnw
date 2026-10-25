@@ -199,7 +199,9 @@ Probabilistic PCA (pPCA) describes noisy observations using fewer latent coordin
 \qquad \mathbf{h}\sim N(0,I_K),\quad
 \boldsymbol{\varepsilon}\sim N(0,\sigma^2 I_D),
 \]
-where the latent coordinates and noise are independent. This model lets us simulate observations around a lower-dimensional line or plane. See Section 13.1 in \citet{Goodfellow-et-al-2016}.
+where the latent coordinates and noise are independent. For example, five sensor readings might reflect two shared underlying factors plus measurement noise. pPCA gives a lower-dimensional description of these correlated measurements; you will simulate this structure in the final task. See Section 13.1 in \citet{Goodfellow-et-al-2016}.
+
+This also prepares you for the variational autoencoders (VAEs) in Assignment 7. In pPCA, $\mathbf{b}+\mathbf{W}\mathbf{h}$ acts as a linear decoder, mapping latent coordinates to observation means. A VAE uses a neural network decoder to model nonlinear relationships and learns an encoder that approximates the distribution of latent coordinates given an observation.
 
 \examplebox{Generating a pPCA observation}{
 With $\mathbf{W}=(-1,3)^T$, $\mathbf{b}=(0.5,2)^T$, $h=1$, and no noise, $\mathbf{x}=(-0.5,5)^T$. Changing $h$ moves the point along the line through $\mathbf{b}$ in direction $\mathbf{W}$. Adding noise scatters observations around this line.
