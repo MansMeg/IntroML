@@ -440,13 +440,30 @@ xgb <- xgboost(X_train, y_train, nrounds = 200)
 
 \input{distinction_task.tex}
 
+After checking your basic functions, load the optional VG checks. These use your own tree representation and do not require an exact random ensemble or test RMSE:
+<<mma-assignment2-vg,echo=TRUE,eval=FALSE>>=
+assignment_path <- paste0(
+  "https://github.com/MansMeg/IntroML/blob/master/",
+  "assignments/tests/assignment2/assignment2-vg.yml"
+)
+set_assignment(assignment_path)
+@
+Run the individual checks below as you implement each function. Once all three VG functions are ready, run \texttt{mark\_my\_assignment()} to check them together. The checks also need your basic tree functions and their helpers.
+
+
 Now we can use our regression tree to do a Bagged Tree regression model. The main difference from the previous tree is that we now will draw $B$ bootstrap samples of size $N$ \emph{with replacement} from our dataset, then train $B$ trees, use them for a combined bagged prediction.
 
 See Section 8.7 in \citet{hastie2009elements}, and especially Eq. (8.51) for details.
 
 \begin{enumerate}
 \item (1p) Implement a bagged tree regression model training function called \texttt{train\_bagged\_trees(X, y, l, B)} using the \texttt{grow\_tree()} function that return an R list of $B$ grown trees.
-\item (1p) Use \texttt{predict\_with\_tree()} to create a function \texttt{predict\_with\_bagged\_trees()} that takes a list of grown trees and produce one prediction per observation.
+
+\emph{Check:} \verb|mark_my_assignment(tasks = "train_bagged_trees")|
+
+\item (1p) Implement \texttt{predict\_with\_bagged\_trees()} using \texttt{predict\_with\_tree()}. Its arguments are \texttt{new\_data}, a numeric predictor matrix, and \texttt{trees}, a list of grown trees. Return one prediction per observation by averaging across the trees.
+
+\emph{Check:} \verb|mark_my_assignment(tasks = "predict_with_bagged_trees")|
+
 \item (1p) Train your bagged tree regression model on the training data and predict on the test data. Try the values $B=\{1, 10, 100, 500, 1000\}$. What is the RMSE of your predictions on the test set?
 
 \emph{Hint!} Set a seed and train 1000 trees once. For each $B$, average predictions from the first $B$ trees. Test RMSE need not decrease every time $B$ increases, so $B=1000$ need not give the lowest RMSE in your run. The seed makes your experiment reproducible; different implementations can still produce different results with the same seed. See Figure 15.1 in \citet{hastie2009elements}.
@@ -476,6 +493,8 @@ if (!is.null(split)) {
 }
 @
 If \texttt{cols = 2}, \texttt{tree\_split()} reports column 1 of its input; the tree must store column 2 of the original predictor matrix. Apply the same stopping and leaf rules as in \texttt{grow\_tree()} when the selected predictors admit no valid split.
+
+\emph{Check:} \verb|mark_my_assignment(tasks = "grow_tree_m")|
 
 \item (1p) Implement a random forest regression model using \texttt{grow\_tree\_m()} and \texttt{predict\_with\_tree()}.
 \item (1p) Train your random forest regression model on the training data with $m=1$, $B=100$ and predict on the test data. What is the RMSE of your predictions on the test set (using your \texttt{rmse} function)?
