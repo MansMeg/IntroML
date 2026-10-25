@@ -317,7 +317,7 @@ em20 <- em_uni_two_comp(mixture_data, theta0, iter = 20)
 ## Log Lik:  -41.53247
 ## ...
 @
-\item (1p) Run your EM algorithm on the \texttt{eruptions} variable of the \texttt{faithful} data and on the \texttt{Petal.Length} variable of the \texttt{iris} data until you judge it has converged. What are the estimated parameters for the two datasets and how do you assess convergence?
+\item (1p) Run your EM algorithm on the \texttt{eruptions} variable of the \texttt{faithful} data and on the \texttt{Petal.Length} variable of the \texttt{iris} data until the log-likelihood has stabilised over successive iterations. For each dataset, report the estimated parameters and number of iterations used, and explain your convergence criterion. You may rerun with a larger \texttt{iter}; an automatic stopping rule is not required.
 \item (1p) Visualize the density for the two datasets in two different figures using the parameters estimated with your EM algorithm. Also show histograms for the real data in the same Figures (i.e. so you show the data and the estimated density). \emph{Hint!} You should be able to use \texttt{d\_uni\_two\_comp(x, theta)}.
 \end{enumerate}
 
