@@ -347,7 +347,7 @@ Unfortunately, there is yet to be a simple way to run BERT directly from R. Alth
 \textbf{Getting started:} Open the \href{https://colab.research.google.com/github/MansMeg/IntroML/blob/master/assignments/swedish_bert_classification.ipynb}{Python notebook in Google Colab}. Run the supplied setup, data-loading and preprocessing cells unchanged, then run the provided model to obtain your baseline. Use the model and training sections to implement your chosen experiments.
 
 \begin{enumerate}
-\item (2p) Try to improve on the relatively low classification accuracy and get above 80\% overall accuracy. You are free to elaborate how much you want yourself, but some suggestions are:
+\item (2p) Design and run motivated experiments to improve the BERT baseline. Aim for 80\% overall accuracy. Well-motivated experiments can receive full credit even if this target is not reached. Some possible changes are:
 \begin{enumerate}
 \item Fine-tune a larger part of the BERT model (not just the classification head)
 \item Run the model for more epochs
