@@ -136,7 +136,6 @@ For a batch of $m$ images, the encoder should return an $m\times 2$ matrix of la
 \item Print the model and include it in your report.
 \begin{enumerate}
 \item (1p) How many weights (parameters) are used to compute $\mu$ and $\sigma^2$ for the latent variables?
-\item (1p) \textbf{Sampling and gradients.} Before training, predict which encoder outputs receive reconstruction gradients with $z=\mu+\sigma\epsilon$ and with $z=\mu$. Run the supplied \texttt{vae\_gradient\_components()} helper with \texttt{sample\_latent = TRUE} and \texttt{FALSE}, keeping batch, noise, weights, and KL unchanged. Report the gradient-norm table for $\mu$ and $\log\sigma^2$ and explain how reconstruction and KL can affect log variance in each case.
 \item (1p) \textbf{KL experiment.} The function below computes $D_{\mathrm{KL}}(q\Vert p)$, comparing the encoder distribution $q=N(\mu,\sigma^2)$ with the prior $p=N(\mu_0,\sigma_0^2)$. Both $\sigma$ and $\sigma_0$ are standard deviations. Keep the prior fixed at $(\mu_0,\sigma_0)=(0,1)$. Predict the ordering for $q$ with $(\mu,\sigma)=(0,1)$, $(2,1)$, and $(0,2)$, then calculate the KL values. Which $q$ is closest to the prior? Why would minimizing only KL fail to reconstruct different images?
 
 \emph{Hint!} For this fixed prior, the function matches the one-dimensional KL term in the sampling layer.
