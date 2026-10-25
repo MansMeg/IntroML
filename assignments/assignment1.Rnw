@@ -214,27 +214,64 @@ The function can then be called as:
 result <- mbsgd(y, X, sample_size = 10, eta = 0.1, epochs = 500)
 @
 
-\item Try different learning parameters $\eta$ and run the algorithm for roughly 500 epochs. You should find three different $\eta$ for each algorithm. One $\eta$ where the optimizer diverge, one $\eta$ where the optimizer converge very slowly and one $\eta$ that converges quick(er). Note that $\eta$ should be fixed/the same during all 500 epochs. Visualize your results in two plots per algorithm and choice of $\eta$ as a line graph (hence 18 figures in total).
-\begin{enumerate}
-\item (2p) The mean negative log-likelihood \texttt{nll(y, X, theta)} evaluated on \emph{all training observations} for the current $\theta$ (y-axis), against epochs (full data iterations, x-axis).
-\item (2p) The value of one $\theta$ parameter of your choice (y-axis) and the epochs (full data iterations, x-axis). Also include the true values you got from using the \texttt{glm()} function above as a horizontal line in the figure.
-\end{enumerate}
-Below is an illustration of how to plot the mean loss over epochs using \texttt{ggplot2}. These are simulated plotting values, not optimizer output; use your algorithm's recorded results for the required plots.
-<<echo=TRUE,eval=TRUE, fig.height=2>>=
-library(ggplot2)
-set.seed(4711)
-example_results <- data.frame(
-  epoch = 1:500,
-  nll = rnorm(500, mean = 1.5, sd = 0.1)
-)
-ggplot(example_results, aes(x = epoch, y = nll)) +
-  geom_line() +
-  geom_hline(yintercept = 1.5, color = "blue") +
-  labs(x = "Epoch", y = "Mean negative log-likelihood",
-       title = "Illustrative mean-loss history")
-@
+\item (4p) \textbf{Experiment A: learning rates with full gradient descent.}
+Run full GD for 500 epochs from $\theta=0$, keeping the learning rate fixed within each run. Choose three learning rates that illustrate slow progress, useful convergence, and unstable or oscillating behaviour. Only full GD is needed for this experiment.
+
+Submit \emph{one composite figure}: use three columns for the learning-rate settings and two rows for the mean NLL and one coefficient of your choice. Record the actual learning rates in the panel labels. Add the corresponding estimates from \texttt{glm()} as reference lines: its mean NLL in the loss panels and its coefficient estimate in the coefficient panels. Separate vertical scales are allowed so an unstable run does not hide the other curves.
+
+Briefly explain how the three learning rates affect the loss and coefficient trajectories. A persistently oscillating loss is sufficient to demonstrate instability; you do not need to force the loss to become infinite.
+
+\item (4p) \textbf{Experiment B: batch sizes at a shared learning rate.}
+Compare full GD, mini-batch GD with batch size 10, and SGD with batch size 1. Use the same data, zero initial parameters, and 500 epochs for all three. Start with a shared learning rate of $\eta=0.1$. If any run is unstable, reduce the learning rate for \emph{all three} methods. Set the random seed before each stochastic run and report the common learning rate and seed.
+
+Submit \emph{one composite figure with two panels}: overlay the three methods' mean-NLL curves in one panel and their trajectories for the same coefficient used in Experiment A in the other. Use a legend and the \texttt{glm()} reference lines. Evaluate the plotted loss on all training observations at the end of each epoch.
+
+Compare progress and fluctuations near the reference estimates. Report the number of parameter updates per epoch for each method. An epoch processes all $n$ observations, but full GD makes one update, mini-batch GD makes $\lceil n/10\rceil$ updates, and SGD makes $n$ updates. Explain why equal epochs do not mean equal numbers of updates; this experiment is not a wall-clock timing comparison.
 \end{enumerate}
 
+\subsubsection*{Plotting hint for the two experiments}
+Submit exactly two composite figures for Experiments A and B; separate figures for each run are not needed. Your existing mean-loss and coefficient histories contain everything required. To find the three learning-rate behaviours, try a short logarithmic sequence of learning rates, such as $0.001$, $0.01$, $0.1$, $1$, and $10$, then adjust only if needed.
+
+Collect the three result matrices for one experiment in a named list called \texttt{runs}. For example, its names can describe the learning rates in Experiment A or the methods in Experiment B. Each matrix should have the columns \texttt{epoch}, \texttt{nll}, and the parameter names from \texttt{X}. The following code only reshapes and plots results; use the output of your own optimizers.
+<<echo=TRUE,eval=FALSE>>=
+library(ggplot2)
+# Here full_run, mini_run, and single_run are your saved histories.
+runs <- list("Full GD" = full_run, "Mini-batch GD" = mini_run,
+             "SGD" = single_run)
+coefficient <- "gre_sd" # Choose one coefficient for both experiments.
+plot_data <- do.call(rbind, lapply(names(runs), function(label){
+  h <- runs[[label]]
+  rbind(
+    data.frame(epoch = h[, "epoch"], value = h[, "nll"],
+               measure = "Mean NLL", setting = label),
+    data.frame(epoch = h[, "epoch"], value = h[, coefficient],
+               measure = "Coefficient", setting = label)
+  )
+}))
+plot_data$measure <- factor(plot_data$measure,
+                           levels = c("Mean NLL", "Coefficient"))
+plot_data$setting <- factor(plot_data$setting, levels = names(runs))
+@
+
+\newpage
+
+Save your fitted \texttt{glm()} model as \texttt{glm\_fit}. Construct the two reference values and plot Experiment B as follows:
+<<echo=TRUE,eval=FALSE>>=
+theta_mle <- unname(coef(glm_fit)) # Same parameter order as X.
+reference <- data.frame(
+  measure = factor(c("Mean NLL", "Coefficient"),
+                   levels = c("Mean NLL", "Coefficient")),
+  value = c(nll(y, X, theta_mle),
+            theta_mle[match(coefficient, colnames(X))])
+)
+ggplot(plot_data, aes(epoch, value, colour = setting)) +
+  geom_line() +
+  geom_hline(data = reference, aes(yintercept = value),
+             linetype = "dashed") +
+  facet_wrap(~ measure, ncol = 1, scales = "free_y") +
+  labs(x = "Epoch", y = NULL, colour = "Setting")
+@
+For Experiment A, prepare \texttt{runs} with its three learning-rate results and replace the facet line with \texttt{facet\_wrap(\textasciitilde{} measure + setting, ncol = 3, scales = "free\_y")}. This produces the six panels in one figure. You can choose another plotting tool or layout that makes the same comparisons clear.
 
 \newpage
 
@@ -433,7 +470,7 @@ result <- adam(y, X, sample_size = 10, eta = 0.1,
                beta1 = 0.9, beta2 = 0.999, epochs = 500)
 @
 \item Print the function in your report.
-\item Try different learning parameters $\eta$, $\beta_1$ and $\beta_2$, and run the algorithm for roughly 500 epochs. You should test three different parameters setup. Visualize your results in the same way as in the SGD task above, namely:
+\item Try different learning parameters $\eta$, $\beta_1$ and $\beta_2$, and run the algorithm for roughly 500 epochs. You should test three different parameters setup. Use the plotting hint above to present your three settings together, showing the following quantities:
 \begin{enumerate}
 \item (2p) The mean negative log-likelihood \texttt{nll(y, X, theta)} evaluated on \emph{all training observations} for the current $\theta$ (y-axis), against epochs (full data iterations, x-axis).
 \item (2p) The value of one $\theta$ parameter of your choice (y-axis) and the epochs (full data iterations, x-axis). Also include the true values you got from using the \texttt{glm()} function above as a horizontal line in the figure.
