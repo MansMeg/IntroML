@@ -148,7 +148,7 @@ Call \texttt{set\_random\_seed(123)} before constructing the model. Train with S
 \item (2p) If you would use early stopping regularization, how would you do that?
 
 \emph{Note!} Only describe what you would do conceptually. You don't need to do it.
-\item (2p) Now try to build the best possible network architecture for this data (but still only using a feed-forward network). How good can you get validation set accuracy (or how low is the error)? What is the architecture used for the best model you can get? Include the final \texttt{keras3} code, and the \emph{validation} set accuracy figure. Feel free to use early stopping!
+\item (2p) Start from the best-performing configuration in Task~1.4 and try \emph{one to three additional feed-forward configurations}. Briefly motivate each choice. Train each candidate from fresh weights for \emph{at most 20 epochs}, using the same validation split; early stopping is optional. Add their validation accuracy and loss to the comparison table from Task~1.4. Describe your selected architecture and include its final \texttt{keras3} code and training and validation curves. Explain your choice, including if none of the candidates improves on Task~1.4.
 
 \emph{Hint!} The general idea is to find the optimal capacity of the model. Try to start with a network that overfits the data and then regularize that model to improve the generalization error on the validation set.
 
