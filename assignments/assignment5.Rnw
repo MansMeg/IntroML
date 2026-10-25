@@ -116,7 +116,8 @@ Wv <- transformer_example$Wv[,,1]
 # Pick out the first three words and their embeddings
 X <- transformer_example$embeddings[1:3,]
 
-qkv(X, Wq, Wk, Wv)
+res <- qkv(X, Wq, Wk, Wv)
+res
 
 ## $Q
 ##            [,1]        [,2]       [,3]
@@ -136,7 +137,13 @@ qkv(X, Wq, Wk, Wv)
 ## quick  0.009929565  0.04208206 -0.15412097
 ## brown -0.316413241  0.27717408  0.02725089
 @
-\item (2p) Now, based on your query, key and value, compute the attention of that given attention head for the three chosen tokens.
+\newpage
+\item (2p) Now, based on your query, key and value, compute the attention for the three chosen tokens. Return a list containing the attention weights in \texttt{attention} and the attention output in \texttt{Z}:
+\[
+A = \operatorname{softmax}_{\mathrm{row}}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right),
+\qquad Z = AV.
+\]
+Here $d_k$ is the number of columns in $K$, and softmax is applied separately to each row. Each row of $A$ sums to one. In the lecture notation, $\operatorname{Attention}(Q,K,V)$ corresponds to $Z$.
 <<eval=FALSE>>=
 attention(res$Q, res$K, res$V)
 ## $Z
@@ -151,8 +158,8 @@ attention(res$Q, res$K, res$V)
 ## quick 0.3088780 0.3582373 0.3328847
 ## brown 0.3300375 0.3360583 0.3339042
 @
-\item (1p) Interpret the attention values. What does the second row mean?
-\item (2p) Now we have everything in place for implementing it all as a multi-head attention layer. The layer will take in embeddings and then return a 3-dimensional embedding per word. Run your code on all words in the included example.
+\item (1p) Interpret the attention weights. What does the second row mean?
+\item (2p) Now we have everything in place for implementing it all as a multi-head attention layer. The layer will take in embeddings and then return a 3-dimensional embedding per word. First check your implementation using the three words below.
 <<eval=FALSE>>=
 multi_head_self_attention(X,
                           transformer_example$Wq,
@@ -164,6 +171,7 @@ multi_head_self_attention(X,
 ## quick -0.009963516 -0.0010724342 -0.001996524
 ## brown -0.006394562 -0.0006626115 -0.002219108
 @
+Then run it on all words using \texttt{X <- transformer\_example\$embeddings}. The full input produces nine output rows; its values will differ from the three-word example.
 \end{enumerate}
 
 \newpage
