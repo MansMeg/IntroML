@@ -13,6 +13,8 @@ See course syllabus [here](https://www.uu.se/en/admissions/freestanding-courses/
 
 Roughly the course assumes basic knowledge in linear algebra, calculus, probability theory and programming (with R or Python).
 
+See the [R setup instructions](additional_material/r_setup/README.md) before using TensorFlow and Keras.
+
 ## (Rough) Course Plan
 You can find a rough course plan with reading instructions [here](https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing).
 
