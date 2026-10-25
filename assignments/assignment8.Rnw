@@ -251,7 +251,11 @@ Constant-step $\epsilon$-greedy & $\epsilon=0.1,\ \alpha=0.9$ \\
 \end{tabular}
 \end{center}
 \item (2p) What are your conclusions from these results? Which algorithm seems to be the best one, and why?
-\item (2p) Plot the average reward per step for the 500 runs for the worst and best algorithm, such as in Figure 2.2. in \citet{sutton2020reinforcement}. Use the output $R_t$ from your implementations.
+\item (2p) For each environment, choose the best and worst settings using your results from Exercise 1.6. Plot their average reward per step, as in Figure 2.2 in \citet{sutton2020reinforcement}. At each time step, average the rewards across the 500 simulations and plot these 1000 averages. Reuse the rewards $R_t$ already simulated.
+<<learning-curve-hint, eval=FALSE>>=
+# rewards: 1000 rows (steps), 500 columns (simulations)
+average_reward_per_step <- rowMeans(rewards)
+@
 \end{enumerate}
 
 \newpage
