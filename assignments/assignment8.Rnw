@@ -315,6 +315,9 @@ While debugging, start with five simulations. Preallocate the reward matrix and 
 # rewards: 1000 rows (steps), 500 columns (simulations)
 average_reward_per_step <- rowMeans(rewards)
 @
+\begin{hintblock}{Interpreting learning curves}
+Early behaviour reflects initial estimates and exploration: trying actions may reduce immediate reward but reveal better choices. Later, consider exploitation and how quickly estimates adapt to changing rewards. In the non-stationary setting, a rising curve can also reflect action 1's increasing expected reward.
+\end{hintblock}
 \end{enumerate}
 
 \newpage
