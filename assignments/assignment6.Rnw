@@ -250,7 +250,7 @@ theta0 <- list(mu_1 = 4.12, mu_2 = 0.94, sigma_1 = 2, sigma_2 = 2, pi = 0.5)
 \item (1p) Visualize the density for the mixture model above over the interval -6 to 6 (by steps of 0.01).
 \item (1p) Visualize the \texttt{eruptions} variable in the \texttt{faithful} dataset using a histogram.
 \item (1p) Manually choose values for $\mu_1$, $\mu_2$, $\sigma_1$, $\sigma_2$ and $\pi$ that gives a density you think is a good fit for the \texttt{eruptions} variable.
-\item (2p) Implement a function called \texttt{e\_uni\_two\_comp(X, theta)} that returns a  vector of gamma values for each row in \texttt{X} (for component 2).  This function should implement the expectation step in Algorithm 8.1 in \citet{hastie2009elements}. For definition of $\phi$ and $\theta$, see \citet[][, Section 8.5.1]{hastie2009elements}. Subscript in Algorithm 8.1, e.g. in $\theta_2$, indicates the component/cluster.
+\item (2p) Implement \texttt{e\_uni\_two\_comp(X, theta)}. Here \texttt{X} contains $n$ univariate observations in an $n\times 1$ matrix. Return a vector \texttt{gamma} of length $n$, with one responsibility for component 2 per observation. This function should implement the expectation step in Algorithm 8.1 in \citet{hastie2009elements}. For definition of $\phi$ and $\theta$, see \citet[][, Section 8.5.1]{hastie2009elements}. Subscript in Algorithm 8.1, e.g. in $\theta_2$, indicates the component/cluster.
 <<eval = FALSE>>=
 gamma <- e_uni_two_comp(mixture_data, theta0)
 head(gamma)
@@ -283,7 +283,7 @@ theta
 ll_uni_two_comp(mixture_data, theta0)
 ## -43.1055
 @
-\item (2p) Now combine the implemented functions to an EM algorithm \texttt{em\_uni\_two\_comp(X, theta\_0, iter)} that takes in a $n \times p$ data matrix \texttt{X} and an initialization value for as \texttt{theta\_0}. Then the algorithm should be run \texttt{iter} number of iterations. For each iteration print out the log-likelihood value for that current iteration and store the value of $\theta$ for each iteration.
+\item (2p) Combine the functions into \texttt{em\_uni\_two\_comp(X, theta\_0, iter)}. It takes an $n\times 1$ data matrix \texttt{X} and initial parameters \texttt{theta\_0}. Run \texttt{iter} iterations, printing the current log-likelihood and storing $\theta$ for each iteration.
 <<eval = FALSE>>=
 theta_and_gamma_em3 <- em_uni_two_comp(mixture_data, theta0, iter = 3)
 ## Log Lik:  -41.53247
