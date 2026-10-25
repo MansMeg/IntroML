@@ -27,9 +27,15 @@ jobs:
       - uses: r-lib/actions/setup-r@v2
         with:
           r-version: "4.5"
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcurl4-openssl-dev libuv1-dev
       - name: Install markmyassignment
         shell: Rscript {0}
-        run: install.packages("markmyassignment", repos = "https://cloud.r-project.org")
+        run: |
+          install.packages("markmyassignment", repos = "https://cloud.r-project.org")
+          invisible(loadNamespace("markmyassignment"))
       - name: Check local loading
         run: Rscript .github/scripts/check-assignment2-loading.R
       - name: Check loading from the published commit
