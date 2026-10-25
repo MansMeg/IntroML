@@ -205,7 +205,10 @@ We will set the dimensionality of the hidden state to 4 and the output dimension
 <<>>=
 library(uuml)
 data("rnn_example")
+hidden_dim <- 4
 @
+
+\textbf{Hint:} Each row of \texttt{X} contains one token embedding. Use \texttt{drop = FALSE} to preserve a single-row matrix. Within each RNN step, represent the hidden state as a $4\times1$ column matrix, and check that dimensions match before matrix multiplication.
 
 \begin{enumerate}
 \item (2p) We start out by implementing a simple RNN linear unit that takes the parameters \texttt{W}, \texttt{U}, \texttt{b}, the previous hidden state \texttt{h\_t\_minus\_one} and an input embedding \texttt{x\_t} and return the activation input $a_t$. It should work as follows.
@@ -237,6 +240,7 @@ h_t
 ## [4,]  0.9031762
 ##
 @
+\newpage
 \item (1p) As the next step, implement the output function and the softmax function. These functions should work in the following way.
 <<eval=FALSE, >>=
 yhat_t <- softmax(output_rnn(h_t, rnn_example$V, rnn_example$c))
