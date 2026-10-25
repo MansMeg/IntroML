@@ -170,7 +170,7 @@ nonstationary_bandit(1, t = 1000)
 ## [1] 6.593121
 @
 \end{samepage}
-\item (2p) Implement a greedy policy algorithm that always chooses the greedy action, according to Eq. (2.2) in \citet{sutton2020reinforcement}. Use sample-average value estimates. The function called \texttt{greedy\_algorithm(Q1, bandit)} should input a vector of initial estimates $Q_1$ and a reward function. Then the algorithm should run the bandit for 1000 steps and return the following; (1) The rewards $R_t$ for all steps, (2) the mean reward over all the 1000 steps, (3) the value estimates $Q_t(a)$, and (4) the total number of choices of each action $N_t(a)$. Here is an example of how it could work. \emph{Note!} This is a random algorithm so you might get a different result, even if you use the exact same seed and have a correct algorithm.
+\item (2p) Implement a greedy policy algorithm that always chooses the greedy action, according to Eq. (2.2) in \citet{sutton2020reinforcement}. Use sample-average value estimates. The function called \texttt{greedy\_algorithm(Q1, bandit)} should input a vector of initial estimates $Q_1$ and a reward function. Then the algorithm should run the bandit for 1000 steps and return a list containing (1) The rewards $R_t$ for all steps, (2) the mean reward over all the 1000 steps, (3) the value estimates $Q_t(a)$, and (4) the total number of choices of each action $N_t(a)$. Here is an example of how it could work. \emph{Note!} This is a random algorithm so you might get a different result, even if you use the exact same seed and have a correct algorithm.
 All bandit algorithms below should request each reward with \texttt{bandit(a, t = i)}, where \texttt{i} is the current step (1 to 1000); both reward functions accept this call.
 <<greedy-example, eval=FALSE>>=
 Q1 <- rep(0, 5)
@@ -355,7 +355,7 @@ With $p_{\mathrm{high}}=0.5$ and $p_{\mathrm{low}}=0.8$ in the call above:
 \textbf{Search with low energy:} 80\% probability of remaining low with reward 1; 20\% of requiring rescue, returning to high energy with reward $-3$.
 
 }
-\item (2p) Implement \texttt{always\_search\_policy(mdp)} to simulate 1000 actions, starting in state \texttt{high} and always choosing \texttt{search}. Return a list with the mean reward \texttt{R\_bar} and state counts \texttt{Nt}, counting the state before each action. Numerical results may differ from the example below.
+\item (2p) Implement \texttt{always\_search\_policy(mdp)} to simulate 1000 actions, starting in state \texttt{high} and always choosing \texttt{search}. Return a list with mean reward \texttt{R\_bar} and state counts \texttt{Nt}, named \texttt{high} and \texttt{low}. Count the state before each action.
 \begin{samepage}
 <<search-policy-example, eval=FALSE>>=
 set.seed(4711)
@@ -394,7 +394,7 @@ set_assignment(paste("https://github.com/MansMeg/IntroML/",
 @
 
 \begin{enumerate}
-\item (2p) Implement \texttt{ucb\_algorithm(Q1, bandit, c)} using the UCB algorithm. \emph{Hint!} If $N_t(a) = 0$, then $a$ should be considered as the maximizing action (i.e. should be chosen). This can be implemented in slightly different ways, so your output might not match the output below exactly even if the implementation is correct. The example output chooses the first untried arm while any $N_t(a) = 0$ and resolves other ties by choosing the first maximizing action.
+\item (2p) Implement \texttt{ucb\_algorithm(Q1, bandit, c)} using UCB with sample-average value estimates. Use the greedy algorithm's run length and output structure. Choose an untried action whenever any $N_t(a)=0$; otherwise maximize the UCB score. Any tie order is valid. The example chooses the first untried or maximizing action.
 <<ucb-example, eval=FALSE>>=
 set.seed(4711)
 Q1 <- rep(0, 5)
