@@ -111,8 +111,20 @@ We will implement a variational autoencoder in R using \texttt{keras3} and Tenso
 \item Print the model and include it in your report.
 \begin{enumerate}
 \item (1p) How many weights (parameters) are used to compute $\mu$ and $\sigma^2$ for the latent variables?
-\item (1p) What layer represent the latent variables?
-\item (1p) What does the sampling layer do in the model?
+\item (1p) \textbf{Sampling and gradients.} Before training, predict which encoder outputs receive reconstruction gradients with $z=\mu+\sigma\epsilon$ and with $z=\mu$. Run the supplied \texttt{vae\_gradient\_components()} helper with \texttt{sample\_latent = TRUE} and \texttt{FALSE}, keeping batch, noise, weights, and KL unchanged. Report the gradient-norm table for $\mu$ and $\log\sigma^2$ and explain how reconstruction and KL can affect log variance in each case.
+\item (1p) \textbf{KL experiment.} The function below computes $D_{\mathrm{KL}}(q\Vert p)$, comparing the encoder distribution $q=N(\mu,\sigma^2)$ with the prior $p=N(\mu_0,\sigma_0^2)$. Both $\sigma$ and $\sigma_0$ are standard deviations. Keep the prior fixed at $(\mu_0,\sigma_0)=(0,1)$. Predict the ordering for $q$ with $(\mu,\sigma)=(0,1)$, $(2,1)$, and $(0,2)$, then calculate the KL values. Which $q$ is closest to the prior? Why would minimizing only KL fail to reconstruct different images?
+
+\emph{Hint!} For this fixed prior, the function matches the one-dimensional KL term in the sampling layer.
+
+\noindent\begin{minipage}{\linewidth}
+<<eval=FALSE>>=
+kl_normal <- function(mu, sigma, mu_0, sigma_0) {
+  log(sigma_0 / sigma) +
+    (sigma^2 + (mu - mu_0)^2) / (2 * sigma_0^2) - 0.5
+}
+kl_normal(mu = -1, sigma = 0.5, mu_0 = 0, sigma_0 = 1)
+@
+\end{minipage}
 \end{enumerate}
 \item Now train your variational autoencoder on the MNIST data for 50 epochs. Visualize the latent state for the different numbers.
 \begin{enumerate}
