@@ -159,6 +159,7 @@ attention(res$Q, res$K, res$V)
 ## brown 0.3300375 0.3360583 0.3339042
 @
 \item (1p) Interpret the attention weights. What does the second row mean?
+\item (1p) How does the second row of attention weights determine the second row of $Z$?
 \item (2p) Now we have everything in place for implementing it all as a multi-head attention layer. The layer will take in embeddings and then return a 3-dimensional embedding per word. First check your implementation using the three words below.
 <<eval=FALSE>>=
 multi_head_self_attention(X,
@@ -254,6 +255,7 @@ rnn_layer(X,
 ## brown 0.2878002 0.3666877 0.3455121
 @
 \item (1p) Now, what is the value of the hidden state \texttt{h\_t} for the token \texttt{dog}?
+\item (1p) Why would processing only \texttt{dog} give a different hidden state from processing the sentence up to \texttt{dog}?
 \end{enumerate}
 
 \newpage
