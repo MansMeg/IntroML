@@ -53,6 +53,20 @@
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Prob}{\mathbb{P}}
 
+% Highlighted illustrations, separate from the assessed tasks.
+\newcommand{\examplebox}[2]{%
+  \par\medskip\noindent
+  \begingroup
+  \setlength{\fboxsep}{6pt}%
+  \fcolorbox{blue!45!black}{blue!4}{%
+    \begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+    \small\textbf{Example: #1}\hfill{\footnotesize\itshape No submission required}\par\smallskip
+    #2
+    \end{minipage}}%
+  \endgroup
+  \par\medskip
+}
+
 
 
 \begin{document}
