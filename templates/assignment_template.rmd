@@ -20,6 +20,16 @@ Here general information is included that is needed for administrative/course pu
 
 **NOTE!** The assignments will be graded anonymously. **Do not include your name anywhere in the assignment! If the name is included, the assignment will be failed.**
 
+# Oral exam question contribution
+
+For every assignment, include one possible oral exam question of your own together with a short model answer. The question should concern this assignment or its associated reading or lectures, be suitable for a 2-4 minute oral answer, and test conceptual understanding rather than only calculation or code. It must not already be in the [oral exam question list](https://github.com/MansMeg/IntroML/blob/master/oral_exam/oral_exam_q.pdf) or be very close to an existing question, for example by only changing numbers.
+
+**You are not allowed to use large language models, such as ChatGPT, at all for this oral exam question contribution.**
+
+- **Question**: [Write your own oral exam question here.]
+- **Short model answer**: [Write your own model answer here.]
+- **Permission for future use**: [State **Yes** or **No**: may the course staff use or adapt your question and answer in a future oral exam?]
+
 # Introduction
 
 This rmd-file is a template with format instructions for Assignments in the Machine learning course at Uppsala University. R markdown is a convenient way of writing exercise reports by combining text and R code using markdown syntax. To create your assignment, remove the formatting instructions, and use this file as a template. Keep the header (the first lines of this file between two lines of ---). Set the author name to your name, and set the title to match the assignment number.

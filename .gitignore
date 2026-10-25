@@ -6,10 +6,12 @@
 *.nav
 *.synctex.gz
 *.toc
+*.bbl
 *.snm
 *.Rproj
 *.out
 assignments/*.tex
+!assignments/oral_exam_question_contribution.tex
 project/*.tex
 assignments/*.bbl
 TODO.tdl

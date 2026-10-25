@@ -90,6 +90,10 @@ knitr::opts_chunk$set(size = "small")
 
 \newpage
 
+\input{oral_exam_question_contribution.tex}
+
+\newpage
+
 %\section{General Questions}
 
 %\input{general_questions_info.tex}

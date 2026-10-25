@@ -22,11 +22,19 @@ You can find the course schedule on TimeEdit [here](https://www.timeedit.net/uu)
 ## Grading
 The course is graded with U (Underkänd/Fail), G (Godkänd/Pass), VG (väl godkänd/Pass with distinction).
 
-To pass, you should pass all assignments and the mini-project. 
+To pass, you should pass all written assignments, the oral exam for each assignment, and the mini-project.
 
-To get the grade VG on the course, a total of 7 or more VG points is needed. Each assignment has an additional task to complete to get VG on the assignment (and one VG-point). If the final mini-project gets VG, the students are awarded 2 VG points for the mini-project. VG-points will only be awarded on the first deadline of the assignment.
+To get the grade VG on the course, a total of 7 or more VG points is needed. Each assignment has an additional task to complete to get VG on the assignment (and one VG-point). To receive that point, you must also pass the oral exam for the assignment without a failed attempt. Missing an oral examination opportunity does not remove VG eligibility. If the final mini-project gets VG, the students are awarded 2 VG points for the mini-project. The existing first-deadline requirement for the written assignment still applies; the oral exam may be taken at a later examination opportunity.
 
 Note that aiming for VG might mean that you need to put in more hours than the expected 20h per week. 
+
+### Oral exams
+
+Each assignment is additionally examined through an oral exam. You may be examined on one to three assignments per examination session, chosen from the written assignments you have already submitted in Studium. See the [oral exam instructions and questions](oral_exam/oral_exam_q.pdf) for the full rules and all eight assignment question banks.
+
+### Seminars
+
+Optional seminars provide practice in oral explanations and short derivations in groups of three. Before a seminar, choose two questions from the oral exam question list that you find difficult. Take turns as explainer, questioner, and checker, aiming to work through 3–6 questions per group, with help from a TA. See the [seminar instructions (PDF)](seminars/seminar_instructions.pdf) for details.
 
 ### Reassessing grades
 Grades are not subject to appeal. However, a grading decision must be reassessed if it is clearly incorrect. Grades can never be lowered. If students want grades to be reassessed, they should contact the course administration who will distribute a form for reassessment the students have to fill out. 
@@ -102,6 +110,8 @@ The course consists of rougly 8 blocks (weeks) of material. Each week consists o
 
 ### Computer assignments
 Each week an individual computer assignment is done with a focus on implementing the main part of the material. Each assignment is completed individually and should follow the computer assignment template.
+
+Every assignment report must also include **one oral exam question of your own and a short model answer**. The question should concern the assignment or its associated reading or lectures, be suitable for a 2–4 minute oral answer, and test conceptual understanding rather than only calculation or code. It must not already be in the oral exam question list or be very close to an existing question, for example by only changing numbers. **You are not allowed to use large language models, such as ChatGPT, at all for this contribution.** State **Yes** or **No** to whether course staff may use or adapt your question and answer in a future oral exam. See the assignment instructions and [report template](templates/assignment_template.rmd) for the required format.
 
 Students should return the computer assignments no later than **Sunday 23.59 each week**. For a detailed list of deadlines, see the [rough course plan](https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing).
 

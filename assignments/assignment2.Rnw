@@ -91,6 +91,10 @@ knitr::opts_chunk$set(size = "small")
 
 \newpage
 
+\input{oral_exam_question_contribution.tex}
+
+\newpage
+
 \section{Decision Trees}
 
 The dataset \texttt{Hitters} contain data on the salary of Baseball players and additional information on years in the baseball league (\texttt{Years}) and the number of hits (\texttt{Hits}). To access the data, use:

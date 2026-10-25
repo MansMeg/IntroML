@@ -1,0 +1,63 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=0.85in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=black,urlcolor=blue,citecolor=black}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlist[itemize]{leftmargin=*,itemsep=3pt,topsep=3pt}
+\setlist[enumerate]{leftmargin=*,itemsep=3pt,topsep=3pt}
+\begin{document}
+
+\section*{Seminar instructions: practising the oral exam questions}
+\textbf{Machine Learning (2ST129), Uppsala University}\\
+A 45-minute seminar in small groups
+
+\subsection*{Purpose}
+The seminar helps you work through oral exam questions you find difficult, explain your reasoning, and identify gaps in your understanding. You choose the questions from the course's \href{https://github.com/MansMeg/IntroML/blob/master/oral_exam/oral_exam_q.pdf}{oral exam question list}.
+
+The seminar is optional and ungraded, and participation does not count as an oral exam. You do not have to submit the written assignment before attending, although doing so is strongly recommended. See Studium for seminar dates and practical information.
+
+\subsection*{Before the seminar}
+\begin{enumerate}
+\item \textbf{Choose two oral exam questions you find difficult} from material already covered in the course. Note their assignment and question numbers.
+\item Try answering both questions yourself. Identify the concept, derivation step, or interpretation that you cannot yet explain clearly. You do not need complete answers before attending.
+\item Bring the oral question list, your lecture notes, and something to write on. Use the formulas supplied in the question list or relevant course material.
+\end{enumerate}
+
+\subsection*{Group work and rotating roles}
+Work in groups of three. Each person contributes their chosen questions. Start with one question per student, rotating the roles so everyone explains their own chosen question once:
+\begin{itemize}
+\item \textbf{Explainer:} attempt the answer aloud and show intermediate steps. State what you understand and where you get stuck.
+\item \textbf{Questioner:} ask for justification of the steps and assumptions. Help the explainer connect formulas to their meaning and consider how a small change would affect the answer.
+\item \textbf{Checker:} check the reasoning and notation. Consult the course material during the checking phase and record any point the group cannot resolve.
+\end{itemize}
+Everyone first makes an individual attempt, including when someone else selected the question. During discussion, help each other develop an explanation that each person can give in their own words. In pairs, combine questioning and checking. Discuss concepts and questions without sharing your assignment reports or code.
+
+\newpage
+\section*{Working through your questions}
+
+\subsection*{Taking turns}
+Aim to work through \textbf{3--6 questions} during the seminar. Give each student a first turn before moving to a second question from anyone. Agree on a pace that leaves time for everyone to explain and for a closing discussion with the TA.
+
+If several students choose the same question, use the repeated discussion to explain a different difficult step or consider a small variation. Everyone should still take a turn explaining.
+
+\subsection*{Working with derivations}
+When a chosen question involves a derivation, write the starting expression, define the symbols, and justify each step. Check the dimensions and assumptions and explain what the result means. Focus on the step that is difficult to understand. If the question is conceptual, explain the idea and connect it to a simple example.
+
+\subsection*{Getting help and checking your understanding}
+Note any points your group cannot resolve. A TA will visit groups as needed and use the closing discussion to clarify common difficulties. Bring one unresolved point from your group to that discussion.
+
+After the discussion, independently revisit a difficult step without looking at the group's answer, or try a small variation suggested by another student. Check your explanation against the course material or the TA's feedback and identify what is clearer or still uncertain.
+
+\subsection*{Why this format?}
+Smith et al.~\cite{smith2011} found that peer discussion followed by instructor explanation improved performance on related individual concept questions more than either activity alone in two undergraduate genetics courses. Earlier work used related questions to check understanding beyond adopting a peer's answer~\cite{smith2009}. This seminar applies the sequence of \emph{individual attempt, peer explanation and questioning, TA feedback, and individual practice} to machine learning oral questions. The individual retry or variation helps you check what you can now explain for yourself.
+
+{\small
+\bibliographystyle{unsrt}
+\bibliography{references}
+}
+\end{document}
