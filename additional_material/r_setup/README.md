@@ -24,7 +24,7 @@ Install other course packages as directed in the assignments.
 
 ## Google Colab
 
-Open the [course R notebook in Colab](https://colab.research.google.com/github/MansMeg/IntroML/blob/master/additional_material/colab_nb/RandTensorFlow.ipynb), save a copy in Drive, and run its setup cell. It sources the same setup script. Run the installer once per new Colab runtime, then add your R assignment code below. Save your notebook and results in Drive.
+Open [setup_r_colab.ipynb in Colab](https://colab.research.google.com/github/MansMeg/IntroML/blob/master/additional_material/colab_nb/setup_r_colab.ipynb), save a copy in Drive, and run its setup cell. It contains the same two installation commands shown above. Run the small training check to confirm the setup works, then add your R assignment code below. Run the installer once per new Colab runtime. Save your notebook and results in Drive.
 
 ## Automatic check
 

@@ -4,13 +4,13 @@ on:
   push:
     paths:
       - additional_material/r_setup/**
-      - additional_material/colab_nb/RandTensorFlow.ipynb
+      - additional_material/colab_nb/*.ipynb
       - .github/scripts/check-r-setup.R
       - .github/workflows/r-setup.yaml
   pull_request:
     paths:
       - additional_material/r_setup/**
-      - additional_material/colab_nb/RandTensorFlow.ipynb
+      - additional_material/colab_nb/*.ipynb
       - .github/scripts/check-r-setup.R
       - .github/workflows/r-setup.yaml
   workflow_dispatch:
