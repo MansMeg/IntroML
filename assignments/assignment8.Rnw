@@ -54,18 +54,23 @@
 \newcommand{\Prob}{\mathbb{P}}
 
 % Highlighted illustrations, separate from the assessed tasks.
-\newcommand{\examplebox}[2]{%
+% The environment also supports knitr code chunks inside an example.
+\newsavebox{\examplecontent}
+\newenvironment{exampleblock}[1]{%
   \par\medskip\noindent
   \begingroup
   \setlength{\fboxsep}{6pt}%
-  \fcolorbox{blue!45!black}{blue!4}{%
+  \begin{lrbox}{\examplecontent}%
     \begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
     \small\textbf{Example: #1}\hfill{\footnotesize\itshape No submission required}\par\smallskip
-    #2
-    \end{minipage}}%
+}{%
+    \end{minipage}%
+  \end{lrbox}%
+  \fcolorbox{blue!45!black}{blue!4}{\usebox{\examplecontent}}%
   \endgroup
   \par\medskip
 }
+\newcommand{\examplebox}[2]{\begin{exampleblock}{#1}#2\end{exampleblock}}
 
 
 
