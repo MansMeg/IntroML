@@ -136,7 +136,7 @@ Call \texttt{set\_random\_seed(123)} before constructing the model. Train with S
 
 \end{enumerate}
 
-\item (2p) Starting from the baseline, make the following cumulative changes. For each step, use the reporting convention in Task~1.3(d). Try to understand the effect of each change; you may also explore other values. Include the \texttt{keras3} model description only for the \emph{final} network with all changes.
+\item (2p) Make the following cumulative changes. For each variant, reset the seed to 123 before constructing and compiling a new model with fresh weights. Keep 3 epochs, batch size 128, and the same validation split. Report the baseline and all six variants in one comparison table with final-epoch validation accuracy and loss. Include learning curves for the baseline and final variant (reuse Task~1.3(d)), plus the final model description. Give one brief interpretation of each change, including any decrease in performance.
 \begin{enumerate}
 \item Increase the number of hidden units to 128.
 \item Change the activation function to reLU.
