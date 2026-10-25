@@ -310,12 +310,13 @@ y_trainfold1 <- y[fold!=1,]
 y_valfold1 <- y[fold==1,]
 @
 \item (5p) Now implement 10-fold cross-validation on the training data.
-\emph{Hint!} Implement this as function called \texttt{glmnet\_cv()} that takes the \texttt{fold} variable, \texttt{X}, \texttt{y} and \texttt{lambda} and then outputs the RMSE.
+\emph{Hint!} Implement this as \texttt{glmnet\_cv(fold, X, y, lambda)}. Use the supplied ten folds and return one number: the mean of the ten validation-fold RMSEs. Accept either a response vector or a one-column response matrix. Use lasso (\texttt{alpha = 1}) with the default Gaussian family, intercept, and standardisation in \texttt{glmnet()}. Keep the same folds when comparing different values of \texttt{lambda}.
 
 \begin{enumerate}
 \item For each fold, hold out the validation fold and train on the the rest of the training set. See below.
 <<eval=FALSE>>=
-mod <- glmnet(X_trainfold, y_trainfold, alpha = 1, lambda = [different lambda here])
+mod <- glmnet(X_trainfold, y_trainfold,
+              alpha = 1, lambda = lambda)
 pred_y_valfold <- predict(mod, newx = X_valfold)
 @
 \item Use the \texttt{rmse()} function in the \texttt{uuml} R package to compute the root mean squared error (RMSE) for each fold as follows:
@@ -439,9 +440,11 @@ y <- binary$admit
 @
 \begin{enumerate}
 
-\item Implement the Adam mini-batch gradient descent algorithm \citep[see][for details and psuedo-code]{ruder2016overview} and \citep[][ for details]{kingma2014adam} as an R function. Not that in \citet{kingma2014adam}, the stepsize is denoted by $\alpha$.
+\item (2p) Implement the Adam mini-batch gradient descent algorithm \citep[see][for details and psuedo-code]{ruder2016overview} and \citep[][ for details]{kingma2014adam} as an R function. Not that in \citet{kingma2014adam}, the stepsize is denoted by $\alpha$.
 
 \emph{Note!} Each epoch should include all data points. A tip is to order the data points randomly in each iteration.
+
+Use the numerical constant $\epsilon=10^{-8}$ in the denominator. Retain the first and second moments across epochs, and advance the bias-correction step once per mini-batch update.
 
 A boilerplate for the algorithm can be found here.
 <<echo=TRUE,eval=FALSE>>=
@@ -472,8 +475,8 @@ result <- adam(y, X, sample_size = 10, eta = 0.1,
 \item Print the function in your report.
 \item Try different learning parameters $\eta$, $\beta_1$ and $\beta_2$, and run the algorithm for roughly 500 epochs. You should test three different parameters setup. Use the plotting hint above to present your three settings together, showing the following quantities:
 \begin{enumerate}
-\item (2p) The mean negative log-likelihood \texttt{nll(y, X, theta)} evaluated on \emph{all training observations} for the current $\theta$ (y-axis), against epochs (full data iterations, x-axis).
-\item (2p) The value of one $\theta$ parameter of your choice (y-axis) and the epochs (full data iterations, x-axis). Also include the true values you got from using the \texttt{glm()} function above as a horizontal line in the figure.
+\item (1p) The mean negative log-likelihood \texttt{nll(y, X, theta)} evaluated on \emph{all training observations} for the current $\theta$ (y-axis), against epochs (full data iterations, x-axis).
+\item (1p) The value of one $\theta$ parameter of your choice (y-axis) and the epochs (full data iterations, x-axis). Also include the true values you got from using the \texttt{glm()} function above as a horizontal line in the figure.
 \end{enumerate}
 \end{enumerate}
 
