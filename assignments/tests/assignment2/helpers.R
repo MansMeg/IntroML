@@ -9,7 +9,7 @@
          y = c(9, 1, 20, 5, 11, 3, 22, 7),
          fitted = c(10, 2, 21, 6, 10, 2, 21, 6))
   }
-  split <- function(result, X, y, l, best_ss){
+  split <- function(result, X, l, best_ss, optimal_left){
     valid <- is.list(result) && all(c("j", "s", "R1", "R2") %in% names(result))
     testthat::expect_true(valid, info = "Return j, s, R1 and R2 for a valid split.")
     if(!valid) return(invisible(NULL))
@@ -36,12 +36,15 @@
       info = "R1 uses <= and indices relative to the supplied X.")
     testthat::expect_equal(sort(as.integer(right)), which(X[, j] > s),
       info = "R2 uses >; keep equal predictor values in the same child.")
-    ss <- sum((y[left] - mean(y[left]))^2) +
-      sum((y[right] - mean(y[right]))^2)
-    testthat::expect_equal(ss, best_ss, tolerance = 1e-8,
+    # The tiny fixtures supply their optimal partitions; no split-score
+    # implementation is included in the public checking helper.
+    optimal <- any(vapply(optimal_left, function(rows){
+      identical(sort(as.integer(left)), sort(as.integer(rows)))
+    }, logical(1)))
+    testthat::expect_true(optimal,
       info = "Choose a valid split with the smallest total within-child sum of squares.")
     if(!is.null(result$SS)){
-      testthat::expect_equal(as.numeric(result$SS), ss, tolerance = 1e-8,
+      testthat::expect_equal(as.numeric(result$SS), best_ss, tolerance = 1e-8,
         info = "If returned, SS must be the sum of squares for the selected split.")
     }
   }
