@@ -1,0 +1,15 @@
+name: Introduction to Machine Learning - Assignment 2 - VG
+description: Optional checks for bagging and random-feature trees on tiny datasets. No exact random ensemble or test RMSE is required.
+tasks:
+  train_bagged_trees:
+    description: A list of B usable trees, including data with repeated observations.
+    url: test-bagged-training.R
+  predict_with_bagged_trees:
+    description: The average of individual tree predictions, including one new observation.
+    url: test-bagged-prediction.R
+  grow_tree_m:
+    description: All-feature agreement with ordinary trees and one-predictor matrix handling.
+    url: test-grow-tree-m.R
+run_code:
+  before:
+    url: helpers-vg.R
