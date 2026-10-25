@@ -161,7 +161,7 @@ tree_split <- function(X, y, l){
 
 \emph{Hint 1!} You will need to handle ties (i.e. different observations with different values). This should not be a very large problem. In the example code, I choose the 'first' minima as:
 <<echo=TRUE, eval=FALSE>>=
-which(min(SS), arr.ind = TRUE)[1,]
+which(SS == min(SS), arr.ind = TRUE)[1, ]
 @
 
 \emph{Hint 2!} When making a split, if all possible split points for all input variables result in nodes with too few observations, then that node should be made into a leaf node. It is recommended to include this check inside \texttt{tree\_split()}. Otherwise, \texttt{grow\_tree()} (or the functions in the VG task) may get stuck in an infinite loop. If you suspect that your code is looping infinitely, try adding print statements inside \texttt{grow\_tree()} to display the iteration number or the length of S\_m at each step for debugging. This can help you see whether the tree is actually progressing.
@@ -249,7 +249,7 @@ grow_tree <- function(X, y, l=5){
       results <- rbind(results,
                        new_results)
       # Add R1 and R2 to S_m
-      S_m <- c(S_m, R1, R2)
+      S_m <- c(S_m, list(R1), list(R2))
       # Remove the set we just handled
       S_m[[1]] <- NULL
     } else {
