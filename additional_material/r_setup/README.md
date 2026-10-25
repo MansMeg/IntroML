@@ -24,8 +24,22 @@ Install other course packages as directed in the assignments.
 
 ## Google Colab
 
-Open [setup_r_colab.ipynb in Colab](https://colab.research.google.com/github/MansMeg/IntroML/blob/master/additional_material/colab_nb/setup_r_colab.ipynb), save a copy in Drive, and run its setup cell. It contains the same two installation commands shown above. Run the small training check to confirm the setup works, then add your R assignment code below. Run the installer once per new Colab runtime. Save your notebook and results in Drive.
+Open [setup_r_colab.ipynb in Colab](https://colab.research.google.com/github/MansMeg/IntroML/blob/master/additional_material/colab_nb/setup_r_colab.ipynb), save a copy in Drive, and run its setup cell first in a fresh R session:
+
+```r
+install.packages(c("keras3", "tensorflow"), repos = "https://cloud.r-project.org")
+Sys.setenv(RETICULATE_PYTHON = "managed")
+library(keras3)
+library(tensorflow)
+keras3::use_backend("tensorflow")
+```
+
+This uses reticulate's [managed Python environment](https://rstudio.github.io/reticulate/reference/py_require.html#details) to avoid Colab's failing `python -m venv` installation step. Python and its packages are downloaded when the training check first uses them. Run that check and wait for **“PASS: training and prediction work”** before starting the assignment.
+
+If an earlier setup attempt failed, restart the R session before running the new setup cell. Run the cell at the start of each R session; downloads are reused while the runtime keeps them. Save your notebook and results in Drive.
 
 ## Automatic check
 
-[GitHub Actions](../../.github/workflows/r-setup.yaml) installs the packages and trains a tiny model on Linux, Windows, and macOS (Intel and Apple Silicon). The Linux job uses Python 3.13 to check compatibility with Colab's current Python version; this does not test Google's hosted runtime.
+[GitHub Actions](../../.github/workflows/r-setup.yaml) checks the local installer by installing the packages and training a tiny model on Linux, Windows, and macOS (Intel and Apple Silicon).
+
+A separate Linux job runs the Colab notebook's setup and training cells using managed Python. This checks the notebook independently of the local installer. Testing in Google's hosted Colab runtime remains a manual step.
