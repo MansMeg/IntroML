@@ -201,7 +201,15 @@ Rebuild the selected configuration and fit it before evaluating it on the test d
 \end{examplebox}
 
 \newpage
-\item (1p) Load CIFAR-10 using \texttt{dataset\_cifar10()} (see the \href{https://github.com/MansMeg/IntroML/tree/master/additional_material/supplementary_r_files/cnn_example_cifar_10.R}{CIFAR example}). Implement the following CNN as your \emph{baseline}; reuse it in the comparison below.
+\item (1p) Load CIFAR-10 using \texttt{dataset\_cifar10()} (see the \href{https://github.com/MansMeg/IntroML/tree/master/additional_material/supplementary_r_files/cnn_example_cifar_10.R}{CIFAR example}). Visualize one image of your choice together with its class/category.
+
+\emph{Hint!} Display the first unscaled training image as RGB as follows. Change the index 1 to choose another image; use \texttt{max = 1} if you have already scaled the pixels to $[0,1]$.
+<<cifar-image-hint,echo=TRUE,eval=FALSE>>=
+cifar10 <- dataset_cifar10()
+plot(as.raster(cifar10$train$x[1, , , ], max = 255))
+@
+
+\item (1p) Implement the following CNN as your \emph{baseline} for CIFAR-10; reuse it in the comparison below.
 <<>>=
 ## Model: "sequential"
 ## ______________________________________________________________________
@@ -230,13 +238,6 @@ Rebuild the selected configuration and fit it before evaluating it on the test d
 
 @
 \emph{Note!} This problem is more complex than the MNIST problem, so don't be surprised if you get lower accuracy than you got on the MNIST dataset.
-\item (1p) Visualize one image of your choice from the CIFAR dataset together with its class/category.
-
-\emph{Hint!} Display the first unscaled training image as RGB as follows. Change the index 1 to choose another image; use \texttt{max = 1} if you have already scaled the pixels to $[0,1]$.
-<<cifar-image-hint,echo=TRUE,eval=FALSE>>=
-cifar10 <- dataset_cifar10()
-plot(as.raster(cifar10$train$x[1, , , ], max = 255))
-@
 
 \item (1p) Why do we now have 896 parameters in the first convolutional layer?
 \item (2p) Train and compare three CIFAR networks: the baseline above and two variations, each making one motivated change to the baseline (for example, changing the number of filters or adding dropout). Keep the training/validation split, preprocessing, optimizer, learning rate, batch size, and number of epochs fixed. Reuse the baseline run. Include each model's Keras summary and a table of training and validation accuracies at the final epoch. Briefly state your expected effect and explain the observed difference from the baseline; an improvement is not required. Use validation results for the comparison and keep the test data out of model selection. \label{item:three}
