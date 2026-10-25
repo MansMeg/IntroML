@@ -117,7 +117,8 @@ mnist$test$x <- mnist$test$x/255
 <<echo=TRUE,eval=FALSE>>=
 idx <- 3
 im <- mnist$train$x[idx,,]
-# Transpose the image
+# For upright digits, reverse MNIST's top-to-bottom rows to
+# match image()'s upward y-axis, then transpose (columns=x, rows=y).
 im <- t(apply(im, 2, rev))
 image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
         xaxt='n', yaxt='n', main=paste(mnist$train$y[idx]))
