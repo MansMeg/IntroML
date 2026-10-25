@@ -342,6 +342,26 @@ example_string <- paste0(pc_train$quote,
                          pc_train$party, collapse = "\n\n")
 cat(example_string)
 @
+% Typeset the code before passing it to the example-box macro.
+\newsavebox{\promptformattingcode}
+\begin{lrbox}{\promptformattingcode}
+\begin{minipage}{\dimexpr\linewidth-12pt-2\fboxrule\relax}
+<<prompt_formatting_example,eval=FALSE>>=
+prompt <- paste(
+  "Classify the quote. Return only the party label.",
+  paste("Examples:", example_string, sep = "\n"),
+  paste("Quote to classify:", pc_test$quote[1], sep = "\n"),
+  sep = "\n\n"
+)
+cat(prompt)
+@
+\end{minipage}
+\end{lrbox}
+\examplebox{Prompt formatting}{
+\usebox{\promptformattingcode}\par
+\texttt{"\textbackslash n"} starts a new line; \texttt{"\textbackslash n\textbackslash n"} separates blocks with a blank line. Use \texttt{cat(prompt)} to inspect the formatting before sending it.
+}
+
 Use the techniques from \cite[][Section 6.1-6.3]{zhao2023survey} to generate as good prompts as possible to classify weather a quote is from the social democratic or the conservative manifesto.
 
 
