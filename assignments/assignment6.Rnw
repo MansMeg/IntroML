@@ -248,7 +248,7 @@ theta0 <- list(mu_1 = 4.12, mu_2 = 0.94, sigma_1 = 2, sigma_2 = 2, pi = 0.5)
 \emph{Conventions:} Throughout this section, \texttt{theta} contains \texttt{mu\_1}, \texttt{mu\_2}, \texttt{sigma\_1}, \texttt{sigma\_2}, and \texttt{pi}. The sigmas are standard deviations. \texttt{pi} is the mixing weight for component 2, and \texttt{gamma[i]} is the posterior probability that observation $i$ belongs to component 2, given its value and the current parameters.
 
 \begin{enumerate}
-\item (2p) Simulate data from a univariate mixture model by implementing a mixture model as in Eq. 8.36 in \citet{hastie2009elements}. That is, create a hiearchical simulation that first sample $\delta$ for each observation, and then sample $Y_i$ from the relevant component. The function should be called \texttt{r\_uni\_two\_comp(n, theta)} take have the arguments \texttt{n} (the number of observations to simulate) (the number of simulated observations) and \texttt{theta}, an R list with with values \texttt{mu\_1}, \texttt{mu\_2}, \texttt{sigma\_1}, \texttt{sigma\_2}, and \texttt{pi}.
+\item (2p) Implement \texttt{r\_uni\_two\_comp(n, theta)}, returning a numeric vector of length \texttt{n}. For each observation, draw $\delta\sim\operatorname{Bernoulli}(\pi)$. Draw from component 2 when $\delta=1$, and component 1 otherwise, using the means and standard deviations in \texttt{theta}. See Eq. 8.36 in \citet{hastie2009elements}.
 \item (1p) Simulate 200 observations using $\mu_1=-2$, $\mu_2=1.5$, $\sigma_1=2$, $\sigma_2=1$ and $\pi=0.3$. Visualize observations drawn in a histogram.
 \item (2p) Implement a function \texttt{d\_uni\_two\_comp(x, theta)} that computes the density value for a given set of parameters \texttt{theta} for values of \texttt{x}. \emph{Hint!} The function \texttt{dnorm} might be handy.
 \item (1p) Add the theoretical mixture density to the histogram from Question 3.2 over the interval -6 to 6 (by steps of 0.01). Use a density-scaled histogram (\texttt{freq = FALSE} in \texttt{hist}). One combined figure is sufficient for Questions 3.2 and 3.4.
@@ -258,6 +258,7 @@ theta0 <- list(mu_1 = 4.12, mu_2 = 0.94, sigma_1 = 2, sigma_2 = 2, pi = 0.5)
 \item (1p) Choose $\mu_1$, $\mu_2$, $\sigma_1$, $\sigma_2$, and $\pi$, and overlay the resulting density on a density-scaled histogram from Question 3.5. One combined figure is sufficient for Questions 3.5 and 3.6(a).
 \item (1p) Briefly explain how your chosen means, standard deviations, and mixing weight reflect the locations, widths, and relative sizes of the two groups in the data.
 \end{enumerate}
+\newpage
 \item (2p) Implement \texttt{e\_uni\_two\_comp(X, theta)}. Here \texttt{X} contains $n$ univariate observations in an $n\times 1$ matrix. Return a vector \texttt{gamma} of length $n$, with one responsibility for component 2 per observation. This function should implement the expectation step in Algorithm 8.1 in \citet{hastie2009elements}. For definition of $\phi$ and $\theta$, see \citet[][, Section 8.5.1]{hastie2009elements}. Subscript in Algorithm 8.1, e.g. in $\theta_2$, indicates the component/cluster.
 <<eval = FALSE>>=
 gamma <- e_uni_two_comp(mixture_data, theta0)
