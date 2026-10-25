@@ -286,22 +286,24 @@ To get VG on this assignment, you can choose to do this task OR the task using B
 
 \input{distinction_task.tex}
 
+\input{general_keras.tex}
 
 As a first step, we will try using Recurrent Neural Networks on a text classification task. Here Chapter 6 - 6.2 in \citet{chollet2018deep} will be the primary reference.
 
-Start by downloading the IMBD dataset and preprocess it as follows.
+Start by downloading the IMDB dataset and preprocess it as follows.
 
 <<eval=FALSE>>=
 library(tensorflow)
-library(keras)
+library(keras3)
 maxlen <- 500
 imdb <- dataset_imdb(num_words = 10000)
-c(c(input_train, y_train), c(input_test, y_test)) %<-% imdb
-input_train <- pad_sequences(input_train, maxlen = maxlen)
-input_test <- pad_sequences(input_test, maxlen = maxlen)
+input_train <- pad_sequences(imdb$train$x, maxlen = maxlen)
+y_train <- imdb$train$y
+input_test <- pad_sequences(imdb$test$x, maxlen = maxlen)
+y_test <- imdb$test$y
 @
 
-\emph{Note!} Running Keras can be computationally heavy, and I suggest not to run the code in \texttt{markdown}. Instead, run the code in R and copy the results as output (see the assignment template for an example).
+\textbf{Runtime hint:} Use the time taken by the first few epochs to estimate the remaining runtime. The first epoch may include extra setup overhead. These epochs count toward your existing ten-epoch run.
 
 \begin{enumerate}
 \item (2p) Create a simple ordinary neural network for text classification in Keras using an embedding layer of dimension 16 and a hidden layer with 32 hidden states (and an output layer with one unit). Use a validation split of 20\% observations in the validation set and a batch size of 128. Train your network using rmsprop and use binary cross-entropy as the loss function. Print the model and return your validation accuracy after ten epochs. Reuse this data split and training setup for the RNN and LSTM baseline below.
