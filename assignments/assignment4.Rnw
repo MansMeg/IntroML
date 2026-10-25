@@ -125,7 +125,7 @@ mnist$test$x <- mnist$test$x/255
 @
 
 \begin{enumerate}
-\item (1p) As a first step, we visualize a couple of digits. Include the first three you can find in the training dataset in the report as an image.
+\item (1p) Display training observations 1, 2, and 3, with their true digit labels, and include these images in your report.
 <<echo=TRUE,eval=FALSE>>=
 idx <- 1
 im <- mnist$train$x[idx,,]
@@ -286,7 +286,7 @@ maxpool_layer <- function(X){
 
 \begin{enumerate}
 \item (1p) Visualize the MNIST example digit 4.
-\item (3p) Implement a convolution function called \texttt{convolution(X, K)} that takes an input MNIST image (\texttt{X}), an arbitrary large square kernel (\texttt{K}) and returns a valid feature map. Below is an example of how it should work.
+\item (3p) Implement a convolution function called \texttt{convolution(X, K)} that takes an input MNIST image (\texttt{X}), an arbitrary large square kernel (\texttt{K}) and returns a feature map. Use stride 1 and no padding (``valid'' convolution). Below is an example of how it should work.
 <<>>=
 X <- mnist_example[["4"]][12:15,12:15]
 X
