@@ -46,6 +46,66 @@ generator <- keras_model(decoder_input,
                          decoder_mean(decoder_h(decoder_input)),
                          name = "dense_decoder")
 
+# Expose both encoder parameter heads for the loss-inspection exercise.
+encoder_parameters <- keras_model(x, list(z_mean, z_log_var),
+                                   name = "dense_encoder_parameters")
+
+# Evaluate both terms with supplied noise so before/after results are comparable.
+# This is a diagnostic only: it does not update weights or train another model.
+vae_loss_components <- function(images, epsilon, encoder_parameters, generator) {
+  parameters <- predict(encoder_parameters, images, verbose = 0L)
+  mu <- parameters[[1]]
+  log_var <- parameters[[2]]
+  z <- mu + exp(0.5 * log_var) * epsilon
+  reconstructed <- predict(generator, z, verbose = 0L)
+  reconstruction <- ncol(images) * loss_binary_crossentropy(
+    op_array(images, dtype = "float32"),
+    op_array(reconstructed, dtype = "float32")
+  )
+  reconstruction <- mean(as.array(reconstruction))
+  kl <- mean(-0.5 * rowSums(1 + log_var - mu^2 - exp(log_var)))
+  c(reconstruction = reconstruction, kl = kl, total = reconstruction + kl)
+}
+
+# Inspect gradients with respect to the encoder outputs, not its shared weights.
+# This diagnostic never updates weights. Disconnected gradients are shown as 0.
+vae_gradient_components <- function(images, epsilon, encoder_parameters, generator,
+                                    sample_latent = TRUE) {
+  pixel_count <- ncol(images)
+  images <- op_array(images, dtype = "float32")
+  epsilon <- op_array(epsilon, dtype = "float32")
+  parameters <- encoder_parameters(images, training = FALSE)
+  z_mean <- parameters[[1]]
+  z_log_var <- parameters[[2]]
+  with(tf$GradientTape(persistent = TRUE) %as% tape, {
+    tape$watch(list(z_mean, z_log_var))
+    z <- if (sample_latent) {
+      z_mean + op_exp(0.5 * z_log_var) * epsilon
+    } else {
+      z_mean
+    }
+    reconstructed <- generator(z, training = FALSE)
+    reconstruction <- op_mean(pixel_count * loss_binary_crossentropy(images, reconstructed))
+    kl <- op_mean(-0.5 * op_sum(
+      1 + z_log_var - op_square(z_mean) - op_exp(z_log_var), axis = -1L))
+    total <- reconstruction + kl
+  })
+  losses <- list(reconstruction = reconstruction, kl = kl, total = total)
+  gradients <- lapply(losses, function(loss) tape$gradient(loss,
+    list(z_mean, z_log_var)))
+  gradient_norm <- function(g) {
+    if (is.null(g)) return(0)
+    sqrt(sum(as.array(g)^2))
+  }
+  data.frame(
+    mode = if (sample_latent) "sampled" else "mean_only",
+    loss = names(losses),
+    grad_mu = vapply(gradients, function(g) gradient_norm(g[[1]]), numeric(1)),
+    grad_log_var = vapply(gradients, function(g) gradient_norm(g[[2]]), numeric(1)),
+    row.names = NULL
+  )
+}
+
 # Binary cross-entropy is averaged over pixels; multiplying sums over the image.
 recon_loss <- function(x, x_decoded) {
   original_dim * loss_binary_crossentropy(x, x_decoded)
@@ -61,9 +121,30 @@ x_train <- array_reshape(mnist$train$x / 255,
 x_test <- array_reshape(mnist$test$x / 255,
                          c(length(y_test), original_dim), order = "F")
 
+# Save one fixed batch and one fixed draw of noise before the existing fit().
+fixed_batch <- x_train[1:100, , drop = FALSE]
+fixed_noise <- matrix(rnorm(nrow(fixed_batch) * latent_dim), ncol = latent_dim)
+# Compare gradient paths before training, using the same weights and noise.
+gradient_table_before <- rbind(
+  vae_gradient_components(fixed_batch, fixed_noise, encoder_parameters, generator,
+                           sample_latent = TRUE),
+  vae_gradient_components(fixed_batch, fixed_noise, encoder_parameters, generator,
+                           sample_latent = FALSE)
+)
+print(gradient_table_before)
+
+loss_before <- vae_loss_components(fixed_batch, fixed_noise,
+                                   encoder_parameters, generator)
+
 history <- fit(vae, x_train, x_train, shuffle = TRUE, epochs = epochs,
                batch_size = batch_size,
                validation_data = list(x_test, x_test), verbose = 2L)
+
+# Reuse the same images and noise after training; do not run fit() again.
+loss_after <- vae_loss_components(fixed_batch, fixed_noise,
+                                  encoder_parameters, generator)
+loss_table <- rbind(before = loss_before, after = loss_after)
+print(loss_table)
 
 # The encoder returns the mean of each image's latent distribution.
 x_test_encoded <- predict(encoder, x_test, batch_size = batch_size, verbose = 0L)
