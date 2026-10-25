@@ -4,6 +4,7 @@
 \usepackage[latin1]{inputenc}
 \usepackage{hyperref}
 \usepackage{listings}
+\usepackage{enumitem}
 
 \usepackage{xcolor}
 \hypersetup{
@@ -111,8 +112,11 @@ knitr::opts_chunk$set(size = "small")
 \newpage
 
 \section{Basic, Stochastic, and Mini-Batch Gradient Descent}
+\label{sec:gd}
 
 Implement and compare gradient descent methods for logistic regression. See \citet{ruder2016overview} for pseudo-code and details on the algorithms.
+
+Training a neural network follows the same pattern: define a loss, compute its gradients with respect to the weights and biases, and update them using an optimiser such as mini-batch gradient descent or Adam. Logistic regression provides a small model in which you can inspect these steps directly. In later neural-network assignments, libraries use backpropagation to compute the gradients automatically; the learning-rate, batch-size, and regularisation choices explored here remain important.
 
 We are going to work with this data as a test case:
 
@@ -149,7 +153,7 @@ Maximizing the likelihood is equivalent to minimizing the \emph{mean negative lo
 \end{align}
 This is the binary cross-entropy averaged over observations. Both the loss and its gradient use this mean convention; no additional division by $n$ is needed after computing either one.
 
-\begin{enumerate}
+\begin{enumerate}[label=\textbf{\thesubsection\alph*.}, ref=\thesubsection\alph*, leftmargin=*]
 \item (4p) Derive the gradient of the mean negative log-likelihood $\text{NLL}(\theta, \mathbf{y}, \mathbf{X})$ with respect to $\theta$.\\\emph{Hint!} See \citet[Ch. 4.4]{hastie2009elements}.
 \item (2p) Implement \texttt{nll\_grad(y, X, theta)}, returning the mean-loss gradient as a numeric vector in the same order as the columns of \texttt{X}. Include the function code and your actual outputs for the two calls below; compare them with the supplied results to four decimal places.
 <<echo=FALSE,eval=TRUE>>=
@@ -186,7 +190,7 @@ nll(y, X, theta)
 
 For SGD and mini-batch updates, evaluate \texttt{nll\_grad()} on the current observation or mini-batch, averaging over the observations supplied to that call. To monitor training, evaluate \texttt{nll()} on \emph{all training observations} at the end of each epoch, so every algorithm's loss history uses the same scale.
 
-\begin{enumerate}
+\begin{enumerate}[label=\textbf{\thesubsection\alph*.}, ref=\thesubsection\alph*, leftmargin=*]
 \item (1p) Fit logistic regression using \texttt{glm()} with \texttt{family = "binomial"}, and save the model as \texttt{glm\_fit}. Print the three maximum-likelihood parameter estimates.
 
 \emph{Hint!} The design matrix \texttt{X} already includes an intercept so you need to remove that either from \texttt{X} or from the R formula using \texttt{y ~ -1 + X}.
@@ -232,6 +236,8 @@ gradient_descent <- function(y, X, batch_size, eta, epochs){
   return(results)
 }
 @
+\newpage
+
 Once implemented, the same function produces the three histories for Experiment B:
 <<echo=TRUE,eval=FALSE>>=
 full_run <- gradient_descent(y, X, batch_size = nrow(X),
@@ -331,7 +337,7 @@ Both give $X\theta=(1,2)^\top$. For a new row $(1,0,0)$, they predict 1 and 0, r
 }
 
 You should do the following and present the results in your report:
-\begin{enumerate}
+\begin{enumerate}[label=\textbf{\thesection\alph*.}, ref=\thesection\alph*, leftmargin=*]
 \item (1p) Fit a linear model to the training data. What are the results? Why does this happen?
 \item (1p) Use \texttt{glmnet()} function from the \texttt{glmnet} package to fit a linear lasso regression to the training data with $\lambda=1$. How many predictor coefficients are nonzero, excluding the intercept? \emph{Hint!} \texttt{coefficients()}
 \item Split the data into ten folds randomly.
@@ -344,10 +350,12 @@ X_valfold1 <- X[fold==1,]
 y_trainfold1 <- y[fold!=1,]
 y_valfold1 <- y[fold==1,]
 @
+\newpage
+
 \item (5p) Implement 10-fold cross-validation on the training data. Include the function code once and use the $\lambda=1$ result requested below to demonstrate it.
 \emph{Hint!} Implement this as \texttt{glmnet\_cv(fold, X, y, lambda)}. Use the supplied ten folds and return one number: the mean of the ten validation-fold RMSEs. Accept either a response vector or a one-column response matrix. Use lasso (\texttt{alpha = 1}) with the default Gaussian family, intercept, and standardisation in \texttt{glmnet()}. Keep the same folds when comparing different values of \texttt{lambda}.
 
-\begin{enumerate}
+\begin{enumerate}[label=\theenumi.\roman*., ref=\theenumi.\roman*, leftmargin=*]
 \item For each fold, hold out the validation fold and train on the rest of the training set. See below.
 <<eval=FALSE>>=
 mod <- glmnet(X_trainfold, y_trainfold,
@@ -372,7 +380,7 @@ rmse(pred_y_valfold, y_valfold)
 
 For the optional distinction task, complete either this section or Section~\ref{sec:adam}.
 
-Here we use the same data as in task 1 above.
+Reuse the binary-admission data from Section~\ref{sec:gd}.
 
 <<echo=TRUE,eval=FALSE>>=
 library(uuml)
@@ -384,11 +392,11 @@ X <- model.matrix(admit ~ gre_sd + gpa_sd, binary)
 y <- binary$admit
 @
 
-As in task 1, we minimize the mean negative log-likelihood. With a ridge penalty, the loss is
+As in Section~\ref{sec:gd}, we minimize the mean negative log-likelihood. With a ridge penalty, the loss is
 \begin{align}
 \text{NLL}_r(\theta, \mathbf{y}, \mathbf{X}, \lambda) = \text{NLL}(\theta, \mathbf{y}, \mathbf{X}) + \frac{\lambda}{2} \sum_{j=2}^P \theta_j^2\,,
 \end{align}
-where $\text{NLL}$ is the mean negative log-likelihood defined in task 1 and $\lambda \geq 0$. The first column of $\mathbf{X}$ is the intercept column, so $\theta_1$ is excluded from the penalty \citep[see][Ch. 3.4]{hastie2009elements}.
+where $\text{NLL}$ is the mean negative log-likelihood defined in Section~\ref{sec:gd} and $\lambda \geq 0$. The first column of $\mathbf{X}$ is the intercept column, so $\theta_1$ is excluded from the penalty \citep[see][Ch. 3.4]{hastie2009elements}.
 
 \examplebox{The unpenalized intercept}{
 For $\theta=(2,0.4,-0.3)^\top$ (intercept first) and $\lambda=1$, the ridge penalty is
@@ -400,7 +408,7 @@ Changing the intercept from 2 to 20 leaves this penalty unchanged, although the 
 
 This scaling matches the logistic ridge objective in \texttt{glmnet}; changing the likelihood scaling changes the meaning of $\lambda$. More information can be found \href{https://glmnet.stanford.edu/articles/glmnet.html#logistic-regression-family-binomial-}{here}.
 
-\begin{enumerate}
+\begin{enumerate}[label=\textbf{\thesection\alph*.}, ref=\thesection\alph*, leftmargin=*]
 \item (2p) Derive the gradient for $\text{NLL}_r(\theta, \mathbf{y}, \mathbf{X},\lambda)$ with respect to $\theta$.
 \item (1p) Implement the gradient as \texttt{nllr\_grad(y, X, theta, lambda)}. It should return the gradient of $\text{NLL}_r$, including the penalty, with the intercept unpenalized. Include the function code and your actual outputs for the three calls below; compare them with the supplied results to four decimal places.
 <<echo=FALSE,eval=TRUE>>=
@@ -468,7 +476,7 @@ nllr(y, X, theta = c(-1,0.5,0.5), lambda = 1)
 
 For the optional distinction task, complete either this section or Section~\ref{sec:ridge}.
 
-Here we use the same data as in task 1 above.
+Reuse the binary-admission data from Section~\ref{sec:gd}.
 
 <<echo=TRUE,eval=FALSE>>=
 library(uuml)
@@ -479,7 +487,7 @@ binary$gpa_sd <- (binary$gpa - mean(binary$gpa))/sd(binary$gpa)
 X <- model.matrix(admit ~ gre_sd + gpa_sd, binary)
 y <- binary$admit
 @
-\begin{enumerate}
+\begin{enumerate}[label=\textbf{\thesection\alph*.}, ref=\thesection\alph*, leftmargin=*]
 
 \item (2p) Implement the Adam mini-batch gradient descent algorithm \citep[see][for details and psuedo-code]{ruder2016overview} and \citep[][ for details]{kingma2014adam} as an R function. Not that in \citet{kingma2014adam}, the stepsize is denoted by $\alpha$.
 
@@ -540,7 +548,7 @@ Longer gradient memory & 0.01 & 0.99 & 0.999 \\
 \end{center}
 
 Submit \emph{one figure with two panels}, overlaying the three runs and adding the corresponding \texttt{glm()} reference lines. Reuse the plotting hint above to show:
-\begin{enumerate}
+\begin{enumerate}[label=\theenumi.\roman*., ref=\theenumi.\roman*, leftmargin=*]
 \item (1p) Full-training-data mean NLL against epoch.
 \item (1p) One coefficient against epoch.
 \end{enumerate}
