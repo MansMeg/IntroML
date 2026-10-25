@@ -83,6 +83,11 @@ recon_loss <- function(x, x_decoded) {
   x_decoded <- op_reshape(x_decoded, c(-1L, original_dim))
   original_dim * loss_binary_crossentropy(x, x_decoded)
 }
+# Training minimizes reconstruction loss + KL loss.
+# Keras automatically adds the KL term registered by
+# self$add_loss() in the Sampling layer.
+# See the Keras guide on add_loss():
+# https://keras3.posit.co/articles/making_new_layers_and_models_via_subclassing.html
 compile(vae, optimizer = optimizer_rmsprop(learning_rate = 0.0001), loss = recon_loss)
 summary(vae)
 
