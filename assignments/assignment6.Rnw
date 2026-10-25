@@ -116,11 +116,13 @@ For a more indepth description of the datasets, just run \texttt{?iris}, \texttt
 
 We are now going to build a k-means algorithm from scratch.
 
+\emph{Data convention:} Keep cluster labels in \texttt{C}, separate from the measurement columns in \texttt{X}. For the iris experiment, \texttt{X} is $150\times 2$, \texttt{C} has length 150, and \texttt{m} is $3\times 2$.
+
 \begin{enumerate}
 \item (1p) Visualize \texttt{iris} as a scatterplot of \texttt{Sepal.Width} and \texttt{Petal.Width}. Show the three species (the \texttt{Species} variable) using different colors. \emph{Hint!} Use \texttt{ggplot2} and \href{https://ggplot2.tidyverse.org/reference/geom_point.html}{geom\_point}.
 \item (1p) Visualize (for yourself) the \texttt{faithful} data and manually allocate each data point to two different clusters of your choosing based on the \texttt{eruptions} and/or \texttt{waiting} variables.
 \item (1p) Now, visualize the \texttt{faithful} dataset as a scatterplot by \texttt{eruptions} and \texttt{waiting}. Show your manually defined clusters in the Figure using different colors.
-\item (2p) Now, we are going to implement the different parts of the k-means algorithm. This will follow Algorithm 14.1 in \citet{hastie2009elements}. First, implement Step 1 in this algorithm as a function called \texttt{compute\_cluster\_means(X, C)} that takes a $n \times p$ matrix \texttt{X} and a $p \times 1$ vector of cluster assignments called \texttt{C}, where $n$ is the number of rows (observations) and $p$ is the number of variables (columns). The algorithm should output the cluster means of the algorithm as a $K \times p$ matrix, where $K$ is the total number of clusters in \texttt{C}.
+\item (2p) Implement \texttt{compute\_cluster\_means(X, C)} following Step 1 of Algorithm 14.1 in \citet{hastie2009elements}. The inputs are an $n\times p$ measurement matrix \texttt{X} and a length-$n$ vector \texttt{C} of cluster labels $1,\ldots,K$. Return a $K\times p$ matrix \texttt{m}, with row $k$ containing the means for cluster $k$. Do not include a cluster-ID column.
 % Keep the first cluster-means example together.
 \enlargethispage{3\baselineskip}
 <<eval = FALSE>>=
@@ -130,18 +132,18 @@ C <- sample(1:3, nrow(X), replace = TRUE)
 m <- compute_cluster_means(X, C)
 m
 
-##      C eruptions  waiting
-## [1,] 1  3.416354 70.57576
-## [2,] 2  3.571106 71.44706
-## [3,] 3  3.487659 70.72727
+##      eruptions  waiting
+## [1,]  3.416354 70.57576
+## [2,]  3.571106 71.44706
+## [3,]  3.487659 70.72727
 @
-\item (2p) Next, implement the second step in Algorithm 14.1 of \citet{hastie2009elements} and call the function \texttt{compute\_cluster\_encoding(X, m)}. The function should take a $n\times p$ (design) matrix \texttt{X} and a $K\times p$ matrix \texttt{m} with one cluster mean per row. The function should return a $n \times 1$ vector of cluster assignments.
+\item (2p) Next, implement the second step in Algorithm 14.1 of \citet{hastie2009elements} and call the function \texttt{compute\_cluster\_encoding(X, m)}. The function should take an $n\times p$ measurement matrix \texttt{X} and a $K\times p$ matrix \texttt{m} with one cluster mean per row. Return a length-$n$ vector of cluster labels $1,\ldots,K$.
 <<eval=FALSE>>=
 C <- compute_cluster_encoding(X, m)
 C[1:10]
 ## [1] 2 1 2 1 2 1 2 2 1 2
 @
-\item (2p) Now, use \texttt{compute\_cluster\_means(X, C)} and \texttt{compute\_cluster\_encoding(X, m)} to implement Algorithm 14.1 in \citet{hastie2009elements} as \texttt{k\_means(X,K)}. The \texttt{k\_means(X,K)} should take an $n\times p$ matrix \texttt{X} and the number of clusters $K$. The function should return a $n \times 1$ vector of cluster assignments \texttt{C} and a $K \times p$ mean matrix \texttt{m} after the algorithm has run until no cluster assignments change. Randomly initialize the cluster assignments as a part of the algorithm.
+\item (2p) Combine these functions into \texttt{k\_means(X,K)}, taking an $n\times p$ measurement matrix \texttt{X} and the number of clusters $K$. Randomly initialise the cluster labels and iterate until no assignments change. Return a list with \texttt{C} (length $n$) and \texttt{m} ($K\times p$). If any cluster is empty, either initially or after an update, restart the run with new random cluster assignments.
 \item (2p) Implement a function called \texttt{k\_means\_W(X,C)} that computes the k-means within-point scatter (WPS) of Eq. 14.31 in \citet{hastie2009elements}.
 <<eval = FALSE>>=
 set.seed(4711)
