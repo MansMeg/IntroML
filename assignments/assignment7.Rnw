@@ -105,6 +105,13 @@ knitr::opts_chunk$set(size = "small")
 
 \tableofcontents
 
+\medskip
+\textbf{Reading priorities for the basic assignment.}
+\begin{itemize}
+\item \textbf{VAE:} Prioritize \citet[Sections 2.1--2.5]{kingma2019introduction}: encoder/decoder, ELBO (reconstruction and KL terms), and Gaussian reparameterization.
+\item \textbf{Topic models:} Focus on \emph{Using Gibbs Sampling to Discover Topics} in \citet{griffiths2004finding} for the model and sampler. Use \emph{Latent Dirichlet Allocation} in \citet{blei2012probabilistic} for an introductory overview.
+\end{itemize}
+
 \newpage
 
 \input{oral_exam_question_contribution.tex}
@@ -159,8 +166,6 @@ kl_normal(mu = -1, sigma = 0.5, mu_0 = 0, sigma_0 = 1)
 \section{Topic Models}
 
 We will now analyze the classical book Pride and Prejudice by Jane Austen using a probabilistic topic model. If you have not read the book, \href{https://en.wikipedia.org/wiki/Pride_and_Prejudice}{\textbf{here}} you can read up on the story of this classical book.
-
-For this part of the assignment, \citet{griffiths2004finding} is the primary reference. I would also recommend reading \citet{blei2012probabilistic} before starting with this part of the assignment.
 
 We will use a Gibbs sampler to estimate ten different topics occurring in Pride and Prejudice and study where they occur. A tokenized version of the book and a \texttt{data.frame} with stopwords can be loaded as follows:
 
