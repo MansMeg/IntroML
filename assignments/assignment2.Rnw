@@ -39,6 +39,7 @@
 % Paragraph
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\setlength{\emergencystretch}{3em}
 
 % Horizontal line
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
@@ -113,11 +114,15 @@ We are now going to build an algorithm to grow decision trees. The algorithm use
 Hitters <- Hitters[complete.cases(Hitters),]
 
 # Create test and training set
-X_test <- Hitters[1:30, c("Years", "Hits")]
+X_test <- as.matrix(Hitters[1:30, c("Years", "Hits"), drop = FALSE])
 y_test <- Hitters[1:30, c("Salary")]
-X_train <- Hitters[31:nrow(Hitters), c("Years", "Hits")]
+X_train <- as.matrix(Hitters[31:nrow(Hitters), c("Years", "Hits"),
+                             drop = FALSE])
 y_train <- Hitters[31:nrow(Hitters), c("Salary")]
 @
+
+The predictor objects \texttt{X\_train}, \texttt{X\_test}, and the example predictors below are numeric matrices; the responses remain numeric vectors. When selecting rows or columns of a predictor matrix, use \texttt{drop = FALSE} to retain both dimensions, including for one observation or one predictor. For example, use \texttt{X[rows, cols, drop = FALSE]}.
+
 \item (3p) Implement an R function to split observations binary greedily (ignore \texttt{NA} values). Here we use the \citet[][Eq. 9.12-9.14]{hastie2009elements}, but with the addition that we will keep at least $l$ leafs. The function should take a design matrix \texttt{X}, an \texttt{y} variable and a minimal leaf size \texttt{l}. The function should return a list with the index set of the observations in \texttt{R1}, \texttt{R2}, the split value \texttt{s} and the covariate used for the split \texttt{j}. Below is a rough sketch how you can implement the function.
 
 <<echo=TRUE, eval=FALSE>>=
@@ -148,8 +153,8 @@ tree_split <- function(X, y, l){
   R2 <- which(X[,j] > s)
   list(j = j,
        s = s,
-       R1 = R1,
-       R2 = R2,
+       R1 = unname(R1),
+       R2 = unname(R2),
        SS = min(SS))
 }
 @
@@ -185,7 +190,7 @@ tree_split <- function(X,y,l=5){
 
 <<echo=TRUE, eval=TRUE>>=
 # Lets choose a small data to try out our algorithm with
-X_check <- Hitters[31:50, c("Years", "Hits")]
+X_check <- as.matrix(Hitters[31:50, c("Years", "Hits"), drop = FALSE])
 y_check <- Hitters[31:50, c("Salary")]
 # These are the names of the players we look at
 rownames(Hitters)[31:50]
@@ -316,7 +321,7 @@ predict_with_tree <- function(new_data, tree){
 @
 
 <<echo=TRUE,eval=TRUE>>=
-X_new <- Hitters[51:52, c("Years", "Hits")]
+X_new <- as.matrix(Hitters[51:52, c("Years", "Hits"), drop = FALSE])
 X_new
 y_new <- Hitters[51:52, c("Salary")]
 y_new
@@ -348,17 +353,17 @@ data("Hitters")
 Hitters <- Hitters[complete.cases(Hitters),]
 dat_test <- Hitters[1:30, c("Salary","Years", "Hits")]
 dat_train <- Hitters[31:nrow(Hitters), c("Salary","Years", "Hits")]
-Hitters.rf <- randomForest(Salary ~ Years + Hits, data = dat_train)
+X_test <- as.matrix(dat_test[, c("Years", "Hits"), drop = FALSE])
+y_test <- dat_test[, c("Salary")]
+X_train <- as.matrix(dat_train[, c("Years", "Hits"), drop = FALSE])
+y_train <- dat_train[, c("Salary")]
+Hitters.rf <- randomForest(x = X_train, y = y_train)
 @
 \item (1p) How many variables are used at each split. Why do you get this number?
 \item (1p) Use the trained random forest to predict using the \texttt{predict} function at test set and compute the RMSE of your predictions using the \texttt{rmse} function.
-\item (1p) Next, use the \texttt{xgboost} R package to fit a boosted regression tree model to the training data using the \texttt{xgboost} function.
+\item (1p) Next, use the \texttt{xgboost} R package to fit a boosted regression tree model to the training data using the \texttt{xgboost} function. Use the same predictor matrices and response vectors as above.
 <<echo=TRUE,eval=FALSE>>=
-X_test <- dat_test[, c("Years", "Hits")]
-y_test <- dat_test[, c("Salary")]
-X_train <- dat_train[, c("Years", "Hits")]
-y_train <- dat_train[, c("Salary")]
-xgb <- xgboost(as.matrix(X_train), as.matrix(y_train), nrounds = 200)
+xgb <- xgboost(X_train, y_train, nrounds = 200)
 @
 \item (1p) What is the RMSE of the predictions (again using the \texttt{rmse} function) using the boosted regression tree model?
 \item (1p) How does that compare to the random forest regression model?
