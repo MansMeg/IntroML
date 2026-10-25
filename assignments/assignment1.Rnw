@@ -306,79 +306,77 @@ X <- model.matrix(admit ~ gre_sd + gpa_sd, binary)
 y <- binary$admit
 @
 
-In ridge regression we penalize the regression coefficients by $\lambda$. This gives the likelihood function for logistic regression with ridge penalty as
+As in task 1, we minimize a negative log-likelihood. With a ridge penalty, the loss is
 \begin{align}
-l_r(\theta, \mathbf{y}, \mathbf{X}, \lambda) = \frac{1}{n} l(\theta, \mathbf{y}, \mathbf{X}) - \frac{\lambda}{2} \sum_{i=1}^P \theta_i^2\,,
+\text{NLL}_r(\theta, \mathbf{y}, \mathbf{X}, \lambda) = \frac{1}{n} \text{NLL}(\theta, \mathbf{y}, \mathbf{X}) + \frac{\lambda}{2} \sum_{j=2}^P \theta_j^2\,,
 \end{align}
-where $l(\theta, \mathbf{y}, \mathbf{X})$ is defined as in task 1 above. We also want to minimize the negative penalized log likelihood $\text{NLL}_r(\theta, \mathbf{y}, \mathbf{X}, \lambda)=-l_r(\theta, \mathbf{y}, \mathbf{X}, \lambda)$ here as well.
+where $\text{NLL}$ is the total negative log-likelihood defined in task 1, $n$ is the number of observations, and $\lambda \geq 0$. The first column of $\mathbf{X}$ is the intercept column, so $\theta_1$ is excluded from the penalty \citep[see][Ch. 3.4]{hastie2009elements}.
 
-\emph{Note!} In general, we should not regularize the intercept \citep[see ][Ch. 3.4]{hastie2009elements}. Hence below the gradient don't regularize intercept.
-
-\emph{Note!} The objective function above is the one used in the \texttt{glmnet} package. We can define this slightly different (for example not divide $l$ with $n$). This will give different estimates because $\lambda$ will have different meanings. More information on the \texttt{glmnet} objective function can be found \href{https://glmnet.stanford.edu/articles/glmnet.html#logistic-regression-family-binomial-}{here}.
+\emph{Note!} The loss uses the \emph{mean} negative log-likelihood plus the penalty. Do not divide the loss or its gradient by $n$ a second time. This convention matches the logistic ridge objective in \texttt{glmnet}; changing the scaling of the likelihood changes the meaning of $\lambda$. More information can be found \href{https://glmnet.stanford.edu/articles/glmnet.html#logistic-regression-family-binomial-}{here}.
 
 \begin{enumerate}
 \item (2p) Derive the the gradient for $\text{NLL}_r(\theta, \mathbf{y}, \mathbf{X},\lambda)$ with respect to $\theta$.
-\item (1p) Implement the gradient as a function in R. Below are two examples of how it should work. \emph{Note!} \texttt{l\_grad(y, X, theta, lambda)} implemented above return the gradient of $(1/n) l(\theta, \mathbf{y}, \mathbf{X}, \lambda)$. Show that your implementation give the same result as these test cases in your report.
+\item (1p) Implement the gradient as \texttt{nllr\_grad(y, X, theta, lambda)}. It should return the gradient of $\text{NLL}_r$, including the penalty, with the intercept unpenalized. Show that your implementation reproduces the following three test cases to four decimal places in your report.
 <<echo=FALSE,eval=TRUE>>=
-lr_grad <- function(y, X, theta, lambda){
-c("(Intercept)" = -0.1825, "gre_sd" = 0.0857, "gpa_sd" = 0.0829)
+nllr_grad <- function(y, X, theta, lambda){
+c("(Intercept)" = 0.1825, "gre_sd" = -0.0857, "gpa_sd" = -0.0829)
 }
 @
 <<echo=TRUE,eval=TRUE>>=
-lr_grad(y, X, theta = c(0,0,0), lambda = 0)
+nllr_grad(y, X, theta = c(0,0,0), lambda = 0)
 @
 
 <<echo=FALSE,eval=TRUE>>=
-lr_grad <- function(y, X, theta, lambda){
-c("(Intercept)" = -0.1825, "gre_sd" = 0.0857, "gpa_sd" = 0.0829)
+nllr_grad <- function(y, X, theta, lambda){
+c("(Intercept)" = 0.1825, "gre_sd" = -0.0857, "gpa_sd" = -0.0829)
 }
 @
 <<echo=TRUE,eval=TRUE>>=
-lr_grad(y, X, theta = c(0,0,0), lambda = 1)
+nllr_grad(y, X, theta = c(0,0,0), lambda = 1)
 @
 
 <<echo=FALSE,eval=TRUE>>=
-lr_grad <- function(y, X, theta, lambda){
-    c("(Intercept)" = 0.0217, "gre_sd" = -0.5395, "gpa_sd" = -0.5426)
+nllr_grad <- function(y, X, theta, lambda){
+    c("(Intercept)" = -0.0217, "gre_sd" = 0.5395, "gpa_sd" = 0.5426)
 }
 @
 <<echo=TRUE,eval=TRUE>>=
-lr_grad(y, X, theta = c(-1,0.5,0.5), lambda = 1)
+nllr_grad(y, X, theta = c(-1,0.5,0.5), lambda = 1)
 @
-\item (1p) Implement the regularized log-likelihood $l_r$ or the negative log-likelihood $\text{NLL}_r$ in R. \emph{Note!} This differs from the log-likelihood above (where we used the sum over the observations). Show that your implementation give the same result as these test cases in your report.
+\item (1p) Implement the penalized loss $\text{NLL}_r$ as \texttt{nllr(y, X, theta, lambda)}. Show that your implementation reproduces the following three test cases to four decimal places in your report.
 <<echo=FALSE,eval=TRUE>>=
-lr <- function(y, X, theta, lambda){
--0.6931
+nllr <- function(y, X, theta, lambda){
+0.6931
 }
 @
 <<echo=TRUE,eval=TRUE>>=
-lr(y, X, theta = c(0,0,0), lambda = 0)
+nllr(y, X, theta = c(0,0,0), lambda = 0)
 @
 
 <<echo=FALSE,eval=TRUE>>=
-lr <- function(y, X, theta, lambda){
--0.6931
+nllr <- function(y, X, theta, lambda){
+0.6931
 }
 @
 <<echo=TRUE,eval=TRUE>>=
-lr(y, X, theta = c(0,0,0), lambda = 1)
+nllr(y, X, theta = c(0,0,0), lambda = 1)
 @
 
 <<echo=FALSE,eval=TRUE>>=
-lr <- function(y, X, theta, lambda){
--0.8613
+nllr <- function(y, X, theta, lambda){
+0.8613
 }
 @
 <<echo=TRUE,eval=TRUE>>=
-lr(y, X, theta = c(-1,0.5,0.5), lambda = 1)
+nllr(y, X, theta = c(-1,0.5,0.5), lambda = 1)
 @
-\item (1p) Run logistic regression with ridge penalty in R using \texttt{glmnet} estimate of \texttt{theta}. Set \texttt{lambda} to 1 and \texttt{alpha} to 0 to run a penalized logistic regression. You also need to remove the intercept from \texttt{X}.
-\item (2p) Implement the following gradient descent algorithms for the penalized logistic objective:
+\item (1p) Use \texttt{glmnet} to estimate \texttt{theta} for logistic ridge regression. Set \texttt{family = "binomial"}, \texttt{lambda = 1}, \texttt{alpha = 0}, and \texttt{standardize = FALSE} so the fit uses the same loss as your implementation on the already standardized predictors. Remove the intercept column from \texttt{X} when calling \texttt{glmnet}, and retain its default \texttt{intercept = TRUE} so it estimates an unpenalized intercept.
+\item (2p) Implement the following gradient descent algorithms to minimize $\text{NLL}_r$. Use \texttt{nllr\_grad} and subtract the gradient in each update:
 \begin{enumerate}
 \item ordinary (full or batch) gradient descent
 \item mini-batch (stochastic) gradient descent using ten samples to estimate the gradient
 \end{enumerate}
-\item (2p) Try different learning parameters $\eta$ and $\lambda$. When does the algorithm converge or diverge? Visualize the iterations (x-axis) and the log-likelihood (y-axis). Show at least one plot per algorithm that converges.
+\item (2p) Try different learning parameters $\eta$ and $\lambda$. When does the algorithm converge or diverge? Visualize the epochs (x-axis) and the penalized loss $\text{NLL}_r$ evaluated on all observations (y-axis). Show at least one plot per algorithm that converges.
 \end{enumerate}
 
 \newpage
