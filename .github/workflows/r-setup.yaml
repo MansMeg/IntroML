@@ -20,12 +20,22 @@ permissions:
 
 jobs:
   setup:
+    name: ${{ matrix.os }} / Python ${{ matrix.python }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, windows-2025, macos-15, macos-15-intel]
+        include:
+          - os: ubuntu-24.04
+            python: "3.13"
+          - os: windows-2025
+            python: "3.13"
+          - os: macos-15
+            python: "3.13"
+          # TensorFlow's Intel Mac wheels require an older Python.
+          - os: macos-15-intel
+            python: "3.11"
     env:
       TF_NUM_INTRAOP_THREADS: "2"
       TF_NUM_INTEROP_THREADS: "2"
@@ -40,6 +50,10 @@ jobs:
           r-version: "4.5"
           use-public-rspm: false
 
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python }}
+
       - name: Install Linux build dependency
         if: runner.os == 'Linux'
         run: |
@@ -48,4 +62,6 @@ jobs:
 
       - name: Install and check Keras and TensorFlow
         shell: Rscript {0}
-        run: source(".github/scripts/check-r-setup.R")
+        run: |
+          options(reticulate.virtualenv.starter = Sys.getenv("pythonLocation"))
+          source(".github/scripts/check-r-setup.R")
