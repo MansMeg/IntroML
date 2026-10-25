@@ -113,6 +113,8 @@ knitr::opts_chunk$set(size = "small")
 
 In this assignment, we will implement a multi-head attention transformer layer. These layers are currently used within all transformer-based models, such as GPT and different BERT models. A good read for this assignment is the Illustrated transformer by Jay Alammar, which you can find [here](http://jalammar.github.io/illustrated-transformer/).
 
+Text models map tokens to embeddings, combine context, and use the resulting representations to predict classes or tokens. Our attention layer builds contextual representations and is one component of a full transformer such as BERT. RNNs illustrate how the same learned update carries context through a sequence, and the VG tasks connect these representations to text classification.
+
 Start by loading the parameters that we are going to use for the implementation as follows.
 <<>>=
 library(uuml)
@@ -322,7 +324,7 @@ Keras groups several mathematical parameters into a single layer's count. The \t
 \item (1p) Now, explain the role of the parameters $V$ (see Goodfellow et al., 2017 Section 10.2). How many parameters are included in $V$, and where are they included in the Keras output?
 \item (1p) Implement an LSTM baseline with 32 hidden units and \texttt{dropout = 0}, using the same embedding dimension and training setup as above. Print your model and validation accuracy.
 \item (1p) Starting from your LSTM baseline, design and test two modifications of your choice. Before training, explain what you expect each modification to change and why. Change one aspect at a time, keeping the data split and other settings fixed. Include the model summaries and a compact table of validation accuracy and training time for all three models. Discuss whether the results support your expectations. Improved accuracy is not required for full credit.
-\item (1p) Reason why we cannot get as good performance as with the MNIST dataset. Is the problem bias, variance, or the Bayes error? Why?
+\item (1p) Using training and validation performance, discuss evidence of underfitting or overfitting. Can these results indicate the Bayes error? Explain.
 \end{enumerate}
 
 
