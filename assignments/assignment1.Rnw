@@ -491,9 +491,16 @@ y <- binary$admit
 
 Use the numerical constant $\epsilon=10^{-8}$ in the denominator. Retain the first and second moments across epochs, and advance the bias-correction step once per mini-batch update.
 
-\examplebox{Adam's update counter}{
-With five observations and batch size 2, each epoch has three updates: epoch 1 uses $t=1,2,3$; epoch 2 uses $t=4,5,6$. The update counter $t$ and both moments continue across epochs. Initialize them to zero only when starting a new run.
+\examplebox{Which counter goes in the bias correction?}{
+Adam corrects for zero initialization of the moments using
+\[
+\hat m_t=\frac{m_t}{1-\beta_1^t},\qquad
+\hat v_t=\frac{v_t}{1-\beta_2^t}.
+\]
+Here $t$ counts mini-batch updates of the whole parameter vector. With 400 observations and batch size 10, epoch 1 uses $t=1,\ldots,40$; the first update of epoch 2 uses $t=41$, not 2. Carry the counter and moments across epochs; initialize them to zero only for a new run.
 }
+
+\newpage
 
 A boilerplate for the algorithm can be found here.
 <<echo=TRUE,eval=FALSE>>=
