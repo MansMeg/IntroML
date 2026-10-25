@@ -111,6 +111,14 @@ knitr::opts_chunk$set(size = "small")
 
 \tableofcontents
 
+\bigskip
+\newcommand{\assignmentTestFile}{assignment8/assignment8.yml}
+\input{mma_instruction.tex}
+
+Run your function definitions first; use the task-specific checks below as you implement them. The checks do not assess your simulation experiments.
+
+The checks use fixed rewards, deterministic transitions, or properties that hold for any sampled action. They do not require the same random choices as the examples. Different correct implementations can consume random numbers or break ties differently, so their outputs can differ even with the same seed.
+
 \newpage
 
 \input{oral_exam_question_contribution.tex}
@@ -195,6 +203,9 @@ greedy_algorithm(Q1, nonstationary_bandit)
 ## $Rt
 ## [1] -1.1702649  2.5704395  2.3963182  0.7931208 ...
 @
+
+\emph{Check:} \verb|mark_my_assignment(tasks = "greedy_algorithm")|
+
 \begin{hintblock}{Checking returned results}
 Check the number of rewards, total action count, and reported mean:
 <<result-check-hint, eval=FALSE>>=
@@ -240,6 +251,9 @@ epsilon_algorithm(Q1, nonstationary_bandit, 0.1)
 ## $Rt
 ## [1] -2.8374824  2.3963182  0.2135086  2.0175494 ...
 @
+
+\emph{Check:} \verb|mark_my_assignment(tasks = "epsilon_algorithm")|
+
 \item (2p) Implement constant-step $\epsilon$-greedy updates, as in Eq. (2.5) in \citet{sutton2020reinforcement}, as \texttt{nonstationary\_algorithm(Q1, bandit, epsilon, alpha)}. Return the same output structure as the greedy algorithm.
 <<constant-step-example, eval=FALSE>>=
 set.seed(4711)
@@ -274,6 +288,9 @@ nonstationary_algorithm(Q1, nonstationary_bandit, epsilon = 0.1,
 ## $Rt
 ## [1] -2.8374824  2.3963182  0.2135086  2.0175494 ...
 @
+
+\emph{Check:} \verb|mark_my_assignment(tasks = "nonstationary_algorithm")|
+
 
 \item (2p) Evaluate each setting below with both the stationary and non-stationary bandit. Use $Q_1(a)=0$ throughout. Run 500 simulations per combination, with 1000 steps per simulation. Report the average of the 500 simulation mean rewards in a table with four setting rows and two environment columns: eight results in total.
 
@@ -348,7 +365,13 @@ always_search_policy(mdp)
 ## [1] 0.452
 @
 \end{samepage}
+
+\emph{Check:} \verb|mark_my_assignment(tasks = "always_search_policy")|
+
 \item (2p) Implement \texttt{charge\_when\_low\_policy(mdp)} using the same initial state, run length, and output structure. Choose \texttt{recharge} when energy is low and \texttt{search} when it is high.
+
+\emph{Check:} \verb|mark_my_assignment(tasks = "charge_when_low_policy")|
+
 \item (2p) Compare the two policies for MDP with $p_{\mathrm{high}} = p_{\mathrm{low}} = 0.9$ and $p_{\mathrm{high}} = p_{\mathrm{low}} = 0.4$ with $r_\text{wait} = 0.1 \text{ and } r_\text{search} = 1$. Run at least ten times per policy in each MDP and compute the mean reward. Which policy performs better in each MDP?
 \end{enumerate}
 
@@ -359,6 +382,13 @@ always_search_policy(mdp)
 \input{distinction_task.tex}
 
 We are here going to implement two additional bandits and compare them to the previous implementations above.
+
+Select the VG checks before checking these functions:
+<<mma-vg-setup, eval=FALSE>>=
+set_assignment(paste("https://github.com/MansMeg/IntroML/",
+                     "blob/master/assignments/tests/assignment8/",
+                     "assignment8-vg.yml", sep = ""))
+@
 
 \begin{enumerate}
 \item (2p) Implement \texttt{ucb\_algorithm(Q1, bandit, c)} using the UCB algorithm. \emph{Hint!} If $N_t(a) = 0$, then $a$ should be considered as the maximizing action (i.e. should be chosen). This can be implemented in slightly different ways, so your output might not match the output below exactly even if the implementation is correct. The example output chooses the first untried arm while any $N_t(a) = 0$ and resolves other ties by choosing the first maximizing action.
@@ -393,6 +423,9 @@ ucb_algorithm(Q1, stationary_bandit, c = 2)
 ## $Rt
 ## [1]  1.98183569  1.12125661  0.92862700 -0.01161757 ...
 @
+
+\emph{Check:} \verb|mark_my_assignment(tasks = "ucb_algorithm")|
+
 \item (2p) Implement \texttt{gradient\_bandit\_algorithm(bandit, alpha)} using the gradient bandit algorithm. Initialize all $H_1(a) = 0$. Use the mean of previous rewards as the baseline and skip the preference update on the first step. Return the same output structure as the greedy algorithm, replacing \texttt{Qt} with the final preferences \texttt{Ht} and action probabilities \texttt{pit}.
 \examplebox{Updating action preferences}{
 After the first reward of 1, preferences remain zero, so each action has probability $0.2$. Suppose the second reward is 3 and $\alpha=0.1$. The baseline is 1, giving an advantage of $3-1=2$:
@@ -439,6 +472,9 @@ gradient_bandit_algorithm(stationary_bandit, alpha = 0.1)
 ## $Rt
 ## [1]  0.62963402  0.94862700 -0.30089716  0.08850766 ...
 @
+
+\emph{Check:} \verb|mark_my_assignment(tasks = "gradient_bandit_algorithm")|
+
 \item (2p) Run the gradient bandit with $\alpha=0$. Inspect the preferences \texttt{Ht}, action probabilities \texttt{pit}, and mean reward \texttt{R\_bar}. Which quantities remain unchanged? Does the agent still receive rewards?
 \enlargethispage{2\baselineskip}
 \item (2p) Compare UCB with $c=0.5$ and $c=2$ and the gradient bandit with $\alpha=0.1$ and $\alpha=1$ in both environments. Use $Q_1(a)=0$ for UCB. Run 500 simulations of 1000 steps per combination and report the average of the simulation mean rewards: eight results in total. Compare with Exercise 1.6. Which setting performs best in each environment?
