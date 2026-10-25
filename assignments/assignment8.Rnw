@@ -102,49 +102,43 @@ knitr::opts_chunk$set(size = "small")
 In the first part, we will study the $k$-armed bandit problems more in detail.
 
 \begin{enumerate}
-\item (2p) Implement a stationary 5-armed bandit reward function that generates a reward $R$ for a given category according to a true underlying (stationary) reward. Implement a function \texttt{stationary\_bandit(a)} that takes an action $\mathcal{A} = (1,...,5)$. The reward function should return a reward according to
+\item (2p) Implement a stationary 5-armed bandit reward function that generates a reward $R$ for a given category according to a true underlying (stationary) reward. Implement a function \texttt{stationary\_bandit(a, t = NULL)} that takes an action $\mathcal{A} = (1,...,5)$ and ignores the optional time argument \texttt{t}. The reward function should return a reward according to
 \[
 R \sim N(q^\star_a, 1)\,,
 \]
 where $q^\star=(1.62, 1.20, 0.70, 0.72, 2.03)$. Below is an example of how it \emph{could} work. Note that since the function returns a random value, you might get a different result, and it might still be a correct implementation. However, to test, you can run your bandit 1000 times and take the mean (see below). Then you should be close to $q^\star$ if your implementation is correct.
-<<echo=FALSE>>=
-stationary_bandit<- function(a){
-  if(a == 1) return(2.99044)
-  if(a == 2) return(3.019735)
-  if(a == 3) return(0.6819202)
-}
-<<>>=
+<<stationary-example, eval=FALSE>>=
 set.seed(4711)
 stationary_bandit(2)
+## [1] 3.019735
 stationary_bandit(1)
+## [1] 2.99044
 R <- numeric(1000)
-for(i in 1:1000){
-  R[i] <- stationary_bandit(3)
+for (i in 1:1000) {
+    R[i] <- stationary_bandit(3)
 }
 mean(R)
+## [1] 0.6819202
 @
 \item (2p) Also, we will also implement a non-stationary reward function. For all actions $\mathcal{A} = (2,...,5)$ the non-stationary should work as the stationary reward function. Although for action $a=1$, the function should return a reward based on the iteration according to
 \[
 R \sim N(-3 + 0.01t, 1)\,.
 \]
 Implement the reward function as \texttt{nonstationary\_bandit(a, t)} and it should work as follows. Again, note that these are random values, you might have another (correct) solution giving different results.
-<<echo=FALSE>>=
-nonstationary_bandit<- function(a, t){
-  if(a == 1 & t == 1) return(-1.793682)
-  if(a == 1 & t == 1000) return(6.593121)
-  if(a == 2 & t == 1) return(3.019735)
-  if(a == 2 & t == 1000) return(2.57044)
-}
-@
-<<>>=
+<<nonstationary-example, eval=FALSE>>=
 set.seed(4711)
 nonstationary_bandit(2, t = 1)
+## [1] 3.019735
 nonstationary_bandit(2, t = 1000)
+## [1] 2.57044
 nonstationary_bandit(1, t = 1)
+## [1] -1.793682
 nonstationary_bandit(1, t = 1000)
+## [1] 6.593121
 @
 \item (2p) Implement a greedy policy algorithm that always chooses the greedy action, according to Eq. (2.2) in \citet{sutton2020reinforcement}. The function called \texttt{greedy\_algorithm(Q1, bandit)} should input a vector of initial estimates $Q_1$ and a reward function. Then the algorithm should run the bandit for 1000 steps and return the following; (1) The rewards $R_t$ for all steps, (2) the mean reward over all the 1000 steps, (3) the value estimates $Q_t(a)$, and (4) the total number of choices of each action $N_t(a)$. Here is an example of how it could work. \emph{Note!} This is a random algorithm so you might get a different result, even if you use the exact same seed and have a correct algorithm.
-<<eval = FALSE>>=
+All bandit algorithms below should request each reward with \texttt{bandit(a, t = i)}, where \texttt{i} is the current step (1 to 1000); both reward functions accept this call.
+<<greedy-example, eval=FALSE>>=
 Q1 <- rep(0, 5)
 set.seed(4711)
 greedy_algorithm(Q1, stationary_bandit)
@@ -158,7 +152,7 @@ greedy_algorithm(Q1, stationary_bandit)
 ## [1] 1.602744
 ##
 ## $Rt
-## [1]  3.439735114  2.990439504  2.816318235  1.213120797 ...
+## [1] 3.439735 2.990440 2.816318 1.213121 ...
 
 set.seed(4711)
 Q1 <- rep(0, 5)
@@ -167,16 +161,16 @@ greedy_algorithm(Q1, nonstationary_bandit)
 ## [1] -1.170265  1.180905  0.000000  0.000000  0.000000
 ##
 ## $Nt
-## [1] 1 999   0   0   0
+## [1]   1 999   0   0   0
 ##
 ## $R_bar
 ## [1] 1.178554
 ##
 ## $Rt
-## [1]  -1.170264886  2.570439504  2.396318235  0.793120797 ...
+## [1] -1.1702649  2.5704395  2.3963182  0.7931208 ...
 @
 \item (2p) Similarly, implement the $\epsilon$-bandit algorithm that takes an additional argument $\epsilon$ that is the probability that the algorithm instead takes makes an explorative action. Implement this algorithm as \texttt{epsilon\_algorithm(Q1, bandit, epsilon)}, note that it should return the same output structure as the greedy algorithm. It is also clear that the randomness of the exploration can give quite some different results in different runs.
-<<eval = FALSE>>=
+<<epsilon-example, eval=FALSE>>=
 set.seed(4711)
 Q1 <- rep(0, 5)
 epsilon_algorithm(Q1, stationary_bandit, 0.1)
@@ -190,7 +184,7 @@ epsilon_algorithm(Q1, stationary_bandit, 0.1)
 ## [1] 1.867178
 ##
 ## $Rt
-## [1]  1.77251764  2.81631824  0.63350863  2.01754941 ...
+## [1] 1.7725176 2.8163182 0.6335086 2.0175494 ...
 
 set.seed(4711)
 Q1 <- rep(0, 5)
@@ -205,13 +199,14 @@ epsilon_algorithm(Q1, nonstationary_bandit, 0.1)
 ## [1] 1.834438
 ##
 ## $Rt
-## [1]  -2.83748236  2.39631824  0.21350863  2.01754941 ...
+## [1] -2.8374824  2.3963182  0.2135086  2.0175494 ...
 @
 \item (2p) Now implement the non-stationary bandit algorithm in a similar way with parameter $\alpha$ as \texttt{nonstationary\_algorithm(Q1, bandit, epsilon, alpha)}.
-<<eval = FALSE>>=
+<<constant-step-example, eval=FALSE>>=
 set.seed(4711)
 Q1 <- rep(0, 5)
-nonstationary_algorithm(Q1, stationary_bandit, epsilon = 0.1, alpha = 0.2)
+nonstationary_algorithm(Q1, stationary_bandit, epsilon = 0.1,
+    alpha = 0.2)
 ## $Qt
 ## [1] 1.414101 1.293336 1.237085 0.517214 2.134716
 ##
@@ -222,11 +217,12 @@ nonstationary_algorithm(Q1, stationary_bandit, epsilon = 0.1, alpha = 0.2)
 ## [1] 1.840128
 ##
 ## $Rt
-## [1] 1.77251764  2.81631824  0.63350863  2.01754941 ...
+## [1] 1.7725176 2.8163182 0.6335086 2.0175494 ...
 
 set.seed(4711)
 Q1 <- rep(0, 5)
-nonstationary_algorithm(Q1, nonstationary_bandit, epsilon =  0.1, alpha = 0.2)
+nonstationary_algorithm(Q1, nonstationary_bandit, epsilon = 0.1,
+    alpha = 0.2)
 ## $Qt
 ## [1] 7.055805 1.287957 1.243996 0.517214 2.569759
 ##
@@ -237,7 +233,7 @@ nonstationary_algorithm(Q1, nonstationary_bandit, epsilon =  0.1, alpha = 0.2)
 ## [1] 2.818588
 ##
 ## $Rt
-## [1] -2.83748236  2.39631824  0.21350863  2.01754941 ...
+## [1] -2.8374824  2.3963182  0.2135086  2.0175494 ...
 @
 
 \item (2p) Run 500 simulations of each algorithm and compute the mean of the mean rewards for each algorithm for both the stationary and non-stationary bandits. Do this for the greedy, the $\epsilon$-algorithm, and the non-stationary algorithm. Try both $\alpha=0.5$ and $\alpha=0.9$ for the non-stationary algorithm. For both the non-stationary and the $\epsilon$-algorithm, use $\epsilon=0.1$. Summarize all the results in a table. You should have eight different results (four per bandit and two per algorithm).
@@ -254,18 +250,30 @@ nonstationary_algorithm(Q1, nonstationary_bandit, epsilon =  0.1, alpha = 0.2)
 Now we are going to implement a Markov Decision Process (MDP) where the agent makes a decision, $A_t$ based on the current state $S_t$ and a reward $R_t$ that will, in turn, return a new state $S_{t+1}$ and a reward $R_{t+1}$. In this part of the assignment, we are going to use the recycling robot example \citep[Example 3.3 in ][]{sutton2020reinforcement}.
 
 \begin{enumerate}
-\item The MDP in \citet{sutton2020reinforcement} has been implemented as a function \texttt{recycling\_mdp(alpha, beta, r\_wait, r\_search)} in the \texttt{uuml} R package and can be accessed as follows.
-<<>>=
+\item Use \texttt{recycling\_mdp(alpha, beta, r\_wait, r\_search)} in the \texttt{uuml} R package to access the MDP in \citet{sutton2020reinforcement}:
+<<mdp-example, eval=FALSE>>=
 library(uuml)
-recycling_mdp(0.5, 0.8, 0.1, 1)
+mdp <- recycling_mdp(0.5, 0.8, 0.1, 1)
+mdp
+##       s s_next        a p_s_next r_s_a_s_next
+## 1  high   high   search      0.5          1.0
+## 2  high    low   search      0.5          1.0
+## 3   low   high   search      0.2         -3.0
+## 4   low    low   search      0.8          1.0
+## 5  high   high     wait      1.0          0.1
+## 6  high    low     wait      0.0          0.1
+## 7   low   high     wait      0.0          0.1
+## 8   low    low     wait      1.0          0.1
+## 9   low   high recharge      1.0          0.0
+## 10  low    low recharge      0.0          0.0
 @
 \item (2p) Now implement a function \texttt{always\_search\_policy(MDP)} that takes an MPD specified above and run the MDP for 1000 steps/actions. The policy should be that the agent always chooses to search, irrespective of the state. The function should return the return divided by the number of time steps and times in each state. The robot should start in the state \texttt{high}. Below is an example of how it should work. Note again, since this is a random algorithm, you might get a slightly different answer.
-<<eval=FALSE>>=
+<<search-policy-example, eval=FALSE>>=
 set.seed(4711)
 always_search_policy(mdp)
 ## $Nt
-## high low
-## 288  712
+## high  low
+##  288  712
 ##
 ## $R_bar
 ## [1] 0.452
@@ -283,48 +291,47 @@ always_search_policy(mdp)
 We are here going to implement two additional bandits and compare them to the previous implementations above.
 
 \begin{enumerate}
-\item (2p) Implement the UCB algorithm as a function called \texttt{ucb\_algorithm(Q1, bandit, c)}. \emph{Hint!} If $N_t(a) = 0$, then $a$ should be considered as the maximizing action (i.e. should be chosen). This can be implemented in slightly different ways, so your output might not match the output below exactly even if the implementation is correct. The example output is based on choosing each arm randomly as long as any $N_t(a) = 0$.
-<<eval = FALSE>>=
+\item (2p) Implement \texttt{ucb\_algorithm(Q1, bandit, c)} using the UCB algorithm. \emph{Hint!} If $N_t(a) = 0$, then $a$ should be considered as the maximizing action (i.e. should be chosen). This can be implemented in slightly different ways, so your output might not match the output below exactly even if the implementation is correct. The example output chooses the first untried arm while any $N_t(a) = 0$ and resolves other ties by choosing the first maximizing action.
+<<ucb-example, eval=FALSE>>=
 set.seed(4711)
 Q1 <- rep(0, 5)
 ucb_algorithm(Q1, stationary_bandit, c = 2)
 ## $Qt
-## [1]  1.4792328 1.0928462 0.8417744 0.8360722 1.9867061
+## [1]  1.43350715  1.09734192 -0.01287212  0.64762674  2.02954004
 ##
 ## $Nt
-## [1]  64 26 16 17 877
+## [1]  48  26   6  13 907
 ##
 ## $R_bar
-## [1] 1.893108
+## [1] 1.946474
 ##
 ## $Rt
-## [1]  1.3525176 1.9163182 0.6335086 ...
+## [1] 3.4397351 2.5704395 1.8963182 0.3131208 ...
 
 set.seed(4712)
 Q1 <- rep(0, 5)
 ucb_algorithm(Q1, stationary_bandit, c = 2)
-
 ## $Qt
-## [1] 1.5993426 0.9645111 0.4399236 0.6868328 1.9736659
+## [1] 1.4367906 1.0364514 0.4346884 0.4140891 1.9864393
 ##
 ## $Nt
-## [1]  98 21 10 14 857
+## [1]  57  24  11  10 898
 ##
 ## $R_bar
-## [1] 1.882437
+## [1] 1.899517
 ##
 ## $Rt
-## [1]  -0.200366 1.848627 -0.2808972 ...
+## [1]  1.98183569  1.12125661  0.92862700 -0.01161757 ...
 @
-\item (2p) Implement the gradient bandit algorithm as a function called \texttt{gradient\_bandit\_algorithm(bandit, alpha)}. Initialize all $H_t(a) = 1$. The algorithm should print the final preference and the probability of each action instead of $Q_t$.
-<<eval = FALSE>>=
+\item (2p) Implement \texttt{gradient\_bandit\_algorithm(bandit, alpha)} using the gradient bandit algorithm. Initialize all $H_1(a) = 0$. Use the mean of previous rewards as the baseline and skip the preference update on the first step. Return the same output structure as the greedy algorithm, replacing \texttt{Qt} with the final preferences \texttt{Ht} and action probabilities \texttt{pit}.
+<<gradient-example, eval=FALSE>>=
 set.seed(4711)
 gradient_bandit_algorithm(stationary_bandit, alpha = 0.1)
 ## $Ht
 ## [1] -0.4771226 -1.0045831 -1.7018038 -1.7427317  4.9262412
 ##
 ## $pit
-## [1] 0.004 0.003 0.001 0.001 0.990
+## [1] 0.004457948 0.002630642 0.001309974 0.001257442 0.990343994
 ##
 ## $Nt
 ## [1]  27  24  11  12 926
@@ -333,7 +340,7 @@ gradient_bandit_algorithm(stationary_bandit, alpha = 0.1)
 ## [1] 1.941705
 ##
 ## $Rt
-## [1]  1.772517635  2.396318235 -0.286491374 ...
+## [1]  1.7725176  2.3963182 -0.2864914 -0.3089120 ...
 
 set.seed(4712)
 gradient_bandit_algorithm(stationary_bandit, alpha = 0.1)
@@ -341,7 +348,7 @@ gradient_bandit_algorithm(stationary_bandit, alpha = 0.1)
 ## [1] -1.217231 -1.201571 -1.938602 -1.241492  5.598897
 ##
 ## $pit
-## [1] 0.001 0.001 0.001 0.001 0.996
+## [1] 0.0010917951 0.0011090266 0.0005307054 0.0010656252 0.9962028477
 ##
 ## $Nt
 ## [1]  26  30  18  20 906
@@ -350,7 +357,7 @@ gradient_bandit_algorithm(stationary_bandit, alpha = 0.1)
 ## [1] 1.885579
 ##
 ## $Rt
-## [1]  0.62963402  0.94862700 -0.30089716 ...
+## [1]  0.62963402  0.94862700 -0.30089716  0.08850766 ...
 @
 \item (2p) Test to run the gradient bandit with $\alpha = 0$. What happens and why?
 \item (2p) Run the gradient bandit and the UCB algorithms 500 times/simulations and compute the mean of the mean rewards (for each simulation) for each of the algorithms. \emph{Note!} The algorithm should run 1000 steps for each of the 500 simulations. Use both the stationary and non-stationary bandit. For the UCB, try $c=0.5$ and $c=2$ and for the gradient bandit $\alpha = 0.1$ and $\alpha = 1$. Summarize all the results in a table and compare the results with the previous bandit algorithms. Which algorithm performs the best?
