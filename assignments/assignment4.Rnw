@@ -271,6 +271,8 @@ image(1:ncol(im), 1:nrow(im), im,
       xaxt='n', yaxt='n', main="4")
 @
 
+\emph{Plotting orientation:} In \texttt{image()}, matrix rows correspond to the $x$-axis and columns to the $y$-axis. Interpret filter directions in the plotted image's coordinates, and use the same plotting convention for the original image and its feature maps.
+
 <<echo = FALSE>>=
 convolution <- function(X,K){
   matrix(c(-1, 27,
