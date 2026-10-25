@@ -342,7 +342,7 @@ To get VG on this assignment, you can choose to do this task OR the task using K
 
 Unfortunately, there is yet to be a simple way to run BERT directly from R. Although, using Google Colab, we can run one of the Swedish BERT models trained by the Swedish national library. The tutorial is in English, and without any Swedish understanding, it should be straightforward to follow.
 
-Follow the tutorial on Google Colab \href{https://colab.research.google.com/github/MansMeg/IntroML/blob/master/assignments/swedish_bert_classification.ipynb}{\color{blue}{here}}. Use the provided notebook model as your baseline. Then do the following things.
+\textbf{Getting started:} Open the \href{https://colab.research.google.com/github/MansMeg/IntroML/blob/master/assignments/swedish_bert_classification.ipynb}{Python notebook in Google Colab}. Run the supplied setup, data-loading and preprocessing cells unchanged, then run the provided model to obtain your baseline. Use the model and training sections to implement your chosen experiments.
 
 \begin{enumerate}
 \item (2p) Try to improve on the relatively low classification accuracy and get above 80\% overall accuracy. You are free to elaborate how much you want yourself, but some suggestions are:
