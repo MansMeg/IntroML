@@ -89,6 +89,8 @@
 
 \input{general_info.tex}
 
+\emph{Example outputs:} Use the numerical example outputs to check your functions. You do not need to reproduce these checks in your report unless a question explicitly requests them. Include the requested results, figures, and explanations.
+
 % General Knitr options
 % (this cannot be input since the file runs knitr before LaTeX)
 <<echo=FALSE,eval=TRUE>>=
