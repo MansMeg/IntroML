@@ -206,9 +206,9 @@ tree_split(X_check, y_check, l = 1)
 \item (1p) What is the Sum of Squares (SS) for this first split?
 \item (3p) Use the function \texttt{tree\_split()} to create a function \texttt{grow\_tree()} that takes the arguments \texttt{X}, \texttt{y}, and \texttt{l} and then build a decision tree. The returned tree can be a \texttt{data.frame} that looks as below. This is just one example implementation, you are free to implement this however you want.
 
-\emph{Hint 1!} Use a list in R to store the set of indecies you are splitting up.
+\emph{Hint 1!} Use a list in R to store the sets of observation indices you are splitting up.
 
-\emph{Hint 2!} Remember that the indecies that \texttt{split\_tree()} returns are based on the data you put into that functions. Hence, you need to convert them to the full data indecies to simplify.
+\emph{Hint 2!} The indices returned by \texttt{tree\_split()} refer to rows of the subset supplied to that call. Convert them back to row positions in the original \texttt{X}.
 
 Here is an template how the function could be implemented, but you are free to implement it however you want.
 
