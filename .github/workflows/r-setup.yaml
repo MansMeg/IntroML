@@ -4,15 +4,13 @@ on:
   push:
     paths:
       - additional_material/r_setup/**
-      - additional_material/supplementary_r_files/Install_keras.R
-      - rpackage/**
+      - additional_material/colab_nb/RandTensorFlow.ipynb
       - .github/scripts/check-r-setup.R
       - .github/workflows/r-setup.yaml
   pull_request:
     paths:
       - additional_material/r_setup/**
-      - additional_material/supplementary_r_files/Install_keras.R
-      - rpackage/**
+      - additional_material/colab_nb/RandTensorFlow.ipynb
       - .github/scripts/check-r-setup.R
       - .github/workflows/r-setup.yaml
   workflow_dispatch:
@@ -22,21 +20,12 @@ permissions:
 
 jobs:
   setup:
-    name: ${{ matrix.platform }} / R 4.5
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 45
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - os: ubuntu-24.04
-            platform: Linux
-          - os: windows-2025
-            platform: Windows
-          - os: macos-15
-            platform: macOS Apple Silicon
-          - os: macos-15-intel
-            platform: macOS Intel
+        os: [ubuntu-24.04, windows-2025, macos-15, macos-15-intel]
     env:
       TF_NUM_INTRAOP_THREADS: "2"
       TF_NUM_INTEROP_THREADS: "2"
@@ -57,24 +46,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libpng-dev
 
-      # Do not preinstall course packages or restore their cache: installation
-      # from a fresh environment is part of the check.
-      - name: Check course setup
+      - name: Install and check Keras and TensorFlow
         shell: Rscript {0}
-        env:
-          INTROML_SETUP_CACHE: ${{ runner.temp }}/introml-course
-          R_USER_CACHE_DIR: ${{ runner.temp }}/introml-r-cache
-          UV_CACHE_DIR: ${{ runner.temp }}/introml-uv-cache
-          UV_PYTHON_INSTALL_DIR: ${{ runner.temp }}/introml-python
         run: source(".github/scripts/check-r-setup.R")
-
-      - name: Upload setup reports
-        if: always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: setup-reports-${{ matrix.os }}
-          path: |
-            ${{ runner.temp }}/introml-course/setup-report.txt
-            ${{ runner.temp }}/introml-course/reports/*.txt
-          if-no-files-found: warn
-          retention-days: 14
