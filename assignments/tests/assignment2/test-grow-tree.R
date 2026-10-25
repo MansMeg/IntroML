@@ -1,13 +1,13 @@
 local({
   testthat::test_that("grow_tree stops with the mean response when the root cannot split", {
     cases <- list(
-      list(X = matrix(1, 6, 2), y = c(1, 3, 4, 7, 8, 13), l = 2L),
-      list(X = matrix(1:3, ncol = 1), y = c(1, 5, 9), l = 2L),
-      list(X = matrix(c(0, 0, 0, 1), ncol = 1), y = c(1, 2, 4, 9), l = 2L)
+      list(X = matrix(1, 6, 2), y = c(1, 3, 4, 7, 8, 13), l = 2L, fitted = 6),
+      list(X = matrix(1:3, ncol = 1), y = c(1, 5, 9), l = 2L, fitted = 5),
+      list(X = matrix(c(0, 0, 0, 1), ncol = 1), y = c(1, 2, 4, 9), l = 2L, fitted = 4)
     )
     for(d in cases){
       tree <- .a2_checks$grow(d$X, d$y, d$l)
-      .a2_checks$predictions(d$X, tree, rep(mean(d$y), nrow(d$X)),
+      .a2_checks$predictions(d$X, tree, rep(d$fitted, nrow(d$X)),
         "An unsplittable root is a leaf predicting its mean response.")
     }
   })

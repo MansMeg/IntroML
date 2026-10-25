@@ -8,11 +8,16 @@ local({
       `10` = c(0.1793125441468, 0.1793125330239, -0.1793125404392),
       `1` = c(1.1378665505110, 1.1378664608160, -1.1378665206127)
     )
+    expected_nll <- list(
+      `23` = c(0.6672416731263339, 0.6420441130579218),
+      `10` = c(0.6175647188711553, 0.5485071010835999),
+      `1` = c(0.2766016707019846, 0.1279730916776191)
+    )
     for(b in c(23L, 10L, 1L)){
       set.seed(4711)
       result <- adam(d$y, d$X, sample_size = b, eta = 0.03,
                      beta1 = 0.9, beta2 = 0.999, epochs = 2)
-      .a1_checks$history(result, d, 2)
+      .a1_checks$history(result, d, 2, expected_nll = expected_nll[[as.character(b)]])
       testthat::expect_equal(as.numeric(result[2, colnames(d$X)]), expected[[as.character(b)]],
                             tolerance = 1e-6,
                             info = "Advance the bias-correction step for EACH batch; retain moments across epochs.")
@@ -29,13 +34,12 @@ local({
                    beta1 = 0.8, beta2 = 0.95, epochs = 3)
     .a1_checks$history(first, d, 3)
     testthat::expect_equal(first, second)
-    # With beta1 = beta2 = 0 and a full batch, the first step is a
-    # coordinate-wise normalized gradient, independently of any permutation.
+    # A fixed zero-beta reference checks the first full-batch step.
     result <- adam(d$y, d$X, sample_size = nrow(d$X), eta = 0.01,
                    beta1 = 0, beta2 = 0, epochs = 1)
-    g <- .a1_checks$derivative(function(t) .a1_checks$loss(d$y, d$X, t), c(0, 0, 0))
     testthat::expect_equal(as.numeric(result[1, colnames(d$X)]),
-                          -0.01 * g / (abs(g) + 1e-8), tolerance = 1e-6)
+                          c(-0.009999999488888916, -0.009999862249265915,
+                            -0.009999997045190329), tolerance = 1e-6)
     # Two full-batch steps distinguish each beta parameter from a hard-coded
     # default. References were calculated independently on identical rows.
     d <- .a1_checks$identical_rows()

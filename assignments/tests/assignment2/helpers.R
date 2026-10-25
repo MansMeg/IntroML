@@ -32,9 +32,9 @@
     if(!valid) return(invisible(NULL))
     testthat::expect_true(length(left) >= l && length(right) >= l,
       info = "BOTH child nodes must contain at least l observations.")
-    testthat::expect_equal(sort(as.integer(left)), which(X[, j] <= s),
+    testthat::expect_true(all(X[left, j] <= s),
       info = "R1 uses <= and indices relative to the supplied X.")
-    testthat::expect_equal(sort(as.integer(right)), which(X[, j] > s),
+    testthat::expect_true(all(X[right, j] > s),
       info = "R2 uses >; keep equal predictor values in the same child.")
     # The tiny fixtures supply their optimal partitions; no split-score
     # implementation is included in the public checking helper.

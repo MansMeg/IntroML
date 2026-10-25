@@ -3,13 +3,14 @@ local({
     d <- .a1_checks$fixture()
     eta <- 0.03
     result <- gradient_descent(d$y, d$X, batch_size = nrow(d$X), eta = eta, epochs = 2)
-    .a1_checks$history(result, d, 2)
-    theta <- rep(0, ncol(d$X))
+    .a1_checks$history(result, d, 2,
+      expected_nll = c(0.6919689450549892, 0.6908087070715614))
+    expected <- rbind(
+      c(-0.005869565217391305, -0.00002177816833222413, -0.001015293520893364),
+      c(-0.01169426979131630, -0.00004113424157937502, -0.002022031707559578)
+    )
     for(j in 1:2){
-      theta <- theta - eta * .a1_checks$derivative(function(t){
-        .a1_checks$loss(d$y, d$X, t)
-      }, theta)
-      testthat::expect_equal(as.numeric(result[j, colnames(d$X)]), theta,
+      testthat::expect_equal(as.numeric(result[j, colnames(d$X)]), expected[j, ],
                             tolerance = 1e-7,
                             info = "Use one update per full batch; do not divide the mean gradient again.")
     }
@@ -23,10 +24,15 @@ local({
       `10` = c(0.0878150263064, 0.0219537565766, -0.0439075131532),
       `1` = c(0.5598316407214, 0.1399579101804, -0.2799158203607)
     )
+    expected_nll <- list(
+      `23` = c(0.6833518794845387, 0.6737484604478489),
+      `10` = c(0.6643331199053157, 0.6371781796450381),
+      `1` = c(0.5100931219887984, 0.3917795044854763)
+    )
     for(b in c(23L, 10L, 1L)){
       set.seed(4711)
       result <- gradient_descent(d$y, d$X, batch_size = b, eta = 0.03, epochs = 2)
-      .a1_checks$history(result, d, 2)
+      .a1_checks$history(result, d, 2, expected_nll = expected_nll[[as.character(b)]])
       testthat::expect_equal(as.numeric(result[2, colnames(d$X)]), expected[[as.character(b)]],
                             tolerance = 1e-7,
                             info = paste("Check updates for batch size", b, "on 23 observations."))
@@ -35,15 +41,19 @@ local({
 
   testthat::test_that("stochastic epochs cover all observations and calls are reproducible", {
     d <- .a1_checks$fixture(20L)
+    # Tiny-step references accept all permutations within the tolerance below.
+    expected <- list(
+      `1` = c(-4e-7, -8.625602717221872e-8, -8.135107540195571e-8),
+      `10` = c(-4e-8, -8.625602717221872e-9, -8.135107540195571e-9)
+    )
     for(b in c(1L, 10L)){
       for(seed in c(17L, 4711L)){
         # At a tiny step size, ordering effects are much smaller than an omitted
         # or duplicated observation. All permutations are accepted.
         set.seed(seed)
         result <- gradient_descent(d$y, d$X, batch_size = b, eta = 1e-7, epochs = 1)
-        expected <- -1e-7 * (nrow(d$X) / b) *
-          .a1_checks$derivative(function(t) .a1_checks$loss(d$y, d$X, t), c(0, 0, 0))
-        testthat::expect_true(max(abs(as.numeric(result[1, colnames(d$X)]) - expected)) < 1e-12,
+        testthat::expect_true(max(abs(as.numeric(result[1, colnames(d$X)]) -
+                                     expected[[as.character(b)]])) < 1e-12,
                              info = "Use every observation exactly once in each epoch.")
       }
       set.seed(4711)

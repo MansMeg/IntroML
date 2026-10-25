@@ -9,9 +9,7 @@ local({
     fold <- rep(1:10, length.out = length(i))
     # Unequal fold sizes distinguish the mean fold RMSE from pooled RMSE.
     # The large penalty leaves intercept-only fits, giving a simple check.
-    expected <- mean(vapply(1:10, function(k){
-      sqrt(mean((y[fold == k] - mean(y[fold != k]))^2))
-    }, numeric(1)))
+    expected <- 0.7646844142406833
     result <- glmnet_cv(fold = fold, X = X, y = y, lambda = 1e6)
     testthat::expect_length(result, 1L)
     testthat::expect_equal(as.numeric(result), expected, tolerance = 1e-7,
