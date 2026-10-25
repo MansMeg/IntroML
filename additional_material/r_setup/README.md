@@ -25,4 +25,4 @@ Open the [course R notebook in Colab](https://colab.research.google.com/github/M
 
 ## Automatic check
 
-[GitHub Actions](../../.github/workflows/r-setup.yaml) installs the packages and trains a tiny model on Linux, Windows, and macOS (Intel and Apple Silicon). This does not test Google's hosted Colab runtime.
+[GitHub Actions](../../.github/workflows/r-setup.yaml) installs the packages and trains a tiny model on Linux, Windows, and macOS (Intel and Apple Silicon). 
