@@ -225,8 +225,7 @@ tree_split(X_check, y_check, l = 1)
 
 \emph{Check:} \verb|mark_my_assignment(tasks = "tree_split")|
 
-\item (1p) What is the first split based on the whole training data \texttt{X\_train} and \texttt{y\_train}? Use \texttt{l=5}.
-\item (1p) What is the Sum of Squares (SS) for this first split?
+\item (2p) Using \texttt{l=5}, report the predictor (name or column index), split value, and sum of squares (SS) for the first split of \texttt{X\_train} and \texttt{y\_train}. Obtain all three from one call to \texttt{tree\_split()}.
 \item (3p) Use the function \texttt{tree\_split()} to create a function \texttt{grow\_tree()} that takes the arguments \texttt{X}, \texttt{y}, and \texttt{l} and then build a decision tree. The returned tree can be a \texttt{data.frame} that looks as below. This is just one example implementation, you are free to implement this however you want.
 
 \begin{samepage}
@@ -238,22 +237,39 @@ tree_split(X_check, y_check, l = 1)
 \emph{Hint 2!} The indices returned by \texttt{tree\_split()} refer to rows of the subset supplied to that call. Convert them back to row positions in the original \texttt{X}.
 
 \begin{examplebox}{Indices and pointers (toy case, $l=1$)}
-Suppose a pending node contains original data rows 4, 9, and 15. Splitting this three-row subset returns local indices \texttt{R1 = c(1, 3)} and \texttt{R2 = 2}. Map them back as follows:
-<<echo=TRUE,eval=TRUE>>=
+\setlength{\parskip}{3pt}
+A pending node contains original data rows 4, 9, and 15. A split returns local indices \texttt{R1 = c(1, 3)} and \texttt{R2 = 2}. Map them back as follows:
+<<echo=TRUE,eval=TRUE,results='hide'>>=
 node_rows <- c(4L, 9L, 15L)
 local_R1 <- c(1L, 3L)
 local_R2 <- 2L
-node_rows[local_R1] # Original data rows in R1
-node_rows[local_R2] # Original data rows in R2
+node_rows[local_R1] # Original data rows: 4, 15
+node_rows[local_R2] # Original data row: 9
 @
-Now suppose this node is the left child of tree row 1 and has just been appended as tree row 2. Update the parent's \texttt{R1\_i} to 2. Showing only the pointer columns of this intermediate tree:
+Write this left child of tree row 1 as tree row 2 and update its parent's \texttt{R1\_i}:
 <<echo=TRUE,eval=TRUE>>=
 pointers <- data.frame(R1_i = c(-1L, -1L),
                        R2_i = c(-1L, -1L))
 pointers$R1_i[1] <- 2L
 pointers
 @
-Here 2 points to a row of the \emph{tree}; 4, 9, and 15 identify rows of the \emph{data}. A pointer of $-1$ means that child has not yet been written. When queuing a node, also remember its parent tree row and which parent pointer (\texttt{R1\_i} or \texttt{R2\_i}) must be filled.
+Here 2 points to a \emph{tree} row; 4, 9, and 15 identify \emph{data} rows. A pointer of $-1$ marks an unwritten child. Each queue entry needs its data rows, parent tree row, and pointer to fill.
+
+Suppose the root's right child (\texttt{other\_rows}) is already waiting. This same processing step changes the queue as follows:
+\begin{center}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{@{}lclcl@{}}
+Stage & \shortstack{Queue\\position} & \shortstack{Original\\data rows} & \shortstack{Parent\\tree row} & \shortstack[l]{Pointer\\to fill} \\
+\hline
+Before & 1 & $\{4,9,15\}$ & 1 & \texttt{R1\_i} \\
+       & 2 & \texttt{other\_rows} & 1 & \texttt{R2\_i} \\
+\hline
+After  & 1 & \texttt{other\_rows} & 1 & \texttt{R2\_i} \\
+       & 2 & $\{4,15\}$ & 2 & \texttt{R1\_i} \\
+       & 3 & $\{9\}$ & 2 & \texttt{R2\_i} \\
+\end{tabular}
+\end{center}
+Remove the processed entry and append its children with parent tree row 2. The older entry stays first. Row 2's child pointers remain $-1$ until its children are written. A processed leaf is removed without adding children.
 \end{examplebox}
 
 Here is an template how the function could be implemented, but you are free to implement it however you want.
@@ -406,22 +422,14 @@ What is the root mean squared error (RMSE) on the test set for a tree trained on
 
 \section{Running standard tools for boosting and random forests}
 
-The last part of the assignment consists of using Random Forest and XGBoost (Boosted regression trees). The data is taken in slightly different ways:
+Use the predictor matrices \texttt{X\_train}, \texttt{X\_test} and response vectors \texttt{y\_train}, \texttt{y\_test} prepared in Section~1 for both models below. All three models then use the same training and test observations.
 
 Collect the test RMSE for your single tree from the previous section, the \texttt{randomForest} model, and the XGBoost model in one comparison table with columns \emph{Model} and \emph{Test RMSE}. Add each result as you complete the tasks below. Present each RMSE once in this table and refer to it when comparing the models.
 
 \begin{enumerate}
 \item Use the \texttt{randomForest} R package to fit a random forest regression to the training data using the \texttt{randomForest} function.
 <<echo=TRUE,eval=FALSE>>=
-library(uuml)
-data("Hitters")
-Hitters <- Hitters[complete.cases(Hitters),]
-dat_test <- Hitters[1:30, c("Salary","Years", "Hits")]
-dat_train <- Hitters[31:nrow(Hitters), c("Salary","Years", "Hits")]
-X_test <- as.matrix(dat_test[, c("Years", "Hits"), drop = FALSE])
-y_test <- dat_test[, c("Salary")]
-X_train <- as.matrix(dat_train[, c("Years", "Hits"), drop = FALSE])
-y_train <- dat_train[, c("Salary")]
+library(randomForest)
 Hitters.rf <- randomForest(x = X_train, y = y_train)
 @
 \item (1p) How many variables are used at each split. Why do you get this number?
@@ -431,7 +439,7 @@ Hitters.rf <- randomForest(x = X_train, y = y_train)
 xgb <- xgboost(X_train, y_train, nrounds = 200)
 @
 \item (1p) Compute the test RMSE of the boosted regression tree model using the \texttt{rmse} function and add the result to your comparison table.
-\item (1p) Using your comparison table, describe how the test RMSE of boosting compares with that of the random forest model. Answer in one or two sentences.
+\item (1p) Using your comparison table, compare the test RMSEs of your single tree, random forest, and boosting model. Identify the model with the lowest test RMSE in your run and give one brief possible explanation for the differences. Answer in one or two sentences.
 \end{enumerate}
 
 \newpage
@@ -499,7 +507,7 @@ If \texttt{cols = 2}, \texttt{tree\_split()} reports column 1 of its input; the 
 \item (1p) Implement a random forest regression model using \texttt{grow\_tree\_m()} and \texttt{predict\_with\_tree()}.
 \item (1p) Train your random forest regression model on the training data with $m=1$, $B=100$ and predict on the test data. What is the RMSE of your predictions on the test set (using your \texttt{rmse} function)?
 
-\emph{Note!} Since we only have just two covariates in the test and train data, the difference is small (if any) compared to the Bagging algorithm. Also, differences compared to the \texttt{randomForest} package probably comes from different way the \texttt{grow\_tree} functions are implemented in your code and the \texttt{randomForest} package.
+\emph{Note!} With two predictors, $m=1$ searches either \texttt{Years} or \texttt{Hits}, chosen afresh at every node, including the root; bagging searches both ($m=2$). Either method may have lower test RMSE in a run, and differences need not be small. Differences from \texttt{randomForest} may also reflect random draws, tuning settings, and implementation choices.
 \end{enumerate}
 
 \newpage
