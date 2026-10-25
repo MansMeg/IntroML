@@ -1,0 +1,12 @@
+name: Introduction to Machine Learning - Assignment 8 - VG
+description: Deterministic formative checks for UCB and gradient-bandit edge cases. Simulations and explanations need manual review.
+tasks:
+  ucb_algorithm:
+    description: Untried actions and confidence-driven exploration.
+    url: test-ucb.R
+  gradient_bandit_algorithm:
+    description: Zero learning rate and the previous-reward baseline.
+    url: test-gradient-bandit.R
+run_code:
+  before:
+    url: helpers.R

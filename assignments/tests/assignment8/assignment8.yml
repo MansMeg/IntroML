@@ -1,0 +1,21 @@
+name: Introduction to Machine Learning - Assignment 8
+description: Deterministic formative checks for selected bandit updates and robot policies. These do not assess the report or award marks.
+tasks:
+  greedy_algorithm:
+    description: Greedy action selection and sample-average estimates.
+    url: test-greedy.R
+  epsilon_algorithm:
+    description: The zero-exploration case of epsilon-greedy.
+    url: test-epsilon.R
+  nonstationary_algorithm:
+    description: Constant-step updates and the current time argument.
+    url: test-constant-step.R
+  always_search_policy:
+    description: Always-search on deterministic robot transitions.
+    url: test-always-search.R
+  charge_when_low_policy:
+    description: Search when high and recharge when low.
+    url: test-charge-when-low.R
+run_code:
+  before:
+    url: helpers.R
