@@ -394,7 +394,7 @@ rmse
 <<echo=TRUE,eval=TRUE>>=
 rmse(x = c(75, 105, 33), y = c(102, 99, 43))
 @
-What is the root mean squared error (RMSE) on the test set for a tree trained on the whole training data \texttt{X\_train} and \texttt{y\_train}? Use \texttt{l=5}.
+What is the root mean squared error (RMSE) on the test set for a tree trained on the whole training data \texttt{X\_train} and \texttt{y\_train}? Use \texttt{l=5}. Include this value in the comparison table requested in the next section.
 \end{enumerate}
 
 \newpage
@@ -402,6 +402,8 @@ What is the root mean squared error (RMSE) on the test set for a tree trained on
 \section{Running standard tools for boosting and random forests}
 
 The last part of the assignment consists of using Random Forest and XGBoost (Boosted regression trees). The data is taken in slightly different ways:
+
+Collect the test RMSE for your single tree from the previous section, the \texttt{randomForest} model, and the XGBoost model in one comparison table with columns \emph{Model} and \emph{Test RMSE}. Add each result as you complete the tasks below. Present each RMSE once in this table and refer to it when comparing the models.
 
 \begin{enumerate}
 \item Use the \texttt{randomForest} R package to fit a random forest regression to the training data using the \texttt{randomForest} function.
@@ -418,13 +420,13 @@ y_train <- dat_train[, c("Salary")]
 Hitters.rf <- randomForest(x = X_train, y = y_train)
 @
 \item (1p) How many variables are used at each split. Why do you get this number?
-\item (1p) Use the trained random forest to predict using the \texttt{predict} function at test set and compute the RMSE of your predictions using the \texttt{rmse} function.
+\item (1p) Use the trained random forest to predict using the \texttt{predict} function at test set and compute the RMSE of your predictions using the \texttt{rmse} function. Add the result to your comparison table.
 \item (1p) Next, use the \texttt{xgboost} R package to fit a boosted regression tree model to the training data using the \texttt{xgboost} function. Use the same predictor matrices and response vectors as above.
 <<echo=TRUE,eval=FALSE>>=
 xgb <- xgboost(X_train, y_train, nrounds = 200)
 @
-\item (1p) What is the RMSE of the predictions (again using the \texttt{rmse} function) using the boosted regression tree model?
-\item (1p) How does that compare to the random forest regression model?
+\item (1p) Compute the test RMSE of the boosted regression tree model using the \texttt{rmse} function and add the result to your comparison table.
+\item (1p) Using your comparison table, describe how the test RMSE of boosting compares with that of the random forest model. Answer in one or two sentences.
 \end{enumerate}
 
 \newpage
