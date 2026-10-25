@@ -196,7 +196,12 @@ lls <- extract_log_liks(tm)
 theta <- extract_theta(tm)
 phi <- extract_phi(tm)
 @
-\item (2p) As a first step, check that the model has converged by visualizing the log-likelihood over epochs/iterations. Does it seem like the model have converged?
+\newpage
+
+\item (2p) Plot the log-likelihood against Gibbs iterations. Does it settle into a roughly stable range, or does a persistent trend remain? Support your assessment using the plot.
+
+\emph{Hint!} Fluctuations are normal in Gibbs sampling. Look for changes in the typical level rather than expecting a smooth or steadily increasing curve. A single likelihood trace cannot establish convergence of all model parameters.
+
 \begin{samepage}
 \item (2p) Inspect the 20 top words for each topic (the words with the highest probability). Choose two topics whose top words seem to belong together. Include the two word lists in your report and interpret the topics based on the storyline of the book. What have these two topics captured?
 \par
