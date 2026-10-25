@@ -100,10 +100,11 @@ knitr::opts_chunk$set(size = "small")
 
 \section{Feed-Forward Neural Network using Keras and TensorFlow}
 
-If you have installed \texttt{keras}, you can load the MNIST dataset. This dataset contains data on handwritten digits that we want to classify. To access the data, we use \texttt{keras} as follows.
+After completing the course setup, load the MNIST handwritten-digit dataset using \texttt{keras3} with the TensorFlow backend. Scale the pixel values from $[0,255]$ to $[0,1]$ once. Keep the images as arrays of shape $(n,28,28)$; the network's \texttt{layer\_flatten()} layer will flatten each image.
 
 <<echo=TRUE,eval=FALSE>>=
 library(keras3)
+use_backend("tensorflow")
 mnist <- dataset_mnist()
 mnist$train$x <- mnist$train$x/255
 mnist$test$x <- mnist$test$x/255
@@ -120,7 +121,7 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
         xaxt='n', yaxt='n', main=paste(mnist$train$y[idx]))
 @
 \item (1p) How large is the training and test set?
-\item (2p) Implement a simple feed-forward neural network in R using TensorFlow and Keras. See the introduction in \href{https://github.com/MansMeg/IntroML/tree/master/additional_material/supplementary_r_files/tensorflow_feedforward_neural_network_tutorial.R}{\texttt{tensorflow\_feedforward\_neural\_network\_tutorial.R}}. Implement a neural network with one hidden layer with 16 units and the sigmoid as the activation function for the hidden layer. The output layer should be a softmax. Print your \texttt{keras} model description and include it in your report.
+\item (2p) Implement a simple feed-forward neural network in R using TensorFlow and \texttt{keras3}. See the introduction in \href{https://github.com/MansMeg/IntroML/tree/master/additional_material/supplementary_r_files/tensorflow_feedforward_neural_network_tutorial.R}{feed-forward neural network tutorial}. Implement a neural network with one hidden layer with 16 units and the sigmoid as the activation function for the hidden layer. The output layer should be a softmax. Print your \texttt{keras3} model description and include it in your report.
 \begin{enumerate}
 \item How many parameters do your model have in total?
 \item How many parameters does the input layer have?
@@ -131,7 +132,7 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
 
 \end{enumerate}
 
-\item (2p) Now, we will play around with the essential concepts in feed-forward networks. Do the steps below, but feel free to tinker around and test other values. Try to understand the effect of the different choices. Report the \emph{validation} set accuracy/error and the validation accuracy/error per epoch for each step in a figure/plot together with the \texttt{keras} model description for the \emph{final} neural network with all changes. Start from the simple neural network above, then make the following changes.
+\item (2p) Now, we will play around with the essential concepts in feed-forward networks. Do the steps below, but feel free to tinker around and test other values. Try to understand the effect of the different choices. Report the \emph{validation} set accuracy/error and the validation accuracy/error per epoch for each step in a figure/plot together with the \texttt{keras3} model description for the \emph{final} neural network with all changes. Start from the simple neural network above, then make the following changes.
 \begin{enumerate}
 \item Increase the number of hidden units to 128.
 \item Change the activation function to reLU.
@@ -143,7 +144,7 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
 \item (2p) If you would use early stopping regularization, how would you do that?
 
 \emph{Note!} Only describe what you would do conceptually. You don't need to do it.
-\item (2p) Now try to build the best possible network architecture for this data (but still only using a feed-forward network). How good can you get validation set accuracy (or how low is the error)? What is the architecture used for the best model you can get? Include the final \texttt{keras} code, and the \emph{validation} set accuracy figure. Feel free to use early stopping!
+\item (2p) Now try to build the best possible network architecture for this data (but still only using a feed-forward network). How good can you get validation set accuracy (or how low is the error)? What is the architecture used for the best model you can get? Include the final \texttt{keras3} code, and the \emph{validation} set accuracy figure. Feel free to use early stopping!
 
 \emph{Hint!} The general idea is to find the optimal capacity of the model. Try to start with a network that overfits the data and then regularize that model to improve the generalization error on the validation set.
 
