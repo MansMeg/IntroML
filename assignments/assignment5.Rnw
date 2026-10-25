@@ -288,6 +288,7 @@ Start by downloading the IMBD dataset and preprocess it as follows.
 <<eval=FALSE>>=
 library(tensorflow)
 library(keras)
+maxlen <- 500
 imdb <- dataset_imdb(num_words = 10000)
 c(c(input_train, y_train), c(input_test, y_test)) %<-% imdb
 input_train <- pad_sequences(input_train, maxlen = maxlen)
@@ -297,9 +298,9 @@ input_test <- pad_sequences(input_test, maxlen = maxlen)
 \emph{Note!} Running Keras can be computationally heavy, and I suggest not to run the code in \texttt{markdown}. Instead, run the code in R and copy the results as output (see the assignment template for an example).
 
 \begin{enumerate}
-\item (2p) Create a simple ordinary neural network for text classification in Keras using an embedding layer of dimension 16 and a hidden layer with 32 hidden states (and an output layer with one unit). Use a validation split of 20\% observations in the validation set and a batch size of 128. Train your network using rmsprop and use binary cross-entropy as the loss function. Print the model and return your validation accuracy after ten epochs. Most of these settings we will reuse later in the assignments.
+\item (2p) Create a simple ordinary neural network for text classification in Keras using an embedding layer of dimension 16 and a hidden layer with 32 hidden states (and an output layer with one unit). Use a validation split of 20\% observations in the validation set and a batch size of 128. Train your network using rmsprop and use binary cross-entropy as the loss function. Print the model and return your validation accuracy after ten epochs. Reuse this data split and training setup for the RNN and LSTM baseline below.
 \item (1p) Explain what the embedding layer is doing.
-\item (1p) Now setup a simple Recurrent Neural Network with 32 hidden units based on the same embedding layer. Print the model and present your result.
+\item (1p) Now setup a simple Recurrent Neural Network with 32 hidden units and the same embedding dimension. Print the model and present your result.
 \item (1p) The model you have implemented now. Which recurrent network does best describes the model you have now implemented out of Fig. 10.3 and 10.5 in \citet{Goodfellow-et-al-2016}? Motivate why.
 
 \examplebox{RNN parameter counts}{
@@ -335,7 +336,7 @@ To get VG on this assignment, you can choose to do this task OR the task using K
 
 Unfortunately, there is yet to be a simple way to run BERT directly from R. Although, using Google Colab, we can run one of the Swedish BERT models trained by the Swedish national library. The tutorial is in English, and without any Swedish understanding, it should be straightforward to follow.
 
-Follow the tutorial on Google Colab \href{https://colab.research.google.com/github/MansMeg/IntroML/blob/master/assignments/swedish_bert_classification.ipynb}{\color{blue}{here}}. Then do the following things.
+Follow the tutorial on Google Colab \href{https://colab.research.google.com/github/MansMeg/IntroML/blob/master/assignments/swedish_bert_classification.ipynb}{\color{blue}{here}}. Use the provided notebook model as your baseline. Then do the following things.
 
 \begin{enumerate}
 \item (2p) Try to improve on the relatively low classification accuracy and get above 80\% overall accuracy. You are free to elaborate how much you want yourself, but some suggestions are:
@@ -345,7 +346,7 @@ Follow the tutorial on Google Colab \href{https://colab.research.google.com/gith
 \item Try out other learning rates (scheduling)
 \end{enumerate}
 \emph{Note!} Training these large neural networks might take some time. It can take more than an hour at Google Colab to fine-tune the whole BERT model.
-\item (1p) Write down the steps you take, the overall accuracy you get along the way, and the final accuracy of your fine-tuned BERT model, both overall and per party.
+\item (1p) Report the baseline overall accuracy, exactly what you changed, and the resulting overall accuracy. Also report your final model's accuracy per party.
 \item (2p) Reason based on your final confusion matrix on the difficulties for the model. Can the errors be reduced further or not? Why?
 \end{enumerate}
 
