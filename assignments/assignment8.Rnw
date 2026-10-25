@@ -278,11 +278,14 @@ average_reward_per_step <- rowMeans(rewards)
 
 Now we are going to implement a Markov Decision Process (MDP) where the agent makes a decision, $A_t$ based on the current state $S_t$ and a reward $R_t$ that will, in turn, return a new state $S_{t+1}$ and a reward $R_{t+1}$. In this part of the assignment, we are going to use the recycling robot example \citep[Example 3.3 in ][]{sutton2020reinforcement}.
 
+We write $p_{\mathrm{high}}$ for the probability of remaining high after searching from high energy, and $p_{\mathrm{low}}$ for the probability of remaining low after searching from low energy. These correspond to the transition probabilities called $\alpha$ and $\beta$ in the textbook.
+
 \begin{enumerate}
-\item Use \texttt{recycling\_mdp(alpha, beta, r\_wait, r\_search)} in the \texttt{uuml} R package to access the MDP in \citet{sutton2020reinforcement}:
+\item Use \texttt{recycling\_mdp(p\_high, p\_low, r\_wait, r\_search)} in the \texttt{uuml} R package to access the MDP in \citet{sutton2020reinforcement}. Use version 0.5.0 or later; reinstall using the instructions at the start of the assignment if needed.
 <<mdp-example, eval=FALSE>>=
 library(uuml)
-mdp <- recycling_mdp(0.5, 0.8, 0.1, 1)
+mdp <- recycling_mdp(p_high = 0.5, p_low = 0.8, r_wait = 0.1,
+    r_search = 1)
 mdp
 ##       s s_next        a p_s_next r_s_a_s_next
 ## 1  high   high   search      0.5          1.0
@@ -296,7 +299,16 @@ mdp
 ## 9   low   high recharge      1.0          0.0
 ## 10  low    low recharge      0.0          0.0
 @
+\examplebox{Recycling robot transitions}{
+With $p_{\mathrm{high}}=0.5$ and $p_{\mathrm{low}}=0.8$ in the call above:
+
+\textbf{Search with high energy:} 50\% probability of remaining high and 50\% of becoming low. Either transition gives reward 1.
+
+\textbf{Search with low energy:} 80\% probability of remaining low with reward 1; 20\% of requiring rescue, returning to high energy with reward $-3$.
+
+}
 \item (2p) Now implement a function \texttt{always\_search\_policy(MDP)} that takes an MPD specified above and run the MDP for 1000 steps/actions. The policy should be that the agent always chooses to search, irrespective of the state. The function should return the return divided by the number of time steps and times in each state. The robot should start in the state \texttt{high}. Below is an example of how it should work. Note again, since this is a random algorithm, you might get a slightly different answer.
+\begin{samepage}
 <<search-policy-example, eval=FALSE>>=
 set.seed(4711)
 always_search_policy(mdp)
@@ -307,8 +319,9 @@ always_search_policy(mdp)
 ## $R_bar
 ## [1] 0.452
 @
+\end{samepage}
 \item (2p) Now implement a function \texttt{charge\_when\_low\_policy(MDP)} that takes an MPD specified above and run the MDP for 1000 steps. The policy should be that the agent always chooses to recharge if the energy level is low and always search if the energy level is high. The function should return the same output structure as above.
-\item (2p) Compare the two policies for MDP with $\alpha = \beta = 0.9$ and $\alpha = \beta = 0.4$ with $r_\text{wait} = 0.1 \text{ and } r_\text{search} = 1$. Run at least ten times per policy and compute the mean reward. What policy is prefered in the two MDPs?
+\item (2p) Compare the two policies for MDP with $p_{\mathrm{high}} = p_{\mathrm{low}} = 0.9$ and $p_{\mathrm{high}} = p_{\mathrm{low}} = 0.4$ with $r_\text{wait} = 0.1 \text{ and } r_\text{search} = 1$. Run at least ten times per policy and compute the mean reward. What policy is prefered in the two MDPs?
 \end{enumerate}
 
 \newpage
@@ -353,6 +366,16 @@ ucb_algorithm(Q1, stationary_bandit, c = 2)
 ## [1]  1.98183569  1.12125661  0.92862700 -0.01161757 ...
 @
 \item (2p) Implement \texttt{gradient\_bandit\_algorithm(bandit, alpha)} using the gradient bandit algorithm. Initialize all $H_1(a) = 0$. Use the mean of previous rewards as the baseline and skip the preference update on the first step. Return the same output structure as the greedy algorithm, replacing \texttt{Qt} with the final preferences \texttt{Ht} and action probabilities \texttt{pit}.
+\examplebox{Updating action preferences}{
+After the first reward of 1, preferences remain zero, so each action has probability $0.2$. Suppose the second reward is 3 and $\alpha=0.1$. The baseline is 1, giving an advantage of $3-1=2$:
+\[
+\begin{aligned}
+\text{Chosen action:}\quad H(a) &= 0+0.1(2)(1-0.2)=0.16,\\
+\text{Each other action:}\quad H(a) &= 0-0.1(2)(0.2)=-0.04.
+\end{aligned}
+\]
+Applying softmax makes the chosen action more likely.
+}
 <<gradient-example, eval=FALSE>>=
 set.seed(4711)
 gradient_bandit_algorithm(stationary_bandit, alpha = 0.1)

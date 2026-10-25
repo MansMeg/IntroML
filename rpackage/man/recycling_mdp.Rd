@@ -4,17 +4,32 @@
 \alias{recycling_mdp}
 \title{Create a MDP based on the Recycling robot example of Sutton and Barto (2017)}
 \usage{
-recycling_mdp(alpha, beta, r_wait, r_search)
+recycling_mdp(p_high, p_low, r_wait, r_search)
 }
 \arguments{
-\item{alpha}{see Sutton and Barto (2017, Example 3.7)}
+\item{p_high}{Probability of remaining at high energy after searching from
+high energy, between 0 and 1.}
 
-\item{beta}{see Sutton and Barto (2017, Example 3.7)}
+\item{p_low}{Probability of remaining at low energy after searching from
+low energy, between 0 and 1.}
 
-\item{r_wait}{see Sutton and Barto (2017, Example 3.7)}
+\item{r_wait}{Expected reward for waiting, no greater than \code{r_search}.}
 
-\item{r_search}{see Sutton and Barto (2017, Example 3.7)}
+\item{r_search}{Expected reward for searching without requiring rescue,
+no less than \code{r_wait}.}
+}
+\value{
+A data frame with current state \code{s}, next state \code{s_next}, action \code{a},
+transition probability \code{p_s_next}, and reward \code{r_s_a_s_next}.
 }
 \description{
 Create a MDP based on the Recycling robot example of Sutton and Barto (2017)
+}
+\details{
+\code{p_high} and \code{p_low} correspond to the transition probabilities
+\eqn{\alpha} and \eqn{\beta} in Sutton and Barto (2017, Example 3.7).
+}
+\examples{
+recycling_mdp(p_high = 0.5, p_low = 0.8, r_wait = 0.1, r_search = 1)
+
 }
