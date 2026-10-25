@@ -52,6 +52,20 @@
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Prob}{\mathbb{P}}
 
+% Highlighted illustrations, separate from the assessed tasks.
+\newcommand{\examplebox}[2]{%
+  \par\medskip\noindent
+  \begingroup
+  \setlength{\fboxsep}{6pt}%
+  \fcolorbox{blue!45!black}{blue!4}{%
+    \begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+    \small\textbf{Example: #1}\hfill{\footnotesize\itshape No submission required}\par\smallskip
+    #2
+    \end{minipage}}%
+  \endgroup
+  \par\medskip
+}
+
 \begin{document}
 
 \begin{titlepage}
@@ -186,6 +200,20 @@ Print the function once in your report. Reuse the figures and explanations from 
 
 Each epoch must process every observation exactly once. For batches smaller than $n$, shuffle the observation indices once per epoch and split them into non-overlapping batches. Include any smaller final batch when $n$ is not divisible by the batch size. Make one parameter update per batch, using the mean gradient of that batch, and record the full-training-data mean NLL and parameters after the complete epoch.
 
+\examplebox{One epoch and gradient dimensions}{
+Five observations, three coefficients (intercept and two slopes), batch size 2, and shuffled order $4,1,5,2,3$ give:
+\begin{center}
+\begin{tabular}{cccc}
+Update & Rows & Shape of batch $X$ & Gradient length \\
+\hline
+1 & $4,1$ & $2\times3$ & 3 \\
+2 & $5,2$ & $2\times3$ & 3 \\
+3 & $3$ & $1\times3$ & 3
+\end{tabular}
+\end{center}
+One epoch makes three updates. Average each gradient over its actual batch size; record the full-data mean NLL after update 3.
+}
+
 \emph{Hint!} Use \texttt{X[batch, , drop = FALSE]} when selecting rows so a batch of size one remains a matrix. Start from $\theta=0$ for every call. Complete the batching and update steps in this scaffold:
 <<echo=TRUE,eval=FALSE>>=
 gradient_descent <- function(y, X, batch_size, eta, epochs){
@@ -295,6 +323,15 @@ y_test <- as.matrix(prob2_test[,"y"])
 @
 
 
+\examplebox{Non-unique coefficients}{
+With two observations and three coefficients, consider
+\[
+X=\begin{pmatrix}1&0&1\\1&1&0\end{pmatrix},\qquad
+\theta_A=(1,1,0)^\top,\quad \theta_B=(0,2,1)^\top.
+\]
+Both give $X\theta=(1,2)^\top$. For a new row $(1,0,0)$, they predict 1 and 0, respectively. A perfect training fit can coexist with non-unique coefficients; here $X^\top X$ is singular.
+}
+
 You should do the following and present the results in your report:
 \begin{enumerate}
 \item (1p) Fit a linear model to the training data. What are the results? Why does this happen?
@@ -355,6 +392,14 @@ As in task 1, we minimize the mean negative log-likelihood. With a ridge penalty
 \text{NLL}_r(\theta, \mathbf{y}, \mathbf{X}, \lambda) = \text{NLL}(\theta, \mathbf{y}, \mathbf{X}) + \frac{\lambda}{2} \sum_{j=2}^P \theta_j^2\,,
 \end{align}
 where $\text{NLL}$ is the mean negative log-likelihood defined in task 1 and $\lambda \geq 0$. The first column of $\mathbf{X}$ is the intercept column, so $\theta_1$ is excluded from the penalty \citep[see][Ch. 3.4]{hastie2009elements}.
+
+\examplebox{The unpenalized intercept}{
+For $\theta=(2,0.4,-0.3)^\top$ (intercept first) and $\lambda=1$, the ridge penalty is
+\[
+\frac12\bigl(0.4^2+(-0.3)^2\bigr)=0.125.
+\]
+Changing the intercept from 2 to 20 leaves this penalty unchanged, although the likelihood loss can change.
+}
 
 \emph{Note!} The loss uses the \emph{mean} negative log-likelihood plus the penalty. Do not divide the loss or its gradient by $n$ a second time. This convention matches the logistic ridge objective in \texttt{glmnet}; changing the scaling of the likelihood changes the meaning of $\lambda$. More information can be found \href{https://glmnet.stanford.edu/articles/glmnet.html#logistic-regression-family-binomial-}{here}.
 
@@ -445,6 +490,10 @@ y <- binary$admit
 \emph{Note!} Each epoch should include all data points. A tip is to order the data points randomly in each iteration.
 
 Use the numerical constant $\epsilon=10^{-8}$ in the denominator. Retain the first and second moments across epochs, and advance the bias-correction step once per mini-batch update.
+
+\examplebox{Adam's update counter}{
+With five observations and batch size 2, each epoch has three updates: epoch 1 uses $t=1,2,3$; epoch 2 uses $t=4,5,6$. The update counter $t$ and both moments continue across epochs. Initialize them to zero only when starting a new run.
+}
 
 A boilerplate for the algorithm can be found here.
 <<echo=TRUE,eval=FALSE>>=
