@@ -178,12 +178,13 @@ names(crp) <- c("paragraph", "text")
 s <- SimpleCorpus(VectorSource(crp$text))
 m <- DocumentTermMatrix(s)
 @
-\item (1p) To compute a topic model with ten topics, we use a Gibbs sampling algorithm. Below is an example of how we can run a Gibbs sampler for 2000 iterations. Run your topic model for 2000 iterations.
+\item (1p) Fit a topic model with ten topics using Gibbs sampling for 2000 iterations and the fixed seed below. Fit the model once and reuse the fitted model \texttt{tm} for the likelihood trace, topic interpretation, and paragraph plots.
 <<eval=FALSE>>=
 library(topicmodels)
 K <- 10
 # Note: delta is beta in Griffith and Steyvers (2004) notation.
-control <- list(keep = 1, delta = 0.1, alpha = 1, iter = 2000)
+control <- list(keep = 1, delta = 0.1, alpha = 1, iter = 2000,
+                seed = 4711)
 tm <- LDA(m, k = K, method = "Gibbs", control)
 @
 \item (1p) In the \texttt{uuml} R package you have three convenience functions to extract $\Theta$, $\Phi$ and the log-likelihood values at each iteration. This is the parameter notation used in \citet{griffiths2004finding}.
