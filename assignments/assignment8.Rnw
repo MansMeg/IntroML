@@ -439,7 +439,8 @@ gradient_bandit_algorithm(stationary_bandit, alpha = 0.1)
 ## $Rt
 ## [1]  0.62963402  0.94862700 -0.30089716  0.08850766 ...
 @
-\item (2p) Test to run the gradient bandit with $\alpha = 0$. What happens and why?
+\item (2p) Run the gradient bandit with $\alpha=0$. Inspect the preferences \texttt{Ht}, action probabilities \texttt{pit}, and mean reward \texttt{R\_bar}. Which quantities remain unchanged? Does the agent still receive rewards?
+\enlargethispage{2\baselineskip}
 \item (2p) Run the gradient bandit and the UCB algorithms 500 times/simulations and compute the mean of the mean rewards (for each simulation) for each of the algorithms. \emph{Note!} The algorithm should run 1000 steps for each of the 500 simulations. Use both the stationary and non-stationary bandit. For the UCB, try $c=0.5$ and $c=2$ and for the gradient bandit $\alpha = 0.1$ and $\alpha = 1$. Summarize all the results in a table and compare the results with the previous bandit algorithms. Which algorithm performs the best?
 \end{enumerate}
 
