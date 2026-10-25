@@ -117,10 +117,12 @@ For a more indepth description of the datasets, just run \texttt{?iris}, \texttt
 We are now going to build a k-means algorithm from scratch.
 
 \begin{enumerate}
-\item (1p) In the \texttt{iris} data we will use the \texttt{Speices} variable as one way to cluster the data. Visualize the \texttt{iris} as a scatterplot based on \texttt{Petal.length} and \texttt{Petal.width}. Show the different species using different colors. \emph{Hint!} Use \texttt{ggplot2} and \href{https://ggplot2.tidyverse.org/reference/geom_point.html}{geom\_point}.
+\item (1p) Visualize \texttt{iris} as a scatterplot of \texttt{Sepal.Width} and \texttt{Petal.Width}. Show the three species (the \texttt{Species} variable) using different colors. \emph{Hint!} Use \texttt{ggplot2} and \href{https://ggplot2.tidyverse.org/reference/geom_point.html}{geom\_point}.
 \item (1p) Visualize (for yourself) the \texttt{faithful} data and manually allocate each data point to two different clusters of your choosing based on the \texttt{eruptions} and/or \texttt{waiting} variables.
 \item (1p) Now, visualize the \texttt{faithful} dataset as a scatterplot by \texttt{eruptions} and \texttt{waiting}. Show your manually defined clusters in the Figure using different colors.
 \item (2p) Now, we are going to implement the different parts of the k-means algorithm. This will follow Algorithm 14.1 in \citet{hastie2009elements}. First, implement Step 1 in this algorithm as a function called \texttt{compute\_cluster\_means(X, C)} that takes a $n \times p$ matrix \texttt{X} and a $p \times 1$ vector of cluster assignments called \texttt{C}, where $n$ is the number of rows (observations) and $p$ is the number of variables (columns). The algorithm should output the cluster means of the algorithm as a $K \times p$ matrix, where $K$ is the total number of clusters in \texttt{C}.
+% Keep the first cluster-means example together.
+\enlargethispage{3\baselineskip}
 <<eval = FALSE>>=
 set.seed(4711)
 X <- as.matrix(faithful)
@@ -150,7 +152,7 @@ k_means_W(X, C)
 @
 % Keep the comparison and its interpretation on one page.
 \enlargethispage{3\baselineskip}
-\item (1p) Run your \texttt{k\_means(X,K)} ten times per dataset with new random initialisations: \texttt{faithful} with $K=2$, and \texttt{iris} (\texttt{Petal.Length}, \texttt{Petal.Width}) with $K=3$. Present each run's final WPS in a table for each dataset.
+\item (1p) Run your \texttt{k\_means(X,K)} ten times per dataset with new random initialisations: \texttt{faithful} with $K=2$, and \texttt{iris} (\texttt{Sepal.Width}, \texttt{Petal.Width}) with $K=3$. Present each run's final WPS in a table for each dataset.
 
 \emph{Hint!} Set \texttt{X} and \texttt{K} for each dataset. Set the seed once before the loop for reproducible results with different initialisations.
 <<eval = FALSE>>=
