@@ -55,6 +55,20 @@
 
 
 
+% Highlighted illustrations, separate from the assessed tasks.
+\newcommand{\examplebox}[2]{%
+  \par\medskip\noindent
+  \begingroup
+  \setlength{\fboxsep}{6pt}%
+  \fcolorbox{blue!45!black}{blue!4}{%
+    \begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+    \small\textbf{Example: #1}\hfill{\footnotesize\itshape No submission required}\par\smallskip
+    #2
+    \end{minipage}}%
+  \endgroup
+  \par\medskip
+}
+
 \begin{document}
 
 \begin{titlepage}
@@ -108,6 +122,10 @@ We will implement a variational autoencoder in R using \texttt{keras3} and Tenso
 \begin{enumerate}
 \item (1p) Start by loading the MNIST data in R. See the link above or previous assignments for details.
 \item (1p) Now, implement a one-layer (encoder and decoder) feed-forward variational autoencoder with two latent dimensions. Both the encoder layer and the decoder layer should have 200 hidden units. You should end up with a variational autoencoder with roughly 310 000 - 320 000 parameters.
+\examplebox{Sanity check}{
+For a batch of $m$ images, the encoder should return an $m\times 2$ matrix of latent means. Decoding these should return an $m\times 784$ matrix with pixel values in $[0,1]$. Check a few images before full training.
+}
+
 \item Print the model and include it in your report.
 \begin{enumerate}
 \item (1p) How many weights (parameters) are used to compute $\mu$ and $\sigma^2$ for the latent variables?
