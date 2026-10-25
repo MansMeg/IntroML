@@ -124,20 +124,20 @@ where
 \[
 \log \frac{p_i}{1-p_i} = \mathbf{x}_i \theta  \,,
 \]
-and $\mathbf{x}_i$ is the $i$th row from the design matrix $\mathbf{X}$ and $\theta \in \mathbb{R}^P$ is a $1 \times P$ matrix with the parameters of interest.
+and $\mathbf{x}_i$ is the $i$th row of the design matrix $\mathbf{X}$ and $\theta \in \mathbb{R}^P$ is a $P \times 1$ column vector of parameters.
 
-Commonly, to find maximum likelihood estimates of $\theta$, we usually use the log-likelihood as the objective function we want to optimize, i.e.
+Maximizing the likelihood is equivalent to minimizing the \emph{mean negative log-likelihood}, which we denote by $\text{NLL}$ throughout this assignment:
 \begin{align}
-l(\theta, \mathbf{y}, \mathbf{X}) = & \sum_{i=1}^n y_i \log(p_i) + (1 - y_i) \log(1-p_i)\\
- = & \sum_{i=1}^n y_i \mathbf{x}_i\theta + \log(1-p_i)\\
- = & \sum_{i=1}^n y_i \mathbf{x}_i\theta - \log(1+\exp(\mathbf{x}_i\theta))\,.
+\text{NLL}(\theta, \mathbf{y}, \mathbf{X})
+ &= -\frac{1}{n}\log L(\theta, \mathbf{y}, \mathbf{X}) \notag\\
+ &= -\frac{1}{n}\sum_{i=1}^n \left[y_i\log(p_i)+(1-y_i)\log(1-p_i)\right] \notag\\
+ &= \frac{1}{n}\sum_{i=1}^n \left[\log(1+\exp(\mathbf{x}_i\theta))-y_i\mathbf{x}_i\theta\right].
 \end{align}
-
-Although, in our case we instead want to minimize the negative log likelihood NLL$(\theta, \mathbf{y}, \mathbf{X})=-l(\theta, \mathbf{y}, \mathbf{X})$, which is essentially the same as the cross-entropy loss.
+This is the binary cross-entropy averaged over observations. Both the loss and its gradient use this mean convention; no additional division by $n$ is needed after computing either one.
 
 \begin{enumerate}
-\item (4p) Derive the the gradient for NLL$(\theta, \mathbf{y}, \mathbf{X})$ with respect to $\theta$.\\\emph{Hint!} See \citet[Ch. 4.4]{hastie2009elements}.
-\item (2p) Implement the gradient as a function in R. Below are two examples of how it should work. Note, \texttt{nll\_grad(y, X, theta)} return the gradient of $(1/n) NLL(\theta, \mathbf{y}, \mathbf{X})$. Show that your implementation give the same result as these test cases in your report.
+\item (4p) Derive the gradient of the mean negative log-likelihood $\text{NLL}(\theta, \mathbf{y}, \mathbf{X})$ with respect to $\theta$.\\\emph{Hint!} See \citet[Ch. 4.4]{hastie2009elements}.
+\item (2p) Implement the gradient as \texttt{nll\_grad(y, X, theta)}. It should return the gradient of the mean loss $\text{NLL}$ defined above. Show that your implementation reproduces the following two test cases to four decimal places in your report.
 <<echo=FALSE,eval=TRUE>>=
 nll_grad <- function(y, X, theta){
 c("(Intercept)" = 0.1825, "gre_sd" = -0.0857, "gpa_sd" = -0.0829)
@@ -159,16 +159,18 @@ nll_grad(y, X, theta = c(-1,0.5,0.5))
 \end{enumerate}
 
 \subsection{Implement Gradient Descent}
-We now have the primary tool for implementing gradient descent and stochastic gradient descent. The log-likelihood function has been implemented in the \texttt{uuml} package and can be accessed as follows.
+Use the following function to evaluate the mean negative log-likelihood. It converts the total log-likelihood supplied by \texttt{uuml} to the mean loss defined above. Use \texttt{nll()} for loss evaluation throughout this assignment.
 <<echo=TRUE,eval=TRUE>>=
-# The inside of the function
-ll
-# How we can use it
+nll <- function(y, X, theta){
+  -uuml::ll(y, X, theta) / length(y)
+}
 theta <- c(0, 0, 0)
-ll(y, X, theta)
+nll(y, X, theta)
 @
 
-\emph{Hint!} A common error is to get the sign of the gradient descent update wrong (confusing gradient for the negative log-likelihood and the gradient for the log-likelihood). If you have problems with getting your algorithm to converge, this might be a reason and something to check.
+\emph{Hint!} Gradient descent subtracts the gradient of the loss. Since \texttt{nll\_grad()} already returns the gradient of the mean negative log-likelihood, do not negate it or divide it by the number of observations again.
+
+For SGD and mini-batch updates, evaluate \texttt{nll\_grad()} on the current observation or mini-batch, averaging over the observations supplied to that call. To monitor training, evaluate \texttt{nll()} on \emph{all training observations} at the end of each epoch, so every algorithm's loss history uses the same scale.
 
 \begin{enumerate}
 \item (1p) Run logistic regression in R to get an MLE estimate of \texttt{theta} using the \texttt{glm()} function. Print the three parameter estimates.
@@ -199,9 +201,9 @@ mbsgd <- function(y, X, sample_size, eta, epochs){
 
     ### Put the algorithm code here ###
 
-    # Store epoch, nll and output results
+    # Store epoch, mean NLL and parameter values
     results[j, "epoch"] <- j
-    results[j, "nll"] <- # negative log-likelihood
+    results[j, "nll"] <- nll(y, X, theta)
     results[j, -(1:2)] <- theta
   }
   return(results)
@@ -214,22 +216,22 @@ result <- mbsgd(y, X, sample_size = 10, eta = 0.1, epochs = 500)
 
 \item Try different learning parameters $\eta$ and run the algorithm for roughly 500 epochs. You should find three different $\eta$ for each algorithm. One $\eta$ where the optimizer diverge, one $\eta$ where the optimizer converge very slowly and one $\eta$ that converges quick(er). Note that $\eta$ should be fixed/the same during all 500 epochs. Visualize your results in two plots per algorithm and choice of $\eta$ as a line graph (hence 18 figures in total).
 \begin{enumerate}
-\item (2p) The (negative) log-likelihood value \emph{for all observations} for the given $\theta$ (y-axis) and the epochs (full data iterations, x-axis).
+\item (2p) The mean negative log-likelihood \texttt{nll(y, X, theta)} evaluated on \emph{all training observations} for the current $\theta$ (y-axis), against epochs (full data iterations, x-axis).
 \item (2p) The value of one $\theta$ parameter of your choice (y-axis) and the epochs (full data iterations, x-axis). Also include the true values you got from using the \texttt{glm()} function above as a horizontal line in the figure.
 \end{enumerate}
-Below is an example of how you can plot the loss and the parameter over epochs using \texttt{ggplot2}. Note, this is just random generated data as an example.
+Below is an illustration of how to plot the mean loss over epochs using \texttt{ggplot2}. These are simulated plotting values, not optimizer output; use your algorithm's recorded results for the required plots.
 <<echo=TRUE,eval=TRUE, fig.height=2>>=
 library(ggplot2)
-# create data
 set.seed(4711)
-epoch <- 1:500
-nll <- rnorm(500,1.5) # Just random data.
-data <- data.frame(nll, epoch)
-# Plot
-ggplot(data, aes(x=epoch, y=nll)) +
+example_results <- data.frame(
+  epoch = 1:500,
+  nll = rnorm(500, mean = 1.5, sd = 0.1)
+)
+ggplot(example_results, aes(x = epoch, y = nll)) +
   geom_line() +
   geom_hline(yintercept = 1.5, color = "blue") +
-  ggtitle("Example")
+  labs(x = "Epoch", y = "Mean negative log-likelihood",
+       title = "Illustrative mean-loss history")
 @
 \end{enumerate}
 
@@ -306,11 +308,11 @@ X <- model.matrix(admit ~ gre_sd + gpa_sd, binary)
 y <- binary$admit
 @
 
-As in task 1, we minimize a negative log-likelihood. With a ridge penalty, the loss is
+As in task 1, we minimize the mean negative log-likelihood. With a ridge penalty, the loss is
 \begin{align}
-\text{NLL}_r(\theta, \mathbf{y}, \mathbf{X}, \lambda) = \frac{1}{n} \text{NLL}(\theta, \mathbf{y}, \mathbf{X}) + \frac{\lambda}{2} \sum_{j=2}^P \theta_j^2\,,
+\text{NLL}_r(\theta, \mathbf{y}, \mathbf{X}, \lambda) = \text{NLL}(\theta, \mathbf{y}, \mathbf{X}) + \frac{\lambda}{2} \sum_{j=2}^P \theta_j^2\,,
 \end{align}
-where $\text{NLL}$ is the total negative log-likelihood defined in task 1, $n$ is the number of observations, and $\lambda \geq 0$. The first column of $\mathbf{X}$ is the intercept column, so $\theta_1$ is excluded from the penalty \citep[see][Ch. 3.4]{hastie2009elements}.
+where $\text{NLL}$ is the mean negative log-likelihood defined in task 1 and $\lambda \geq 0$. The first column of $\mathbf{X}$ is the intercept column, so $\theta_1$ is excluded from the penalty \citep[see][Ch. 3.4]{hastie2009elements}.
 
 \emph{Note!} The loss uses the \emph{mean} negative log-likelihood plus the penalty. Do not divide the loss or its gradient by $n$ a second time. This convention matches the logistic ridge objective in \texttt{glmnet}; changing the scaling of the likelihood changes the meaning of $\lambda$. More information can be found \href{https://glmnet.stanford.edu/articles/glmnet.html#logistic-regression-family-binomial-}{here}.
 
@@ -417,9 +419,9 @@ adam <- function(y, X, sample_size, eta, beta1, beta2, epochs){
 
     ### Put the algorithm code here ###
 
-    # Store epoch, nll and output results
+    # Store epoch, mean NLL and parameter values
     results[j, "epoch"] <- j
-    results[j, "nll"] <- ll(y, X, theta)
+    results[j, "nll"] <- nll(y, X, theta)
     results[j, -(1:2)] <- theta
   }
   return(results)
@@ -427,12 +429,13 @@ adam <- function(y, X, sample_size, eta, beta1, beta2, epochs){
 @
 The function can then be called as:
 <<echo=TRUE,eval=FALSE>>=
-result <- mbsgd(y, X, sample_size = 10, eta = 0.1, epochs = 500)
+result <- adam(y, X, sample_size = 10, eta = 0.1,
+               beta1 = 0.9, beta2 = 0.999, epochs = 500)
 @
 \item Print the function in your report.
 \item Try different learning parameters $\eta$, $\beta_1$ and $\beta_2$, and run the algorithm for roughly 500 epochs. You should test three different parameters setup. Visualize your results in the same way as in the SGD task above, namely:
 \begin{enumerate}
-\item (2p) The (negative) log-likelihood value \emph{for all observations} for the given $\theta$ (y-axis) and the epochs (full data iterations, x-axis).
+\item (2p) The mean negative log-likelihood \texttt{nll(y, X, theta)} evaluated on \emph{all training observations} for the current $\theta$ (y-axis), against epochs (full data iterations, x-axis).
 \item (2p) The value of one $\theta$ parameter of your choice (y-axis) and the epochs (full data iterations, x-axis). Also include the true values you got from using the \texttt{glm()} function above as a horizontal line in the figure.
 \end{enumerate}
 \end{enumerate}
