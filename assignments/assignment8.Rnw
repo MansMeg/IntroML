@@ -53,16 +53,16 @@
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Prob}{\mathbb{P}}
 
-% Highlighted illustrations, separate from the assessed tasks.
-% The environment also supports knitr code chunks inside an example.
+% Highlighted examples and hints, separate from the assessed tasks.
+% The environment also supports knitr code chunks.
 \newsavebox{\examplecontent}
-\newenvironment{exampleblock}[1]{%
+\newenvironment{exampleblock}[2][Example]{%
   \par\medskip\noindent
   \begingroup
   \setlength{\fboxsep}{6pt}%
   \begin{lrbox}{\examplecontent}%
     \begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
-    \small\textbf{Example: #1}\hfill{\footnotesize\itshape No submission required}\par\smallskip
+    \small\textbf{#1: #2}\hfill{\footnotesize\itshape No submission required}\par\smallskip
 }{%
     \end{minipage}%
   \end{lrbox}%
@@ -71,6 +71,7 @@
   \par\medskip
 }
 \newcommand{\examplebox}[2]{\begin{exampleblock}{#1}#2\end{exampleblock}}
+\newenvironment{hintblock}[1]{\begin{exampleblock}[Hint]{#1}}{\end{exampleblock}}
 
 
 
@@ -188,6 +189,19 @@ greedy_algorithm(Q1, nonstationary_bandit)
 ## $Rt
 ## [1] -1.1702649  2.5704395  2.3963182  0.7931208 ...
 @
+\begin{hintblock}{Checking returned results}
+Check the number of rewards, total action count, and reported mean:
+<<result-check-hint, eval=FALSE>>=
+result <- greedy_algorithm(rep(0, 5), stationary_bandit)
+
+stopifnot(
+  length(result$Rt) == 1000,
+  sum(result$Nt) == 1000,
+  isTRUE(all.equal(result$R_bar, mean(result$Rt)))
+)
+@
+No output means these checks passed. Reuse them for the later bandit algorithms.
+\end{hintblock}
 \item (2p) Similarly, implement the $\epsilon$-bandit algorithm that takes an additional argument $\epsilon$ that is the probability that the algorithm instead takes makes an explorative action. Implement this algorithm as \texttt{epsilon\_algorithm(Q1, bandit, epsilon)}, note that it should return the same output structure as the greedy algorithm. It is also clear that the randomness of the exploration can give quite some different results in different runs.
 <<epsilon-example, eval=FALSE>>=
 set.seed(4711)
