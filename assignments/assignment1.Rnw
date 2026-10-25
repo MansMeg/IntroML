@@ -112,7 +112,7 @@ knitr::opts_chunk$set(size = "small")
 
 \section{Basic, Stochastic, and Mini-Batch Gradient Descent}
 
-This assignment will study different ways to optimize common objective functions in many areas of Machine Learning, namely, stochastic gradient descent. Here we will test to implement these optimizers for a well-known model, logistic regression. See \citet{ruder2016overview} for pseudo-code and details on the algorithms.
+Implement and compare gradient descent methods for logistic regression. See \citet{ruder2016overview} for pseudo-code and details on the algorithms.
 
 We are going to work with this data as a test case:
 
@@ -187,9 +187,9 @@ nll(y, X, theta)
 For SGD and mini-batch updates, evaluate \texttt{nll\_grad()} on the current observation or mini-batch, averaging over the observations supplied to that call. To monitor training, evaluate \texttt{nll()} on \emph{all training observations} at the end of each epoch, so every algorithm's loss history uses the same scale.
 
 \begin{enumerate}
-\item (1p) Run logistic regression in R to get an MLE estimate of \texttt{theta} using the \texttt{glm()} function. Print the three parameter estimates.
+\item (1p) Fit logistic regression using \texttt{glm()} with \texttt{family = "binomial"}, and save the model as \texttt{glm\_fit}. Print the three maximum-likelihood parameter estimates.
 
-\emph{Hint!} The design matrix \texttt{X} already include an intercept so you need to remove that either from \texttt{X} or from the R formula using \texttt{y ~ -1 + X}.
+\emph{Hint!} The design matrix \texttt{X} already includes an intercept so you need to remove that either from \texttt{X} or from the R formula using \texttt{y ~ -1 + X}.
 \item (6p) Implement \emph{one} R function called \texttt{gradient\_descent()}. Use the arguments shown in the scaffold below and the gradient of the mean NLL \citep[see][for algorithm descriptions]{ruder2016overview}. The batch size determines the method:
 \begin{itemize}
 \item \texttt{batch\_size = nrow(X)} gives ordinary full/batch gradient descent;
@@ -252,9 +252,9 @@ Submit \emph{one composite figure}: use three columns for the learning-rate sett
 Briefly explain how the three learning rates affect the loss and coefficient trajectories. A persistently oscillating loss is sufficient to demonstrate instability; you do not need to force the loss to become infinite.
 
 \item (4p) \textbf{Experiment B: batch sizes at a shared learning rate.}
-Call the same \texttt{gradient\_descent()} function with batch sizes $n$, 10, and 1 to compare full GD, mini-batch GD, and SGD. Use the same data, zero initial parameters, and 500 epochs for all three. Start with a shared learning rate of $\eta=0.1$. If any run is unstable, reduce the learning rate for \emph{all three} methods. Set the random seed before each stochastic run and report the common learning rate and seed.
+Call the same \texttt{gradient\_descent()} function with batch sizes $n$, 10, and 1 to compare full GD, mini-batch GD, and SGD. Use the same data and 500 epochs for all three. Start with a shared learning rate of $\eta=0.1$. If any run is unstable, reduce the learning rate for \emph{all three} methods. Set the random seed before each stochastic run and report the common learning rate and seed.
 
-Submit \emph{one composite figure with two panels}: overlay the three methods' mean-NLL curves in one panel and their trajectories for the same coefficient used in Experiment A in the other. Use a legend and the \texttt{glm()} reference lines. Evaluate the plotted loss on all training observations at the end of each epoch.
+Submit \emph{one composite figure with two panels}: overlay the three methods' mean-NLL curves in one panel and their trajectories for the same coefficient used in Experiment A in the other. Use a legend and the \texttt{glm()} reference lines.
 
 Compare progress and fluctuations near the reference estimates. Report the number of parameter updates per epoch for each method. An epoch processes all $n$ observations, but full GD makes one update, mini-batch GD makes $\lceil n/10\rceil$ updates, and SGD makes $n$ updates. Explain why equal epochs do not mean equal numbers of updates; this experiment is not a wall-clock timing comparison.
 \end{enumerate}
@@ -262,7 +262,7 @@ Compare progress and fluctuations near the reference estimates. Report the numbe
 \newpage
 
 \subsubsection*{Plotting hint for the two experiments}
-Submit exactly two composite figures for Experiments A and B; separate figures for each run are not needed. Your existing mean-loss and coefficient histories contain everything required. To find the three learning-rate behaviours, try a short logarithmic sequence of learning rates, such as $0.001$, $0.01$, $0.1$, $1$, and $10$, then adjust only if needed.
+Reuse your saved mean-loss and coefficient histories; no additional optimisation runs are needed for plotting. To find the three learning-rate behaviours, try a short logarithmic sequence of learning rates, such as $0.001$, $0.01$, $0.1$, $1$, and $10$, then adjust only if needed.
 
 Collect the three result matrices for one experiment in a named list called \texttt{runs}. For example, its names can describe the learning rates in Experiment A or the methods in Experiment B. Each matrix should have the columns \texttt{epoch}, \texttt{nll}, and the parameter names from \texttt{X}. The following code only reshapes and plots results; use the output of your own optimizers.
 <<echo=TRUE,eval=FALSE>>=
@@ -285,9 +285,7 @@ plot_data$measure <- factor(plot_data$measure,
 plot_data$setting <- factor(plot_data$setting, levels = names(runs))
 @
 
-\newpage
-
-Save your fitted \texttt{glm()} model as \texttt{glm\_fit}. Construct the two reference values and plot Experiment B as follows:
+Construct the two reference values from \texttt{glm\_fit} and plot Experiment B as follows:
 <<echo=TRUE,eval=FALSE>>=
 theta_mle <- unname(coef(glm_fit)) # Same parameter order as X.
 reference <- data.frame(
@@ -309,7 +307,7 @@ For Experiment A, prepare \texttt{runs} with its three learning-rate results and
 
 \section{Regularized Regression}
 
-The datasets \texttt{prob2\_train} and \texttt{prob2\_test} contains simulated data with 240 explanatory variables (\texttt{V1-V240}) and 1 numerical response variable (\texttt{y}). As per the dataset names, the first dataset contains training data and the second contains test data for this problem. To access the data, just run:
+The datasets \texttt{prob2\_train} and \texttt{prob2\_test} contain simulated data with 240 explanatory variables (\texttt{V1-V240}) and 1 numerical response variable (\texttt{y}). As per the dataset names, the first dataset contains training data and the second contains test data for this problem. To access the data, just run:
 
 <<eval=TRUE>>=
 library(uuml)
@@ -335,11 +333,11 @@ Both give $X\theta=(1,2)^\top$. For a new row $(1,0,0)$, they predict 1 and 0, r
 You should do the following and present the results in your report:
 \begin{enumerate}
 \item (1p) Fit a linear model to the training data. What are the results? Why does this happen?
-\item (1p) Use \texttt{glmnet()} function from the \texttt{glmnet} package to fit a linear lasso regression to the training data with $\lambda=1$. How many coefficients are used in the model? \emph{Hint!} \texttt{coefficients()}
+\item (1p) Use \texttt{glmnet()} function from the \texttt{glmnet} package to fit a linear lasso regression to the training data with $\lambda=1$. How many predictor coefficients are nonzero, excluding the intercept? \emph{Hint!} \texttt{coefficients()}
 \item Split the data into ten folds randomly.
 \emph{Hint!} Use the \texttt{sample()} function and create a new variable called fold. Here is an example on how to select the folds
 <<eval=FALSE>>=
-fold <- sample(1:10, nrow(X), replace = TRUE)
+fold <- sample(rep(1:10, length.out = nrow(X)))
 
 X_trainfold1 <- X[fold!=1,]
 X_valfold1 <- X[fold==1,]
@@ -350,7 +348,7 @@ y_valfold1 <- y[fold==1,]
 \emph{Hint!} Implement this as \texttt{glmnet\_cv(fold, X, y, lambda)}. Use the supplied ten folds and return one number: the mean of the ten validation-fold RMSEs. Accept either a response vector or a one-column response matrix. Use lasso (\texttt{alpha = 1}) with the default Gaussian family, intercept, and standardisation in \texttt{glmnet()}. Keep the same folds when comparing different values of \texttt{lambda}.
 
 \begin{enumerate}
-\item For each fold, hold out the validation fold and train on the the rest of the training set. See below.
+\item For each fold, hold out the validation fold and train on the rest of the training set. See below.
 <<eval=FALSE>>=
 mod <- glmnet(X_trainfold, y_trainfold,
               alpha = 1, lambda = lambda)
@@ -364,16 +362,15 @@ rmse(pred_y_valfold, y_valfold)
 \end{enumerate}
 \item (1p) Now, compute the RMSE for $\lambda=1$ using 10-fold cross-validation.
 \item (2p) Test different values for the hyper parameter $\lambda$. What is the best RMSE you can get with 10-fold cross-validation? What is the $\lambda$ for this value?
-\item (1p) Now use the best model to do predictions on the test set. What is your RMSE on the test set?
+\item (1p) Refit the model with the selected $\lambda$ on all training observations, then report its RMSE on the test set. Use the test set only for this final evaluation.
 \end{enumerate}
 
 \newpage
 
 \section{* Gradient Descent for penalized logistic regression}
+\label{sec:ridge}
 
-To get a pass with distinction point, you can choose between this task or the task below.
-
-\input{distinction_task.tex}
+For the optional distinction task, complete either this section or Section~\ref{sec:adam}.
 
 Here we use the same data as in task 1 above.
 
@@ -401,10 +398,10 @@ For $\theta=(2,0.4,-0.3)^\top$ (intercept first) and $\lambda=1$, the ridge pena
 Changing the intercept from 2 to 20 leaves this penalty unchanged, although the likelihood loss can change.
 }
 
-\emph{Note!} The loss uses the \emph{mean} negative log-likelihood plus the penalty. Do not divide the loss or its gradient by $n$ a second time. This convention matches the logistic ridge objective in \texttt{glmnet}; changing the scaling of the likelihood changes the meaning of $\lambda$. More information can be found \href{https://glmnet.stanford.edu/articles/glmnet.html#logistic-regression-family-binomial-}{here}.
+This scaling matches the logistic ridge objective in \texttt{glmnet}; changing the likelihood scaling changes the meaning of $\lambda$. More information can be found \href{https://glmnet.stanford.edu/articles/glmnet.html#logistic-regression-family-binomial-}{here}.
 
 \begin{enumerate}
-\item (2p) Derive the the gradient for $\text{NLL}_r(\theta, \mathbf{y}, \mathbf{X},\lambda)$ with respect to $\theta$.
+\item (2p) Derive the gradient for $\text{NLL}_r(\theta, \mathbf{y}, \mathbf{X},\lambda)$ with respect to $\theta$.
 \item (1p) Implement the gradient as \texttt{nllr\_grad(y, X, theta, lambda)}. It should return the gradient of $\text{NLL}_r$, including the penalty, with the intercept unpenalized. Include the function code and your actual outputs for the three calls below; compare them with the supplied results to four decimal places.
 <<echo=FALSE,eval=TRUE>>=
 nllr_grad <- function(y, X, theta, lambda){
@@ -467,10 +464,9 @@ nllr(y, X, theta = c(-1,0.5,0.5), lambda = 1)
 \newpage
 
 \section{* Implementation of the Adam optimizer}
+\label{sec:adam}
 
-To get a pass with distinction point, you can choose between this task or the task above
-
-\input{distinction_task.tex}
+For the optional distinction task, complete either this section or Section~\ref{sec:ridge}.
 
 Here we use the same data as in task 1 above.
 
@@ -530,7 +526,7 @@ baseline <- adam(y, X, sample_size = 10, eta = 0.01,
                  beta1 = 0.9, beta2 = 0.999, epochs = 500)
 @
 \item Print the function once in your report.
-\item Run these three settings, each using the same data, batch size 10, and 500 epochs. Set the seed to 4711 before each run and reset parameters and both moments to zero.
+\item Run these three settings using fresh calls with batch size 10 and 500 epochs. Set the seed to 4711 before each call.
 \begin{center}
 \begin{tabular}{lccc}
 \hline
