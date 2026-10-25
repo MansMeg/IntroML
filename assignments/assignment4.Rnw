@@ -113,6 +113,10 @@ knitr::opts_chunk$set(size = "small")
 
 \section{Convolutional neural networks using Keras}
 
+\textbf{Reading used here:} \citet{Goodfellow-et-al-2016}, \href{https://www.deeplearningbook.org/contents/guidelines.html}{Table 11.1 and Section 11.4.4} for random search.
+
+\emph{Optional convolution implementation (VG):} \href{https://www.deeplearningbook.org/contents/convnets.html}{Figure 9.1} in the same book.
+
 We are now going to implement a convolutional neural network using Keras. Here Ch. 5.1-5.3 in \citet{chollet2018deep} and the \href{https://github.com/MansMeg/IntroML/tree/master/additional_material/supplementary_r_files/cnn_example_cifar_10.R}{\texttt{cnn\_example\_cifar\_10.R}} might be usefulfor getting started. Remember to load the \texttt{tensorflow} R package before loading the \texttt{keras3} R package.
 
 If you have installed \texttt{keras3}, you can load the MNIST dataset. This dataset contains data on handwritten digits that we want to classify. To access the data, we use \texttt{keras3} as follows.
@@ -135,6 +139,7 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
         xaxt='n', yaxt='n', main=paste(mnist$train$y[idx]))
 @
 
+\newpage
 \item (1p) Implement a Convolutional Neural Network for the MNIST dataset. The network should have two convolutional layers as follows.
 <<>>=
 ## _______________________________________________________________________
@@ -340,8 +345,6 @@ To get VG on this assignment, you can choose to make this task OR the task on im
 \emph{Note!} This task can be a computationally heavy.
 
 As the last step, we will look into using transfer learning as a quick way of improving the prediction accuracy on the cifar-10 dataset. Here Ch. 5.3 in \citet{chollet2018deep} or the \href{https://keras3.posit.co/articles/transfer_learning.html}{\texttt{keras3} transfer-learning guide} might be helpful.
-
-You can find the current state-of-the-art neural networks for the cifar-10 dataset \href{https://benchmarks.ai/cifar-10}{here}. Feel free to read some of the papers and be inspired on how to improve your neural network.
 
 \begin{enumerate}
 \item (2p) Using \texttt{application\_vgg16()}, load the ImageNet-pretrained convolutional base with \texttt{include\_top = FALSE} and \texttt{input\_shape = c(32, 32, 3)}. Store it as \texttt{conv\_base}.
