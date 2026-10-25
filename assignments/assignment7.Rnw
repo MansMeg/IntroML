@@ -126,11 +126,12 @@ kl_normal(mu = -1, sigma = 0.5, mu_0 = 0, sigma_0 = 1)
 @
 \end{minipage}
 \end{enumerate}
-\item Now train your variational autoencoder on the MNIST data for 50 epochs. Visualize the latent state for the different numbers.
+\item Before training, use the supplied \texttt{vae\_loss\_components()} scaffold to record the reconstruction, KL, and total losses. Train your variational autoencoder on MNIST for 50 epochs, then record them again using the same 100 images and the same sampled noise. The example stores these as \texttt{loss\_before} and \texttt{loss\_after}. Visualize the latent state for the different numbers.
 \begin{enumerate}
 \item (1p) How do you interpret this latent state?
 \item (1p) What numbers are better represented by the latent state?
 \item (1p) What number is less well represented by the latent state?
+\item (1p) \textbf{Loss experiment.} Report the before/after loss table. Which term changed most? Do reconstruction and KL loss both need to decrease for their sum to improve? Explain using your results.
 \end{enumerate}
 \item (2p) Finally, encode all the 2:s in the MNIST test dataset to the latent state using your encoder. What is the mean of the digits "2" in the two latent dimensions? \emph{Hint!} See \texttt{y\_test} for the MNIST numbers. \emph{Note!} Do not retrain your VAE. Just use the one you have already trained.
 \item (1p) Visualize this value of the latent state as a 28 by 28-pixel image using your decoder.
