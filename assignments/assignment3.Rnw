@@ -110,6 +110,8 @@ mnist$train$x <- mnist$train$x/255
 mnist$test$x <- mnist$test$x/255
 @
 
+\emph{Data and metrics.} Use validation data for model selection and error analysis; reserve the MNIST test set for Task~1.8. Keras holds out the last 30\% of training observations before shuffling when using \texttt{validation\_split = 0.3}; see the tutorial. Loss means sparse categorical cross-entropy; classification error is $1-\mathrm{accuracy}$.
+
 \begin{enumerate}
 \item (1p) As a first step, we visualize a couple of digits. Include the first eight you can find in the training dataset in the report as an image.
 <<echo=TRUE,eval=FALSE>>=
@@ -121,20 +123,20 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
         xaxt='n', yaxt='n', main=paste(mnist$train$y[idx]))
 @
 \item (1p) How large is the training and test set?
-\item (2p) Implement a simple feed-forward neural network in R using TensorFlow and \texttt{keras3}. See the introduction in \href{https://github.com/MansMeg/IntroML/tree/master/additional_material/supplementary_r_files/tensorflow_feedforward_neural_network_tutorial.R}{feed-forward neural network tutorial}. Implement a neural network with one hidden layer with 16 units and the sigmoid as the activation function for the hidden layer. The output layer should be a softmax. Print your \texttt{keras3} model description and include it in your report.
+\item (2p) Implement a feed-forward network in R using \texttt{keras3}; see the \href{https://github.com/MansMeg/IntroML/tree/master/additional_material/supplementary_r_files/tensorflow_feedforward_neural_network_tutorial.R}{tutorial}. Use one hidden layer with 16 sigmoid units and a softmax output layer. Include the model description in your report.
 
-Before constructing the model, call \texttt{set\_random\_seed(123)}. Train using SGD with learning rate 0.05 and no momentum. Use 3 epochs, batch size 128, and \texttt{validation\_split = 0.3}. This is a simple starting model trained for a short, fixed budget. Keep the epoch count, batch size, and validation split for the experiments in the next task.
+Call \texttt{set\_random\_seed(123)} before constructing the model. Train with SGD, learning rate 0.05, no momentum, 3 epochs, batch size 128, and 30\% validation data. Keep the epoch count, batch size, and validation split fixed for the next task.
 \begin{enumerate}
 \item How many parameters do your model have in total?
 \item How many parameters does the input layer have?
 \item How many parameters does the output layer have?
-\item What do you get as classification accuracy? Include the validation accuracy and error per epoch figure/plot that is automatically generated.
+\item Report the final epoch's validation accuracy and validation loss. Include the training and validation accuracy and loss curves produced by \texttt{plot(history)}.
 
 \emph{Hint!} With these settings, the final validation accuracy should be roughly 0.84. Small differences between runs and software versions are expected.
 
 \end{enumerate}
 
-\item (2p) Now, we will play around with the essential concepts in feed-forward networks. Do the steps below, but feel free to tinker around and test other values. Try to understand the effect of the different choices. Report the \emph{validation} set accuracy/error and the validation accuracy/error per epoch for each step in a figure/plot together with the \texttt{keras3} model description for the \emph{final} neural network with all changes. Start from the simple neural network above, then make the following changes.
+\item (2p) Starting from the baseline, make the following cumulative changes. For each step, use the reporting convention in Task~1.3(d). Try to understand the effect of each change; you may also explore other values. Include the \texttt{keras3} model description only for the \emph{final} network with all changes.
 \begin{enumerate}
 \item Increase the number of hidden units to 128.
 \item Change the activation function to reLU.
@@ -150,9 +152,9 @@ Before constructing the model, call \texttt{set\_random\_seed(123)}. Train using
 
 \emph{Hint!} The general idea is to find the optimal capacity of the model. Try to start with a network that overfits the data and then regularize that model to improve the generalization error on the validation set.
 
-\item (2p) Identify two digits that your best network has classified incorrectly. Visualize them and include the digit number and what your network classified it as. Why do you think the network made the classification mistake?
+\item (2p) Identify two digits from the \emph{validation set} that your selected network has classified incorrectly. Visualize them and include the true digit and the predicted digit. Why do you think the network made each classification mistake?
 
-\item (1p) Use your model to compute the accuracy and loss on the MNIST hold-out test set included with the data. If you get a lower accuracy (or higher error) than on the validation set (or higher error), why is this the case?
+\item (1p) After model selection, evaluate your selected model once on the MNIST test set. Report test accuracy and loss, compare with validation metrics for the same model, and discuss possible reasons for differences. Is test accuracy necessarily lower than validation accuracy? Explain.
 
 \end{enumerate}
 
