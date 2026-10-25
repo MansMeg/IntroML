@@ -1,0 +1,9 @@
+name: Introduction to Machine Learning - Assignment 1 - Adam option
+description: Optional checks for Adam mini-batch updates and the recorded full-data mean loss. Experiments and explanations need manual review.
+tasks:
+  adam:
+    description: Adam with one update per mini-batch and bias correction.
+    url: test-adam.R
+run_code:
+  before:
+    url: helpers.R

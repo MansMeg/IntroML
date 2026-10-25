@@ -1,0 +1,15 @@
+name: Introduction to Machine Learning - Assignment 2
+description: Formative checks for the decision-tree functions. These do not assess the report or award marks.
+tasks:
+  tree_split:
+    description: Valid greedy splits, observation indices, ties, and unsplittable nodes.
+    url: test-tree-split.R
+  grow_tree:
+    description: Stopping and index handling, checked using your predict_with_tree function.
+    url: test-grow-tree.R
+  predict_with_tree:
+    description: Predictions from your own grown trees, including a single leaf and one new observation.
+    url: test-predict-with-tree.R
+run_code:
+  before:
+    url: helpers.R

@@ -1,0 +1,12 @@
+name: Introduction to Machine Learning - Assignment 1 - Ridge option
+description: Optional checks for the penalized logistic loss and gradient. Plots, derivations, and optimisation experiments need manual review.
+tasks:
+  nllr:
+    description: Mean negative log-likelihood plus the ridge penalty.
+    url: test-nllr.R
+  nllr_grad:
+    description: Ridge gradient with an unpenalized intercept.
+    url: test-nllr-grad.R
+run_code:
+  before:
+    url: helpers.R
