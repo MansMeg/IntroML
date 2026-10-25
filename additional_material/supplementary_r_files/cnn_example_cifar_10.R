@@ -66,11 +66,12 @@ model %>% compile(
 
 
 ########### Training #################
+# Use 20% of the training data for validation; reserve the test set for final evaluation.
 model %>% fit(
   x_train, y_train,
   batch_size = batch_size,
   epochs = epochs,
-  validation_data = list(x_test, y_test),
+  validation_split = 0.2,
   shuffle = TRUE
 )
 
