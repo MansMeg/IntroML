@@ -1,24 +1,23 @@
 # R setup
 
-Install Keras and TensorFlow before assignment 3. In a fresh R session, run:
+Install Keras and TensorFlow before assignment 3. For local installation, use 64-bit Python 3.13, or Python 3.11 on an Intel Mac. Download [setup_r_local.R](setup_r_local.R), save your own copy, and open it in R or RStudio. Read the comments and run the code one section at a time so you can see what is installed.
 
-```r
-source("additional_material/r_setup/setup.R")
-```
+1. In a fresh R session, run the two installation commands in section 1.
+2. Restart R, then run section 2 to load the packages. Start here in later sessions.
+3. Run the small training and prediction check in section 3. Wait for **“PASS: training and prediction work”**.
+4. Follow section 4 to start your assignment. Use the linked [student assignment template](../../templates/assignment_template.rmd) for the report, and add your code below the instructions in your own copy.
 
-From the `assignments/` folder, use `source("../additional_material/r_setup/setup.R")` instead.
-
-The script contains just two installation commands:
+The two installation commands are:
 
 ```r
 install.packages(c("keras3", "tensorflow"), repos = "https://cloud.r-project.org")
-keras3::install_keras(backend = "tensorflow", python_version = ">=3.9",
+keras3::install_keras(backend = "tensorflow", python_version = ">=3.9,<3.14",
                       extra_packages = "numpy")
 ```
 
 The second command installs the Python dependencies too, following the [official Keras installation instructions](https://keras3.posit.co/articles/getting_started.html#installation). Installation may take several minutes. Restart R afterwards. In subsequent sessions, load the packages with `library(keras3)` and `library(tensorflow)`; you do not need to rerun the installer.
 
-The arguments allow newer Python versions, including Colab's Python 3.13, and let the package installer choose a compatible NumPy version. This avoids the Keras installer's older defaults of Python 3.11 or earlier and NumPy below 2.
+The arguments allow Python 3.9 through 3.13 and let the package installer choose a compatible NumPy version. Python 3.14 and newer are excluded because the current TensorFlow packages do not support them. This also avoids the Keras installer's older defaults of Python 3.11 or earlier and NumPy below 2.
 
 Install other course packages as directed in the assignments.
 
