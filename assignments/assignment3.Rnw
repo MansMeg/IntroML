@@ -122,13 +122,15 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
 @
 \item (1p) How large is the training and test set?
 \item (2p) Implement a simple feed-forward neural network in R using TensorFlow and \texttt{keras3}. See the introduction in \href{https://github.com/MansMeg/IntroML/tree/master/additional_material/supplementary_r_files/tensorflow_feedforward_neural_network_tutorial.R}{feed-forward neural network tutorial}. Implement a neural network with one hidden layer with 16 units and the sigmoid as the activation function for the hidden layer. The output layer should be a softmax. Print your \texttt{keras3} model description and include it in your report.
+
+Before constructing the model, call \texttt{set\_random\_seed(123)}. Train using SGD with learning rate 0.05 and no momentum. Use 3 epochs, batch size 128, and \texttt{validation\_split = 0.3}. This is a simple starting model trained for a short, fixed budget. Keep the epoch count, batch size, and validation split for the experiments in the next task.
 \begin{enumerate}
 \item How many parameters do your model have in total?
 \item How many parameters does the input layer have?
 \item How many parameters does the output layer have?
 \item What do you get as classification accuracy? Include the validation accuracy and error per epoch figure/plot that is automatically generated.
 
-\emph{Hint!} The classification accuracy should be around 0.85.
+\emph{Hint!} With these settings, the final validation accuracy should be roughly 0.84. Small differences between runs and software versions are expected.
 
 \end{enumerate}
 
@@ -136,7 +138,7 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
 \begin{enumerate}
 \item Increase the number of hidden units to 128.
 \item Change the activation function to reLU.
-\item Change the optimizer to RMSprop.
+\item Change the optimizer to Adam (as in Assignment 1), using learning rate 0.001.
 \item Add a second layer with 128 hidden units.
 \item Add dropout with 0.2 dropout probability for both of your hidden layers.
 \item Add batch normalization for both of your hidden layers.
