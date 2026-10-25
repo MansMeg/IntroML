@@ -53,6 +53,21 @@
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Prob}{\mathbb{P}}
 
+% Highlighted illustrations, matching Assignment 1; an environment allows code chunks.
+\newsavebox{\exampleboxcontent}
+\newenvironment{examplebox}[1]{%
+  \par\medskip\noindent
+  \setlength{\fboxsep}{6pt}%
+  \begin{lrbox}{\exampleboxcontent}%
+  \begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+  \small\textbf{Example: #1}\hfill{\footnotesize\itshape No submission required}\par\smallskip
+}{%
+  \end{minipage}%
+  \end{lrbox}%
+  \fcolorbox{blue!45!black}{blue!4}{\usebox{\exampleboxcontent}}%
+  \par\medskip
+}
+
 \begin{document}
 %\SweaveOpts{concordance=TRUE}
 
@@ -209,6 +224,25 @@ tree_split(X_check, y_check, l = 1)
 \emph{Hint 1!} Use a list in R to store the sets of observation indices you are splitting up.
 
 \emph{Hint 2!} The indices returned by \texttt{tree\_split()} refer to rows of the subset supplied to that call. Convert them back to row positions in the original \texttt{X}.
+
+\begin{examplebox}{Indices and pointers (toy case, $l=1$)}
+Suppose a pending node contains original data rows 4, 9, and 15. Splitting this three-row subset returns local indices \texttt{R1 = c(1, 3)} and \texttt{R2 = 2}. Map them back as follows:
+<<echo=TRUE,eval=TRUE>>=
+node_rows <- c(4L, 9L, 15L)
+local_R1 <- c(1L, 3L)
+local_R2 <- 2L
+node_rows[local_R1] # Original data rows in R1
+node_rows[local_R2] # Original data rows in R2
+@
+Now suppose this node is the left child of tree row 1 and has just been appended as tree row 2. Update the parent's \texttt{R1\_i} to 2. Showing only the pointer columns of this intermediate tree:
+<<echo=TRUE,eval=TRUE>>=
+pointers <- data.frame(R1_i = c(-1L, -1L),
+                       R2_i = c(-1L, -1L))
+pointers$R1_i[1] <- 2L
+pointers
+@
+Here 2 points to a row of the \emph{tree}; 4, 9, and 15 identify rows of the \emph{data}. A pointer of $-1$ means that child has not yet been written. When queuing a node, also remember its parent tree row and which parent pointer (\texttt{R1\_i} or \texttt{R2\_i}) must be filled.
+\end{examplebox}
 
 Here is an template how the function could be implemented, but you are free to implement it however you want.
 
