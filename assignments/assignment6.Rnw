@@ -227,7 +227,7 @@ W_hat <- sqrt(max(pr$sdev[1]^2 - sigma2, 0)) * pr$rotation[, 1]
 @
 \emph{Why subtract the noise variance?} For one latent coordinate, $\operatorname{Cov}(\mathbf{x})=\mathbf{W}\mathbf{W}^T+\sigma^2 I$, so the leading eigenvalue is $\|\mathbf{W}\|^2+\sigma^2$. Centering removes the translation by $\mathbf{b}$; changing only $\mathbf{b}$ leaves centered PCA unchanged.
 \item (1p) Compare \texttt{b\_hat} and \texttt{W\_hat} with the generating parameters. Explain how the results connect pPCA to classical PCA. Allow for sampling variation and an arbitrary sign of the principal direction.
-\item (2p) Finally, simulate values $\mathbf{x}$ of dimension five from a probabilistic PCA model for a given choice of parameters. The latent variables $\mathbf{h}$ should be of dimension two, i.e. $\mathbf{h} \in \mathbb{R}^{2 \times 1}$ for each simulated observation. You are free to choose the parameter values $\mathbf{W}$, $\mathbf{b}$ and $\sigma^2$ yourself, but the resulting distribution should have at least one negative and one positive correlation between the $X$s. Visualize the variables using a pair-wise scatterplot using \texttt{pairs(X)} in R.
+\item (2p) Finally, simulate 300 observations from a probabilistic PCA model with five observed variables and two latent coordinates per observation. Store the data in a $300\times 5$ matrix \texttt{X}, with observations in rows. You are free to choose the parameter values $\mathbf{W}$, $\mathbf{b}$ and $\sigma^2$ yourself, but the resulting distribution should have at least one negative and one positive correlation between the $X$s. Visualize the variables using a pair-wise scatterplot using \texttt{pairs(X)} in R.
 \end{enumerate}
 
 \newpage
