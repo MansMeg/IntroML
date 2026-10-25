@@ -221,6 +221,9 @@ tree_split(X_check, y_check, l = 5)
 # We can also make a split without any limit on leaf size
 tree_split(X_check, y_check, l = 1)
 @
+
+\emph{Check:} \verb|mark_my_assignment(tasks = "tree_split")|
+
 \item (1p) What is the first split based on the whole training data \texttt{X\_train} and \texttt{y\_train}? Use \texttt{l=5}.
 \item (1p) What is the Sum of Squares (SS) for this first split?
 \item (3p) Use the function \texttt{tree\_split()} to create a function \texttt{grow\_tree()} that takes the arguments \texttt{X}, \texttt{y}, and \texttt{l} and then build a decision tree. The returned tree can be a \texttt{data.frame} that looks as below. This is just one example implementation, you are free to implement this however you want.
@@ -338,6 +341,11 @@ grow_tree <- function(X,y,l){
 tr <- grow_tree(X_check, y_check, l = 5)
 tr
 @
+
+\emph{Check:} \verb|mark_my_assignment(tasks = "grow_tree")|
+
+Run this check after also implementing \texttt{predict\_with\_tree()} in the next task. The check uses your growth and prediction functions together, so you can use your own tree representation.
+
 \item (3p) Finally implement a function \texttt{predict\_with\_tree(new\_data, tree)}. Here is a starting template for the function.
 <<echo = TRUE, eval=FALSE>>=
 predict_with_tree <- function(new_data, tree){
@@ -375,6 +383,9 @@ y_new
 pred_y <- predict_with_tree(new_data = X_new, tree = tr)
 pred_y
 @
+
+\emph{Check:} \verb|mark_my_assignment(tasks = "predict_with_tree")|
+
 \item (1p) The function \texttt{rmse(x,y)} in the \texttt{uuml} R package computes the root mean squared error between \texttt{x} and \texttt{y}.
 <<echo = TRUE>>=
 rmse
