@@ -19,7 +19,7 @@ Here general information is included that is needed for administrative/course pu
 - **Time used for basic assignment**: [How long time took the basic assignment (in hours)]
 - **Time used for extra assignment (VG)**: [How long time did the extra (VG) assignments took (in hours)]
 - **Good with lab**: [Write one-two sentences of what you liked with the assignment/what should we keep for next year.]
-- **Things to improve in the lab**: [Write one-two sentences of what you think can be improved in the assignment. Can something be clarified further? Did you get stuck on stuff that is not related to the content of the assignment etc.]
+- **Things to improve in the lab**: [Write one-two sentences of what you think can be improved in the assignment. Can something be clarified further? Did you get stuck on stuff that is not related to the content of the assignment etc. If an instruction was unclear, give the question number and briefly explain what was ambiguous.]
 - **Anything that was difficult with the material?**: [Was it some part of the material this week that was extra hard to understand/grasp that would need further clarification?]
 
 For every assignment, include one possible oral exam question of your own together with a short model answer. The question should concern this assignment or its associated reading or lectures, be suitable for a 2-4 minute oral answer, and test conceptual understanding rather than only calculation or code. It must not already be in the [oral exam question list](https://github.com/MansMeg/IntroML/blob/master/oral_exam/oral_exam_q.pdf) or be very close to an existing question, for example by only changing numbers.
