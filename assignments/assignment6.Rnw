@@ -253,7 +253,11 @@ theta0 <- list(mu_1 = 4.12, mu_2 = 0.94, sigma_1 = 2, sigma_2 = 2, pi = 0.5)
 \item (2p) Implement a function \texttt{d\_uni\_two\_comp(x, theta)} that computes the density value for a given set of parameters \texttt{theta} for values of \texttt{x}. \emph{Hint!} The function \texttt{dnorm} might be handy.
 \item (1p) Add the theoretical mixture density to the histogram from Question 3.2 over the interval -6 to 6 (by steps of 0.01). Use a density-scaled histogram (\texttt{freq = FALSE} in \texttt{hist}). One combined figure is sufficient for Questions 3.2 and 3.4.
 \item (1p) Visualize the \texttt{eruptions} variable in the \texttt{faithful} dataset using a histogram.
-\item (1p) Manually choose values for $\mu_1$, $\mu_2$, $\sigma_1$, $\sigma_2$ and $\pi$ that gives a density you think is a good fit for the \texttt{eruptions} variable.
+\item Fit a two-component mixture manually to the \texttt{eruptions} variable.
+\begin{enumerate}
+\item (1p) Choose $\mu_1$, $\mu_2$, $\sigma_1$, $\sigma_2$, and $\pi$, and overlay the resulting density on a density-scaled histogram from Question 3.5. One combined figure is sufficient for Questions 3.5 and 3.6(a).
+\item (1p) Briefly explain how your chosen means, standard deviations, and mixing weight reflect the locations, widths, and relative sizes of the two groups in the data.
+\end{enumerate}
 \item (2p) Implement \texttt{e\_uni\_two\_comp(X, theta)}. Here \texttt{X} contains $n$ univariate observations in an $n\times 1$ matrix. Return a vector \texttt{gamma} of length $n$, with one responsibility for component 2 per observation. This function should implement the expectation step in Algorithm 8.1 in \citet{hastie2009elements}. For definition of $\phi$ and $\theta$, see \citet[][, Section 8.5.1]{hastie2009elements}. Subscript in Algorithm 8.1, e.g. in $\theta_2$, indicates the component/cluster.
 <<eval = FALSE>>=
 gamma <- e_uni_two_comp(mixture_data, theta0)
@@ -284,6 +288,7 @@ theta
 ## [1] 0.4883709
 ##
 @
+\newpage
 \item (1p) Implement the log-likelihood of the model as \texttt{ll\_uni\_two\_comp(x, theta)}. \emph{Hint!} See Eq. 8.39 in \citet{hastie2009elements}.
 
 \emph{Numerical hint:} Very small densities can underflow to zero. Use \texttt{dnorm(..., log = TRUE)} and add the log mixing weights before combining the components with the helper below. It computes $\log(\exp(a)+\exp(b))$ for each observation; sum these log-densities over observations.
@@ -298,7 +303,6 @@ log_sum_exp <- function(a, b) {
 ll_uni_two_comp(mixture_data, theta0)
 ## -43.1055
 @
-\newpage
 \item (2p) Combine the functions into \texttt{em\_uni\_two\_comp(X, theta\_0, iter)}. It takes an $n\times 1$ data matrix \texttt{X} and initial parameters \texttt{theta\_0}. Run \texttt{iter} iterations, printing the current log-likelihood. Return a list with the final parameters as \texttt{theta} and an $\texttt{iter}\times 5$ matrix \texttt{history}. Row $i$ contains the parameters after M-step $i$; use columns \texttt{mu\_1}, \texttt{mu\_2}, \texttt{sigma\_1}, \texttt{sigma\_2}, and \texttt{pi}.
 <<eval = FALSE>>=
 em3 <- em_uni_two_comp(mixture_data, theta0, iter = 3)
