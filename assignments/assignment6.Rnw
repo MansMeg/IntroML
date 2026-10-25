@@ -148,19 +148,25 @@ C <- sample(1:3, nrow(X), replace = TRUE)
 k_means_W(X, C)
 ## [1] 4601439
 @
-\item (1p) Now run your \texttt{k\_means(X,K)} a couple of times for both \texttt{faithful} with $K=2$ and \texttt{iris} with $K=3$ using the two variables used above. Use different seeds every time. Compute the WPS for the final cluster assignments. Below is an example how this could be done.
+% Keep the comparison and its interpretation on one page.
+\enlargethispage{3\baselineskip}
+\item (1p) Run your \texttt{k\_means(X,K)} ten times per dataset with new random initialisations: \texttt{faithful} with $K=2$, and \texttt{iris} (\texttt{Petal.Length}, \texttt{Petal.Width}) with $K=3$. Present each run's final WPS in a table for each dataset.
+
+\emph{Hint!} Set \texttt{X} and \texttt{K} for each dataset. Set the seed once before the loop for reproducible results with different initialisations.
 <<eval = FALSE>>=
 set.seed(4711)
-X <- as.matrix(faithful)
-result1 <- k_means(X, K = 2)
-wps1 <- k_means_W(X, result1$C)
-result2 <- k_means(X, K = 2)
-wps2 <- k_means_W(X, result2$C)
+results <- vector("list", 10)
+wps <- numeric(10)
+for (r in seq_len(10)) {
+  results[[r]] <- k_means(X, K)
+  wps[r] <- k_means_W(X, results[[r]]$C)
+}
 @
-\item (1p) Visualize the clustering for the worst and the best clustering according to the WPS.
+\item (1p) For each dataset, plot the runs with the smallest and largest WPS among your ten runs. Choose any tied runs. If the selected clusterings are identical, one plot is sufficient; state this. Compare WPS only within each dataset.
 
-\emph{Note!} There might be multiple runs with the same (best) WPS, so you can make your own initizialization of the cluster assignments to force the algorithm to end up in a bad result with respect to WPS.
-\item (2p) Describe and discuss the results you get.
+\item (2p) How much did the final WPS vary between initialisations? What does this suggest about sensitivity to initialisation for each dataset?
+
+\emph{Note!} Small or zero differences are valid results. You are not expected to obtain a particular gap between the smallest and largest WPS.
 \end{enumerate}
 
 \newpage
