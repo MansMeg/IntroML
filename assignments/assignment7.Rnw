@@ -202,10 +202,18 @@ phi <- extract_phi(tm)
 
 \emph{Hint!} Fluctuations are normal in Gibbs sampling. Look for changes in the typical level rather than expecting a smooth or steadily increasing curve. A single likelihood trace cannot establish convergence of all model parameters.
 
-\begin{samepage}
-\item (2p) Inspect the 20 top words for each topic (the words with the highest probability). Choose two topics whose top words seem to belong together. Include the two word lists in your report and interpret the topics based on the storyline of the book. What have these two topics captured?
-\par
-\end{samepage}
+\item (2p) Inspect the 20 top words for each topic and choose two whose words seem to belong together. For each chosen topic, inspect one or two paragraphs where its estimated topic proportion is high. Include the two word lists, suggest an informative label for each topic, and explain each label using the top words and paragraph content.
+
+\emph{Hint!} Set \texttt{topic} to a chosen topic number. Use \texttt{crp\$paragraph} to map rows of \texttt{theta} back to the original text.
+<<topic_paragraph_hint,eval=FALSE>>=
+topic <- 1
+paragraph_ids <- crp$paragraph[
+  head(order(theta[, topic], decreasing = TRUE), 2)]
+pride_and_prejudice |>
+  filter(paragraph %in% paragraph_ids) |>
+  group_by(paragraph) |>
+  summarise(text = paste(word, collapse = " "), .groups = "drop")
+@
 \item (2p) Visualize these two topics evolve over the paragraphs in the books by plotting the $\theta$ parameters for that topic over time (paragraphs) in the book. Think of this as the time-line of the book. On the y-axis, you should plot $\theta_i$ for your chosen topic $i$ and the x-axis should be the paragraph number (first paragraph has number 1 and so forth).
 \item (2p) How do these two chosen topics evolve over the course in the book? If you want, you can take a rolling mean of the theta parameters to more easily show the changes in the topic over the book. \emph{Hint!} Here \texttt{zoo::rollmean()} might be a good function to use.
 \end{enumerate}
