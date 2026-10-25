@@ -281,10 +281,20 @@ theta
 ##
 @
 \item (1p) Implement the log-likelihood of the model as \texttt{ll\_uni\_two\_comp(x, theta)}. \emph{Hint!} See Eq. 8.39 in \citet{hastie2009elements}.
+
+\emph{Numerical hint:} Very small densities can underflow to zero. Use \texttt{dnorm(..., log = TRUE)} and add the log mixing weights before combining the components with the helper below. It computes $\log(\exp(a)+\exp(b))$ for each observation; sum these log-densities over observations.
+<<eval = FALSE>>=
+log_sum_exp <- function(a, b) {
+  m <- pmax(a, b)
+  value <- m + log(exp(a - m) + exp(b - m))
+  ifelse(is.infinite(m), m, value)
+}
+@
 <<eval = FALSE>>=
 ll_uni_two_comp(mixture_data, theta0)
 ## -43.1055
 @
+\newpage
 \item (2p) Combine the functions into \texttt{em\_uni\_two\_comp(X, theta\_0, iter)}. It takes an $n\times 1$ data matrix \texttt{X} and initial parameters \texttt{theta\_0}. Run \texttt{iter} iterations, printing the current log-likelihood. Return a list with the final parameters as \texttt{theta} and an $\texttt{iter}\times 5$ matrix \texttt{history}. Row $i$ contains the parameters after M-step $i$; use columns \texttt{mu\_1}, \texttt{mu\_2}, \texttt{sigma\_1}, \texttt{sigma\_2}, and \texttt{pi}.
 <<eval = FALSE>>=
 em3 <- em_uni_two_comp(mixture_data, theta0, iter = 3)
@@ -292,7 +302,6 @@ em3 <- em_uni_two_comp(mixture_data, theta0, iter = 3)
 ## Log Lik:  -41.11211
 ## Log Lik:  -40.48348
 @
-\newpage
 \item (1p) Test your algorithm on the \texttt{mixture\_data} for 20 iterations. Do you get the same results for $\hat{\pi}$ as in \citet[p. 275]{hastie2009elements}? Note that you might get slightly different results (at the second decimal place). Also, compare your log-likelihoods with Figure 8.6 in \citet{hastie2009elements}. Do you have a similar result? \emph{Hint!} There can be a slight different order depending on if you compute the log-likelihood value before or after the update of $\theta$.
 <<eval = FALSE>>=
 em20 <- em_uni_two_comp(mixture_data, theta0, iter = 20)
