@@ -1,0 +1,46 @@
+name: Assignment 2 test loading
+
+on:
+  push:
+    paths:
+      - assignments/tests/assignment2/**
+      - .github/scripts/check-assignment2-loading.R
+      - .github/workflows/assignment2-checks.yaml
+  pull_request:
+    paths:
+      - assignments/tests/assignment2/**
+      - .github/scripts/check-assignment2-loading.R
+      - .github/workflows/assignment2-checks.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  load:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "4.5"
+      - name: Install markmyassignment
+        shell: Rscript {0}
+        run: install.packages("markmyassignment", repos = "https://cloud.r-project.org")
+      - name: Check local loading
+        run: Rscript .github/scripts/check-assignment2-loading.R
+      - name: Check loading from the published commit
+        env:
+          CHECK_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          CHECK_REF: ${{ github.event.pull_request.head.sha || github.sha }}
+        shell: Rscript {0}
+        run: |
+          url <- paste0("https://raw.githubusercontent.com/",
+                         Sys.getenv("CHECK_REPOSITORY"), "/", Sys.getenv("CHECK_REF"),
+                         "/assignments/tests/assignment2/assignment2.yml")
+          status <- system2(file.path(R.home("bin"), "Rscript"),
+                            c(".github/scripts/check-assignment2-loading.R", shQuote(url)))
+          if(status != 0L) stop("Published test loading failed.")

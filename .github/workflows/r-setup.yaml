@@ -67,6 +67,8 @@ jobs:
         run: |
           options(reticulate.virtualenv.starter = Sys.getenv("pythonLocation"))
           source(".github/scripts/check-r-setup.R")
+          stopifnot(startsWith(reticulate::import("platform")$python_version(),
+                               "${{ matrix.python }}."))
 
   colab:
     name: Colab notebook / managed Python on Linux
