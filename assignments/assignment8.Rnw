@@ -289,6 +289,9 @@ Constant-step $\epsilon$-greedy & $\epsilon=0.1,\ \alpha=0.9$ \\
 \hline
 \end{tabular}
 \end{center}
+\begin{hintblock}{Running simulations efficiently}
+While debugging, start with five simulations. Preallocate the reward matrix and fill one column per simulation. Once your checks pass, use 500 simulations for every combination in your reported results.
+\end{hintblock}
 \item (2p) What are your conclusions from these results? Which algorithm seems to be the best one, and why?
 \item (2p) For each environment, choose the best and worst settings using your results from Exercise 1.6. Plot their average reward per step, as in Figure 2.2 in \citet{sutton2020reinforcement}. At each time step, average the rewards across the 500 simulations and plot these 1000 averages. Reuse the rewards $R_t$ already simulated.
 <<learning-curve-hint, eval=FALSE>>=
