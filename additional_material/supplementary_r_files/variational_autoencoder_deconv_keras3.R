@@ -1,230 +1,122 @@
-# Guide for VAE in R with tensorflow and keras3 (note, migth not work for "keras")
-# Note: This model includes convolutional layers, so it is for the VG task.
-
-
-library(keras3)
+# Assignment 7: convolutional VAE (VG) with keras3 and TensorFlow.
+# Complete the course R setup and its training check before running this file:
+# https://github.com/MansMeg/IntroML/tree/master/additional_material/r_setup
 library(tensorflow)
+library(keras3)
 
-#### Parameterization ####
-
-# input image dimensions
 img_rows <- 28L
 img_cols <- 28L
-# color channels (1 = grayscale, 3 = RGB)
 img_chns <- 1L
-
-# number of convolutional filters to use
-filters <- 64L
-
-# convolution kernel size
+original_dim <- img_rows * img_cols
+original_img_size <- c(img_rows, img_cols, img_chns)
+filters <- 50L
 num_conv <- 3L
-
 latent_dim <- 2L
-intermediate_dim <- 128L
-epsilon_std <- 1.0
-
-# training parameters
+intermediate_dim <- 100L
 batch_size <- 100L
 epochs <- 5L
+set_random_seed(4711)
 
+# Encoder: four convolutional layers, each with 50 filters.
+x <- layer_input(shape = original_img_size, name = "image")
+conv_1 <- layer_conv_2d(x, filters = filters, kernel_size = c(2L, 2L),
+                        strides = c(1L, 1L), padding = "same", activation = "relu")
+conv_2 <- layer_conv_2d(conv_1, filters = filters, kernel_size = c(2L, 2L),
+                        strides = c(2L, 2L), padding = "same", activation = "relu")
+conv_3 <- layer_conv_2d(conv_2, filters = filters, kernel_size = c(num_conv, num_conv),
+                        padding = "same", activation = "relu")
+conv_4 <- layer_conv_2d(conv_3, filters = filters, kernel_size = c(num_conv, num_conv),
+                        padding = "same", activation = "relu")
+hidden <- layer_dense(layer_flatten(conv_4), units = intermediate_dim,
+                       activation = "relu")
+z_mean <- layer_dense(hidden, units = latent_dim, name = "z_mean")
+z_log_var <- layer_dense(hidden, units = latent_dim, name = "z_log_var")
 
-#### Model Construction ####
-original_img_size <- c(img_rows, img_cols, img_chns)
-
-x <- layer_input(shape = c(original_img_size))
-
-conv_1 <- layer_conv_2d(
-  x,
-  filters = img_chns,
-  kernel_size = c(2L, 2L),
-  strides = c(1L, 1L),
-  padding = "same",
-  activation = "relu"
-)
-
-conv_2 <- layer_conv_2d(
-  conv_1,
-  filters = filters,
-  kernel_size = c(2L, 2L),
-  strides = c(2L, 2L),
-  padding = "same",
-  activation = "relu"
-)
-
-conv_3 <- layer_conv_2d(
-  conv_2,
-  filters = filters,
-  kernel_size = c(num_conv, num_conv),
-  strides = c(1L, 1L),
-  padding = "same",
-  activation = "relu"
-)
-
-conv_4 <- layer_conv_2d(
-  conv_3,
-  filters = filters,
-  kernel_size = c(num_conv, num_conv),
-  strides = c(1L, 1L),
-  padding = "same",
-  activation = "relu"
-)
-
-flat <- layer_flatten(conv_4)
-hidden <- layer_dense(flat, units = intermediate_dim, activation = "relu")
-
-z_mean <- layer_dense(hidden, units = latent_dim)
-z_log_var <- layer_dense(hidden, units = latent_dim)
-
-
-
-# Sampling layer with KL loss inside
-Lambda <- new_layer_class(
-  classname = "Lambda",
-  
+# Sampling and KL loss stay inside a Keras layer, so they are part of the graph.
+Sampling <- new_layer_class(
+  classname = "Sampling",
   call = function(inputs) {
     z_mean <- inputs[[1]]
     z_log_var <- inputs[[2]]
-    
-    #epsilon <- tf$random$normal(shape = tf$shape(z_mean))
-    epsilon <- tf$random$normal(shape = tf$shape(z_mean),mean = 0,stddev = epsilon_std)
-    
-    z <- z_mean + tf$exp(0.5 * z_log_var) * epsilon
-    
-    kl_loss <- -0.5 * op_mean(
-      1 + z_log_var - op_square(z_mean) - op_exp(z_log_var),
-      axis = -1L
+    epsilon <- tf$random$normal(shape = tf$shape(z_mean))
+    z <- z_mean + op_exp(0.5 * z_log_var) * epsilon
+    # Sum over latent dimensions; average over observations in the batch.
+    kl_loss <- -0.5 * op_sum(
+      1 + z_log_var - op_square(z_mean) - op_exp(z_log_var), axis = -1L
     )
-    
     self$add_loss(op_mean(kl_loss))
     z
   }
 )
+z <- Sampling(list(z_mean, z_log_var), name = "sampling")
 
-z <- Lambda()(list(z_mean, z_log_var))
-
-
-output_shape <- c(batch_size, 14L, 14L, filters)
-
+# Share every decoder layer between the VAE and the generator.
+decoder_shape <- c(14L, 14L, filters)
 decoder_hidden <- layer_dense(units = intermediate_dim, activation = "relu")
-decoder_upsample <- layer_dense(units = prod(output_shape[-1]), activation = "relu")
-
-decoder_reshape <- layer_reshape(target_shape = output_shape[-1])
+decoder_upsample <- layer_dense(units = prod(decoder_shape), activation = "relu")
+decoder_reshape <- layer_reshape(target_shape = decoder_shape)
 decoder_deconv_1 <- layer_conv_2d_transpose(
-  filters = filters,
-  kernel_size = c(num_conv, num_conv),
-  strides = c(1L, 1L),
-  padding = "same",
-  activation = "relu"
-)
-
+  filters = filters, kernel_size = c(num_conv, num_conv),
+  padding = "same", activation = "relu")
 decoder_deconv_2 <- layer_conv_2d_transpose(
-  filters = filters,
-  kernel_size = c(num_conv, num_conv),
-  strides = c(1L, 1L),
-  padding = "same",
-  activation = "relu"
-)
-
-decoder_deconv_3_upsample <- layer_conv_2d_transpose(
-  filters = filters,
-  kernel_size = c(3L, 3L),
-  strides = c(2L, 2L),
-  padding = "valid",
-  activation = "relu"
-)
-
-decoder_mean_squash <- layer_conv_2d(
-  filters = img_chns,
-  kernel_size = c(2L, 2L),
-  strides = c(1L, 1L),
-  padding = "valid",
-  activation = "sigmoid"
-)
-
-hidden_decoded <- decoder_hidden(z)
-up_decoded <- decoder_upsample(hidden_decoded)
-reshape_decoded <- decoder_reshape(up_decoded)
-deconv_1_decoded <- decoder_deconv_1(reshape_decoded)
-deconv_2_decoded <- decoder_deconv_2(deconv_1_decoded)
-x_decoded_relu <- decoder_deconv_3_upsample(deconv_2_decoded)
-x_decoded_mean_squash <- decoder_mean_squash(x_decoded_relu)
-
-# custom loss function
-original_dim <- img_rows*img_cols
-recon_loss <- function(x, x_decoded_mean_squash) {
-  original_dim * loss_binary_crossentropy(x, x_decoded_mean_squash)
+  filters = filters, kernel_size = c(num_conv, num_conv),
+  padding = "same", activation = "relu")
+decoder_deconv_3 <- layer_conv_2d_transpose(
+  filters = filters, kernel_size = c(3L, 3L), strides = c(2L, 2L),
+  padding = "valid", activation = "relu")
+decoder_output <- layer_conv_2d(
+  filters = img_chns, kernel_size = c(2L, 2L), padding = "valid",
+  activation = "sigmoid")
+decode <- function(z) {
+  z |> decoder_hidden() |> decoder_upsample() |> decoder_reshape() |>
+    decoder_deconv_1() |> decoder_deconv_2() |> decoder_deconv_3() |>
+    decoder_output()
 }
+vae <- keras_model(x, decode(z), name = "conv_vae")
+encoder <- keras_model(x, z_mean, name = "conv_encoder")
+decoder_input <- layer_input(shape = c(latent_dim))
+generator <- keras_model(decoder_input, decode(decoder_input), name = "conv_decoder")
 
-
-## variational autoencoder
-vae <- keras_model(x, x_decoded_mean_squash)
-vae %>% compile(optimizer = "rmsprop", loss = recon_loss)
+# Flatten each image separately: sum pixel losses, retaining the batch dimension.
+recon_loss <- function(x, x_decoded) {
+  x <- op_reshape(x, c(-1L, original_dim))
+  x_decoded <- op_reshape(x_decoded, c(-1L, original_dim))
+  original_dim * loss_binary_crossentropy(x, x_decoded)
+}
+compile(vae, optimizer = optimizer_rmsprop(learning_rate = 0.0001), loss = recon_loss)
 summary(vae)
 
-## encoder: model to project inputs on the latent space
-encoder <- keras_model(x, z_mean)
-
-## build a digit generator that can sample from the learned distribution
-gen_decoder_input <- layer_input(shape = latent_dim)
-gen_hidden_decoded <- decoder_hidden(gen_decoder_input)
-gen_up_decoded <- decoder_upsample(gen_hidden_decoded)
-gen_reshape_decoded <- decoder_reshape(gen_up_decoded)
-gen_deconv_1_decoded <- decoder_deconv_1(gen_reshape_decoded)
-gen_deconv_2_decoded <- decoder_deconv_2(gen_deconv_1_decoded)
-gen_x_decoded_relu <- decoder_deconv_3_upsample(gen_deconv_2_decoded)
-gen_x_decoded_mean_squash <- decoder_mean_squash(gen_x_decoded_relu)
-generator <- keras_model(gen_decoder_input, gen_x_decoded_mean_squash)
-
-
-#### Data Preparation ####
-
 mnist <- dataset_mnist()
-data <- lapply(mnist, function(m) {
-  array_reshape(m$x / 255, dim = c(dim(m$x)[1], original_img_size))
-})
-x_train <- data$train
-x_test <- data$test
+y_train <- mnist$train$y
+y_test <- mnist$test$y
+x_train <- array_reshape(mnist$train$x / 255, c(length(y_train), original_img_size))
+x_test <- array_reshape(mnist$test$x / 255, c(length(y_test), original_img_size))
 
+history <- fit(vae, x_train, x_train, shuffle = TRUE, epochs = epochs,
+               batch_size = batch_size,
+               validation_data = list(x_test, x_test), verbose = 2L)
 
-#### Model Fitting ####
-vae %>% fit(
-  x_train, x_train, 
-  shuffle = TRUE, 
-  epochs = epochs, 
-  batch_size = batch_size, 
-  validation_data = list(x_test, x_test)
-)
-
-
-
-#### Visualizations ####
-
+x_test_encoded <- predict(encoder, x_test, batch_size = batch_size, verbose = 0L)
 library(ggplot2)
-library(dplyr)
+latent_plot <- data.frame(z1 = x_test_encoded[, 1],
+                          z2 = x_test_encoded[, 2], digit = factor(y_test))
+print(ggplot(latent_plot, aes(z1, z2, colour = digit)) +
+        geom_point(alpha = 0.5) + theme_bw())
 
-## display a 2D plot of the digit classes in the latent space
-x_test_encoded <- predict(encoder, x_test, batch_size = batch_size)
-x_test_encoded %>%
-  as.data.frame() %>%
-  mutate(class = as.factor(mnist$test$y)) %>%
-  ggplot(aes(x = V1, y = V2, colour = class)) + geom_point()
-
-## display a 2D manifold of the digits
-n <- 15  # figure with 15x15 digits
-digit_size <- 28
-
-# we will sample n points within [-4, 4] standard deviations
+# Decode a grid of latent coordinates in one batch.
+n <- 15L
+digit_size <- 28L
 grid_x <- seq(-4, 4, length.out = n)
 grid_y <- seq(-4, 4, length.out = n)
-
-rows <- NULL
-for(i in 1:length(grid_x)){
-  column <- NULL
-  for(j in 1:length(grid_y)){
-    z_sample <- matrix(c(grid_x[i], grid_y[j]), ncol = 2)
-    column <- rbind(column, predict(generator, z_sample) %>% matrix(ncol = digit_size))
+latent_grid <- as.matrix(expand.grid(z1 = grid_x, z2 = grid_y))
+generated <- predict(generator, latent_grid, verbose = 0L)
+canvas <- matrix(0, n * digit_size, n * digit_size)
+for (i in seq_len(n)) {
+  for (j in seq_len(n)) {
+    idx <- (i - 1L) * n + j
+    image_rows <- ((n - i) * digit_size + 1L):((n - i + 1L) * digit_size)
+    image_cols <- ((j - 1L) * digit_size + 1L):(j * digit_size)
+    canvas[image_rows, image_cols] <- generated[idx, , , 1]
   }
-  rows <- cbind(rows, column)
 }
-rows %>% as.raster() %>% plot()
-
+plot(as.raster(canvas))
