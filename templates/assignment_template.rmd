@@ -7,9 +7,13 @@ output:
     toc_depth: 1
 ---
 
+\newpage
+
 # General Information
 
 Here general information is included that is needed for administrative/course purposes. Below is a list of the information that needs to be included under general information. **If the information below is missing in the report, the assignment will be failed**.
+
+**NOTE!** The assignments will be graded anonymously. **Do not include your name anywhere in the assignment! If the name is included, the assignment will be failed.**
 
 - **Time used for reading**: [How long time took the reading assignment (in hours)]
 - **Time used for basic assignment**: [How long time took the basic assignment (in hours)]
@@ -18,7 +22,13 @@ Here general information is included that is needed for administrative/course pu
 - **Things to improve in the lab**: [Write one-two sentences of what you think can be improved in the assignment. Can something be clarified further? Did you get stuck on stuff that is not related to the content of the assignment etc.]
 - **Anything that was difficult with the material?**: [Was it some part of the material this week that was extra hard to understand/grasp that would need further clarification?]
 
-**NOTE!** The assignments will be graded anonymously. **Do not include your name anywhere in the assignment! If the name is included, the assignment will be failed.**
+For every assignment, include one possible oral exam question of your own together with a short model answer. The question should concern this assignment or its associated reading or lectures, be suitable for a 2-4 minute oral answer, and test conceptual understanding rather than only calculation or code. It must not already be in the [oral exam question list](https://github.com/MansMeg/IntroML/blob/master/oral_exam/oral_exam_q.pdf) or be very close to an existing question, for example by only changing numbers.
+
+**You are not allowed to use large language models, such as ChatGPT, at all for this oral exam question contribution.**
+
+- **Question**: [Write your own oral exam question here.]
+- **Short model answer**: [Write your own model answer here.]
+- **Permission for future use**: [State **Yes** or **No**: may the course staff use or adapt your question and answer in a future oral exam?]
 
 # LLM use and integrity
 
@@ -27,16 +37,6 @@ You may use large language models (LLMs), such as ChatGPT, like you may discuss 
 Where an exercise explicitly asks you to run an LLM and report its output, you may do so for that experiment. Your explanations and analysis must be your own. This permission does not apply to the oral exam question contribution, for which LLM use is prohibited entirely.
 
 Do not copy or upload the full assignment text into an LLM.
-
-# Oral exam question contribution
-
-For every assignment, include one possible oral exam question of your own together with a short model answer. The question should concern this assignment or its associated reading or lectures, be suitable for a 2-4 minute oral answer, and test conceptual understanding rather than only calculation or code. It must not already be in the [oral exam question list](https://github.com/MansMeg/IntroML/blob/master/oral_exam/oral_exam_q.pdf) or be very close to an existing question, for example by only changing numbers.
-
-**You are not allowed to use large language models, such as ChatGPT, at all for this oral exam question contribution.**
-
-- **Question**: [Write your own oral exam question here.]
-- **Short model answer**: [Write your own model answer here.]
-- **Permission for future use**: [State **Yes** or **No**: may the course staff use or adapt your question and answer in a future oral exam?]
 
 # Introduction
 
