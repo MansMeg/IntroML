@@ -260,6 +260,8 @@ gamma <- e_uni_two_comp(mixture_data, theta0)
 head(gamma)
 ## [1]  0.9106339 0.8716861 0.7797225 0.6645640 0.6484311 0.5178799
 @
+\emph{Numerical hint:} You can reuse the log-sum-exp helper in Question 3.10: compute the weighted component log-densities, normalize in log space, then exponentiate. This avoids \texttt{0/0} when both densities underflow to zero.
+
 \emph{Note!} Gamma values for component 1 is just 1 - \texttt{gamma}.
 \item (1p) An observation has $\gamma_i = 0.6$. What weights does it receive for the two components in the M-step? Explain how this differs from a hard cluster assignment.
 \item (2p) Implement a function called \texttt{max\_uni\_two\_comp(X, gamma)} that returns a list with parameters \texttt{mu\_1}, \texttt{mu\_2}, \texttt{sigma\_1}, \texttt{sigma\_2} and \texttt{pi}. This function should implement the maximization step in algorithm 8.1 in \citet{hastie2009elements}.
