@@ -122,6 +122,7 @@ We are now going to implement a convolutional neural network using Keras. Here C
 If you have installed \texttt{keras3}, you can load the MNIST dataset. This dataset contains data on handwritten digits that we want to classify. To access the data, we use \texttt{keras3} as follows.
 
 <<echo=TRUE,eval=FALSE>>=
+library(tensorflow)
 library(keras3)
 mnist <- dataset_mnist()
 mnist$train$x <- mnist$train$x/255
@@ -142,21 +143,21 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
 \newpage
 \item (1p) Implement a Convolutional Neural Network for the MNIST dataset. The network should have two convolutional layers as follows.
 <<>>=
-## _______________________________________________________________________
+## ______________________________________________________________________
 ## Layer (type)                     Output Shape                Param #
-## =======================================================================
+## ======================================================================
 ## conv2d (Conv2D)                  (None, 26, 26, 32)          320
-## _______________________________________________________________________
+## ______________________________________________________________________
 ## max_pooling2d (MaxPooling2D)     (None, 13, 13, 32)          0
-## _______________________________________________________________________
+## ______________________________________________________________________
 ## conv2d (Conv2D)                  (None, 11, 11, 32)          9248
-## _______________________________________________________________________
+## ______________________________________________________________________
 ## flatten (Flatten)                (None, 3872)                0
-## _______________________________________________________________________
+## ______________________________________________________________________
 ## dense (Dense)                    (None, 64)                  247872
-## _______________________________________________________________________
+## ______________________________________________________________________
 ## dense (Dense)                    (None, 10)                  650
-## =======================================================================
+## ======================================================================
 ## Total params: 258,090
 ## Trainable params: 258,090
 ## Non-trainable params: 0
@@ -245,11 +246,9 @@ plot(as.raster(cifar10$train$x[1, , , ], max = 255))
 
 \newpage
 
-\section{* Implementing a convolutional layer}
+\section{* Implementing a convolutional layer}\label{sec:manual-convolution}
 
-To get VG on this assignment, you can choose to make this task OR the task on transfer learning below. You are also free to do both, if you want. As long as you pass one of the two VG assignments you will get a VG point. Although, please only write down the time it took to do the VG assignment for one of the tasks.
-
-\input{distinction_task.tex}
+For VG, complete either this section or Section~\ref{sec:transfer-learning}. You may do both, but only one VG point is awarded. Report the time spent on one chosen option.
 
 
 As a first step, we will implement a layer of a convolutional neural network with one filter. We will here not train the layer, only implement it to understand the inner workings. You are not allowed to use \texttt{convolve()} in R in the final solution, but you can use it to debug your code if you want to.
@@ -328,10 +327,9 @@ A more negative bias suppresses weaker responses. The fixed biases below illustr
 X <- mnist_example[["4"]][12:15,12:15]
 maxpool_layer(X)
 @
-\item (1p) Now put it all together and visualize the final output of your own convolutional layer. Visualize the feature map.
+\item (1p) Put it all together and visualize the final pooled feature map.
 <<eval=FALSE>>=
 X <- mnist_example[["4"]]
-relu <- function(x) max(0, x)
 output <- maxpool_layer(convolutional_layer(X, K, -370, relu))
 @
 
@@ -339,13 +337,9 @@ output <- maxpool_layer(convolutional_layer(X, K, -370, relu))
 
 \newpage
 
-\section{* Transfer learning using VGG16}
+\section{* Transfer learning using VGG16}\label{sec:transfer-learning}
 
-To get VG on this assignment, you can choose to make this task OR the task on implementing a convolutional layer above. You are also free to do both, if you want. As long as you pass one of the two VG assignments you will get a VG point. Although, please only write down the time it took to do the VG assignment for one of the tasks.
-
-\input{distinction_task.tex}
-
-\emph{Note!} This task can be a computationally heavy.
+This is the alternative VG option; see Section~\ref{sec:manual-convolution} for the choice and time-reporting instructions.
 
 As the last step, we will look into using transfer learning as a quick way of improving the prediction accuracy on the cifar-10 dataset. Here Ch. 5.3 in \citet{chollet2018deep} or the \href{https://keras3.posit.co/articles/transfer_learning.html}{\texttt{keras3} transfer-learning guide} might be helpful.
 
@@ -361,9 +355,9 @@ x_test_vgg <- application_preprocess_inputs(
   conv_base, cifar10$test$x)
 @
 
-\item (2p) Now add a dense layer with 64 hidden nodes (as in the previous exercise). Include the Keras model output in the assignment report. How many parameters do you have in the dense top layer (compared to the CNN in the previous part)?
-\item (2p) Compile the full model after freezing the convolutional base, then train only the dense top on the preprocessed CIFAR-10 images for five epochs. Runtime depends on your hardware; roughly 200 seconds per epoch or more is possible. Time the first of these five epochs to estimate the remaining four. The first epoch may include additional setup time.
-\item (2p) Report your final accuracy. How does this compare to the previous model for the cifar data?
+\item (2p) Add a flattening layer, a dense layer with 64 hidden units and ReLU activation, and a 10-class softmax output. Include the full model summary. Compare the number of trainable parameters in this dense top with the dense top of the CIFAR-10 baseline.
+\item (2p) Reuse the CIFAR-10 training/validation split. Compile the full model after freezing the convolutional base, then train only the dense top on the preprocessed images for five epochs. Runtime depends on your hardware; roughly 200 seconds per epoch or more is possible. Time the first of these five epochs to estimate the remaining four. The first epoch may include additional setup time.
+\item (2p) Report the VGG16 model's \textbf{test accuracy} and compare it with the \textbf{CIFAR-10 baseline} on the same held-out test images, using each model's required preprocessing.
 \end{enumerate}
 
 \newpage
