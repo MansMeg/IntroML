@@ -105,6 +105,10 @@ knitr::opts_chunk$set(size = "small")
 
 \tableofcontents
 
+\bigskip
+\newcommand{\assignmentTestFile}{assignment2/assignment2.yml}
+\input{mma_instruction.tex}
+
 \newpage
 
 \input{oral_exam_question_contribution.tex}

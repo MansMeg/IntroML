@@ -105,6 +105,10 @@ knitr::opts_chunk$set(size = "small")
 
 \tableofcontents
 
+\bigskip
+\newcommand{\assignmentTestFile}{assignment1/assignment1.yml}
+\input{mma_instruction.tex}
+
 \newpage
 
 \input{oral_exam_question_contribution.tex}
@@ -174,6 +178,8 @@ c("(Intercept)" = -0.0217, "gre_sd" = 0.0395, "gpa_sd" = 0.0426)
 nll_grad(y, X, theta = c(-1,0.5,0.5))
 @
 
+\emph{Check:} \verb|mark_my_assignment(tasks = "nll_grad")|
+
 \end{enumerate}
 
 \subsection{Implement Gradient Descent}
@@ -185,6 +191,8 @@ nll <- function(y, X, theta){
 theta <- c(0, 0, 0)
 nll(y, X, theta)
 @
+
+\emph{Check:} \verb|mark_my_assignment(tasks = "nll")|
 
 \emph{Hint!} Gradient descent subtracts the gradient of the loss. Since \texttt{nll\_grad()} already returns the gradient of the mean negative log-likelihood, do not negate it or divide it by the number of observations again.
 
@@ -236,6 +244,8 @@ gradient_descent <- function(y, X, batch_size, eta, epochs){
   return(results)
 }
 @
+
+\emph{Check:} \verb|mark_my_assignment(tasks = "gradient_descent")|
 \newpage
 
 Once implemented, the same function produces the three histories for Experiment B:
@@ -368,6 +378,8 @@ rmse(pred_y_valfold, y_valfold)
 @
 \item Take the mean RMSE for the 10 folds.
 \end{enumerate}
+
+\emph{Check:} \verb|mark_my_assignment(tasks = "glmnet_cv")|
 \item (1p) Now, compute the RMSE for $\lambda=1$ using 10-fold cross-validation.
 \item (2p) Test different values for the hyper parameter $\lambda$. What is the best RMSE you can get with 10-fold cross-validation? What is the $\lambda$ for this value?
 \item (1p) Refit the model with the selected $\lambda$ on all training observations, then report its RMSE on the test set. Use the test set only for this final evaluation.
@@ -437,6 +449,14 @@ nllr_grad <- function(y, X, theta, lambda){
 <<echo=TRUE,eval=TRUE>>=
 nllr_grad(y, X, theta = c(-1,0.5,0.5), lambda = 1)
 @
+
+\emph{Select the ridge checks and check your gradient:}
+<<mma-nllr-grad,echo=TRUE,eval=FALSE>>=
+set_assignment(paste("https://github.com/MansMeg/IntroML/",
+                     "blob/master/assignments/tests/assignment1/",
+                     "assignment1-vg-ridge.yml", sep = ""))
+mark_my_assignment(tasks = "nllr_grad")
+@
 \item (1p) Implement the penalized loss $\text{NLL}_r$ as \texttt{nllr(y, X, theta, lambda)}. Include the function code and your actual outputs for the three calls below; compare them with the supplied results to four decimal places.
 <<echo=FALSE,eval=TRUE>>=
 nllr <- function(y, X, theta, lambda){
@@ -464,6 +484,8 @@ nllr <- function(y, X, theta, lambda){
 <<echo=TRUE,eval=TRUE>>=
 nllr(y, X, theta = c(-1,0.5,0.5), lambda = 1)
 @
+
+\emph{With the ridge checks selected:} \verb|mark_my_assignment(tasks = "nllr")|
 \item (1p) Use \texttt{glmnet} to estimate \texttt{theta} for logistic ridge regression. Set \texttt{family = "binomial"}, \texttt{lambda = 1}, \texttt{alpha = 0}, and \texttt{standardize = FALSE} so the fit uses the same loss as your implementation on the already standardized predictors. Remove the intercept column from \texttt{X} when calling \texttt{glmnet}, and retain its default \texttt{intercept = TRUE} so it estimates an unpenalized intercept.
 \item (2p) Adapt the same batching and update logic in \texttt{gradient\_descent()} to minimize $\text{NLL}_r$, using \texttt{nllr\_grad} and subtracting its gradient in each update. Run it with batch sizes $n$ and 10 for full GD and mini-batch GD, respectively. Reuse the optimisation loop rather than implementing each method separately.
 \item (2p) Try different learning parameters $\eta$ and $\lambda$. When does the algorithm converge or diverge? Visualize the epochs (x-axis) and the penalized loss $\text{NLL}_r$ evaluated on all observations (y-axis). Show at least one plot per algorithm that converges.
@@ -526,6 +548,14 @@ adam <- function(y, X, sample_size, eta, beta1, beta2, epochs){
   }
   return(results)
 }
+@
+
+\emph{Select the Adam checks and check your function:}
+<<mma-adam,echo=TRUE,eval=FALSE>>=
+set_assignment(paste("https://github.com/MansMeg/IntroML/",
+                     "blob/master/assignments/tests/assignment1/",
+                     "assignment1-vg-adam.yml", sep = ""))
+mark_my_assignment(tasks = "adam")
 @
 For example, run the baseline as follows:
 <<echo=TRUE,eval=FALSE>>=
