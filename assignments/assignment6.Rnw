@@ -92,7 +92,9 @@ We are now going to build a k-means algorithm from scratch.
 \item\label{q:a6:manual-clusters} (1p) Manually allocate each observation in \texttt{faithful} to one of two clusters, using the \texttt{eruptions} and/or \texttt{waiting} variables.
 \item\label{q:a6:manual-cluster-plot} (1p) Make a scatterplot of \texttt{eruptions} and \texttt{waiting}, colouring observations by your manual clusters. One figure covers Questions~\ref{q:a6:manual-clusters} and~\ref{q:a6:manual-cluster-plot}.
 \newpage
-\item (2p) Implement \texttt{compute\_cluster\_means(X, C)} following Step 1 of Algorithm 14.1 in \citet{hastie2009elements}. The inputs are an $n\times p$ measurement matrix \texttt{X} and a length-$n$ vector \texttt{C} of cluster labels $1,\ldots,K$. Return a $K\times p$ matrix \texttt{m}, with row $k$ containing the means for cluster $k$. Do not include a cluster-ID column.
+\item (2p) \textbf{Implementation (1p).} Implement \texttt{compute\_cluster\_means(X, C)} following Step 1 of Algorithm 14.1 in \citet{hastie2009elements}. The inputs are an $n\times p$ measurement matrix \texttt{X} and a length-$n$ vector \texttt{C} of cluster labels $1,\ldots,K$. Return a $K\times p$ matrix \texttt{m}, with row $k$ containing the means for cluster $k$. Do not include a cluster-ID column.
+
+\textbf{Example (1p).} Include the inputs, a call and actual cluster means from your implementation, with a brief explanation. Reuse the supplied example below.
 % Keep the first cluster-means example together.
 
 \begin{minipage}{\linewidth}
@@ -110,15 +112,19 @@ m
 @
 \end{minipage}
 
-\item (2p) Next, implement the second step in Algorithm 14.1 of \citet{hastie2009elements} and call the function \texttt{compute\_cluster\_encoding(X, m)}. The function should take an $n\times p$ measurement matrix \texttt{X} and a $K\times p$ matrix \texttt{m} with one cluster mean per row. Return a length-$n$ vector of cluster labels $1,\ldots,K$.
+\item (2p) \textbf{Implementation (1p).} Implement the second step in Algorithm 14.1 of \citet{hastie2009elements} and call the function \texttt{compute\_cluster\_encoding(X, m)}. The function should take an $n\times p$ measurement matrix \texttt{X} and a $K\times p$ matrix \texttt{m} with one cluster mean per row. Return a length-$n$ vector of cluster labels $1,\ldots,K$.
+
+\textbf{Example (1p).} Include the inputs, a call and actual labels from your implementation, with a brief explanation. Reuse the supplied example below.
 <<eval=FALSE>>=
 C <- compute_cluster_encoding(X, m)
 C[1:10]
 ## [1] 2 1 2 1 2 1 2 2 1 2
 @
-\item (2p) Combine these functions into \texttt{k\_means(X,K)}, taking an $n\times p$ measurement matrix \texttt{X} and the number of clusters $K$. Randomly initialise the cluster labels and iterate until no assignments change. Return a list with \texttt{C} (length $n$) and \texttt{m} ($K\times p$). If any cluster is empty, either initially or after an update, restart the run with new random cluster assignments.
+\item (2p) \textbf{Implementation (1p).} Combine these functions into \texttt{k\_means(X,K)}, taking an $n\times p$ measurement matrix \texttt{X} and the number of clusters $K$. Randomly initialise the cluster labels and iterate until no assignments change. Return a list with \texttt{C} (length $n$) and \texttt{m} ($K\times p$). If any cluster is empty, either initially or after an update, restart the run with new random cluster assignments.
+
+\textbf{Example (1p).} Include the inputs, a call and compact actual \texttt{C} and \texttt{m} output, with a brief explanation. Reuse one of the ten runs below and report its seed.
 \newpage
-\item (2p) Implement a function called \texttt{k\_means\_W(X,C)} that computes the cluster-size-weighted within-point scatter (WPS) of Eq.~14.31 in \citet{hastie2009elements}:
+\item (2p) \textbf{Implementation (1p).} Implement \texttt{k\_means\_W(X,C)} that computes the cluster-size-weighted within-point scatter (WPS) of Eq.~14.31 in \citet{hastie2009elements}:
 \[
 \mathrm{WPS}(C)=\sum_{k=1}^{K} n_k\,\mathrm{SSE}_k,
 \qquad
@@ -127,6 +133,8 @@ C[1:10]
 where $n_k$ is the number of observations in cluster $k$ and $\bar{x}_k$ is its mean vector.
 
 \emph{Fitting loss and comparison statistic.} The usual k-means fitting loss is $\mathrm{SSE}(C)=\sum_k\mathrm{SSE}_k$. Keep the usual mean and nearest-mean updates in \texttt{k\_means()}; use the weighted WPS above for \texttt{k\_means\_W()} and the run comparisons below. Because of the extra $n_k$ factors, WPS can rank clusterings differently from SSE and need not decrease at every k-means update.
+
+\textbf{Example (1p).} Include the inputs, a call and actual WPS from your implementation, with a brief explanation. Reuse the supplied example or a run in the experiment below.
 
 \begin{minipage}{\linewidth}
 <<eval = FALSE>>=
@@ -178,9 +186,11 @@ With $\mathbf{W}=(-1,3)^T$, $\mathbf{b}=(0.5,2)^T$, $h=1$, and no noise, $\mathb
 }
 
 \begin{enumerate}
-\item (2p) Implement \texttt{pPCA(W, b, sigma2)} to return one simulated observation as a vector of length $D$. Here \texttt{W} is $D\times K$, \texttt{b} has length $D$, and \texttt{sigma2} is the noise variance. \emph{Hint!} Use \texttt{sqrt(sigma2)} as the noise standard deviation.
+\item (2p) \textbf{Implementation (1p).} Implement \texttt{pPCA(W, b, sigma2)} to return one simulated observation as a vector of length $D$. Here \texttt{W} is $D\times K$, \texttt{b} has length $D$, and \texttt{sigma2} is the noise variance. \emph{Hint!} Use \texttt{sqrt(sigma2)} as the noise standard deviation.
+
+\textbf{Example (1p).} Include the parameter inputs, a call, seed and an actual simulated observation from your implementation, with a brief explanation. Reuse an observation from one of the simulations below.
 \item\label{q:a6:ppca-baseline} (1p) Simulate 300 observations with $\mathbf{W}=(-1,3)^T$, $\mathbf{b}=(0.5,2)^T$, and $\sigma^2=1$. Run \texttt{set.seed(4711)} before simulating. Store this baseline as \texttt{X\_base}, a $300\times 2$ matrix with one observation per row, and plot it as in Figure \ref{pPCA}.
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.55\textwidth]{figs/pPCA.png}
 \caption{Data from a pPCA model with $\mathbf{W} = (-1, 3)^T$, $\mathbf{b} = (0.5, 2)^T$ and $\sigma^2 = 1$}
@@ -188,6 +198,7 @@ With $\mathbf{W}=(-1,3)^T$, $\mathbf{b}=(0.5,2)^T$, $h=1$, and no noise, $\mathb
 \end{figure}
 \item (1p) Describe the different parts of the model. What are the parameters? What are the latent variables?
 \item (1p) \emph{Before simulating, predict} the effect of each of these separate changes to the baseline: $\mathbf{b}=(2.5,2)^T$; $\mathbf{W}=(3,1)^T$; and $\sigma^2=4$. For each change, reset the seed to 4711 and simulate 300 observations. Show the baseline and three settings in one figure with common axis limits; this also covers Question~\ref{q:a6:ppca-baseline}. Afterwards, briefly explain whether the results match your predictions.
+\newpage
 \item (1p) Run PCA on the baseline data. Estimate the mean and the loading vector, accounting for the known baseline noise variance:
 <<eval = FALSE>>=
 sigma2 <- 1
@@ -227,9 +238,13 @@ theta0 <- list(mu_1 = 4.12, mu_2 = 0.94, sigma_1 = 2, sigma_2 = 2, pi = 0.5)
 \emph{Conventions:} Throughout this section, \texttt{theta} contains \texttt{mu\_1}, \texttt{mu\_2}, \texttt{sigma\_1}, \texttt{sigma\_2}, and \texttt{pi}. The sigmas are standard deviations. \texttt{pi} is the mixing weight for component 2, and \texttt{gamma[i]} is the posterior probability that observation $i$ belongs to component 2, given its value and the current parameters.
 
 \begin{enumerate}
-\item (2p) Implement \texttt{r\_uni\_two\_comp(n, theta)}, returning a numeric vector of length \texttt{n}. For each observation, draw $\delta\sim\operatorname{Bernoulli}(\pi)$. Draw from component 2 when $\delta=1$, and component 1 otherwise, using the means and standard deviations in \texttt{theta}. See Eq. 8.36 in \citet{hastie2009elements}.
+\item (2p) \textbf{Implementation (1p).} Implement \texttt{r\_uni\_two\_comp(n, theta)}, returning a numeric vector of length \texttt{n}. For each observation, draw $\delta\sim\operatorname{Bernoulli}(\pi)$. Draw from component 2 when $\delta=1$, and component 1 otherwise, using the means and standard deviations in \texttt{theta}. See Eq. 8.36 in \citet{hastie2009elements}.
+
+\textbf{Example (1p).} Include the inputs, a call, seed and a compact extract of actual simulated observations, with a brief explanation. Reuse the 200 observations in the next task.
 \item\label{q:a6:mixture-histogram} (1p) Simulate 200 observations using $\mu_1=-2$, $\mu_2=1.5$, $\sigma_1=2$, $\sigma_2=1$ and $\pi=0.3$. Visualize observations drawn in a histogram.
-\item (2p) Implement a function \texttt{d\_uni\_two\_comp(x, theta)} that computes the density value for a given set of parameters \texttt{theta} for values of \texttt{x}. \emph{Hint!} The function \texttt{dnorm} might be handy.
+\item (2p) \textbf{Implementation (1p).} Implement \texttt{d\_uni\_two\_comp(x, theta)} that computes the density value for a given set of parameters \texttt{theta} for values of \texttt{x}. \emph{Hint!} The function \texttt{dnorm} might be handy.
+
+\textbf{Example (1p).} Include the inputs, a call and actual density values from your implementation, with a brief explanation. Reuse values from one of the density overlays below.
 \item\label{q:a6:mixture-density-plot} (1p) Add the theoretical mixture density to the histogram from Question~\ref{q:a6:mixture-histogram} over the interval -6 to 6 (by steps of 0.01). Use a density-scaled histogram (\texttt{freq = FALSE} in \texttt{hist}). One combined figure is sufficient for Questions~\ref{q:a6:mixture-histogram} and~\ref{q:a6:mixture-density-plot}.
 \item\label{q:a6:faithful-histogram} (1p) Visualize the \texttt{eruptions} variable in the \texttt{faithful} dataset using a histogram.
 \item Fit a two-component mixture manually to the \texttt{eruptions} variable.
@@ -238,7 +253,9 @@ theta0 <- list(mu_1 = 4.12, mu_2 = 0.94, sigma_1 = 2, sigma_2 = 2, pi = 0.5)
 \item (1p) Briefly explain how your chosen means, standard deviations, and mixing weight reflect the locations, widths, and relative sizes of the two groups in the data.
 \end{enumerate}
 \newpage
-\item (2p) Implement \texttt{e\_uni\_two\_comp(X, theta)}. Here \texttt{X} contains $n$ univariate observations in an $n\times 1$ matrix. Return a vector \texttt{gamma} of length $n$, with one responsibility for component 2 per observation. This function should implement the expectation step in Algorithm 8.1 in \citet{hastie2009elements}. For definition of $\phi$ and $\theta$, see \citet[][, Section 8.5.1]{hastie2009elements}. Subscript in Algorithm 8.1, e.g. in $\theta_2$, indicates the component/cluster.
+\item (2p) \textbf{Implementation (1p).} Implement \texttt{e\_uni\_two\_comp(X, theta)}. Here \texttt{X} contains $n$ univariate observations in an $n\times 1$ matrix. Return a vector \texttt{gamma} of length $n$, with one responsibility for component 2 per observation. This function should implement the expectation step in Algorithm 8.1 in \citet{hastie2009elements}. For definition of $\phi$ and $\theta$, see \citet[][, Section 8.5.1]{hastie2009elements}. Subscript in Algorithm 8.1, e.g. in $\theta_2$, indicates the component/cluster.
+
+\textbf{Example (1p).} Include the inputs, a call and actual responsibilities from your implementation, with a brief explanation. Reuse the supplied example below.
 <<eval = FALSE>>=
 gamma <- e_uni_two_comp(mixture_data, theta0)
 head(gamma)
@@ -248,7 +265,9 @@ head(gamma)
 
 \emph{Note!} Gamma values for component 1 is just 1 - \texttt{gamma}.
 \item (1p) An observation has $\gamma_i = 0.6$. What weights does it receive for the two components in the M-step? Explain how this differs from a hard cluster assignment.
-\item (2p) Implement a function called \texttt{max\_uni\_two\_comp(X, gamma)} that returns a list with parameters \texttt{mu\_1}, \texttt{mu\_2}, \texttt{sigma\_1}, \texttt{sigma\_2} and \texttt{pi}. This function should implement the maximization step in algorithm 8.1 in \citet{hastie2009elements}. Return \texttt{sigma\_1} and \texttt{sigma\_2} as standard deviations: take the square root of each weighted variance estimate.
+\item (2p) \textbf{Implementation (1p).} Implement \texttt{max\_uni\_two\_comp(X, gamma)} that returns a list with parameters \texttt{mu\_1}, \texttt{mu\_2}, \texttt{sigma\_1}, \texttt{sigma\_2} and \texttt{pi}. This function should implement the maximization step in algorithm 8.1 in \citet{hastie2009elements}. Return \texttt{sigma\_1} and \texttt{sigma\_2} as standard deviations: take the square root of each weighted variance estimate.
+
+\textbf{Example (1p).} Include the inputs, a call and actual parameter estimates from your implementation, with a brief explanation. Reuse the supplied example below.
 <<eval = FALSE>>=
 theta <- max_uni_two_comp(mixture_data, gamma)
 theta
@@ -269,7 +288,9 @@ theta
 ##
 @
 \newpage
-\item\label{q:a6:mixture-loglikelihood} (1p) Implement the log-likelihood of the model as \texttt{ll\_uni\_two\_comp(x, theta)}. \emph{Hint!} See Eq. 8.39 in \citet{hastie2009elements}.
+\item\label{q:a6:mixture-loglikelihood} (2p) \textbf{Implementation (1p).} Implement \texttt{ll\_uni\_two\_comp(x, theta)} to compute the model log-likelihood. \emph{Hint!} See Eq. 8.39 in \citet{hastie2009elements}.
+
+\textbf{Example (1p).} Include the inputs, a call and actual log-likelihood from your implementation, with a brief explanation. Reuse the supplied call below the numerical helper.
 
 \emph{Numerical hint:} Very small densities can underflow to zero. Use \texttt{dnorm(..., log = TRUE)} and add the log mixing weights before combining the components with the helper below. For finite inputs $a$ and $b$, it uses the identity
 \[
@@ -287,7 +308,9 @@ cat("log_sum_exp <- ", paste(deparse(uuml::log_sum_exp), collapse = "\n"),
 ll_uni_two_comp(mixture_data, theta0)
 ## -43.1055
 @
-\item (2p) Combine the functions into \texttt{em\_uni\_two\_comp(X, theta\_0, iter)}. It takes an $n\times 1$ data matrix \texttt{X} and initial parameters \texttt{theta\_0}. Run \texttt{iter} iterations, printing the current log-likelihood. Return a list with the final parameters as \texttt{theta} and an $\texttt{iter}\times 5$ matrix \texttt{history}. Row $i$ contains the parameters after M-step $i$; use columns \texttt{mu\_1}, \texttt{mu\_2}, \texttt{sigma\_1}, \texttt{sigma\_2}, and \texttt{pi}.
+\item (2p) \textbf{Implementation (1p).} Combine the functions into \texttt{em\_uni\_two\_comp(X, theta\_0, iter)}. It takes an $n\times 1$ data matrix \texttt{X} and initial parameters \texttt{theta\_0}. Run \texttt{iter} iterations, printing the current log-likelihood. Return a list with the final parameters as \texttt{theta} and an $\texttt{iter}\times 5$ matrix \texttt{history}. Row $i$ contains the parameters after M-step $i$; use columns \texttt{mu\_1}, \texttt{mu\_2}, \texttt{sigma\_1}, \texttt{sigma\_2}, and \texttt{pi}.
+
+\textbf{Example (1p).} Include the inputs, a call, likelihood prints, actual returned \texttt{theta} and a compact \texttt{history} extract, with a brief explanation. Reuse one of the runs below.
 <<eval = FALSE>>=
 em3 <- em_uni_two_comp(mixture_data, theta0, iter = 3)
 ## Log Lik:  -41.53247
