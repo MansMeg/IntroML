@@ -192,8 +192,6 @@ theta <- c(0, 0, 0)
 nll(y, X, theta)
 @
 
-\emph{Check:} \verb|mark_my_assignment(tasks = "nll")|
-
 \emph{Hint!} Gradient descent subtracts the gradient of the loss. Since \texttt{nll\_grad()} already returns the gradient of the mean negative log-likelihood, do not negate it or divide it by the number of observations again.
 
 For SGD and mini-batch updates, evaluate \texttt{nll\_grad()} on the current observation or mini-batch, averaging over the observations supplied to that call. To monitor training, evaluate \texttt{nll()} on \emph{all training observations} at the end of each epoch, so every algorithm's loss history uses the same scale.
