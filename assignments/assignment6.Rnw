@@ -64,6 +64,8 @@ This configuration checks the basic k-means and pPCA functions. The EM section b
 
 \textbf{Background reading:} Follow the \href{https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing}{general reading instructions for Block 6}.
 
+\emph{Implementation references in ESL.} For the basic k-means tasks, consult Algorithm~14.1 and Equation~14.31 in \citet{hastie2009elements}. For the optional EM VG section, also consult Section~8.5.1, including Algorithm~8.1. These specific excerpts supplement the conceptual background in the Block~6 reading.
+
 This computer assignment will look into two to three widespread algorithms for unsupervised learning.
 
 The dataset \texttt{iris} contain data on petal and sepal length and width for three different species of iris flowers. In addition, we will also use the \texttt{faithful} data on the Old Faithful Geyser in Yellowstone. The data consists of the eruption time (in minutes) and the waiting time (in minutes) until the next eruption. Finally we will also use the \texttt{mixture\_data} from Table 8.1 in  \citet{hastie2009elements}.
@@ -89,9 +91,11 @@ We are now going to build a k-means algorithm from scratch.
 \item (1p) Visualize \texttt{iris} as a scatterplot of \texttt{Sepal.Width} and \texttt{Petal.Width}. Show the three species (the \texttt{Species} variable) using different colors. \emph{Hint!} Use \texttt{ggplot2} and \href{https://ggplot2.tidyverse.org/reference/geom_point.html}{geom\_point}.
 \item\label{q:a6:manual-clusters} (1p) Manually allocate each observation in \texttt{faithful} to one of two clusters, using the \texttt{eruptions} and/or \texttt{waiting} variables.
 \item\label{q:a6:manual-cluster-plot} (1p) Make a scatterplot of \texttt{eruptions} and \texttt{waiting}, colouring observations by your manual clusters. One figure covers Questions~\ref{q:a6:manual-clusters} and~\ref{q:a6:manual-cluster-plot}.
+\newpage
 \item (2p) Implement \texttt{compute\_cluster\_means(X, C)} following Step 1 of Algorithm 14.1 in \citet{hastie2009elements}. The inputs are an $n\times p$ measurement matrix \texttt{X} and a length-$n$ vector \texttt{C} of cluster labels $1,\ldots,K$. Return a $K\times p$ matrix \texttt{m}, with row $k$ containing the means for cluster $k$. Do not include a cluster-ID column.
 % Keep the first cluster-means example together.
-\enlargethispage{3\baselineskip}
+
+\begin{minipage}{\linewidth}
 <<eval = FALSE>>=
 set.seed(4711)
 X <- as.matrix(faithful)
@@ -104,6 +108,8 @@ m
 ## [2,]  3.571106 71.44706
 ## [3,]  3.487659 70.72727
 @
+\end{minipage}
+
 \item (2p) Next, implement the second step in Algorithm 14.1 of \citet{hastie2009elements} and call the function \texttt{compute\_cluster\_encoding(X, m)}. The function should take an $n\times p$ measurement matrix \texttt{X} and a $K\times p$ matrix \texttt{m} with one cluster mean per row. Return a length-$n$ vector of cluster labels $1,\ldots,K$.
 <<eval=FALSE>>=
 C <- compute_cluster_encoding(X, m)
@@ -111,7 +117,18 @@ C[1:10]
 ## [1] 2 1 2 1 2 1 2 2 1 2
 @
 \item (2p) Combine these functions into \texttt{k\_means(X,K)}, taking an $n\times p$ measurement matrix \texttt{X} and the number of clusters $K$. Randomly initialise the cluster labels and iterate until no assignments change. Return a list with \texttt{C} (length $n$) and \texttt{m} ($K\times p$). If any cluster is empty, either initially or after an update, restart the run with new random cluster assignments.
-\item (2p) Implement a function called \texttt{k\_means\_W(X,C)} that computes the k-means within-point scatter (WPS) of Eq. 14.31 in \citet{hastie2009elements}.
+\newpage
+\item (2p) Implement a function called \texttt{k\_means\_W(X,C)} that computes the cluster-size-weighted within-point scatter (WPS) of Eq.~14.31 in \citet{hastie2009elements}:
+\[
+\mathrm{WPS}(C)=\sum_{k=1}^{K} n_k\,\mathrm{SSE}_k,
+\qquad
+\mathrm{SSE}_k=\sum_{i:C_i=k}\|x_i-\bar{x}_k\|^2,
+\]
+where $n_k$ is the number of observations in cluster $k$ and $\bar{x}_k$ is its mean vector.
+
+\emph{Fitting loss and comparison statistic.} The usual k-means fitting loss is $\mathrm{SSE}(C)=\sum_k\mathrm{SSE}_k$. Keep the usual mean and nearest-mean updates in \texttt{k\_means()}; use the weighted WPS above for \texttt{k\_means\_W()} and the run comparisons below. Because of the extra $n_k$ factors, WPS can rank clusterings differently from SSE and need not decrease at every k-means update.
+
+\begin{minipage}{\linewidth}
 <<eval = FALSE>>=
 set.seed(4711)
 X <- as.matrix(faithful)
@@ -119,8 +136,8 @@ C <- sample(1:3, nrow(X), replace = TRUE)
 k_means_W(X, C)
 ## [1] 4601439
 @
-% Keep the comparison and its interpretation on one page.
-\enlargethispage{3\baselineskip}
+\end{minipage}
+
 \item (1p) Run your \texttt{k\_means(X,K)} ten times per dataset with new random initialisations: \texttt{faithful} with $K=2$, and \texttt{iris} (\texttt{Sepal.Width}, \texttt{Petal.Width}) with $K=3$. Present each run's final WPS in a table for each dataset.
 
 \emph{Hint!} Set \texttt{X} and \texttt{K} for each dataset. Set the seed once before the loop for reproducible results with different initialisations.
