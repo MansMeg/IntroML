@@ -201,7 +201,9 @@ Probabilistic PCA (pPCA) describes noisy observations using fewer latent coordin
 \qquad \mathbf{h}\sim N(0,I_K),\quad
 \boldsymbol{\varepsilon}\sim N(0,\sigma^2 I_D),
 \]
-where the latent coordinates and noise are independent. For example, five sensor readings might reflect two shared underlying factors plus measurement noise. pPCA gives a lower-dimensional description of these correlated measurements; you will simulate this structure in the final task. See Section 13.1 in \citet{Goodfellow-et-al-2016}.
+where the latent coordinates and noise are independent, and $I_K$ and $I_D$ are identity matrices. For example, five sensor readings might reflect two shared underlying factors plus measurement noise. pPCA gives a lower-dimensional description of these correlated measurements; you will simulate this structure in the final task.
+
+The model description is adapted from \citet[Section~13.1]{Goodfellow-et-al-2016}. The model and tasks are specified here, so no reading of that section is required. For background on pPCA, use the general reading instructions for Block 6.
 
 This also prepares you for the variational autoencoders (VAEs) in Assignment 7. In pPCA, $\mathbf{b}+\mathbf{W}\mathbf{h}$ acts as a linear decoder, mapping latent coordinates to observation means. A VAE uses a neural network decoder to model nonlinear relationships and learns an encoder that approximates the distribution of latent coordinates given an observation.
 
@@ -267,7 +269,7 @@ gamma <- e_uni_two_comp(mixture_data, theta0)
 head(gamma)
 ## [1]  0.9106339 0.8716861 0.7797225 0.6645640 0.6484311 0.5178799
 @
-\emph{Numerical hint:} You can reuse the log-sum-exp helper in Question 3.10: compute the weighted component log-densities, normalize in log space, then exponentiate. This avoids \texttt{0/0} when both densities underflow to zero.
+\emph{Numerical hint:} You can use \texttt{uuml::log\_sum\_exp()} (printed in Question 3.10): compute the weighted component log-densities, normalize in log space, then exponentiate. This avoids \texttt{0/0} when both densities underflow to zero.
 
 \emph{Note!} Gamma values for component 1 is just 1 - \texttt{gamma}.
 \item (1p) An observation has $\gamma_i = 0.6$. What weights does it receive for the two components in the M-step? Explain how this differs from a hard cluster assignment.
