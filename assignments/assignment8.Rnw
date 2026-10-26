@@ -3,6 +3,10 @@
 \documentclass[11pt,a4paper,english]{article}
 \input{common_preamble.tex}
 
+% Assignment-specific settings
+\usepackage{enumitem}
+\setlist[enumerate,1]{ref=\thesection.\arabic*}
+
 \begin{document}
 
 \begin{titlepage}
@@ -222,7 +226,7 @@ nonstationary_algorithm(Q1, nonstationary_bandit, epsilon = 0.1,
 \emph{Check:} \verb|mark_my_assignment(tasks = "nonstationary_algorithm")|
 
 
-\item (2p) Evaluate each setting below with both the stationary and non-stationary bandit. Use $Q_1(a)=0$ throughout. Run 500 simulations per combination, with 1000 steps per simulation. Report the average of the 500 simulation mean rewards in a table with four setting rows and two environment columns: eight results in total.
+\item\label{q:a8:bandit-comparison} (2p) Evaluate each setting below with both the stationary and non-stationary bandit. Use $Q_1(a)=0$ throughout. Run 500 simulations per combination, with 1000 steps per simulation. Report the average of the 500 simulation mean rewards in a table with four setting rows and two environment columns: eight results in total.
 
 \begin{center}
 \begin{tabular}{ll}
@@ -240,7 +244,7 @@ Constant-step $\epsilon$-greedy & $\epsilon=0.1,\ \alpha=0.9$ \\
 While debugging, start with five simulations. Preallocate the reward matrix and fill one column per simulation. Once your checks pass, use 500 simulations for every combination in your reported results.
 \end{hintblock}
 \item (2p) What are your conclusions from these results? Which setting performs best in each environment, and why?
-\item (2p) For each environment, choose the best and worst settings using your results from Exercise 1.6. Plot their average reward per step, as in Figure 2.2 in \citet{sutton2020reinforcement}. At each time step, average the rewards across the 500 simulations and plot these 1000 averages. Reuse the rewards $R_t$ already simulated.
+\item (2p) For each environment, choose the best and worst settings using your results from Exercise~\ref{q:a8:bandit-comparison}. Plot their average reward per step, as in Figure 2.2 in \citet{sutton2020reinforcement}. At each time step, average the rewards across the 500 simulations and plot these 1000 averages. Reuse the rewards $R_t$ already simulated.
 <<learning-curve-hint, eval=FALSE>>=
 # rewards: 1000 rows (steps), 500 columns (simulations)
 average_reward_per_step <- rowMeans(rewards)
@@ -410,7 +414,7 @@ gradient_bandit_algorithm(stationary_bandit, alpha = 0.1)
 
 \item (2p) Run the gradient bandit with $\alpha=0$. Inspect the preferences \texttt{Ht}, action probabilities \texttt{pit}, and mean reward \texttt{R\_bar}. Which quantities remain unchanged? Does the agent still receive rewards?
 \enlargethispage{2\baselineskip}
-\item (2p) Compare UCB with $c=0.5$ and $c=2$ and the gradient bandit with $\alpha=0.1$ and $\alpha=1$ in both environments. Use $Q_1(a)=0$ for UCB. Run 500 simulations of 1000 steps per combination and report the average of the simulation mean rewards: eight results in total. Compare with Exercise 1.6. Which setting performs best in each environment?
+\item (2p) Compare UCB with $c=0.5$ and $c=2$ and the gradient bandit with $\alpha=0.1$ and $\alpha=1$ in both environments. Use $Q_1(a)=0$ for UCB. Run 500 simulations of 1000 steps per combination and report the average of the simulation mean rewards: eight results in total. Compare with Exercise~\ref{q:a8:bandit-comparison}. Which setting performs best in each environment?
 \end{enumerate}
 
 % TODO (later): Instead implement a full MDP
