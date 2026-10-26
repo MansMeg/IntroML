@@ -306,7 +306,7 @@ y_test <- imdb$test$y
 \textbf{Runtime hint:} Use the time taken by the first few epochs to estimate the remaining runtime. The first epoch may include extra setup overhead. These epochs count toward your existing ten-epoch run.
 
 \begin{enumerate}
-\item (2p) Create a simple ordinary neural network for text classification in Keras using an embedding layer of dimension 16 and a hidden layer with 32 hidden states (and an output layer with one unit). Use a validation split of 20\% observations in the validation set and a batch size of 128. Train your network using rmsprop and use binary cross-entropy as the loss function. Print the model and return your validation accuracy after ten epochs. Reuse this data split and training setup for the RNN and LSTM baseline below.
+\item (2p) Create a simple ordinary neural network for text classification in Keras using an embedding layer of dimension 16 and a hidden layer with 32 hidden states (and an output layer with one unit). Use a validation split of 20\% observations in the validation set and a batch size of 128. Train your network using Adam with learning rate 0.001 and use binary cross-entropy as the loss function. Print the model and return your validation accuracy after ten epochs. Reuse this data split and training setup for the RNN and LSTM baseline below.
 \item (1p) Explain what the embedding layer is doing.
 \item (1p) Now setup a simple Recurrent Neural Network with 32 hidden units and the same embedding dimension. Print the model and present your result.
 \item (1p) The model you have implemented now. Which recurrent network does best describes the model you have now implemented out of Fig. 10.3 and 10.5 in \citet{Goodfellow-et-al-2016}? Motivate why.
