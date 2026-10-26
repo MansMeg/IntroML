@@ -52,20 +52,7 @@
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Prob}{\mathbb{P}}
 
-% Highlighted illustrations, matching Assignments 1 and 2.
-\newsavebox{\exampleboxcontent}
-\newenvironment{examplebox}[1]{%
-  \par\medskip\noindent
-  \setlength{\fboxsep}{6pt}%
-  \begin{lrbox}{\exampleboxcontent}%
-  \begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
-  \small\textbf{Example: #1}\hfill{\footnotesize\itshape No submission required}\par\smallskip
-}{%
-  \end{minipage}%
-  \end{lrbox}%
-  \fcolorbox{blue!45!black}{blue!4}{\usebox{\exampleboxcontent}}%
-  \par\medskip
-}
+\input{example_boxes.tex}
 
 \begin{document}
 
@@ -102,6 +89,13 @@ knitr::opts_chunk$set(size = "small")
 \newpage
 
 \tableofcontents
+
+\newpage
+
+\newcommand{\assignmentTestFile}{assignment4/assignment4-vg.yml}
+\input{mma_instruction.tex}
+
+These checks cover the three functions in the manual convolution VG option. The Keras model-building and transfer-learning tasks are assessed from your report.
 
 \newpage
 
@@ -162,13 +156,13 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
 ## Trainable params: 258,090
 ## Non-trainable params: 0
 @
-\begin{examplebox}{Counting convolutional parameters}
+\begin{exampleblock}{Counting convolutional parameters}
 Four $2\times2$ filters applied to three input channels have
 \[
 4(2\cdot2\cdot3+1)=52
 \]
 parameters. Each filter spans all input channels, giving $2\cdot2\cdot3$ kernel weights and one bias per filter.
-\end{examplebox}
+\end{exampleblock}
 
 \item (1p) Explain why there are 320 parameters in the first layer. How many are kernel weights (and why), and how many biases?
 \item (1p) Train the network and use \texttt{evaluate()} on the MNIST test set to report its \textbf{test loss and test accuracy}. Include your training code once.
@@ -185,7 +179,7 @@ Examples of hyper-parameters you may include are:
 \end{itemize}
 These are suggestions; other justified choices are also allowed. Adapt the scaffold below to the hyper-parameters you choose.
 
-\begin{examplebox}{A random-search loop}
+\begin{exampleblock}{A random-search loop}
 This scaffold uses \texttt{keras3}. First prepare fixed training and validation arrays \texttt{x\_train} and \texttt{x\_val} with dimensions \texttt{c(n, 28, 28, 1)}, scaled to $[0,1]$, and matching label vectors with values 0--9. Write \texttt{build\_model(filters, learning\_rate)} to create and compile a fresh CNN using sparse categorical cross-entropy and the supplied settings. The choices below are illustrative; adapt them to your search.
 <<random-search-example,echo=TRUE,eval=FALSE>>=
 set.seed(4711)
@@ -210,7 +204,7 @@ best <- settings[which.max(settings$val_accuracy), ]
 best
 @
 Rebuild the selected configuration and fit it before evaluating it on the test data. Here \texttt{10\^{}runif(10, -4, -2)} samples learning rates uniformly on a logarithmic scale, from $10^{-4}$ to $10^{-2}$.
-\end{examplebox}
+\end{exampleblock}
 
 \newpage
 \item (1p) Load CIFAR-10 using \texttt{dataset\_cifar10()} (see the \href{https://github.com/MansMeg/IntroML/blob/master/additional_material/supplementary_r_files/cnn_example_cifar_10.R}{Keras 3 CIFAR-10 example}). Visualize one image of your choice together with its class/category.
@@ -328,14 +322,14 @@ convolution(X, K)
 relu <- function(x) max(0, x)
 convolutional_layer(X, K, 100, relu)
 @
-\begin{examplebox}{Bias as a threshold before ReLU}
+\begin{exampleblock}{Bias as a threshold before ReLU}
 For a filter response of 200 before adding the bias,
 \[
 \operatorname{ReLU}(200-150)=50,\qquad
 \operatorname{ReLU}(200-370)=0.
 \]
 A more negative bias suppresses weaker responses. The fixed biases below illustrate this thresholding; a trained CNN learns its biases. Keep the supplied \texttt{mnist\_example} pixel scale of 0--255 here: rescaling pixels also changes the filter responses.
-\end{examplebox}
+\end{exampleblock}
 
 \item (2p) Run your convolutional layer on MNIST example digit 4 with bias -150. Visualize the feature map as you visualize the original image. What does the filter seem to capture?
 \item (1p) Now transpose your filter and run your convolutional layer on MNIST example digit 4 with bias -150. Visualize the feature map. What does that transposed filter seem to capture?

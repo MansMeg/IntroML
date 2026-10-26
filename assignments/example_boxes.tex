@@ -1,0 +1,25 @@
+% Shared example and hint boxes for the assignment article documents.
+% Load this file in the preamble. Use the environments for knitr/verbatim code;
+% the two-argument command is convenient for short prose and mathematics.
+% Boxes stay on one page and must not be nested.
+\RequirePackage{xcolor}
+
+% Highlighted examples and hints, separate from the assessed tasks.
+% The environment also supports knitr code chunks.
+\newsavebox{\examplecontent}
+\newenvironment{exampleblock}[2][Example]{%
+  \par\medskip\noindent
+  \begingroup
+  \setlength{\fboxsep}{6pt}%
+  \begin{lrbox}{\examplecontent}%
+    \begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+    \small\textbf{#1: #2}\hfill{\footnotesize\itshape No submission required}\par\smallskip
+}{%
+    \end{minipage}%
+  \end{lrbox}%
+  \fcolorbox{blue!45!black}{blue!4}{\usebox{\examplecontent}}%
+  \endgroup
+  \par\medskip
+}
+\newcommand{\examplebox}[2]{\begin{exampleblock}{#1}#2\end{exampleblock}}
+\newenvironment{hintblock}[1]{\begin{exampleblock}[Hint]{#1}}{\end{exampleblock}}
