@@ -327,6 +327,9 @@ set_assignment(paste("https://github.com/MansMeg/IntroML/",
                      "assignment8-vg.yml", sep = ""))
 @
 
+\textbf{Reading recommendations:} Read Section~2.8, ``Gradient Bandit Algorithms'', in \citet{sutton2020reinforcement}.
+
+
 \begin{enumerate}
 \item (2p) Implement \texttt{ucb\_algorithm(Q1, bandit, c)} using UCB with sample-average value estimates. Use the greedy algorithm's run length and output structure. Choose an untried action whenever any $N_t(a)=0$; otherwise maximize the UCB score. Any tie order is valid. The example chooses the first untried or maximizing action.
 <<ucb-example, eval=FALSE>>=
