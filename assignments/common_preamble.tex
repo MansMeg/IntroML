@@ -1,0 +1,47 @@
+% Shared preamble for the assignment article documents.
+% Load after \documentclass, with the assignments directory as the working directory.
+% Keep assignment-specific packages and overrides in the individual Rnw files.
+\usepackage[latin1]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+
+% Link colours
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+% Fonts and mathematics
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsbsy}
+
+% Verbatim text and URLs
+\usepackage{verbatim}
+\usepackage{url}
+
+% References
+\usepackage[round]{natbib}
+\bibliographystyle{unsrtnat}
+
+% Page size and paragraph spacing
+\addtolength{\hoffset}{-1cm}
+\addtolength{\textwidth}{2cm}
+\addtolength{\voffset}{-1cm}
+\addtolength{\textheight}{2cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\pagestyle{empty}
+
+% Shared commands
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\DeclareMathOperator{\var}{var}
+\DeclareMathOperator{\cov}{cov}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+
+% Examples and hints
+\input{example_boxes.tex}

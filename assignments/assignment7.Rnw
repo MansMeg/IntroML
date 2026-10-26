@@ -1,61 +1,7 @@
 % !Rnw weave = knitr
 
 \documentclass[11pt,a4paper,english]{article}
-\usepackage[latin1]{inputenc}
-\usepackage{hyperref}
-\usepackage{listings}
-
-\usepackage{xcolor}
-\hypersetup{
-    colorlinks,
-    linkcolor={red!50!black},
-    citecolor={blue!50!black},
-    urlcolor={blue!80!black}
-}
-
-% Normal latex T1-fonts
-\usepackage[T1]{fontenc}
-
-% Figures
-%\usepackage{graphicx,fancybox,subfigure}
-
- % AMS-stuff
-\usepackage{amsmath,amsfonts,amssymb}
-\usepackage{amsbsy}
-
- % Misc
-\usepackage{verbatim}
-\usepackage{url}
-
-\usepackage[round]{natbib}
-\bibliographystyle{unsrtnat}
-
-
-% Page size
-\addtolength{\hoffset}{-1cm}
-\addtolength{\textwidth}{2cm}
-\addtolength{\voffset}{-1cm}
-\addtolength{\textheight}{2cm}
-
-% Paragraph
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
-
-% Horizontal line
-\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
-
-% No page numbers
-\pagestyle{empty}
-
-% New commands:
-\DeclareMathOperator{\var}{var}
-\DeclareMathOperator{\cov}{cov}
-\newcommand{\E}{\mathbb{E}}
-\newcommand{\Prob}{\mathbb{P}}
-
-
-
-\input{example_boxes.tex}
+\input{common_preamble.tex}
 
 \begin{document}
 
