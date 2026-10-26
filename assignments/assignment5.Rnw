@@ -111,7 +111,9 @@ knitr::opts_chunk$set(size = "small")
 
 \section{Transformers and Attention}
 
-In this assignment, we will implement a multi-head attention transformer layer. These layers are currently used within all transformer-based models, such as GPT and different BERT models. A good read for this assignment is the Illustrated transformer by Jay Alammar, which you can find [here](http://jalammar.github.io/illustrated-transformer/).
+\textbf{Background reading:} Follow the \href{https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing}{general reading instructions for Block 5}.
+
+We will implement a multi-head attention layer, a component of transformer-based models such as GPT and BERT. For a visual explanation, see Jay Alammar's \href{http://jalammar.github.io/illustrated-transformer/}{The Illustrated Transformer}, listed in the Block 5 reading instructions.
 
 Text models map tokens to embeddings, combine context, and use the resulting representations to predict classes or tokens. Our attention layer builds contextual representations and is one component of a full transformer such as BERT. RNNs illustrate how the same learned update carries context through a sequence, and the VG tasks connect these representations to text classification.
 
@@ -193,13 +195,13 @@ Then run it on all words using \texttt{X <- transformer\_example\$embeddings}. T
 
 \newpage
 
-\section{Implementing a simple RNN}
+\section{Implementing a simple RNN}\label{sec:simple-rnn}
 
 %\input{distinction_task.tex}
 
-We are going to implement a one-layer recurrent neural network based on the \texttt{rnn\_example} data. We are going to implement a simple layer described in Section 10.2 in \citet{Goodfellow-et-al-2016}. See this section for details.
+We will implement a one-layer recurrent neural network (RNN) using \texttt{rnn\_example}. Its construction and notation are adapted from \citet[Section~10.2]{Goodfellow-et-al-2016}. Everything needed is specified below; no reading of that section is required. Reuse the same parameters at every time step.
 
-We will set the dimensionality of the hidden state to 4 and the output dimension to 3. In this task, we will set $h_0$, the initial starting state, to a zero-vector. The input will be the embeddings in the \texttt{rnn\_example} data.
+Use four hidden units and three output units. Start from $h_0=0$, represented as a $4\times1$ column matrix. The inputs are the rows of \texttt{rnn\_example\$embeddings}.
 
 
 <<>>=
@@ -211,7 +213,11 @@ hidden_dim <- 4
 \textbf{Hint:} Each row of \texttt{X} contains one token embedding. Use \texttt{drop = FALSE} to preserve a single-row matrix. Within each RNN step, represent the hidden state as a $4\times1$ column matrix, and check that dimensions match before matrix multiplication.
 
 \begin{enumerate}
-\item (2p) We start out by implementing a simple RNN linear unit that takes the parameters \texttt{W}, \texttt{U}, \texttt{b}, the previous hidden state \texttt{h\_t\_minus\_one} and an input embedding \texttt{x\_t} and return the activation input $a_t$. It should work as follows.
+\item (2p) Implement a simple RNN linear unit that takes the parameters \texttt{W}, \texttt{U}, \texttt{b}, the previous hidden state \texttt{h\_t\_minus\_one}, and the input embedding \texttt{x\_t}, and returns
+\[
+a_t=W h_{t-1}+U x_t+b.
+\]
+Here $x_t$ is a column vector: transpose the single-row input embedding in R. With $p$ input features and $d$ hidden units, $U$ is $d\times p$, $W$ is $d\times d$, and $b$ is $d\times1$. The function should work as follows.
 <<eval=FALSE, >>=
 X <- rnn_example$embeddings[1,,drop=FALSE]
 h_t_minus_one <- matrix(0, nrow = hidden_dim, ncol = 1)
@@ -228,7 +234,7 @@ a_t
 ## [4,]  1.4891931
 ##
 @
-\item (1p) Now implement the \texttt{tanh()} activation function.
+\item (1p) Implement the hidden-state update $h_t=\tanh(a_t)$, where $\tanh(a)=(e^a-e^{-a})/(e^a+e^{-a})$ is applied separately to each element.
 <<eval=FALSE, >>=
 h_t <- activation(a_t)
 h_t
@@ -240,8 +246,13 @@ h_t
 ## [4,]  0.9031762
 ##
 @
-\newpage
-\item (1p) As the next step, implement the output function and the softmax function. These functions should work in the following way.
+
+\item (1p) Implement the output scores $o_t=Vh_t+c$ and the softmax probabilities
+\[
+\widehat{y}_{t,j}=\frac{\exp(o_{t,j}-m_t)}{\sum_{k=1}^{q}\exp(o_{t,k}-m_t)},
+\qquad m_t=\max_k o_{t,k}.
+\]
+With $q$ output units, $V$ is $q\times d$ and $c$ is $q\times1$. Subtracting the largest score gives the same probabilities while avoiding unnecessarily large exponentials. These functions should work as follows.
 <<eval=FALSE, >>=
 yhat_t <- softmax(output_rnn(h_t, rnn_example$V, rnn_example$c))
 yhat_t
@@ -288,7 +299,9 @@ To get VG on this assignment, you can choose to do this task OR the task using B
 
 \input{general_keras.tex}
 
-As a first step, we will try using Recurrent Neural Networks on a text classification task. Here Chapter 6 - 6.2 in \citet{chollet2018deep} will be the primary reference.
+We will use recurrent neural networks for text classification. Use the general reading instructions for Block 5 for conceptual background. Chapter 6--6.2 in \citet{chollet2018deep} provides optional implementation help.
+
+An RNN can produce an output at every time step or use only its final hidden state to produce one output for a complete sequence. Use the parameter notation from Section~\ref{sec:simple-rnn} when explaining your classifier below.
 
 Start by downloading the IMDB dataset and preprocess it as follows.
 
@@ -309,7 +322,7 @@ y_test <- imdb$test$y
 \item (2p) Create a simple ordinary neural network for text classification in Keras using an embedding layer of dimension 16 and a hidden layer with 32 hidden states (and an output layer with one unit). Use a validation split of 20\% observations in the validation set and a batch size of 128. Train your network using Adam with learning rate 0.001 and use binary cross-entropy as the loss function. Print the model and return your validation accuracy after ten epochs. Reuse this data split and training setup for the RNN and LSTM baseline below.
 \item (1p) Explain what the embedding layer is doing.
 \item (1p) Now setup a simple Recurrent Neural Network with 32 hidden units and the same embedding dimension. Print the model and present your result.
-\item (1p) The model you have implemented now. Which recurrent network does best describes the model you have now implemented out of Fig. 10.3 and 10.5 in \citet{Goodfellow-et-al-2016}? Motivate why.
+\item (1p) Does your RNN classifier produce an output at every time step, or one output for the whole review? Identify which hidden state(s) feed the final output layer and explain your answer.
 
 \examplebox{RNN parameter counts}{
 Consider a simple RNN with 3 input features, 2 hidden units and 1 output, with biases:
@@ -326,8 +339,8 @@ Output bias & $1$ & 1
 Keras groups several mathematical parameters into a single layer's count. The \texttt{SimpleRNN} layer reports $6+4+2=12$ parameters; the \texttt{Dense} output layer reports $2+1=3$. Any embedding-layer parameters are counted separately.
 }
 
-\item (1p) Explain the role of the parameters $U$, $W$ in the recurrent net (see Goodfellow et al., 2017 Section 10.2). How large are these parameters in your model specified above, and where are they included in the Keras output?
-\item (1p) Now, explain the role of the parameters $V$ (see Goodfellow et al., 2017 Section 10.2). How many parameters are included in $V$, and where are they included in the Keras output?
+\item (1p) Using the notation in Section~\ref{sec:simple-rnn}, explain the roles of $U$ and $W$. What are their dimensions in your classifier, and where are their parameter counts included in the Keras output?
+\item (1p) Using the same notation, explain the role of $V$ in your classifier. How many parameters does $V$ contain, and where are they included in the Keras output?
 \item (1p) Implement an LSTM baseline with 32 hidden units and \texttt{dropout = 0}, using the same embedding dimension and training setup as above. Print your model and validation accuracy.
 \item (1p) Starting from your LSTM baseline, design and test two modifications of your choice. Before training, explain what you expect each modification to change and why. Change one aspect at a time, keeping the data split and other settings fixed. Include the model summaries and a compact table of validation accuracy and training time for all three models. Discuss whether the results support your expectations. Improved accuracy is not required for full credit.
 \item (1p) Using training and validation performance, discuss evidence of underfitting or overfitting. Can these results indicate the Bayes error? Explain.
