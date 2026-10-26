@@ -1,4 +1,4 @@
-library(keras)
+library(keras3)
 mnist_raw <- dataset_mnist()
 
 mnist_example <- list()

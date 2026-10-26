@@ -487,7 +487,26 @@ nllr(y, X, theta = c(-1,0.5,0.5), lambda = 1)
 
 \emph{With the ridge checks selected:} \verb|mark_my_assignment(tasks = "nllr")|
 \item (1p) Use \texttt{glmnet} to estimate \texttt{theta} for logistic ridge regression. Set \texttt{family = "binomial"}, \texttt{lambda = 1}, \texttt{alpha = 0}, and \texttt{standardize = FALSE} so the fit uses the same loss as your implementation on the already standardized predictors. Remove the intercept column from \texttt{X} when calling \texttt{glmnet}, and retain its default \texttt{intercept = TRUE} so it estimates an unpenalized intercept.
-\item (2p) Adapt the same batching and update logic in \texttt{gradient\_descent()} to minimize $\text{NLL}_r$, using \texttt{nllr\_grad} and subtracting its gradient in each update. Run it with batch sizes $n$ and 10 for full GD and mini-batch GD, respectively. Reuse the optimisation loop rather than implementing each method separately.
+\item (2p) Implement \texttt{gradient\_descent\_reg()} by adapting your \texttt{gradient\_descent()} function. Reuse its batching and update logic, but use \texttt{nllr\_grad()} for the gradient and \texttt{nllr()} for the loss, passing \texttt{lambda} to both. Start from $\theta=0$. Return an \texttt{epochs} by $\texttt{ncol(X)}+2$ matrix with columns \texttt{epoch}, \texttt{nllr}, and the parameter names from \texttt{X}. Each row records the penalized loss on all training observations and the parameters after one complete epoch.
+
+\noindent\begin{minipage}{\linewidth}
+Complete this scaffold using your existing optimisation loop:
+<<ridge-descent-scaffold,echo=TRUE,eval=FALSE>>=
+gradient_descent_reg <- function(y, X, batch_size, eta, epochs, lambda){
+  results <- matrix(0.0, nrow = epochs, ncol = ncol(X) + 2L)
+  colnames(results) <- c("epoch", "nllr", colnames(X))
+
+  # Reuse your batching loop and subtract the nllr_grad() gradient.
+  # Fill each row with the epoch, full-data nllr(), and parameters.
+
+  return(results)
+}
+@
+\end{minipage}
+
+Run this function with batch sizes $n$ and 10 for full GD and mini-batch GD, respectively. Reuse these runs in the next task, and include a short extract of the returned matrix with the input settings in your report.
+
+\emph{Check:} \verb|mark_my_assignment(tasks = "gradient_descent_reg")|
 \item (2p) Try different learning parameters $\eta$ and $\lambda$. When does the algorithm converge or diverge? Visualize the epochs (x-axis) and the penalized loss $\text{NLL}_r$ evaluated on all observations (y-axis). Show at least one plot per algorithm that converges.
 \end{enumerate}
 

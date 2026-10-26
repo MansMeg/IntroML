@@ -10,6 +10,9 @@ tasks:
   grow_tree_m:
     description: All-feature agreement with ordinary trees and one-predictor matrix handling.
     url: test-grow-tree-m.R
+  random_forest:
+    description: A list of B bootstrap-trained random-feature trees usable by the prediction function.
+    url: test-random-forest.R
 run_code:
   before:
     url: helpers-vg.R

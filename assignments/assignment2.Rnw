@@ -456,7 +456,7 @@ assignment_path <- paste0(
 )
 set_assignment(assignment_path)
 @
-Run the individual checks below as you implement each function. Once all three VG functions are ready, run \texttt{mark\_my\_assignment()} to check them together. The checks also need your basic tree functions and their helpers.
+Run the individual checks below as you implement each function. Once all four VG functions are ready, run \texttt{mark\_my\_assignment()} to check them together. The checks also need your basic tree functions and their helpers.
 
 
 Now we can use our regression tree to do a Bagged Tree regression model. The main difference from the previous tree is that we now will draw $B$ bootstrap samples of size $N$ \emph{with replacement} from our dataset, then train $B$ trees, use them for a combined bagged prediction.
@@ -504,8 +504,24 @@ If \texttt{cols = 2}, \texttt{tree\_split()} reports column 1 of its input; the 
 
 \emph{Check:} \verb|mark_my_assignment(tasks = "grow_tree_m")|
 
-\item (1p) Implement a random forest regression model using \texttt{grow\_tree\_m()} and \texttt{predict\_with\_tree()}.
-\item (1p) Train your random forest regression model on the training data with $m=1$, $B=100$ and predict on the test data. What is the RMSE of your predictions on the test set (using your \texttt{rmse} function)?
+\enlargethispage{2\baselineskip}
+\item (1p) Implement \texttt{random\_forest(X, y, l, B, m)} to train a random forest. Draw $B$ bootstrap samples, each containing \texttt{nrow(X)} observations sampled with replacement. Grow one tree per sample using \texttt{grow\_tree\_m()}, passing \texttt{l} and \texttt{m}. Return an R list of the $B$ grown trees, in the same format as \texttt{train\_bagged\_trees()}. Reuse \texttt{predict\_with\_bagged\_trees()} to average their predictions; it already calls \texttt{predict\_with\_tree()}.
+
+Complete this scaffold by adapting your bagging training loop:
+<<random-forest-scaffold,echo=TRUE,eval=FALSE>>=
+random_forest <- function(X, y, l, B, m){
+  trees <- vector("list", B)
+  for(b in seq_len(B)){
+    # Draw a bootstrap sample of observation indices.
+    # Grow a tree with grow_tree_m() and store it in trees[[b]].
+    # Keep predictor subsets as matrices with drop = FALSE.
+  }
+  return(trees)
+}
+@
+\emph{Check:} \verb|mark_my_assignment(tasks = "random_forest")|
+
+\item (1p) Call \texttt{random\_forest()} on the training data with \texttt{l = 5}, $m=1$, and $B=100$, then use \texttt{predict\_with\_bagged\_trees()} to predict on the test data. Set and report the seed. Include the input settings, number of returned trees, a short extract of the predictions, and the test RMSE (using \texttt{rmse()}) in your report.
 
 \emph{Note!} With two predictors, $m=1$ searches either \texttt{Years} or \texttt{Hits}, chosen afresh at every node, including the root; bagging searches both ($m=2$). Either method may have lower test RMSE in a run, and differences need not be small. Differences from \texttt{randomForest} may also reflect random draws, tuning settings, and implementation choices.
 \end{enumerate}

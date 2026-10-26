@@ -6,7 +6,8 @@ basic <- if(length(args)) args[1] else
 stopifnot(grepl("assignment2.yml$", basic))
 configs <- c(basic, sub("assignment2.yml$", "assignment2-vg.yml", basic))
 tasks <- list(c("tree_split", "grow_tree", "predict_with_tree"),
-              c("train_bagged_trees", "predict_with_bagged_trees", "grow_tree_m"))
+              c("train_bagged_trees", "predict_with_bagged_trees", "grow_tree_m",
+                "random_forest"))
 
 # Inspect the downloaded copies, including relative helper paths. This checks
 # loading and syntax without publishing or requiring the private teacher solution.
@@ -16,8 +17,8 @@ for(i in seq_along(configs)){
   assignment <- yaml::read_yaml(loaded)
   files <- unlist(lapply(c(assignment$tasks, assignment$run_code),
                          function(task) task$local_tmp_path), use.names = FALSE)
-  stopifnot(length(files) == 4L, all(file.exists(files)))
+  stopifnot(length(files) == length(tasks[[i]]) + 1L, all(file.exists(files)))
   for(file in files) parse(file = file)
   markmyassignment::remove_assignment()
-  cat("Assignment 2 YAML, three test files, and helper loaded and parsed:", configs[i], "\n")
+  cat("Assignment 2 YAML,", length(tasks[[i]]), "test files, and helper loaded and parsed:", configs[i], "\n")
 }
