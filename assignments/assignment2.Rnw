@@ -101,7 +101,7 @@ tree_split <- function(X, y, l){
       # Do if R1 or R2 is smaller than the leaf size l
       # Compute c1
       # Compute c2
-      SS[k, j] <- # Compute the sum of squares
+      SS[k, j] <- stop("TODO: compute the sum of squares")
     }
   }
 
@@ -109,8 +109,8 @@ tree_split <- function(X, y, l){
   if(!any(is.finite(SS))) return(NULL)
 
   # The final results for the min SS (arg min)
-  j <- # Which column was used for the split-point
-  s <- # What value of X was used as the split-point
+  j <- stop("TODO: choose the split variable")
+  s <- stop("TODO: choose the split value")
   R1 <- which(X[,j] <= s)
   R2 <- which(X[,j] > s)
   list(j = j,
