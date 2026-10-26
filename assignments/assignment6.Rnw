@@ -211,13 +211,13 @@ theta0 <- list(mu_1 = 4.12, mu_2 = 0.94, sigma_1 = 2, sigma_2 = 2, pi = 0.5)
 
 \begin{enumerate}
 \item (2p) Implement \texttt{r\_uni\_two\_comp(n, theta)}, returning a numeric vector of length \texttt{n}. For each observation, draw $\delta\sim\operatorname{Bernoulli}(\pi)$. Draw from component 2 when $\delta=1$, and component 1 otherwise, using the means and standard deviations in \texttt{theta}. See Eq. 8.36 in \citet{hastie2009elements}.
-\item (1p) Simulate 200 observations using $\mu_1=-2$, $\mu_2=1.5$, $\sigma_1=2$, $\sigma_2=1$ and $\pi=0.3$. Visualize observations drawn in a histogram.
+\item\label{q:a6:mixture-histogram} (1p) Simulate 200 observations using $\mu_1=-2$, $\mu_2=1.5$, $\sigma_1=2$, $\sigma_2=1$ and $\pi=0.3$. Visualize observations drawn in a histogram.
 \item (2p) Implement a function \texttt{d\_uni\_two\_comp(x, theta)} that computes the density value for a given set of parameters \texttt{theta} for values of \texttt{x}. \emph{Hint!} The function \texttt{dnorm} might be handy.
-\item (1p) Add the theoretical mixture density to the histogram from Question 3.2 over the interval -6 to 6 (by steps of 0.01). Use a density-scaled histogram (\texttt{freq = FALSE} in \texttt{hist}). One combined figure is sufficient for Questions 3.2 and 3.4.
-\item (1p) Visualize the \texttt{eruptions} variable in the \texttt{faithful} dataset using a histogram.
+\item\label{q:a6:mixture-density-plot} (1p) Add the theoretical mixture density to the histogram from Question~\ref{q:a6:mixture-histogram} over the interval -6 to 6 (by steps of 0.01). Use a density-scaled histogram (\texttt{freq = FALSE} in \texttt{hist}). One combined figure is sufficient for Questions~\ref{q:a6:mixture-histogram} and~\ref{q:a6:mixture-density-plot}.
+\item\label{q:a6:faithful-histogram} (1p) Visualize the \texttt{eruptions} variable in the \texttt{faithful} dataset using a histogram.
 \item Fit a two-component mixture manually to the \texttt{eruptions} variable.
 \begin{enumerate}
-\item (1p) Choose $\mu_1$, $\mu_2$, $\sigma_1$, $\sigma_2$, and $\pi$, and overlay the resulting density on a density-scaled histogram from Question 3.5. One combined figure is sufficient for Questions 3.5 and 3.6(a).
+\item\label{q:a6:manual-mixture-overlay} (1p) Choose $\mu_1$, $\mu_2$, $\sigma_1$, $\sigma_2$, and $\pi$, and overlay the resulting density on a density-scaled histogram from Question~\ref{q:a6:faithful-histogram}. One combined figure is sufficient for Questions~\ref{q:a6:faithful-histogram} and~\ref{q:a6:manual-mixture-overlay}.
 \item (1p) Briefly explain how your chosen means, standard deviations, and mixing weight reflect the locations, widths, and relative sizes of the two groups in the data.
 \end{enumerate}
 \newpage
@@ -227,7 +227,7 @@ gamma <- e_uni_two_comp(mixture_data, theta0)
 head(gamma)
 ## [1]  0.9106339 0.8716861 0.7797225 0.6645640 0.6484311 0.5178799
 @
-\emph{Numerical hint:} You can use \texttt{uuml::log\_sum\_exp()} (printed in Question 3.10): compute the weighted component log-densities, normalize in log space, then exponentiate. This avoids \texttt{0/0} when both densities underflow to zero.
+\emph{Numerical hint:} You can use \texttt{uuml::log\_sum\_exp()} (printed in Question~\ref{q:a6:mixture-loglikelihood}): compute the weighted component log-densities, normalize in log space, then exponentiate. This avoids \texttt{0/0} when both densities underflow to zero.
 
 \emph{Note!} Gamma values for component 1 is just 1 - \texttt{gamma}.
 \item (1p) An observation has $\gamma_i = 0.6$. What weights does it receive for the two components in the M-step? Explain how this differs from a hard cluster assignment.
@@ -252,7 +252,7 @@ theta
 ##
 @
 \newpage
-\item (1p) Implement the log-likelihood of the model as \texttt{ll\_uni\_two\_comp(x, theta)}. \emph{Hint!} See Eq. 8.39 in \citet{hastie2009elements}.
+\item\label{q:a6:mixture-loglikelihood} (1p) Implement the log-likelihood of the model as \texttt{ll\_uni\_two\_comp(x, theta)}. \emph{Hint!} See Eq. 8.39 in \citet{hastie2009elements}.
 
 \emph{Numerical hint:} Very small densities can underflow to zero. Use \texttt{dnorm(..., log = TRUE)} and add the log mixing weights before combining the components with the helper below. For finite inputs $a$ and $b$, it uses the identity
 \[
@@ -283,8 +283,8 @@ em20 <- em_uni_two_comp(mixture_data, theta0, iter = 20)
 ## Log Lik:  -41.53247
 ## ...
 @
-\item (1p) Run your EM algorithm on the \texttt{eruptions} variable of the \texttt{faithful} data and on the \texttt{Petal.Length} variable of the \texttt{iris} data until the log-likelihood has stabilised over successive iterations. For each dataset, report the estimated parameters and number of iterations used, and explain your convergence criterion. You may rerun with a larger \texttt{iter}; an automatic stopping rule is not required.
-\item (1p) For each dataset in Question 3.13, show one density-scaled histogram with the fitted mixture density overlaid. Use \texttt{d\_uni\_two\_comp(x, theta)} with the estimated parameters.
+\item\label{q:a6:em-datasets} (1p) Run your EM algorithm on the \texttt{eruptions} variable of the \texttt{faithful} data and on the \texttt{Petal.Length} variable of the \texttt{iris} data until the log-likelihood has stabilised over successive iterations. For each dataset, report the estimated parameters and number of iterations used, and explain your convergence criterion. You may rerun with a larger \texttt{iter}; an automatic stopping rule is not required.
+\item (1p) For each dataset in Question~\ref{q:a6:em-datasets}, show one density-scaled histogram with the fitted mixture density overlaid. Use \texttt{d\_uni\_two\_comp(x, theta)} with the estimated parameters.
 \end{enumerate}
 
 
