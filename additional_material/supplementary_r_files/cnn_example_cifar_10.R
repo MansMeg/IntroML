@@ -29,17 +29,17 @@ epochs <- 10
 
 model <- keras_model_sequential(input_shape = c(32, 32, 3)) %>%
   # Start with hidden 2D convolutional layer being fed 32x32 pixel images
-  layer_conv_2d(filter = 16, kernel_size = c(3,3), padding = "same", activation = "relu") %>%
+  layer_conv_2d(filters = 16, kernel_size = c(3,3), padding = "same", activation = "relu") %>%
   
   # Second hidden layer
-  layer_conv_2d(filter = 32, kernel_size = c(3,3), activation = "relu") %>%
+  layer_conv_2d(filters = 32, kernel_size = c(3,3), activation = "relu") %>%
   
   # Use max pooling
   layer_max_pooling_2d(pool_size = c(2,2)) %>%
   
   # 2 additional hidden 2D convolutional layers
-  layer_conv_2d(filter = 32, kernel_size = c(3,3), padding = "same", activation = "relu") %>%
-  layer_conv_2d(filter = 64, kernel_size = c(3,3), activation = "relu") %>%
+  layer_conv_2d(filters = 32, kernel_size = c(3,3), padding = "same", activation = "relu") %>%
+  layer_conv_2d(filters = 64, kernel_size = c(3,3), activation = "relu") %>%
   
   # Use max pooling once more
   layer_max_pooling_2d(pool_size = c(2,2)) %>%
@@ -56,7 +56,7 @@ model <- keras_model_sequential(input_shape = c(32, 32, 3)) %>%
 
 ###### Optimizer and compilation #########
 
-opt <- optimizer_adamax(learning_rate = 0.001)
+opt <- optimizer_adam(learning_rate = 0.001)
 
 model %>% compile(
   loss = loss_sparse_categorical_crossentropy(from_logits = TRUE),
