@@ -253,7 +253,7 @@ maxpool_layer <- function(X){
 
 \begin{enumerate}
 \item (1p) Visualize the MNIST example digit 4.
-\item (3p) Implement a convolution function called \texttt{convolution(X, K)} that takes an input MNIST image (\texttt{X}), an arbitrary large square kernel (\texttt{K}) and returns a feature map. Use stride 1 and no padding (``valid'' convolution). Below is an example of how it should work.
+\item (3p) \textbf{Implementation (2p).} Implement \texttt{convolution(X, K)} to take an MNIST image \texttt{X} and a square kernel \texttt{K} and return a feature map. Use stride 1 and no padding (``valid'' convolution). \textbf{Example (1p).} Include the inputs, a call and actual output from your implementation, with a brief explanation of what it checks. Reuse the supplied example below or a later required feature-map calculation.
 <<>>=
 X <- mnist_example[["4"]][12:15,12:15]
 X
@@ -266,7 +266,11 @@ K
 convolution(X, K)
 @
 \item (1p) Visualize the feature map of MNIST example digit 4 using the above three by three kernel \texttt{K}.
-\item (3p) Now implement all steps in a \texttt{convolutional\_layer(X, K, b, activation)} function that takes the kernel, bias and activation function. It should work as follows.
+\item (3p) \textbf{Implementation (2p).} Implement the convolutional layer.
+
+The function \texttt{convolutional\_layer(X, K, b, activation)} should combine convolution, bias addition and the supplied activation function.
+
+\textbf{Example (1p).} Include the inputs, a call and actual output from your implementation, with a brief explanation of what it checks. Reuse the supplied example below or a later required feature-map calculation.
 <<>>=
 relu <- function(x) max(0, x)
 convolutional_layer(X, K, 100, relu)
@@ -282,7 +286,9 @@ A more negative bias suppresses weaker responses. The fixed biases below illustr
 
 \item (2p) Run your convolutional layer on MNIST example digit 4 with bias -150. Visualize the feature map as you visualize the original image. What does the filter seem to capture?
 \item (1p) Now transpose your filter and run your convolutional layer on MNIST example digit 4 with bias -150. Visualize the feature map. What does that transposed filter seem to capture?
-\item (3p) As the last step in our convolutional layer, implement a two by two, two stride max-pooling layer. It should work as follows.
+\item (3p) \textbf{Implementation (2p).} Implement \texttt{maxpool\_layer(X)} as a two by two max-pooling layer with stride 2.
+
+\textbf{Example (1p).} Include the inputs, a call and actual output from your implementation, with a brief explanation of what it checks. Reuse the supplied example below or the final pooled feature-map calculation.
 <<>>=
 X <- mnist_example[["4"]][12:15,12:15]
 maxpool_layer(X)
