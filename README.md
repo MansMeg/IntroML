@@ -59,8 +59,8 @@ In addition, the following material will also be included (note that you might n
 - Ruder (2016). An overview of gradient descent optimization algorithms. [online access](https://arxiv.org/abs/1609.04747)
 - Efron (2020). Prediction, Estimation, and Attribution. Journal of the American Statistical Association, 115(530), 636-655. [online access](https://www.tandfonline.com/doi/full/10.1080/01621459.2020.1762613) *Note!* You need to be on the Uppsala University network to access the article.
 - Kingma DP and Welling M. An Introduction to Variational Autoencoders, 2019. [online access](https://arxiv.org/pdf/1906.02691.pdf)
-- Alamar, J. The illustrated Transformer, 2018a. [online](http://jalammar.github.io/illustrated-transformer/)
-- Alamar, J. The illustrated BERT, Elmo, and co. (How NLP Cracked Transfer Learning), 2018b. [online](http://jalammar.github.io/illustrated-bert/)
+- Alammar, J. The Illustrated Transformer, 2018a. [online](https://jalammar.github.io/illustrated-transformer/)
+- Alammar, J. The Illustrated BERT, ELMo, and co. (How NLP Cracked Transfer Learning), 2018b. [online](https://jalammar.github.io/illustrated-bert/)
 - Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A.N., Kaiser, Ł. and Polosukhin, I., 2017. Attention is all you need. In Advances in neural information processing systems (pp. 5998-6008). [online](https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html)
 - Griffiths, M. and Steyvers. 2004. Finding Scientific topics [online](https://www.pnas.org/content/pnas/101/suppl_1/5228.full.pdf)
 - Blei, D. 2012. Probabilistic Topic Models [online](http://www.cs.columbia.edu/~blei/papers/Blei2012.pdf)
