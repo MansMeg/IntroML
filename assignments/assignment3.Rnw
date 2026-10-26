@@ -177,10 +177,16 @@ With \texttt{restore\_best\_weights = TRUE}, the model retains weights from the 
 
 \input{distinction_task.tex}
 
-We want to implement one of the most straightforward neural networks possible.
+We will implement a small feed-forward network for the exclusive-or (XOR) function. For two binary inputs, the target is 1 when exactly one input is 1, and 0 otherwise. A nonlinear hidden layer allows the network to represent this pattern.
+
+The example is adapted from \citet[Section~6.1]{Goodfellow-et-al-2016}. All details needed for this exercise are given below; no reading of that section is required. For background, follow the \href{https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing}{general reading instructions for Block 3}.
 
 \begin{enumerate}
-\item (1p) Implement the neural network in \citet[][Ch. 6.1]{Goodfellow-et-al-2016} as a function \texttt{mini\_net(X, W, c, w, b)}. For $n$ observations, use the following shapes, with one observation per row:
+\item (1p) Implement a network with two inputs, two hidden units, and one output as a function \texttt{mini\_net(X, W, c, w, b)}. Its forward computation is
+\[
+H = \operatorname{ReLU}(XW+c), \qquad \widehat{y}=Hw+b,
+\]
+where $\operatorname{ReLU}(a)=\max(0,a)$ is applied separately to every element, and the scalar output bias $b$ is added to every prediction. Use the supplied parameter values to compute predictions; no training step is required. For $n$ observations, use the following shapes, with one observation per row:
 
 \begin{center}
 \begin{tabular}{lll}
