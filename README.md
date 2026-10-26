@@ -49,7 +49,7 @@ Below are the main references for the course. All books are available free onlin
 
 ### Literature
 
-- BB: Bishop and Bishop. Deep learning - Foundations and Concepts. MIT Press, 2024. [online access](https://www.bishopbook.com/)
+- BB: Bishop, Christopher M., and Hugh Bishop. Deep Learning: Foundations and Concepts. Springer, 2024. [online access](https://www.bishopbook.com/)
 - ESL: Hastie, Trevor, Tibshirani, Robert, and Friedman, Jerome. The elements of statistical learning: data mining, inference, and prediction. 2nd Edition. Springer Science & Business Media, 2009. [online access](https://web.stanford.edu/~hastie/ElemStatLearn/)
 - DLR: Chollet, François, and Joseph J. Allaire. Deep Learning with R. Manning, 2018. [online access](https://www.manning.com/books/deep-learning-with-r#toc)
 - Sutton, R. S., and Barto, A. G. Reinforcement learning: An introduction. MIT Press, 2020. [online access](http://incompleteideas.net/book/RLbook2020.pdf)
