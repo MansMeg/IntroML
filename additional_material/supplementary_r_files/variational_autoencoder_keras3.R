@@ -112,20 +112,6 @@ latent_plot <- data.frame(z1 = x_test_encoded[, 1],
 print(ggplot(latent_plot, aes(z1, z2, colour = digit)) +
         geom_point(alpha = 0.5) + theme_bw())
 
-# Decode a grid of latent coordinates in one batch.
-n <- 15L
-digit_size <- 28L
-grid_x <- seq(-4, 4, length.out = n)
-grid_y <- seq(-4, 4, length.out = n)
-latent_grid <- as.matrix(expand.grid(z1 = grid_x, z2 = grid_y))
-generated <- predict(generator, latent_grid, verbose = 0L)
-canvas <- matrix(0, n * digit_size, n * digit_size)
-for (i in seq_len(n)) {
-  for (j in seq_len(n)) {
-    idx <- (i - 1L) * n + j
-    image_rows <- ((n - i) * digit_size + 1L):((n - i + 1L) * digit_size)
-    image_cols <- ((j - 1L) * digit_size + 1L):(j * digit_size)
-    canvas[image_rows, image_cols] <- matrix(generated[idx, ], nrow = digit_size)
-  }
-}
-plot(as.raster(canvas))
+# Inspect the latent grid using the trained decoder; no additional training.
+# Requires uuml 0.5.1 or later; see ?uuml::plot_vae_grid.
+canvas <- uuml::plot_vae_grid(generator)
