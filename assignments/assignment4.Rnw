@@ -172,7 +172,18 @@ parameters. Each filter spans all input channels, giving $2\cdot2\cdot3$ kernel 
 
 \item (1p) Explain why there are 320 parameters in the first layer. How many are kernel weights (and why), and how many biases?
 \item (1p) Train the network and use \texttt{evaluate()} on the MNIST test set to report its \textbf{test loss and test accuracy}. Include your training code once.
-\item (3p) Choose and briefly justify at least three hyper-parameters and their sampling distributions (\citet[see Table 11.1 in ][]{Goodfellow-et-al-2016}). Use random search \citet[see Ch. 11.4.4 in ][]{Goodfellow-et-al-2016} to train 10 fresh models. Keep the training/validation split and number of epochs fixed, and record each model's settings and final-epoch validation accuracy. Select the best setting using validation accuracy, then report the code and test accuracy of your final model. Keep the test data out of the search.
+\enlargethispage{3\baselineskip}
+\item (3p) Choose and briefly justify at least three hyper-parameters and their sampling distributions. Use random search to train 10 fresh models: for each trial, draw a setting from each chosen distribution and train a newly initialized model using those settings. Keep the training/validation split and number of epochs fixed, and record each model's settings and final-epoch validation accuracy. Select the best setting using validation accuracy, then report the code and test accuracy of your final model. Keep the test data out of the search.
+
+Examples of hyper-parameters you may include are:
+\begin{itemize}
+\item \textbf{Learning rate:} sample uniformly on a logarithmic scale between $10^{-4}$ and $10^{-2}$.
+\item \textbf{Filters per convolutional layer:} sample uniformly from $\{16,32,64\}$.
+\item \textbf{Batch size:} sample uniformly from $\{32,64,128\}$.
+\item \textbf{Dense hidden units:} sample uniformly from $\{32,64,128\}$.
+\item \textbf{Dropout rate:} sample uniformly between 0 and 0.5, if you include a dropout layer.
+\end{itemize}
+These are suggestions; other justified choices are also allowed. Adapt the scaffold below to the hyper-parameters you choose.
 
 \begin{examplebox}{A random-search loop}
 This scaffold uses \texttt{keras3}. First prepare fixed training and validation arrays \texttt{x\_train} and \texttt{x\_val} with dimensions \texttt{c(n, 28, 28, 1)}, scaled to $[0,1]$, and matching label vectors with values 0--9. Write \texttt{build\_model(filters, learning\_rate)} to create and compile a fresh CNN using sparse categorical cross-entropy and the supplied settings. The choices below are illustrative; adapt them to your search.
