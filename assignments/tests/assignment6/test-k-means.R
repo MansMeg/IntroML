@@ -1,0 +1,20 @@
+local({
+  testthat::test_that("k_means returns nonempty clusters and consistent converged means", {
+    X <- matrix(c(0, 0, 0, 0, 10, 20, 10, 20), ncol = 2, byrow = TRUE)
+    set.seed(6101)
+    result <- k_means(X, 2)
+    testthat::expect_type(result, "list")
+    testthat::expect_length(result$C, nrow(X))
+    testthat::expect_equal(dim(result$m), c(2L, 2L))
+    testthat::expect_setequal(as.numeric(result$C), c(1, 2))
+    # Either permutation of labels is valid. The two distinct points must separate.
+    testthat::expect_equal(result$C[1], result$C[2])
+    testthat::expect_equal(result$C[3], result$C[4])
+    testthat::expect_false(result$C[1] == result$C[3])
+    testthat::expect_equal(as.numeric(result$m[result$C[1], ]), c(0, 0))
+    testthat::expect_equal(as.numeric(result$m[result$C[3], ]), c(10, 20))
+    one <- k_means(.a6_checks$X, 1)
+    testthat::expect_equal(as.numeric(one$C), rep(1, 5))
+    testthat::expect_equal(as.numeric(one$m), c(6.4, 5.6))
+  })
+})

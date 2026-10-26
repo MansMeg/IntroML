@@ -1,0 +1,24 @@
+name: Introduction to Machine Learning - Assignment 6 VG
+description: Checks for the two-component mixture VG option. These formative checks do not assess the report or award marks.
+tasks:
+  r_uni_two_comp:
+    description: Two-component normal mixture simulation.
+    url: test-r-uni-two-comp.R
+  d_uni_two_comp:
+    description: Mixture density.
+    url: test-d-uni-two-comp.R
+  e_uni_two_comp:
+    description: Component-two responsibilities.
+    url: test-e-uni-two-comp.R
+  max_uni_two_comp:
+    description: Weighted maximum-likelihood parameter updates.
+    url: test-max-uni-two-comp.R
+  ll_uni_two_comp:
+    description: Stable summed log-likelihood.
+    url: test-ll-uni-two-comp.R
+  em_uni_two_comp:
+    description: EM updates, final parameters, and history.
+    url: test-em-uni-two-comp.R
+run_code:
+  before:
+    url: helpers.R

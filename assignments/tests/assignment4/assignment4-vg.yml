@@ -1,0 +1,15 @@
+name: Introduction to Machine Learning - Assignment 4 VG
+description: Checks for the manual convolution VG option. These formative checks do not assess the report or award marks.
+tasks:
+  convolution:
+    description: Valid CNN cross-correlation with a square kernel.
+    url: test-convolution.R
+  convolutional_layer:
+    description: Bias and elementwise activation of the feature map.
+    url: test-convolutional-layer.R
+  maxpool_layer:
+    description: Two-by-two max pooling with stride two.
+    url: test-maxpool-layer.R
+run_code:
+  before:
+    url: helpers.R

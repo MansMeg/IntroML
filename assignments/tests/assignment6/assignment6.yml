@@ -1,0 +1,21 @@
+name: Introduction to Machine Learning - Assignment 6
+description: Checks for k-means and probabilistic PCA. These formative checks do not assess the report or award marks.
+tasks:
+  compute_cluster_means:
+    description: Cluster means in label order.
+    url: test-compute-cluster-means.R
+  compute_cluster_encoding:
+    description: Nearest-mean cluster allocation.
+    url: test-compute-cluster-encoding.R
+  k_means:
+    description: Converged clusters allowing label permutations.
+    url: test-k-means.R
+  k_means_W:
+    description: Cluster-size-weighted within-point scatter.
+    url: test-k-means-W.R
+  pPCA:
+    description: Observation dimensions and simulation moments.
+    url: test-pPCA.R
+run_code:
+  before:
+    url: helpers.R

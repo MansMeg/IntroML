@@ -1,6 +1,12 @@
 name: Introduction to Machine Learning - Assignment 8
-description: Deterministic formative checks for selected bandit updates and robot policies. These do not assess the report or award marks.
+description: Formative numerical checks for reward generators, bandit updates, and robot policies. These do not assess the report or award marks.
 tasks:
+  stationary_bandit:
+    description: Action-specific reward means, unit standard deviation, and ignored time.
+    url: test-stationary-bandit.R
+  nonstationary_bandit:
+    description: Time-varying mean for action one and stationary means for other actions.
+    url: test-nonstationary-bandit.R
   greedy_algorithm:
     description: Greedy action selection and sample-average estimates.
     url: test-greedy.R

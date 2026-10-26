@@ -1,0 +1,30 @@
+name: Introduction to Machine Learning - Assignment 5
+description: Checks for the attention and recurrent functions. These formative checks do not assess the report or award marks.
+tasks:
+  qkv:
+    description: Query, key, and value projections.
+    url: test-qkv.R
+  attention:
+    description: Scaled row-normalised attention and weighted values.
+    url: test-attention.R
+  multi_head_self_attention:
+    description: Head concatenation and final projection.
+    url: test-multi-head-self-attention.R
+  rnn_unit:
+    description: The linear recurrent update.
+    url: test-rnn-unit.R
+  activation:
+    description: Elementwise tanh.
+    url: test-activation.R
+  output_rnn:
+    description: Output scores from a hidden state.
+    url: test-output-rnn.R
+  softmax:
+    description: Numerically stable output probabilities.
+    url: test-softmax.R
+  rnn_layer:
+    description: Hidden states and output probabilities across a sequence.
+    url: test-rnn-layer.R
+run_code:
+  before:
+    url: helpers.R

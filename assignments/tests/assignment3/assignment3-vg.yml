@@ -1,0 +1,12 @@
+name: Introduction to Machine Learning - Assignment 3 VG
+description: Checks for the from-scratch neural network VG option. These formative checks do not assess the report or award marks.
+tasks:
+  mini_net:
+    description: Forward predictions for a two-hidden-unit network.
+    url: test-mini-net.R
+  mini_net_loss:
+    description: Mean squared error for the network predictions.
+    url: test-mini-net-loss.R
+run_code:
+  before:
+    url: helpers.R
