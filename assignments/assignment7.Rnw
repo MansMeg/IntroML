@@ -42,7 +42,7 @@ knitr::opts_chunk$set(size = "small")
 \medskip
 \textbf{Reading priorities for the basic assignment.}
 \begin{itemize}
-\item \textbf{VAE:} Prioritize \citet[Sections 2.1--2.5]{kingma2019introduction}: encoder/decoder, ELBO (reconstruction and KL terms), and Gaussian reparameterization.
+\item \textbf{VAE:} Read \citet[Section~19.2]{bishop2024deep}. Prioritize \citet[Sections 2.1--2.5]{kingma2019introduction} for additional detail on the encoder/decoder, ELBO (reconstruction and KL terms), and Gaussian reparameterization.
 \item \textbf{Topic models:} Focus on \emph{Using Gibbs Sampling to Discover Topics} in \citet{griffiths2004finding} for the model and sampler. Use \emph{Latent Dirichlet Allocation} in \citet{blei2012probabilistic} for an introductory overview.
 \end{itemize}
 
