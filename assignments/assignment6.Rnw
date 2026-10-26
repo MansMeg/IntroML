@@ -162,7 +162,7 @@ With $\mathbf{W}=(-1,3)^T$, $\mathbf{b}=(0.5,2)^T$, $h=1$, and no noise, $\mathb
 
 \begin{enumerate}
 \item (2p) Implement \texttt{pPCA(W, b, sigma2)} to return one simulated observation as a vector of length $D$. Here \texttt{W} is $D\times K$, \texttt{b} has length $D$, and \texttt{sigma2} is the noise variance. \emph{Hint!} Use \texttt{sqrt(sigma2)} as the noise standard deviation.
-\item (1p) Simulate 300 observations with $\mathbf{W}=(-1,3)^T$, $\mathbf{b}=(0.5,2)^T$, and $\sigma^2=1$. Run \texttt{set.seed(4711)} before simulating. Store this baseline as \texttt{X\_base}, a $300\times 2$ matrix with one observation per row, and plot it as in Figure \ref{pPCA}.
+\item\label{q:a6:ppca-baseline} (1p) Simulate 300 observations with $\mathbf{W}=(-1,3)^T$, $\mathbf{b}=(0.5,2)^T$, and $\sigma^2=1$. Run \texttt{set.seed(4711)} before simulating. Store this baseline as \texttt{X\_base}, a $300\times 2$ matrix with one observation per row, and plot it as in Figure \ref{pPCA}.
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.55\textwidth]{figs/pPCA.png}
@@ -170,7 +170,7 @@ With $\mathbf{W}=(-1,3)^T$, $\mathbf{b}=(0.5,2)^T$, $h=1$, and no noise, $\mathb
 \label{pPCA}
 \end{figure}
 \item (1p) Describe the different parts of the model. What are the parameters? What are the latent variables?
-\item (1p) \emph{Before simulating, predict} the effect of each of these separate changes to the baseline: $\mathbf{b}=(2.5,2)^T$; $\mathbf{W}=(3,1)^T$; and $\sigma^2=4$. For each change, reset the seed to 4711 and simulate 300 observations. Show the baseline and three settings in one figure with common axis limits; this also covers Question 2.2. Afterwards, briefly explain whether the results match your predictions.
+\item (1p) \emph{Before simulating, predict} the effect of each of these separate changes to the baseline: $\mathbf{b}=(2.5,2)^T$; $\mathbf{W}=(3,1)^T$; and $\sigma^2=4$. For each change, reset the seed to 4711 and simulate 300 observations. Show the baseline and three settings in one figure with common axis limits; this also covers Question~\ref{q:a6:ppca-baseline}. Afterwards, briefly explain whether the results match your predictions.
 \item (1p) Run PCA on the baseline data. Estimate the mean and the loading vector, accounting for the known baseline noise variance:
 <<eval = FALSE>>=
 sigma2 <- 1
