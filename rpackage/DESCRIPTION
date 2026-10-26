@@ -1,6 +1,6 @@
 Package: uuml
 Title: R Content for the Introduction to Machine Learning Course at Uppsala University
-Version: 0.5.0
+Version: 0.5.1
 Authors@R: 
     person(given = "Mans",
            family = "Magnusson",
@@ -11,8 +11,13 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.3.3
 Depends: 
     R (>= 2.10)
 Imports: 
-  checkmate
+  checkmate,
+  graphics,
+  grDevices,
+  stats
+Suggests:
+  keras3

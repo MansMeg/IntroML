@@ -6,24 +6,15 @@
 \title{Pride and Prejudice (tokenized)}
 \format{
 An object of class \code{data.frame} with 122076 rows and 3 columns.
-
-An object of class \code{data.frame} with 122076 rows and 3 columns.
 }
 \usage{
-pride_and_prejudice
-
 pride_and_prejudice
 }
 \description{
 A \code{tibble} with the chapter, paragraph and word for each token.
 All word has been turned to lower case and punctuation has been removed.
-
-A \code{tibble} with the chapter, paragraph and word for each token.
-All word has been turned to lower case and punctuation has been removed.
 }
 \seealso{
-\code{prideprejudice} in the \code{janeaustenr} R package.
-
 \code{prideprejudice} in the \code{janeaustenr} R package.
 }
 \keyword{datasets}
