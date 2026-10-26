@@ -245,6 +245,8 @@ To get VG on this assignment, you can choose to do this task OR the task using B
 
 We will use recurrent neural networks for text classification. Use the general reading instructions for Block 5 for conceptual background. Chapter 6--6.2 in \citet{chollet2018deep} provides optional implementation help.
 
+For the LSTM VG option, consult DLR Section~6.2 (\citealp{chollet2018deep}) and use the current \href{https://keras3.posit.co/reference/layer_lstm.html}{Keras 3 LSTM documentation} for implementation.
+
 An RNN can produce an output at every time step or use only its final hidden state to produce one output for a complete sequence. Use the parameter notation from Section~\ref{sec:simple-rnn} when explaining your classifier below.
 
 Start by downloading the IMDB dataset and preprocess it as follows.
