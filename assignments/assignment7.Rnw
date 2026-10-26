@@ -221,6 +221,14 @@ You can choose to either do this task or the task above to get VG on this assign
 
 \input{distinction_task.tex}
 
+\textbf{Assessment (5 points in total).} The points below refer to the experiments and report requirements described in Sections 4.1 and 4.2; they do not require additional experiments. Complete all three parts for this VG option.
+\begin{enumerate}
+\renewcommand{\labelenumi}{\textbf{\thesection\alph{enumi}.}}
+\item (2p) \textbf{Hallucination experiment:} design three strategies within the stated call limits, document the selected tests and model settings, verify factual claims, and explain the results. A factual error is not required for full credit.
+\item (1p) \textbf{Stronger-model comparison:} repeat the three selected tests as specified, document model choices and prices, and compare factual accuracy, uncertainty, and cost using the evidence.
+\item (2p) \textbf{Few-shot classification:} develop and validate all three prompt strategies, freeze them before testing, apply the stated scoring rule, and report and interpret their results. No minimum accuracy or improvement is required.
+\end{enumerate}
+
 For this task, choose either \textbf{OpenAI} or \textbf{Anthropic (Claude)}. You only need a developer account and an API key with your chosen provider. Follow the \href{https://developers.openai.com/api/docs/quickstart}{OpenAI API quickstart} or the \href{https://platform.claude.com/docs/en/get-started}{Claude API quickstart}. API billing is separate from consumer chat subscriptions; check the current \href{https://developers.openai.com/api/docs/pricing}{OpenAI API prices} or \href{https://platform.claude.com/docs/en/about-claude/pricing}{Claude API prices} before running your experiments.
 
 Install \texttt{ellmer} from CRAN and open your personal \texttt{.Renviron} file:
