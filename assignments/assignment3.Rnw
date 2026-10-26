@@ -124,7 +124,7 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
         xaxt='n', yaxt='n', main=paste(mnist$train$y[idx]))
 @
 \item (1p) How large is the training and test set?
-\item (2p) Implement a feed-forward network in R using \texttt{keras3}; see the \href{https://github.com/MansMeg/IntroML/tree/master/additional_material/supplementary_r_files/tensorflow_feedforward_neural_network_tutorial.R}{tutorial}. Use one hidden layer with 16 sigmoid units and a softmax output layer. Include the model description in your report.
+\item (2p) Implement a feed-forward network in R using \texttt{keras3}; see the \href{https://github.com/MansMeg/IntroML/blob/master/additional_material/supplementary_r_files/tensorflow_feedforward_neural_network_tutorial.R}{Keras 3 feed-forward tutorial}. Use one hidden layer with 16 sigmoid units and a softmax output layer. Include the model description in your report.
 
 Call \texttt{set\_random\_seed(123)} before constructing the model. Train with SGD, learning rate 0.05, no momentum, 3 epochs, batch size 128, and 30\% validation data. Keep the epoch count, batch size, and validation split fixed for the next task.
 \begin{enumerate}

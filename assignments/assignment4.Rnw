@@ -113,11 +113,11 @@ knitr::opts_chunk$set(size = "small")
 
 \section{Convolutional neural networks using Keras}
 
-\textbf{Reading used here:} \citet{Goodfellow-et-al-2016}, \href{https://www.deeplearningbook.org/contents/guidelines.html}{Table 11.1 and Section 11.4.4} for random search.
+\textbf{Background reading:} Follow the \href{https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing}{general reading instructions for Block 4}.
 
-\emph{Optional convolution implementation (VG):} \href{https://www.deeplearningbook.org/contents/convnets.html}{Figure 9.1} in the same book.
+The random-search guidance is adapted from \citet[Table~11.1 and Section~11.4.4]{Goodfellow-et-al-2016}. The procedure is specified below; no reading of that book is required.
 
-We are now going to implement a convolutional neural network using Keras. Here Ch. 5.1-5.3 in \citet{chollet2018deep} and the \href{https://github.com/MansMeg/IntroML/tree/master/additional_material/supplementary_r_files/cnn_example_cifar_10.R}{\texttt{cnn\_example\_cifar\_10.R}} might be usefulfor getting started. Remember to load the \texttt{tensorflow} R package before loading the \texttt{keras3} R package.
+We are now going to implement a convolutional neural network using Keras. Here Ch. 5.1-5.3 in \citet{chollet2018deep} and the \href{https://github.com/MansMeg/IntroML/blob/master/additional_material/supplementary_r_files/cnn_example_cifar_10.R}{Keras 3 CIFAR-10 example} might be useful for getting started. Remember to load the \texttt{tensorflow} R package before loading the \texttt{keras3} R package.
 
 If you have installed \texttt{keras3}, you can load the MNIST dataset. This dataset contains data on handwritten digits that we want to classify. To access the data, we use \texttt{keras3} as follows.
 
@@ -202,7 +202,7 @@ Rebuild the selected configuration and fit it before evaluating it on the test d
 \end{examplebox}
 
 \newpage
-\item (1p) Load CIFAR-10 using \texttt{dataset\_cifar10()} (see the \href{https://github.com/MansMeg/IntroML/tree/master/additional_material/supplementary_r_files/cnn_example_cifar_10.R}{CIFAR example}). Visualize one image of your choice together with its class/category.
+\item (1p) Load CIFAR-10 using \texttt{dataset\_cifar10()} (see the \href{https://github.com/MansMeg/IntroML/blob/master/additional_material/supplementary_r_files/cnn_example_cifar_10.R}{Keras 3 CIFAR-10 example}). Visualize one image of your choice together with its class/category.
 
 \emph{Hint!} Display the first unscaled training image as RGB as follows. Change the index 1 to choose another image; use \texttt{max = 1} if you have already scaled the pixels to $[0,1]$.
 <<cifar-image-hint,echo=TRUE,eval=FALSE>>=
@@ -253,7 +253,13 @@ For VG, complete either this section or Section~\ref{sec:transfer-learning}. You
 
 As a first step, we will implement a layer of a convolutional neural network with one filter. We will here not train the layer, only implement it to understand the inner workings. You are not allowed to use \texttt{convolve()} in R in the final solution, but you can use it to debug your code if you want to.
 
-Some good material for this exercise is Figure 9.1 in \citet{Goodfellow-et-al-2016} and the video \citet{ng2017}.
+The convolution explanation is adapted from \citet[Figure~9.1]{Goodfellow-et-al-2016}. All implementation details needed here are given below; no reading of that book is required. The video \citet{ng2017}, listed in the Block 4 reading instructions, provides a visual explanation.
+
+For an $R\times C$ image $X$ and an $m\times m$ kernel $K$, compute each filter response as
+\[
+S_{ij}=\sum_{u=1}^{m}\sum_{v=1}^{m}X_{i+u-1,j+v-1}K_{uv}.
+\]
+Slide the kernel one row or column at a time, without padding or flipping the kernel. The result has dimensions $(R-m+1)\times(C-m+1)$. This is the CNN convention, also called cross-correlation. A convolutional layer then applies $\operatorname{activation}(S_{ij}+b)$ separately at every position. For max-pooling, take the maximum in each non-overlapping $2\times2$ window with stride 2, discarding any incomplete border windows.
 
 Start by importing examples from the MNIST dataset as follows.
 
