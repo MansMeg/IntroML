@@ -66,11 +66,13 @@ A website chooses which of five headlines to show. Each headline is an action; a
 }
 
 \begin{enumerate}
-\item (2p) Implement a stationary 5-armed bandit reward function that generates a reward $R$ for a given category according to a true underlying (stationary) reward. Implement a function \texttt{stationary\_bandit(a, t = NULL)} that takes an action $\mathcal{A} = (1,...,5)$ and ignores the optional time argument \texttt{t}. The reward function should return a reward according to
+\item (2p) \textbf{Implementation (1p).} Implement a stationary 5-armed bandit reward function that generates a reward $R$ for a given category according to a true underlying (stationary) reward. Implement a function \texttt{stationary\_bandit(a, t = NULL)} that takes an action $\mathcal{A} = (1,...,5)$ and ignores the optional time argument \texttt{t}. The reward function should return a reward according to
 \[
 R \sim N(q^\star_a, 1)\,,
 \]
 where $q^\star=(1.62, 1.20, 0.70, 0.72, 2.03)$. Below is an example of how it \emph{could} work. Note that since the function returns a random value, you might get a different result, and it might still be a correct implementation. However, to test, you can run your bandit 1000 times and take the mean (see below). Then you should be close to $q^\star$ if your implementation is correct.
+\textbf{Example (1p).} Include inputs, a call, seed and compact actual output from your implementation, with a brief explanation. Reuse a supplied example or the required experiments.
+
 <<stationary-example, eval=FALSE>>=
 set.seed(4711)
 stationary_bandit(2)
@@ -85,11 +87,14 @@ mean(R)
 ## [1] 0.6819202
 @
 \emph{Check:} \verb|mark_my_assignment(tasks = "stationary_bandit")|
-\item (2p) Also, we will also implement a non-stationary reward function. For all actions $\mathcal{A} = (2,...,5)$ the non-stationary should work as the stationary reward function. Although for action $a=1$, the function should return a reward based on the iteration according to
+\newpage
+\item (2p) \textbf{Implementation (1p).} Implement a non-stationary reward function. For all actions $\mathcal{A} = (2,...,5)$ the non-stationary should work as the stationary reward function. Although for action $a=1$, the function should return a reward based on the iteration according to
 \[
 R \sim N(-3 + 0.01t, 1)\,.
 \]
 Implement the reward function as \texttt{nonstationary\_bandit(a, t)} and it should work as follows. Again, note that these are random values, you might have another (correct) solution giving different results.
+\textbf{Example (1p).} Include inputs, a call, seed and compact actual output from your implementation, with a brief explanation. Reuse a supplied example or the required experiments.
+
 \begin{samepage}
 <<nonstationary-example, eval=FALSE>>=
 set.seed(4711)
@@ -104,9 +109,12 @@ nonstationary_bandit(1, t = 1000)
 @
 \end{samepage}
 \emph{Check:} \verb|mark_my_assignment(tasks = "nonstationary_bandit")|
-\item (2p) Implement a greedy policy algorithm that always chooses the greedy action, according to Eq. (2.2) in \citet{sutton2020reinforcement}. Use sample-average value estimates. The function called \texttt{greedy\_algorithm(Q1, bandit)} should input a vector of initial estimates $Q_1$ and a reward function. Then the algorithm should run the bandit for 1000 steps and return a list containing (1) The rewards $R_t$ for all steps, (2) the mean reward over all the 1000 steps, (3) the value estimates $Q_t(a)$, and (4) the total number of choices of each action $N_t(a)$. Here is an example of how it could work. \emph{Note!} This is a random algorithm so you might get a different result, even if you use the exact same seed and have a correct algorithm.
+\newpage
+\item (2p) \textbf{Implementation (1p).} Implement a greedy policy algorithm that always chooses the greedy action, according to Eq. (2.2) in \citet{sutton2020reinforcement}. Use sample-average value estimates. The function called \texttt{greedy\_algorithm(Q1, bandit)} should input a vector of initial estimates $Q_1$ and a reward function. Then the algorithm should run the bandit for 1000 steps and return a list containing (1) The rewards $R_t$ for all steps, (2) the mean reward over all the 1000 steps, (3) the value estimates $Q_t(a)$, and (4) the total number of choices of each action $N_t(a)$. Here is an example of how it could work. \emph{Note!} This is a random algorithm so you might get a different result, even if you use the exact same seed and have a correct algorithm.
 All bandit algorithms below should request each reward with \texttt{bandit(a, t = i)}, where \texttt{i} is the current step (1 to 1000); both reward functions accept this call.
-<<greedy-example, eval=FALSE>>=
+\textbf{Example (1p).} Include inputs, a call, seed and compact actual output from your implementation, with a brief explanation. Reuse a supplied example or the required experiments.
+
+<<greedy-example, eval=FALSE,size="footnotesize">>=
 Q1 <- rep(0, 5)
 set.seed(4711)
 greedy_algorithm(Q1, stationary_bandit)
@@ -153,8 +161,12 @@ stopifnot(
 @
 No output means these checks passed. Reuse them for the later bandit algorithms.
 \end{hintblock}
-\item (2p) Implement \texttt{epsilon\_algorithm(Q1, bandit, epsilon)} using the $\epsilon$-greedy algorithm. With probability $\epsilon$, choose an action uniformly from all five actions; otherwise choose a greedy action. Keep the greedy algorithm's updates and output structure.
-<<epsilon-example, eval=FALSE>>=
+\item (2p) \textbf{Implementation (1p).} Implement the $\epsilon$-greedy algorithm.
+
+Use \texttt{epsilon\_algorithm(Q1, bandit, epsilon)}. With probability $\epsilon$, choose an action uniformly from all five actions; otherwise choose a greedy action. Keep the greedy algorithm's updates and output structure.
+\textbf{Example (1p).} Include inputs, a call, seed and compact actual output from your implementation, with a brief explanation. Reuse a supplied example or the required experiments.
+
+<<epsilon-example, eval=FALSE,size="footnotesize">>=
 set.seed(4711)
 Q1 <- rep(0, 5)
 epsilon_algorithm(Q1, stationary_bandit, 0.1)
@@ -188,8 +200,11 @@ epsilon_algorithm(Q1, nonstationary_bandit, 0.1)
 
 \emph{Check:} \verb|mark_my_assignment(tasks = "epsilon_algorithm")|
 
-\item (2p) Implement constant-step $\epsilon$-greedy updates, as in Eq. (2.5) in \citet{sutton2020reinforcement}, as \texttt{nonstationary\_algorithm(Q1, bandit, epsilon, alpha)}. Return the same output structure as the greedy algorithm.
-<<constant-step-example, eval=FALSE>>=
+\newpage
+\item (2p) \textbf{Implementation (1p).} Implement constant-step $\epsilon$-greedy updates, as in Eq. (2.5) in \citet{sutton2020reinforcement}, as \texttt{nonstationary\_algorithm(Q1, bandit, epsilon, alpha)}. Return the same output structure as the greedy algorithm.
+\textbf{Example (1p).} Include inputs, a call, seed and compact actual output from your implementation, with a brief explanation. Reuse a supplied example or the required experiments.
+
+<<constant-step-example, eval=FALSE,size="footnotesize">>=
 set.seed(4711)
 Q1 <- rep(0, 5)
 nonstationary_algorithm(Q1, stationary_bandit, epsilon = 0.1,
@@ -289,7 +304,10 @@ With $p_{\mathrm{high}}=0.5$ and $p_{\mathrm{low}}=0.8$ in the call above:
 \textbf{Search with low energy:} 80\% probability of remaining low with reward 1; 20\% of requiring rescue, returning to high energy with reward $-3$.
 
 }
-\item (2p) Implement \texttt{always\_search\_policy(mdp)} to simulate 1000 actions, starting in state \texttt{high} and always choosing \texttt{search}. Return a list with mean reward \texttt{R\_bar} and state counts \texttt{Nt}, named \texttt{high} and \texttt{low}. Count the state before each action.
+\newpage
+\item (2p) \textbf{Implementation (1p).} Implement \texttt{always\_search\_policy(mdp)} to simulate 1000 actions, starting in state \texttt{high} and always choosing \texttt{search}. Return a list with mean reward \texttt{R\_bar} and state counts \texttt{Nt}, named \texttt{high} and \texttt{low}. Count the state before each action.
+\textbf{Example (1p).} Include inputs, a call, seed and compact actual output from your implementation, with a brief explanation. Reuse a supplied example or the required experiments.
+
 \begin{samepage}
 <<search-policy-example, eval=FALSE>>=
 set.seed(4711)
@@ -305,7 +323,9 @@ always_search_policy(mdp)
 
 \emph{Check:} \verb|mark_my_assignment(tasks = "always_search_policy")|
 
-\item (2p) Implement \texttt{charge\_when\_low\_policy(mdp)} using the same initial state, run length, and output structure. Choose \texttt{recharge} when energy is low and \texttt{search} when it is high.
+\item (2p) \textbf{Implementation (1p).} Implement \texttt{charge\_when\_low\_policy(mdp)} using the same initial state, run length, and output structure. Choose \texttt{recharge} when energy is low and \texttt{search} when it is high.
+
+\textbf{Example (1p).} Include inputs, a call, seed and compact actual output from your implementation, with a brief explanation. Reuse a supplied example or the required experiments. Reuse a policy run from the comparison below.
 
 \emph{Check:} \verb|mark_my_assignment(tasks = "charge_when_low_policy")|
 
@@ -331,8 +351,11 @@ set_assignment(paste("https://github.com/MansMeg/IntroML/",
 
 
 \begin{enumerate}
-\item (2p) Implement \texttt{ucb\_algorithm(Q1, bandit, c)} using UCB with sample-average value estimates. Use the greedy algorithm's run length and output structure. Choose an untried action whenever any $N_t(a)=0$; otherwise maximize the UCB score. Any tie order is valid. The example chooses the first untried or maximizing action.
-<<ucb-example, eval=FALSE>>=
+\item (2p) \textbf{Implementation (1p).} Implement \texttt{ucb\_algorithm(Q1, bandit, c)} using UCB with sample-average value estimates. Use the greedy algorithm's run length and output structure. Choose an untried action whenever any $N_t(a)=0$; otherwise maximize the UCB score. Any tie order is valid. The example chooses the first untried or maximizing action.
+\textbf{Example (1p).} Include inputs, a call, seed and compact actual output from your implementation, with a brief explanation. Reuse a supplied example or the required experiments.
+
+\enlargethispage{2\baselineskip}
+<<ucb-example, eval=FALSE,size="footnotesize">>=
 set.seed(4711)
 Q1 <- rep(0, 5)
 ucb_algorithm(Q1, stationary_bandit, c = 2)
@@ -366,11 +389,16 @@ ucb_algorithm(Q1, stationary_bandit, c = 2)
 
 \emph{Check:} \verb|mark_my_assignment(tasks = "ucb_algorithm")|
 
-\item (2p) Implement \texttt{gradient\_bandit\_algorithm(bandit, alpha)} using the gradient bandit algorithm in \citet[Section~2.8]{sutton2020reinforcement}. Initialize all $H_1(a) = 0$. After observing $R_t$, update the baseline to include the current reward:
+\newpage
+\item (2p) \textbf{Implementation (1p).} Implement the gradient bandit algorithm in \citet[Section~2.8]{sutton2020reinforcement}.
+
+Use \texttt{gradient\_bandit\_algorithm(bandit, alpha)}. Initialize all $H_1(a) = 0$. After observing $R_t$, update the baseline to include the current reward:
 \[
 \bar R_t=\frac{1}{t}\sum_{s=1}^{t}R_s.
 \]
 Then update the preferences using $R_t-\bar R_t$ and the action probabilities used to select the current action. Recompute softmax probabilities afterwards. At the first step, $\bar R_1=R_1$, so the preference update is automatically zero. Return the same output structure as the greedy algorithm, replacing \texttt{Qt} with the final preferences \texttt{Ht} and action probabilities \texttt{pit}.
+\textbf{Example (1p).} Include inputs, a call, seed and compact actual output from your implementation, with a brief explanation. Reuse a supplied example or the required experiments.
+
 \examplebox{Updating action preferences}{
 After the first reward of 1, the baseline is 1 and preferences remain zero, so each action has probability $0.2$. Suppose the second reward is 3 and $\alpha=0.1$. Update the baseline to $(1+3)/2=2$, giving an advantage of $3-2=1$:
 \[
@@ -381,7 +409,8 @@ After the first reward of 1, the baseline is 1 and preferences remain zero, so e
 \]
 Applying softmax makes the chosen action more likely.
 }
-<<gradient-example, eval=FALSE>>=
+\begin{minipage}{\linewidth}
+<<gradient-example, eval=FALSE,size="footnotesize">>=
 set.seed(4711)
 gradient_bandit_algorithm(stationary_bandit, alpha = 0.1)
 ## $Ht
@@ -416,6 +445,7 @@ gradient_bandit_algorithm(stationary_bandit, alpha = 0.1)
 ## $Rt
 ## [1]  0.62963402  0.94862700 -0.30089716  0.08850766 ...
 @
+\end{minipage}
 
 \emph{Check:} \verb|mark_my_assignment(tasks = "gradient_bandit_algorithm")|
 
