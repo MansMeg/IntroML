@@ -148,7 +148,7 @@ We will implement a small feed-forward network for the exclusive-or (XOR) functi
 The example is adapted from \citet[Section~6.1]{Goodfellow-et-al-2016}. All details needed for this exercise are given below; no reading of that section is required. For background, follow the \href{https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing}{general reading instructions for Block 3}.
 
 \begin{enumerate}
-\item (1p) Implement a network with two inputs, two hidden units, and one output as a function \texttt{mini\_net(X, W, c, w, b)}. Its forward computation is
+\item (2p) \textbf{Implementation (1p).} Implement a network with two inputs, two hidden units, and one output as a function \texttt{mini\_net(X, W, c, w, b)}. Its forward computation is
 \[
 H = \operatorname{ReLU}(XW+c), \qquad \widehat{y}=Hw+b,
 \]
@@ -170,7 +170,7 @@ The hidden-layer bias vector has two components. In this R example, \texttt{c} r
 
 \emph{Debugging hint!} Check \texttt{dim()} after each matrix multiplication and bias addition. The hidden-layer matrices should be $n \times 2$, and the predictions should be $n \times 1$.
 
-Here is an example:
+\textbf{Examples (1p).} Include the input values, both calls below and the actual predictions from your own \texttt{mini\_net} implementation. Briefly explain what the examples check. The supplied examples are:
 
 <<echo = FALSE>>=
 mini_net <- function(X, W, c, w, b){
@@ -199,7 +199,9 @@ mini_net(X, W*0.9, c, w, b)
 
 \item (1p) Now test changing the value $W_{1,1}$ to 0. What do you get for the results of the network?
 \item (1p) What is the current output function? Is the network output function reasonable? Do you have any other output function that might be better?
-\item (1p) Now implement a mean squared error loss function for the network. It should work as follows.
+\item (2p) \textbf{Implementation (1p).} Implement a mean squared error loss function for the network as \texttt{mini\_net\_loss(y, X, W, c, w, b)}.
+
+\textbf{Examples (1p).} Include the input values, both calls below and the actual losses from your own implementation. Briefly explain what the examples check. The supplied examples are:
 <<echo = FALSE>>=
 mini_net_loss <- function(y, X, W, c, w, b){
     return(0)
