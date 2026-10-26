@@ -140,15 +140,20 @@ For a batch of $m$ images, the encoder should return an $m\times 2$ matrix of la
 
 \emph{Hint!} For this fixed prior, the function matches the one-dimensional KL term in the sampling layer.
 
-\noindent\begin{minipage}{\linewidth}
-<<eval=FALSE>>=
-kl_normal <- function(mu, sigma, mu_0, sigma_0) {
-  log(sigma_0 / sigma) +
-    (sigma^2 + (mu - mu_0)^2) / (2 * sigma_0^2) - 0.5
-}
-kl_normal(mu = -1, sigma = 0.5, mu_0 = 0, sigma_0 = 1)
+The formula is
+\[
+D_{\mathrm{KL}}(q\Vert p)
+= \log\frac{\sigma_0}{\sigma}
+  + \frac{\sigma^2+(\mu-\mu_0)^2}{2\sigma_0^2} - \frac12.
+\]
+The function is available in \texttt{uuml} version 0.5.1 or later; reinstall the package using the general instructions if needed. Its implementation is printed below. Use \texttt{?kl\_normal} for documentation.
+<<kl-normal-source,echo=FALSE,eval=TRUE,comment=NA>>=
+cat("kl_normal <- ", paste(deparse(uuml::kl_normal), collapse = "\n"),
+    "\n", sep = "")
 @
-\end{minipage}
+<<kl-normal-example,eval=FALSE>>=
+uuml::kl_normal(mu = -1, sigma = 0.5, mu_0 = 0, sigma_0 = 1)
+@
 \end{enumerate}
 \item Before training, use the supplied \texttt{vae\_loss\_components()} scaffold to record the reconstruction, KL, and total losses. Train your variational autoencoder on MNIST for 50 epochs, then record them again using the same 100 images and the same sampled noise. The example stores these as \texttt{loss\_before} and \texttt{loss\_after}. Visualize the latent state for the different numbers.
 \begin{enumerate}
@@ -160,6 +165,10 @@ kl_normal(mu = -1, sigma = 0.5, mu_0 = 0, sigma_0 = 1)
 \item (2p) Finally, encode all the 2:s in the MNIST test dataset to the latent state using your encoder. What is the mean of the digits "2" in the two latent dimensions? \emph{Hint!} See \texttt{y\_test} for the MNIST numbers. \emph{Note!} Do not retrain your VAE. Just use the one you have already trained.
 \item (1p) Visualize this value of the latent state as a 28 by 28-pixel image using your decoder.
 \end{enumerate}
+
+\examplebox{Inspecting the latent grid}{
+After training, use \texttt{uuml::plot\_vae\_grid(generator)} to inspect images decoded from a grid of two-dimensional latent coordinates. Here \texttt{generator} is your trained decoder, as named in the supplied example. The helper works with both the feed-forward and convolutional VAE examples and uses their existing weights. It does not train another model. Use \texttt{?plot\_vae\_grid} to see how to choose the coordinate grid and image dimensions.
+}
 
 % Reference image: earlier RMSprop run, seed 4711; current examples use Adam.
 % 60,000 MNIST training images, 50 epochs, 315,988 parameters.
