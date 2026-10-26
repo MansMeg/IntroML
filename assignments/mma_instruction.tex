@@ -1,0 +1,29 @@
+% Shared markmyassignment instructions, following BSDATeacher/assignments.
+% Define \assignmentTestFile before including this file.
+\section*{Automatic feedback on your R functions}
+\addcontentsline{toc}{section}{Automatic feedback on your R functions}
+
+The R package \texttt{markmyassignment} (MMA) provides automatic feedback on the functions listed in the selected check configuration. Define or load your own functions in R before running the checks. Use the \texttt{tasks} argument to check one function by name; omitting it checks every function in the selected configuration. Functions that depend on other functions need those definitions loaded too.
+
+To select the checks for this assignment, run the following code in R:
+
+\begingroup
+\lstset{basicstyle=\ttfamily\small, columns=fullflexible, keepspaces=true,
+        breaklines=true, escapeinside={(*@}{@*)}}
+\begin{lstlisting}
+install.packages("markmyassignment") # Install once
+library(markmyassignment)
+assignment_path <-
+  paste("https://github.com/MansMeg/IntroML/",
+        "blob/master/assignments/tests/(*@\assignmentTestFile@*)", sep="")
+set_assignment(assignment_path)
+# List the function names available in this configuration
+show_tasks()
+# To check one function, replace function_name with its name:
+# mark_my_assignment(tasks = "function_name")
+# To check your code/functions, just run
+mark_my_assignment()
+\end{lstlisting}
+\endgroup
+
+The checks provide feedback on selected numerical cases; they do not assess the whole assignment or award marks. Print your complete function definitions in the PDF report as required by the general instructions, even when the checks pass. You do not need to include MMA results in the report. The supplied checks run R code; Python implementations are assessed from the report and cannot be run directly through MMA.
