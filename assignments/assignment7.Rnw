@@ -291,16 +291,22 @@ See \texttt{?chat\_openai}, \texttt{?chat\_anthropic}, and the \href{https://ell
 
 We are now going to understand how and when transformer-based decoder models 'hallucinate', i.e. when the models give factually incorrect information. See \citet[Section 7.1.2]{zhao2023survey} for an introduction and \citet{huang2023survey} for details on hallucinations in LLMs.
 
-Create three different hallucinations with three different strategies using your baseline model (i.e. it is not enough to use the same prompt for three incorrect generations). For each generated hallucination, report:
+Investigate three distinct strategies for eliciting factual errors using your baseline model. Make \textbf{at most three API calls per strategy}, including follow-up messages. Stop that strategy when you identify a factual error or reach the limit. Each follow-up message counts as another call.
 
+Select one test per strategy for your report and the model comparison below: the first test that produced a verified factual error, or your final test if no error occurred. For a multi-turn test, keep the full conversation leading to the selected response.
+
+\emph{No hallucination is also a valid result.} Correct answers, refusals, and explicit uncertainty are acceptable outcomes to analyse. You are assessed on your experimental design, factual verification, and reasoning; you do not need to force the model to make an error or exceed the call limit.
+
+For each strategy, report:
 \begin{enumerate}
-\item The full prompt, including the conversation history for a multi-turn experiment, and the generation settings used. Record a seed if the API supports one; otherwise state that it is unavailable. You may experiment with longer conversations and generation settings.
-\item The response from the LLM.
-\item Why the response is factually incorrect and whether it is an intrinsic or extrinsic hallucination.
-\item The strategy you used and your analysis of why the hallucination happened.
+\item The strategy and the number of API calls used.
+\item The selected test's full prompt or conversation history, generation settings, and model response. Record a seed if the API supports one; otherwise state that it is unavailable.
+\item Whether the response contains a factual error, supported by a reliable source or the supplied context. If it does, explain whether it is an intrinsic or extrinsic hallucination. A refusal or an expression of uncertainty alone is not a hallucination.
+\item Your analysis of why the strategy did or did not elicit a hallucination.
 \end{enumerate}
 
-\textbf{Comparing with a stronger model.} Select a second model from the \emph{same provider} that the provider describes as more capable than your baseline. Repeat the same prompts using this stronger model, starting a fresh conversation for each independent test. For a multi-turn test, replay the same sequence of user prompts in a new conversation with the stronger model. Report both transcripts.
+\newpage
+\textbf{Comparing with a stronger model.} Select a second model from the \emph{same provider} that the provider describes as more capable than your baseline. Repeat the three selected tests, including tests where the baseline did not hallucinate, starting a fresh conversation for each independent test. For a multi-turn test, replay the same sequence of user prompts in a new conversation with the stronger model. Keep generation settings comparable where supported and report both transcripts. Make no additional attempts to find errors in the stronger model: this comparison uses at most nine calls, giving at most 18 calls across both models for this subsection.
 
 For a single-prompt test, set \texttt{stronger\_model\_id} to the stronger model's exact ID and use \texttt{ask\_llm(prompt, model = stronger\_model\_id)}. For a multi-turn test, start with \texttt{new\_chat(model = stronger\_model\_id)}.
 
@@ -314,45 +320,76 @@ Report your provider, both exact model IDs, the date of your experiments, and th
 \newpage
 \subsection{In-Context Learning for few-shot classification}
 
-In-context learning is the idea to use large language models to complete tasks in a few-shot or zero-shot way. In this task we are going to try to classify political quotes in Swedish to weather they belong to the social democratic party manifesto or the conservative party (Moderaterna) manifesto.
+In-context learning uses examples in the prompt to guide a language model without changing its weights. Here, classify Swedish political quotes as coming from the Social Democrats (\texttt{S}) or Moderaterna (\texttt{M}). Use the same baseline model and generation settings throughout this experiment.
 
-\emph{Note!} This data is included in \texttt{uuml} version 0.4.0 and later.
+\textbf{Developing and validating prompts.} Use only \texttt{pc\_train} to develop your prompts. The following fixed, stratified split provides six quotes for few-shot demonstrations and four different quotes for validation. Keep these sets separate: a validation quote must never appear among the demonstrations used to classify it.
 
-<<eval=TRUE>>=
+\emph{Note!} These data are included in \texttt{uuml} version 0.4.0 and later.
+<<llm-validation-split,eval=TRUE>>=
 library(uuml)
-data("pc_test")
 data("pc_train")
+set.seed(4711)
+example_id <- unlist(lapply(
+  split(seq_len(nrow(pc_train)), pc_train$party),
+  function(i) sample(i, 3L)
+), use.names = FALSE)
+pc_examples <- pc_train[example_id, ]
+pc_validation <- pc_train[-example_id, ]
 @
+Keep \texttt{pc\_test} untouched during development: do not inspect its quotes or labels, use them as demonstrations, or use test results to revise your prompts.
 
-Below is an example on how you can combine the data to a text string that can be combined to be used in a prompt. Note, you need to develop further on this.
-
+For a few-shot prompt, combine the demonstration quotes and their labels into a string:
 <<eval=FALSE>>=
-example_string <- paste0(pc_train$quote,
+example_string <- paste0(pc_examples$quote,
                          ": ",
-                         pc_train$party, collapse = "\n\n")
+                         pc_examples$party, collapse = "\n\n")
 cat(example_string)
 @
 \begin{exampleblock}{Prompt formatting}
 <<prompt_formatting_example,eval=FALSE>>=
+instruction <- paste(
+  "Classify the quote as M (Moderaterna) or S (Social Democrats).",
+  "Return exactly M or S, with no explanation."
+)
 prompt <- paste(
-  "Classify the quote. Return only the party label.",
+  instruction,
   paste("Examples:", example_string, sep = "\n"),
-  paste("Quote to classify:", pc_test$quote[1], sep = "\n"),
+  paste("Quote to classify:", pc_validation$quote[1], sep = "\n"),
   sep = "\n\n"
 )
 cat(prompt)
 @
-\texttt{"\textbackslash n"} starts a new line; \texttt{"\textbackslash n\textbackslash n"} separates blocks with a blank line. Use \texttt{cat(prompt)} to inspect the formatting before sending it.
+\texttt{"\textbackslash n"} starts a new line; \texttt{"\textbackslash n\textbackslash n"} separates blocks with a blank line. Inspect the prompt with \texttt{cat(prompt)}. For zero-shot classification, omit the examples block.
 \end{exampleblock}
 
-Use the techniques from \cite[][Section 6.1-6.3]{zhao2023survey} to generate as good prompts as possible to classify weather a quote is from the social democratic or the conservative manifesto.
-
-
+Use the techniques from \citet[Sections 6.1--6.3]{zhao2023survey} to develop three distinct prompt strategies:
 \begin{enumerate}
-\item Start with zero-shot learning, ie only prompt the LLM without any demonstrations. Test to classify the quotes in the test set.
-\item Test how far you can get by using better prompt descriptions to classify the quotes. Try to get responses as classes from the model.
-\item Now add demonstrations by adding examples from the training set. Does that improve the accuracy on the testset?
-\item Try at least three different strategies from \cite[][Section 6.1-6.3]{zhao2023survey} to improve the quality. Discuss your conclusions.
+\item A simple zero-shot baseline with no demonstrations.
+\item An improved zero-shot prompt with a clearer task description or instructions.
+\item A few-shot prompt using demonstrations drawn only from \texttt{pc\_examples}.
+\end{enumerate}
+Evaluate candidate prompts on the same four validation quotes. You may revise them using the validation results. Explain the changes you made and select one final prompt for each of the three strategies.
+
+\textbf{Freeze the experiment before testing.} Fix all three final prompt templates, any demonstration selection and ordering, the model ID, generation settings, and output-scoring rule. Save these choices before loading the test data. Do not revise them after seeing test responses or accuracy.
+
+Only then load \texttt{pc\_test} and evaluate all three frozen strategies on its same 20 quotes. This requires one response per quote and strategy (60 test responses in total). Start a fresh chat for each quote, for example using \texttt{ask\_llm()}, and include only the quote text as the test input; use \texttt{pc\_test\$party} solely for scoring after predictions have been generated. Save the raw responses so you can analyse them without repeating API calls.
+<<llm-test-data,eval=FALSE>>=
+data("pc_test")
+@
+
+\textbf{Output and scoring.} Require exactly \texttt{M} or \texttt{S}. Remove only leading and trailing whitespace with \texttt{trimws()}. Treat any other response, including an explanation, refusal, empty response, or missing prediction, as invalid and incorrect; do not extract a label from a longer answer or drop invalid predictions. For both validation and test data, calculate
+\[
+\mathrm{accuracy}
+= \frac{\text{number of correct, valid predictions}}
+       {\text{total number of quotes}}.
+\]
+The test denominator is always 20 for each strategy.
+
+Include the following in your report:
+\begin{enumerate}
+\item Your three final prompt templates, demonstration row indices from \texttt{pc\_train} and their order, model ID, and generation settings. Describe how validation informed your choices.
+\item A comparison table with one row per strategy: validation accuracy (out of 4), test accuracy (out of 20), and the number of invalid test responses. Include the raw responses and scored predictions in your submitted code or supporting files; you do not need to repeat all quotes in the report.
+\item Whether clearer instructions and few-shot examples improved the results, supported by the table and selected responses. Discuss the limitations of drawing conclusions from these small datasets. An improvement in accuracy is not required; assess what your results show.
 \end{enumerate}
 
 \newpage
