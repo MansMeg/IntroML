@@ -296,13 +296,17 @@ theta
 \newpage
 \item (1p) Implement the log-likelihood of the model as \texttt{ll\_uni\_two\_comp(x, theta)}. \emph{Hint!} See Eq. 8.39 in \citet{hastie2009elements}.
 
-\emph{Numerical hint:} Very small densities can underflow to zero. Use \texttt{dnorm(..., log = TRUE)} and add the log mixing weights before combining the components with the helper below. It computes $\log(\exp(a)+\exp(b))$ for each observation; sum these log-densities over observations.
-<<eval = FALSE>>=
-log_sum_exp <- function(a, b) {
-  m <- pmax(a, b)
-  value <- m + log(exp(a - m) + exp(b - m))
-  ifelse(is.infinite(m), m, value)
-}
+\emph{Numerical hint:} Very small densities can underflow to zero. Use \texttt{dnorm(..., log = TRUE)} and add the log mixing weights before combining the components with the helper below. For finite inputs $a$ and $b$, it uses the identity
+\[
+\operatorname{log\_sum\_exp}(a,b)
+= \log\bigl(\exp(a)+\exp(b)\bigr)
+= m + \log\bigl(\exp(a-m)+\exp(b-m)\bigr),
+\]
+where $m=\max(a,b)$. Subtracting $m$ keeps both exponentials at most one, avoiding overflow. Apply the helper to each observation and sum these log-densities over observations.
+The helper is available in \texttt{uuml} version 0.5.1 or later. Reinstall the package using the general instructions if needed. Use \texttt{?log\_sum\_exp} to read its documentation. The package function is printed below so you can inspect how it works; you do not need to define it yourself.
+<<log-sum-exp-source,echo=FALSE,eval=TRUE,comment=NA>>=
+cat("log_sum_exp <- ", paste(deparse(uuml::log_sum_exp), collapse = "\n"),
+    "\n", sep = "")
 @
 <<eval = FALSE>>=
 ll_uni_two_comp(mixture_data, theta0)
