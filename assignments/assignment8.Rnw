@@ -53,27 +53,7 @@
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Prob}{\mathbb{P}}
 
-% Highlighted examples and hints, separate from the assessed tasks.
-% The environment also supports knitr code chunks.
-\newsavebox{\examplecontent}
-\newenvironment{exampleblock}[2][Example]{%
-  \par\medskip\noindent
-  \begingroup
-  \setlength{\fboxsep}{6pt}%
-  \begin{lrbox}{\examplecontent}%
-    \begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
-    \small\textbf{#1: #2}\hfill{\footnotesize\itshape No submission required}\par\smallskip
-}{%
-    \end{minipage}%
-  \end{lrbox}%
-  \fcolorbox{blue!45!black}{blue!4}{\usebox{\examplecontent}}%
-  \endgroup
-  \par\medskip
-}
-\newcommand{\examplebox}[2]{\begin{exampleblock}{#1}#2\end{exampleblock}}
-\newenvironment{hintblock}[1]{\begin{exampleblock}[Hint]{#1}}{\end{exampleblock}}
-
-
+\input{example_boxes.tex}
 
 \begin{document}
 
@@ -117,7 +97,7 @@ knitr::opts_chunk$set(size = "small")
 
 Run your function definitions first; use the task-specific checks below as you implement them. The checks do not assess your simulation experiments.
 
-The checks use fixed rewards, deterministic transitions, or properties that hold for any sampled action. They do not require the same random choices as the examples. Different correct implementations can consume random numbers or break ties differently, so their outputs can differ even with the same seed.
+The algorithm checks use fixed rewards, deterministic transitions, or properties that hold for any sampled action. The reward-generator checks use sample means and standard deviations with tolerances for sampling variation. They do not require the same random choices as the examples. Different correct implementations can consume random numbers or break ties differently, so their outputs can differ even with the same seed.
 
 \newpage
 
@@ -152,6 +132,7 @@ for (i in 1:1000) {
 mean(R)
 ## [1] 0.6819202
 @
+\emph{Check:} \verb|mark_my_assignment(tasks = "stationary_bandit")|
 \item (2p) Also, we will also implement a non-stationary reward function. For all actions $\mathcal{A} = (2,...,5)$ the non-stationary should work as the stationary reward function. Although for action $a=1$, the function should return a reward based on the iteration according to
 \[
 R \sim N(-3 + 0.01t, 1)\,.
@@ -170,6 +151,7 @@ nonstationary_bandit(1, t = 1000)
 ## [1] 6.593121
 @
 \end{samepage}
+\emph{Check:} \verb|mark_my_assignment(tasks = "nonstationary_bandit")|
 \item (2p) Implement a greedy policy algorithm that always chooses the greedy action, according to Eq. (2.2) in \citet{sutton2020reinforcement}. Use sample-average value estimates. The function called \texttt{greedy\_algorithm(Q1, bandit)} should input a vector of initial estimates $Q_1$ and a reward function. Then the algorithm should run the bandit for 1000 steps and return a list containing (1) The rewards $R_t$ for all steps, (2) the mean reward over all the 1000 steps, (3) the value estimates $Q_t(a)$, and (4) the total number of choices of each action $N_t(a)$. Here is an example of how it could work. \emph{Note!} This is a random algorithm so you might get a different result, even if you use the exact same seed and have a correct algorithm.
 All bandit algorithms below should request each reward with \texttt{bandit(a, t = i)}, where \texttt{i} is the current step (1 to 1000); both reward functions accept this call.
 <<greedy-example, eval=FALSE>>=

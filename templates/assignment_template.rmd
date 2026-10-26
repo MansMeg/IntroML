@@ -67,7 +67,9 @@ library(ggplot2)
 
 # Including source code
 
-Try to avoid printing an excessive amount of code and think about what is essential to show how you got the result.
+Print the complete definition of every function you implement in the PDF report, including functions in your chosen VG tasks and any helper functions you write. Show each definition once, next to the relevant answer or in a clearly referenced appendix. Function calls, numerical output, and passing `markmyassignment` (MMA) checks do not replace the function definitions. Keep these definitions visible with `echo = TRUE`; do not hide them with `echo = FALSE` or `include = FALSE`.
+
+Avoid repeating function definitions or printing unrelated exploratory code.
 
 Write clear code. The code is also part of your report, and the clarity of the report affects if you pass the assignment. If the code is not self-explanatory, add comments. In a notebook, you can interleave explaining text and code.
 
@@ -113,7 +115,7 @@ If you want to show and run the code, but the output is very long or messy, and 
 5 + 5
 ```
 
-If you want to use some code in the notebook, but think it's not helpful for the teacher that grade your assignment, you can exclude it from the generated PDF with the option `include=FALSE`. You will see the next block in rmd, but not in the generated PDF.
+You can exclude unrelated setup or exploratory code from the generated PDF with `include=FALSE`. Do not use this option to hide required function definitions. You will see the next block in rmd, but not in the generated PDF.
 ```{r, include=FALSE}
 5 + 5
 ```
