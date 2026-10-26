@@ -101,6 +101,9 @@ Call \texttt{set\_random\_seed(123)} before constructing the model. Train with S
 \end{enumerate}
 
 \item\label{q:a3:model-variants} (2p) Make the following cumulative changes. For each variant, reset the seed to 123 before constructing and compiling a new model with fresh weights. Keep 3 epochs, batch size 128, and the same validation split. Report the baseline and all six variants in one comparison table with final-epoch validation accuracy and loss. Include learning curves for the baseline and final variant (reuse Task~\ref{q:a3:baseline-curves}), plus the final model description. Give one brief interpretation of each change, including any decrease in performance.
+
+\emph{Reading.} For batch normalization and dropout, see \citet[Sections~7.4.2 and~9.6.1]{bishop2024deep}, respectively, and the batch normalization slides in Lecture~3.
+
 \begin{enumerate}
 \item Increase the number of hidden units to 128.
 \item Change the activation function to reLU.
