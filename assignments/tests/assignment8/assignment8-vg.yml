@@ -5,7 +5,7 @@ tasks:
     description: Untried actions and confidence-driven exploration.
     url: test-ucb.R
   gradient_bandit_algorithm:
-    description: Zero learning rate and the previous-reward baseline.
+    description: Zero learning rate and the baseline including the current reward.
     url: test-gradient-bandit.R
 run_code:
   before:
