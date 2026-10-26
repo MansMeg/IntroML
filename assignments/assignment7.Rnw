@@ -161,7 +161,7 @@ kl_normal(mu = -1, sigma = 0.5, mu_0 = 0, sigma_0 = 1)
 \item (1p) Visualize this value of the latent state as a 28 by 28-pixel image using your decoder.
 \end{enumerate}
 
-% Reference image: full student feed-forward VAE example, seed 4711,
+% Reference image: earlier RMSprop run, seed 4711; current examples use Adam.
 % 60,000 MNIST training images, 50 epochs, 315,988 parameters.
 % Verified final train/validation losses: 159.49/160.07; keras3 1.5.1.
 \examplebox{VAE reference output}{
@@ -169,7 +169,7 @@ kl_normal(mu = -1, sigma = 0.5, mu_0 = 0, sigma_0 = 1)
 \includegraphics[width=\linewidth]{figs/assignment7_vae_reference.png}
 \end{minipage}\hfill
 \begin{minipage}[c]{0.66\linewidth}
-Illustrative decoder grid from the supplied feed-forward VAE after 50 epochs on MNIST. Each cell decodes a different latent coordinate. Some digits may look blurred or blended. Your arrangement can differ because training is stochastic and the latent axes have no fixed interpretation.
+Illustrative decoder grid from an earlier training run of the feed-forward VAE after 50 epochs on MNIST. Each cell decodes a different latent coordinate. Some digits may look blurred or blended. Your arrangement can differ because training is stochastic and the latent axes have no fixed interpretation.
 \end{minipage}
 }
 
