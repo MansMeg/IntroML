@@ -6,11 +6,28 @@ Assignments will be continously updated during the course up until the week when
 Some exercises refer to additional files. These are located in the folder `additional_files`.
 
 
+## Shared LaTeX preamble
+
+All eight assignment sources load `common_preamble.tex` immediately after
+`\documentclass`. This file contains the common packages, Latin-1 encoding, link
+colours, bibliography style, page layout, paragraph spacing and math commands.
+Edit it to change these settings throughout the assignments. Keep packages or
+overrides needed by only one assignment in that assignment's Rnw preamble, after
+the shared input.
+
+```latex
+\documentclass[11pt,a4paper,english]{article}
+\input{common_preamble.tex}
+% Assignment-specific packages or overrides go here.
+```
+
+The common preamble also loads `example_boxes.tex`; do not load it a second time
+in the individual assignments.
+
 ## Shared example and hint boxes
 
-All assignment sources load `example_boxes.tex` in the preamble with
-`\input{example_boxes.tex}`. Edit this shared file to change the example and hint
-styling throughout the assignments.
+Edit `example_boxes.tex` to change the example and hint styling throughout the
+assignments.
 
 For a short example containing text or mathematics, use:
 
