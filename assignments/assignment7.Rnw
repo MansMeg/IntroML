@@ -55,19 +55,7 @@
 
 
 
-% Highlighted illustrations, separate from the assessed tasks.
-\newcommand{\examplebox}[2]{%
-  \par\medskip\noindent
-  \begingroup
-  \setlength{\fboxsep}{6pt}%
-  \fcolorbox{blue!45!black}{blue!4}{%
-    \begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
-    \small\textbf{Example: #1}\hfill{\footnotesize\itshape No submission required}\par\smallskip
-    #2
-    \end{minipage}}%
-  \endgroup
-  \par\medskip
-}
+\input{example_boxes.tex}
 
 \begin{document}
 
@@ -147,7 +135,7 @@ D_{\mathrm{KL}}(q\Vert p)
   + \frac{\sigma^2+(\mu-\mu_0)^2}{2\sigma_0^2} - \frac12.
 \]
 The function is available in \texttt{uuml} version 0.5.1 or later; reinstall the package using the general instructions if needed. Its implementation is printed below. Use \texttt{?kl\_normal} for documentation.
-<<kl-normal-source,echo=FALSE,eval=TRUE,comment=NA>>=
+<<kl-normal-source,echo=FALSE,eval=TRUE,comment=NA,size="footnotesize">>=
 cat("kl_normal <- ", paste(deparse(uuml::kl_normal), collapse = "\n"),
     "\n", sep = "")
 @
@@ -281,71 +269,103 @@ As we have seen previously, for images, we can get better performance using Conv
 
 \newpage
 
-\section{* Prompt engineering with ChatGPT}
+\section{* Prompt engineering with large language models}
 
 You can choose to either do this task or the task above to get VG on this assignment.
 
 \input{distinction_task.tex}
 
-For this assignment, you need to have a user account at Open AI to generate an API token. See \href{https://help.openai.com/en/articles/4936850-where-do-i-find-my-api-key}{[this link]} for details on how to get an API token to use.
+For this task, choose either \textbf{OpenAI} or \textbf{Anthropic (Claude)}. You only need a developer account and an API key with your chosen provider. Follow the \href{https://developers.openai.com/api/docs/quickstart}{OpenAI API quickstart} or the \href{https://platform.claude.com/docs/en/get-started}{Claude API quickstart}. API billing is separate from consumer chat subscriptions; check the current \href{https://developers.openai.com/api/docs/pricing}{OpenAI API prices} or \href{https://platform.claude.com/docs/en/about-claude/pricing}{Claude API prices} before running your experiments.
 
-\textcolor{red}{\emph{Warning:}} Do not upload any files containing your API key to public repositories (Github, public google colab, etc.).
-
-You also need to buy credits at Open AI. I think 1-2 dollars should be sufficient for this assignment.
-
-As a second step you need to install the \texttt{ropenaiapi} R package. This can be done as follows:
-<<eval=FALSE>>=
-library(remotes)
-remotes::install_github('MansMeg/ropenaiapi')
+Install \texttt{ellmer} from CRAN and open your personal \texttt{.Renviron} file:
+<<ellmer-install,eval=FALSE>>=
+install.packages("ellmer")
+file.edit(path.expand("~/.Renviron"))
 @
-In the next step we set the API key as an environment variable with:
-<<eval=FALSE>>=
-library(ropenaiapi)
-set_openai_api_key("[YOUR KEY GOES HERE]")
+Add \emph{only the line for your chosen provider}, replacing the placeholder with your own API key, then save the file and restart R:
+\begin{itemize}
+\item OpenAI: \verb|OPENAI_API_KEY=YOUR_API_KEY|
+\item Anthropic: \verb|ANTHROPIC_API_KEY=YOUR_API_KEY|
+\end{itemize}
+\texttt{ellmer} reads the corresponding environment variable automatically. Select your provider below; the check confirms that a key has been set without printing it:
+<<ellmer-key-check,eval=FALSE>>=
+library(ellmer)
+provider <- "openai"  # Change to "anthropic" for Claude.
+key_name <- switch(provider,
+  openai = "OPENAI_API_KEY",
+  anthropic = "ANTHROPIC_API_KEY",
+  stop("Choose 'openai' or 'anthropic'.")
+)
+stopifnot(nzchar(Sys.getenv(key_name)))
 @
+\textcolor{red}{\emph{Warning:}} Keep your API key private. Do not put it in your R scripts or report, and do not upload your \texttt{.Renviron} file to Github, public Colab notebooks, or other shared locations.
 
-We can now call the API with the \texttt{openai\_chat} function.
+\textbf{Choosing the baseline model.} Start with the cheapest currently available general-purpose text model that you can access through your chosen provider's API. Define ``cheapest'' using the published standard price for 1,000 input tokens and 1,000 output tokens, excluding caching and batch discounts. Consult the \href{https://developers.openai.com/api/docs/models}{OpenAI model list} or \href{https://platform.claude.com/docs/en/models/overview}{Claude model list} and the corresponding pricing page. Use this baseline for the initial hallucination experiment and the few-shot classification task below.
 
-<<eval=FALSE>>=
-x <- openai_chat("Who is Gustav Vasa? Give a short answer.",
-                 model = "gpt-3.5-turbo")
-x
+Replace \texttt{YOUR\_MODEL\_ID} with its exact model ID. Always specify a model explicitly because \texttt{ellmer}'s defaults can change.
+<<ellmer-call,eval=FALSE>>=
+model_id <- "YOUR_MODEL_ID"  # Replace with your baseline model ID.
+
+new_chat <- function(model = model_id) {
+  if (provider == "openai") {
+    chat_openai(model = model, echo = "none")
+  } else {
+    chat_anthropic(model = model, echo = "none", cache = "none")
+  }
+}
+
+ask_llm <- function(prompt, model = model_id) {
+  chat <- new_chat(model)
+  as.character(chat$chat(prompt))
+}
+
+response <- ask_llm("Who is Gustav Vasa? Give a short answer.")
+cat(response)
 @
-
+An illustrative response is shown below; the actual wording can differ.
 <<echo=FALSE,eval=TRUE>>=
-cat("assistant:
-Gustav Vasa was a Swedish king who led a successful rebellion
+cat("Gustav Vasa was a Swedish king who led a successful rebellion
 against Danish rule and became the founder of modern Sweden in
 the 16th century.")
 @
+Each call to \texttt{ask\_llm()} starts a fresh conversation. Use it for independent prompts and for each quote in the classification task below, so earlier quotes and responses do not affect later predictions.
 
-See the \texttt{ropenaiapi} documentation with ```?openai\_chat``` in R for further information on how to interact with the Open AI API.
+For a deliberate multi-turn experiment, create one chat object and reuse it. Here, the second prompt includes the first exchange as context:
+<<ellmer-conversation,eval=FALSE>>=
+chat <- new_chat()
+first_response <- chat$chat("Who is Gustav Vasa? Give a short answer.")
+follow_up <- chat$chat("Which century did he live in?")
+cat(follow_up)
+@
+See \texttt{?chat\_openai}, \texttt{?chat\_anthropic}, and the \href{https://ellmer.tidyverse.org/}{ellmer documentation} for further details. If a request reports insufficient quota, check your chosen provider's billing and available API credits.
 
-\emph{Note!} If you get ```Error: You exceeded your current quota, please check your plan and billing details.``` that means that you don't have any credits to use for the calls. You then need to buy some credits from Open AI, 1-2 dollars should be sufficient for this task.
 
+\newpage
+\subsection{Make a language model hallucinate}
 
-\subsection{Make ChatGPT hallucinate}
+We are now going to understand how and when transformer-based decoder models 'hallucinate', i.e. when the models give factually incorrect information. See \citet[Section 7.1.2]{zhao2023survey} for an introduction and \citet{huang2023survey} for details on hallucinations in LLMs.
 
-We are now going to understand how and when transformer-based decoder models 'hallucinate', i.e. when the models give factual incorrect information. See \cite[][, Section 7.1.2]{zhao2023survey} for an introduction and \cite{huang2023survey} for details on hallucinations in LLMs.
-
-Now, create 3 different hallucinations with three different strategies (i.e. its not ok to use the same prompt for three incorrect generations) from the chatGPT models (you can choose which one you like). For each generated hallucination return:
+Create three different hallucinations with three different strategies using your baseline model (i.e. it is not enough to use the same prompt for three incorrect generations). For each generated hallucination, report:
 
 \begin{enumerate}
-\item The prompt and a the \texttt{seed} supplied to the API. You are free to both create hallucinations through a longer conversation and tuning parameters.
+\item The full prompt, including the conversation history for a multi-turn experiment, and the generation settings used. Record a seed if the API supports one; otherwise state that it is unavailable. You may experiment with longer conversations and generation settings.
 \item The response from the LLM.
-\item Why the response is factually incorrect and weather it is an intrinsic or extrinsic hallucination.
-\item Describe the strategy you use and the analysis why the hallucination happened.
+\item Why the response is factually incorrect and whether it is an intrinsic or extrinsic hallucination.
+\item The strategy you used and your analysis of why the hallucination happened.
 \end{enumerate}
 
-As a final step, when you have succeded to get the LLM to hallucinate, change the model to GPT-4 (include exact which model you use) and run the same prompt that you could get to hallucinate.
+\textbf{Comparing with a stronger model.} Select a second model from the \emph{same provider} that the provider describes as more capable than your baseline. Repeat the same prompts using this stronger model, starting a fresh conversation for each independent test. For a multi-turn test, replay the same sequence of user prompts in a new conversation with the stronger model. Report both transcripts.
 
+For a single-prompt test, set \texttt{stronger\_model\_id} to the stronger model's exact ID and use \texttt{ask\_llm(prompt, model = stronger\_model\_id)}. For a multi-turn test, start with \texttt{new\_chat(model = stronger\_model\_id)}.
+
+Report your provider, both exact model IDs, the date of your experiments, and the published input and output token prices, with a link to the pricing page. Explain why you chose the stronger model. Then discuss:
 \begin{enumerate}
-\item Return the response from GPT4 for each prompt.
-\item Is the response still factually incorrect? If not, see if you can get at least one hallucination for GPT-4. If you don't succeed, just state that.
+\item The stronger model's response to each test. Is it still factually incorrect? Does it express uncertainty or correct the mistaken premise? If you find no hallucinations in these responses, state that.
+\item How factual accuracy, hallucinations, and uncertainty differ between the two models. Does the stronger model perform better on your examples, and would the difference justify its higher cost?
 \end{enumerate}
 
 
-
+\newpage
 \subsection{In-Context Learning for few-shot classification}
 
 In-context learning is the idea to use large language models to complete tasks in a few-shot or zero-shot way. In this task we are going to try to classify political quotes in Swedish to weather they belong to the social democratic party manifesto or the conservative party (Moderaterna) manifesto.
@@ -366,10 +386,7 @@ example_string <- paste0(pc_train$quote,
                          pc_train$party, collapse = "\n\n")
 cat(example_string)
 @
-% Typeset the code before passing it to the example-box macro.
-\newsavebox{\promptformattingcode}
-\begin{lrbox}{\promptformattingcode}
-\begin{minipage}{\dimexpr\linewidth-12pt-2\fboxrule\relax}
+\begin{exampleblock}{Prompt formatting}
 <<prompt_formatting_example,eval=FALSE>>=
 prompt <- paste(
   "Classify the quote. Return only the party label.",
@@ -379,12 +396,8 @@ prompt <- paste(
 )
 cat(prompt)
 @
-\end{minipage}
-\end{lrbox}
-\examplebox{Prompt formatting}{
-\usebox{\promptformattingcode}\par
 \texttt{"\textbackslash n"} starts a new line; \texttt{"\textbackslash n\textbackslash n"} separates blocks with a blank line. Use \texttt{cat(prompt)} to inspect the formatting before sending it.
-}
+\end{exampleblock}
 
 Use the techniques from \cite[][Section 6.1-6.3]{zhao2023survey} to generate as good prompts as possible to classify weather a quote is from the social democratic or the conservative manifesto.
 

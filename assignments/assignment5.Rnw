@@ -52,19 +52,7 @@
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Prob}{\mathbb{P}}
 
-% Highlighted illustrations, matching Assignment 1.
-\newcommand{\examplebox}[2]{%
-  \par\medskip\noindent
-  \begingroup
-  \setlength{\fboxsep}{6pt}%
-  \fcolorbox{blue!45!black}{blue!4}{%
-    \begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
-    \small\textbf{Example: #1}\hfill{\footnotesize\itshape No submission required}\par\smallskip
-    #2
-    \end{minipage}}%
-  \endgroup
-  \par\medskip
-}
+\input{example_boxes.tex}
 
 \begin{document}
 
@@ -102,6 +90,13 @@ knitr::opts_chunk$set(size = "small")
 \newpage
 
 \tableofcontents
+
+\newpage
+
+\newcommand{\assignmentTestFile}{assignment5/assignment5.yml}
+\input{mma_instruction.tex}
+
+These checks cover the attention and RNN functions. The Keras and BERT experiments are assessed from your report.
 
 \newpage
 
