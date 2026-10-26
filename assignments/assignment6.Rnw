@@ -87,8 +87,8 @@ We are now going to build a k-means algorithm from scratch.
 
 \begin{enumerate}
 \item (1p) Visualize \texttt{iris} as a scatterplot of \texttt{Sepal.Width} and \texttt{Petal.Width}. Show the three species (the \texttt{Species} variable) using different colors. \emph{Hint!} Use \texttt{ggplot2} and \href{https://ggplot2.tidyverse.org/reference/geom_point.html}{geom\_point}.
-\item (1p) Manually allocate each observation in \texttt{faithful} to one of two clusters, using the \texttt{eruptions} and/or \texttt{waiting} variables.
-\item (1p) Make a scatterplot of \texttt{eruptions} and \texttt{waiting}, colouring observations by your manual clusters. One figure covers Questions 1.2 and 1.3.
+\item\label{q:a6:manual-clusters} (1p) Manually allocate each observation in \texttt{faithful} to one of two clusters, using the \texttt{eruptions} and/or \texttt{waiting} variables.
+\item\label{q:a6:manual-cluster-plot} (1p) Make a scatterplot of \texttt{eruptions} and \texttt{waiting}, colouring observations by your manual clusters. One figure covers Questions~\ref{q:a6:manual-clusters} and~\ref{q:a6:manual-cluster-plot}.
 \item (2p) Implement \texttt{compute\_cluster\_means(X, C)} following Step 1 of Algorithm 14.1 in \citet{hastie2009elements}. The inputs are an $n\times p$ measurement matrix \texttt{X} and a length-$n$ vector \texttt{C} of cluster labels $1,\ldots,K$. Return a $K\times p$ matrix \texttt{m}, with row $k$ containing the means for cluster $k$. Do not include a cluster-ID column.
 % Keep the first cluster-means example together.
 \enlargethispage{3\baselineskip}
