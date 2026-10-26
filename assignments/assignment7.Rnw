@@ -122,7 +122,7 @@ knitr::opts_chunk$set(size = "small")
 
 \input{general_keras.tex}
 
-We will implement a variational autoencoder in R using \texttt{keras3} and TensorFlow. Use the \href{https://github.com/MansMeg/IntroML/tree/master/additional_material/supplementary_r_files/variational_autoencoder_keras3.R}{feed-forward VAE example} as a starting point.
+We will implement a variational autoencoder in R using \texttt{keras3} and TensorFlow. Use the \href{https://github.com/MansMeg/IntroML/blob/master/additional_material/supplementary_r_files/variational_autoencoder_keras3.R}{feed-forward VAE example} as a starting point.
 
 \emph{Note!} Training can take time. Run it once and reuse the fitted encoder and decoder for the remaining tasks. Keep the training output and figures for your report.
 
@@ -260,7 +260,7 @@ pride_and_prejudice |>
 You can choose to either do this task or the task below to get VG on this assignment.
 
 % https://learnopencv.com/variational-autoencoder-in-tensorflow/
-As we have seen previously, for images, we can get better performance using Convolutional Neural Networks. Hence we are going to repeat the exercise above using a convolutional neural network as encoder and decoder. You can find detailed code in the file \href{https://github.com/MansMeg/IntroML/tree/master/additional_material/supplementary_r_files/variational_autoencoder_deconv_keras3.R}{\texttt{variational\_autoencoder\_deconv\_keras3.R}}.
+As we have seen previously, for images, we can get better performance using Convolutional Neural Networks. Hence we are going to repeat the exercise above using a convolutional neural network as encoder and decoder. You can find detailed code in the file \href{https://github.com/MansMeg/IntroML/blob/master/additional_material/supplementary_r_files/variational_autoencoder_deconv_keras3.R}{\texttt{variational\_autoencoder\_deconv\_keras3.R}}.
 
 \begin{enumerate}
 \item (3p) Now implement a four-layer (encoder and decoder) convolutional neural network with two latent dimensions. Use 50 filters in each hidden convolutional layer. \emph{Note!} A dense layer should be included as the last step in the encoder and the first step in the decoder. These layers should have 100 hidden units. You should end up with a variational autoencoder with roughly 2M parameters.
