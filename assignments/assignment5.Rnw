@@ -234,7 +234,7 @@ a_t
 ## [4,]  1.4891931
 ##
 @
-\item (1p) Implement the hidden-state update $h_t=\tanh(a_t)$, where $\tanh(a)=(e^a-e^{-a})/(e^a+e^{-a})$ is applied separately to each element.
+\item (1p) Implement the hidden-state update $h_t=\tanh(a_t)$, where the activation function $\tanh(a)=(e^a-e^{-a})/(e^a+e^{-a})$ is applied separately to each element.
 <<eval=FALSE, >>=
 h_t <- activation(a_t)
 h_t
