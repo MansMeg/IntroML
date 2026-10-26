@@ -100,7 +100,7 @@ Call \texttt{set\_random\_seed(123)} before constructing the model. Train with S
 
 \end{enumerate}
 
-\item (2p) Make the following cumulative changes. For each variant, reset the seed to 123 before constructing and compiling a new model with fresh weights. Keep 3 epochs, batch size 128, and the same validation split. Report the baseline and all six variants in one comparison table with final-epoch validation accuracy and loss. Include learning curves for the baseline and final variant (reuse Task~\ref{q:a3:baseline-curves}), plus the final model description. Give one brief interpretation of each change, including any decrease in performance.
+\item\label{q:a3:model-variants} (2p) Make the following cumulative changes. For each variant, reset the seed to 123 before constructing and compiling a new model with fresh weights. Keep 3 epochs, batch size 128, and the same validation split. Report the baseline and all six variants in one comparison table with final-epoch validation accuracy and loss. Include learning curves for the baseline and final variant (reuse Task~\ref{q:a3:baseline-curves}), plus the final model description. Give one brief interpretation of each change, including any decrease in performance.
 \begin{enumerate}
 \item Increase the number of hidden units to 128.
 \item Change the activation function to reLU.
@@ -112,12 +112,12 @@ Call \texttt{set\_random\_seed(123)} before constructing the model. Train with S
 \item (2p) Conceptually describe how you would use early stopping as regularization. What would you monitor (e.g.\ \texttt{val\_loss}), in which direction should it improve, and would you retain the final epoch's weights or restore those from the best epoch? Explain your choices.
 
 \emph{Note!} No implementation or additional training is required for this task.
-\item (2p) Start from the best-performing configuration in Task~1.4 and try \emph{one to three additional feed-forward configurations}. Briefly motivate each choice. Train each candidate from fresh weights for \emph{at most 20 epochs}, using the same validation split; early stopping is optional. Add their validation accuracy and loss to the comparison table from Task~1.4. Describe your selected architecture and include its final \texttt{keras3} code and training and validation curves. Explain your choice, including if none of the candidates improves on Task~1.4.
+\item\label{q:a3:additional-models} (2p) Start from the best-performing configuration in Task~\ref{q:a3:model-variants} and try \emph{one to three additional feed-forward configurations}. Briefly motivate each choice. Train each candidate from fresh weights for \emph{at most 20 epochs}, using the same validation split; early stopping is optional. Add their validation accuracy and loss to the comparison table from Task~\ref{q:a3:model-variants}. Describe your selected architecture and include its final \texttt{keras3} code and training and validation curves. Explain your choice, including if none of the candidates improves on Task~\ref{q:a3:model-variants}.
 
 \emph{Hint!} The general idea is to find the optimal capacity of the model. Try to start with a network that overfits the data and then regularize that model to improve the generalization error on the validation set.
 
 \newpage
-\emph{Optional early stopping for Task~1.6.} This \href{https://keras3.posit.co/reference/callback_early_stopping.html}{Keras 3 callback} monitors validation loss (lower is better) and stops when validation loss no longer improves:
+\emph{Optional early stopping for Task~\ref{q:a3:additional-models}.} This \href{https://keras3.posit.co/reference/callback_early_stopping.html}{Keras 3 callback} monitors validation loss (lower is better) and stops when validation loss no longer improves:
 <<early-stopping-example,echo=TRUE,eval=FALSE>>=
 early_stop <- callback_early_stopping(
   monitor = "val_loss", mode = "min",
