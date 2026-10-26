@@ -139,7 +139,7 @@ For SGD and mini-batch updates, evaluate \texttt{nll\_grad()} on the current obs
 \item (1p) Fit logistic regression using \texttt{glm()} with \texttt{family = "binomial"}, and save the model as \texttt{glm\_fit}. Print the three maximum-likelihood parameter estimates.
 
 \emph{Hint!} The design matrix \texttt{X} already includes an intercept so you need to remove that either from \texttt{X} or from the R formula using \texttt{y ~ -1 + X}.
-\item (6p) \textbf{Implementation (5p).} Implement \emph{one} R function called \texttt{gradient\_descent()}. Use the arguments shown in the scaffold below and the gradient of the mean NLL \citep[see][for algorithm descriptions]{ruder2016overview}. The batch size determines the method:
+\item (6p) \textbf{Implementation (5p).} Implement \texttt{gradient\_descent()} as \emph{one} function. Use the arguments shown in the scaffold below and the gradient of the mean NLL \citep[see][for algorithm descriptions]{ruder2016overview}. The batch size determines the method:
 \begin{itemize}
 \item \texttt{batch\_size = nrow(X)} gives ordinary full/batch gradient descent;
 \item \texttt{batch\_size = 1} gives stochastic gradient descent;
