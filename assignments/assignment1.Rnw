@@ -24,6 +24,9 @@
 
 \end{titlepage}
 
+\tableofcontents
+
+\newpage
 
 \HRule
 
@@ -43,10 +46,6 @@ knitr::opts_chunk$set(size = "small")
 \input{mma_instruction.tex}
 
 \HRule
-
-\newpage
-
-\tableofcontents
 
 \newpage
 
