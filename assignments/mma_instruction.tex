@@ -1,7 +1,7 @@
 % Shared markmyassignment instructions, following BSDATeacher/assignments.
 % Define \assignmentTestFile before including this file.
-\section*{Automatic feedback on your R functions}
-\addcontentsline{toc}{section}{Automatic feedback on your R functions}
+\subsubsection*{Automatic feedback with \texttt{markmyassignment}}
+%\addcontentsline{toc}{section}{Automatic feedback on your R functions}
 
 The R package \texttt{markmyassignment} (MMA) provides automatic feedback on the functions listed in the selected check configuration. Define or load your own functions in R before running the checks. Use the \texttt{tasks} argument to check one function by name; omitting it checks every function in the selected configuration. Functions that depend on other functions need those definitions loaded too.
 
@@ -26,4 +26,4 @@ mark_my_assignment()
 \end{lstlisting}
 \endgroup
 
-The checks provide feedback on selected numerical cases; they do not assess the whole assignment or award marks. Print your complete function definitions in the PDF report as required by the general instructions, even when the checks pass. You do not need to include MMA results in the report. The supplied checks run R code; Python implementations are assessed from the report and cannot be run directly through MMA.
+The checks provide feedback on selected tasks. They do not assess the whole assignment or award marks. Print your complete function definitions in the PDF report as required by the general instructions, even when the checks pass. \emph{You should not need to include MMA results in the report.} The supplied checks run R code. Python implementations are assessed from the report and cannot be run directly through MMA.
