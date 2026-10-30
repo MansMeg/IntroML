@@ -26,6 +26,9 @@
 
 \end{titlepage}
 
+\tableofcontents
+
+\newpage
 
 \HRule
 
@@ -39,27 +42,24 @@ knitr::opts_chunk$set(size = "small")
 @
 
 
-
 \HRule
-
-\newpage
-
-\tableofcontents
-
-\newpage
 
 \newcommand{\assignmentTestFile}{assignment3/assignment3-vg.yml}
 \input{mma_instruction.tex}
 
 These checks cover the two functions in the from-scratch neural network VG section. The Keras model-building tasks are assessed from your report.
 
+\HRule
+
+\input{general_keras.tex}
+
+\HRule
+
 \newpage
 
 \input{oral_exam_question_contribution.tex}
 
 \newpage
-
-\input{general_keras.tex}
 
 \section{Feed-Forward Neural Network using Keras and TensorFlow}
 
