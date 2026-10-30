@@ -100,7 +100,7 @@ The course will have 2 guest lectures that the guest lecturers will give through
 ## Teachers
 
 Main Teacher: [Måns Magnusson](https://www.mansmagnusson.com/)
-Teaching assistant: Andreas Östling
+Teaching assistant: Hannes Waldetoft
 
 ## Course structure
 
