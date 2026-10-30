@@ -25,6 +25,9 @@
 
 \end{titlepage}
 
+\tableofcontents
+
+\newpage
 
 \HRule
 
@@ -39,13 +42,11 @@ knitr::opts_chunk$set(size = "small")
 
 \HRule
 
-\newpage
-
-\tableofcontents
-
 \bigskip
 \newcommand{\assignmentTestFile}{assignment2/assignment2.yml}
 \input{mma_instruction.tex}
+
+\HRule
 
 \newpage
 
