@@ -403,6 +403,17 @@ For ham, precision has increased, but recall has decreased.
 
 
 
+
+
+\begin{frame}{Pair discussion: is high accuracy enough?}
+A dataset contains 1,001 legitimate emails (ham) and 17 spam emails. A classifier predicts \uured{ham for every email}.
+
+\uured{Pairs, 1--2 minutes:}
+\begin{enumerate}
+\item Is this classifier useful for filtering spam? Explain.
+\end{enumerate}
+\end{frame}
+
 \begin{frame}{A more problematic example}
 A highly unbalanced example. 1001 ham and 17 spam.
 
@@ -526,6 +537,18 @@ where $L(y,x)$ is the loss function.
 
 \end{frame}
 
+
+
+
+\begin{frame}{Pair discussion: choosing the best test score}
+We evaluate 20 models on the same test set. Their true generalisation errors are identical, but their measured test errors differ because the test set is finite.
+
+\uured{Pairs, 1--2 minutes:}
+\begin{enumerate}
+\item We choose the model with the lowest measured test error. Would you trust that score as an estimate of its future error? Why?
+\item How could we select a model and still obtain an independent final assessment?
+\end{enumerate}
+\end{frame}
 
 \begin{frame}{Model selection and final assessment}
 \begin{itemize}
