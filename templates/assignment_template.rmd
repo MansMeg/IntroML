@@ -38,7 +38,7 @@ You may use large language models (LLMs), such as ChatGPT, like you may discuss 
 
 Where an exercise explicitly asks you to run an LLM and report its output, you may do so for that experiment. Your explanations and analysis must be your own. This permission does not apply to the oral exam question contribution, for which LLM use is prohibited entirely.
 
-For optional LLM study support, start a new conversation by uploading or pasting the [AI tutor instructions](https://raw.githubusercontent.com/MansMeg/IntroML/master/AI_TUTOR.md) and asking the tool to follow them. You may then upload the full **teacher-provided assignment instructions**, including supplied example code. Ask for explanations, incremental hints, and separate practice examples, not completed solutions.
+For optional LLM study support, start a new conversation by uploading or pasting the [AI tutor instructions](https://raw.githubusercontent.com/MansMeg/IntroML/master/assignments/AI_TUTOR.md) and asking the tool to follow them. You may then upload the full **teacher-provided assignment instructions**, including supplied example code. Ask for explanations, incremental hints, and separate practice examples, not completed solutions.
 
 Do not upload your own report, answers, or assessed code. You remain responsible for following the course rules even if the tool offers a solution. Do not ask the tutor to help with the original oral-exam-question contribution, even though its instructions appear in the assignment.
 
