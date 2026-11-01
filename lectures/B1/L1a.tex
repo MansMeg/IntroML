@@ -566,17 +566,18 @@ $$\pi_i=\frac{\exp\Big(\beta_0+\sum_{j=1}^p\beta_jx_{ij}\Big)}{1+\exp\Big(\beta_
 
 \begin{frame}{Logistic regression: Prediction}
 \begin{itemize}
-\item We \emph{train} a logistic regression model using MLE using the training data.
-\item Our estimation/traing output the MLE $\hat{\theta}$
-\item We the compute $\hat{p}_i = g^{-1}(\hat{\theta} x_{new})$ a for a new observation
+\item We \emph{train} a logistic regression model by MLE to estimate $\hat{\theta}$.
+\item With perfect separation, a finite unregularized MLE may not exist; regularization can help.
+\item For a new observation, compute $\hat{p}_{\mathrm{new}} = g^{-1}(\mathbf{x}_{\mathrm{new}}^T\hat{\theta})$ (including an intercept).
 \item We use a {\color{uured} decision rule} to predict value 0 or 1:
 \[
-    \hat{y}_i(\hat{p}_i)=
+    \hat{y}_{\mathrm{new}}=
 \begin{cases}
-    1,& \text{if } \hat{p}_i \geq 0.5\\
+    1,& \text{if } \hat{p}_{\mathrm{new}} \geq 0.5\\
     0,              & \text{otherwise}
 \end{cases}
 \]
+\item Threshold 0.5 minimizes expected 0--1 loss when probabilities are correct; unequal error costs can justify another threshold.
 \end{itemize}
 \end{frame}
 
