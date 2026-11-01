@@ -170,33 +170,34 @@ where $N_m$ is the number of observations in region $R_m$.\pause
 
 
 \frame{\frametitle{Growing a Decision Tree: Greedy Algorithm}
+\small
+\setlength{\parskip}{1.5mm}
 
-
-Let $\mathcal{S}$ be the set of all observations $\{1,...,N\}$ and \texttt{S[[m]]} be the set of observation indecies in $R_m$ and \texttt{l} is the minimal number of leafs per node.
-
-Input: $\mathcal{S}, \texttt{X}, \texttt{y}, \texttt{l}$
+Input: $\mathbf{X}$ with $N$ rows, $\mathbf{y}$, and $l$. Each child must contain at least $l$ observations.
+Let \texttt{S[[m]]} store original data row indices for node $m$.
 
 \begin{enumerate}
-\item \texttt{S[[1]]} = $\mathcal{S}$,\texttt{M = 1}, \texttt{m = 1}
-\item \texttt{while m <= M} then do:
+\item Initialise \texttt{S[[1]] = 1:N}, \texttt{M = 1}, \texttt{m = 1}.
+\item While \texttt{m <= M}:
 \begin{enumerate}
-\item \texttt{if(size(S[[m]]) >= 2*l)}
-\begin{enumerate}
-\item \texttt{S[[M+1]]}, \texttt{S[[M+2]]}, \texttt{j[m]}, \texttt{s[m]} = \\ \texttt{split\_tree(X[S[[m]],], y[S[[m]],],l)}
-\item \texttt{M = M + 2}
-\end{enumerate}
-\item \texttt{else}
-\begin{enumerate}
-\item compute $\hat{\gamma}$ for \texttt{S[[m]]}
-\end{enumerate}
-\item \texttt{m = m + 1}
+\item Set \texttt{r = S[[m]]} and call\\
+\texttt{split = tree\_split(}\\
+\quad\texttt{X[r, , drop = FALSE], y[r], l)}.
+\item If \texttt{split} is not \texttt{NULL}:
+\begin{itemize}
+\item Store \texttt{split\$j} and \texttt{split\$s} at node $m$.
+\item Set \texttt{S[[M+1]] = r[split\$R1]} and\\
+\texttt{S[[M+2]] = r[split\$R2]}; link these children to node $m$.
+\item Set \texttt{M = M + 2}.
+\end{itemize}
+\item Otherwise, create a leaf with $\hat{\gamma}_m = \operatorname{mean}(\mathbf{y}[r])$.
+This also handles an unsplittable root.
+\item Always set \texttt{m = m + 1}, including after creating a leaf.
 \end{enumerate}
 \end{enumerate}
 
-Output: $\texttt{j}, \texttt{s}, \gamma$
-
-Example of a tree:
-\texttt{j = \{Years, Hits\}}, \texttt{s = \{4.5, 117.5\}}, $\hat{\gamma} = \{122, 317, 245\}$
+Output: split variables, thresholds, child links, and leaf predictions.
+Having $2l$ observations is not sufficient: constant or repeated predictor values can prevent a valid split.
 
 }
 
@@ -220,32 +221,30 @@ Inner minimization is solved by:
 }
 
 \frame{\frametitle{How to do a split? Pseudo-code}
+\small
+\setlength{\parskip}{1.5mm}
 
-
-
-Input: $\mathbf{X}, \mathbf{y}, l$
+Input: $\mathbf{X}$ with $N_s$ rows and $P$ predictors, $\mathbf{y}$, and minimum child size $l$.
 
 \begin{enumerate}
-\item $SS$ = Inf \# Store sum of squares in matrix of dim $P\times N_s$
-\item $S$ = Inf \# Store split point in matrix of dim $P\times N_s$
-\item for $j \in \{1,...,P\}$ \# all features
+\item Initialise $SS$ and $S$ as $N_s \times P$ matrices filled with $\infty$.
+\item For each predictor $j$ and candidate $s = x_{k,j}$:
 \begin{enumerate}
-\item for $k \in \{1,...,N_s\}$ \# all observations in set $s$
-\begin{enumerate}
-\item $s$ = $x_{k,j}$ \# Split point (use the value of x)
-\item if ($|R_1(s, j)| < l$ or $|R_2(s, j)| < l$) next \# Dont create too few leaves
-\item $\hat{c}_1$ = $\frac{1}{|R_1(s, j)|} \sum_{x_i \in R_1(s, j)} y_i$
-\item $\hat{c}_2$ = $\frac{1}{|R_2(s, j)|} \sum_{x_i \in R_2(s, j)} y_i$
-\item $SS_{k,j}$ = $\sum_{x_i \in R_1(s, j)} (y_i - c_1)^2 + \sum_{x_i \in R_2(s, j)} (y_i - c_2)^2$ \# Compute Sum of Squares
-\item $S_{k,j}$ = s
+\item Form $R_1 = \{i : x_{i,j} \leq s\}$ and $R_2 = \{i : x_{i,j} > s\}$.
+\item If $|R_1| < l$ or $|R_2| < l$, skip this candidate; leave its $SS_{k,j} = \infty$.
+\item Compute the response means $\hat{c}_1$ and $\hat{c}_2$ in the two children.
+\item Store $S_{k,j} = s$ and
+\[
+SS_{k,j} = \sum_{i \in R_1}(y_i-\hat{c}_1)^2
+          + \sum_{i \in R_2}(y_i-\hat{c}_2)^2.
+\]
 \end{enumerate}
+\item If no finite score exists, return \texttt{NULL}.
+\item Otherwise, choose any $(k_{\mathrm{final}}, j_{\mathrm{final}})$ attaining the minimum $SS$; tied minima are acceptable.
+\item Return the chosen $j$, $s$, and child row indices $R_1$, $R_2$ (and optionally $SS$).
 \end{enumerate}
-\item $k_{final}, j_{final} = \min_{k,j} SS$
-\item $s_{final} = S_{k_{final},j_{final}}$
-\item return $R_1(s_{final}, j_{final}), R_2(s_{final}, j_{final}), s_{final}, j_{final}$
-\end{enumerate}
+
 }
-
 
 
 \frame{\frametitle{Decision trees: Classification Trees}
@@ -346,10 +345,10 @@ Decision trees can become quite large, which may lead to:
 \item Overfitting (high variance)
 \item Difficulties interpreting the tree\\[2mm]\pause
 \end{itemize}
-The solution to this is
+Two ways to control tree size:
 \begin{itemize}
-\item {\color{uured}Pruning:} forcing the tree to be smaller by adding a {\color{uured}stopping condition}, e.g. a maximum depth or minimal leaf size.\pause
-\item But decision trees are quite bad predition models...
+\item {\color{uured}Stopping rules (pre-pruning):} limit growth using a maximum depth or minimum leaf size.\pause
+\item {\color{uured}Post-pruning:} grow a large tree, then remove branches, e.g. cost-complexity pruning.
 \end{itemize}
 }
 
