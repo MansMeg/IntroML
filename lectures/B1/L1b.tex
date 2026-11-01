@@ -147,7 +147,7 @@ L(y_0,\hat{f}(x_0))
 \pause
 \item Classification (0-1 loss)
 \[
-    L(y_0,\hat{f}(x_0)) = I(y_0 = \hat{f}(x_0))
+    L(y_0,\hat{f}(x_0)) = I(y_0 \ne \hat{f}(x_0))
 \]
 \pause
 \item The \uured{negative log likelihood} is a good general loss function
@@ -360,7 +360,7 @@ The cell counts yield us estimates of
 
 \pause
 
-In this example, we let $\hat{y}_i=\text{ham}$ whenever $\hat{\pi}_i>0.5$.
+Let $\hat{\pi}_i$ be the predicted probability of spam. Predict spam when $\hat{\pi}_i>0.5$, and ham otherwise.
 
 What if we choose another cut-off level $\hat{\pi}_i>\alpha$ instead?
 
@@ -397,7 +397,7 @@ The cell counts yield us estimates of
 \item $F_1$(ham): $\frac{2 \cdot 0.92 \cdot 0.76}{0.92 + 0.76}\approx 0.83$
 \end{enumerate}
 
-The Precision has increased, but the Recall has decreased...
+For ham, precision has increased, but recall has decreased.
 
 \end{frame}
 
@@ -420,13 +420,14 @@ Our new classifier: \uured{Everything is ham!}\pause
 \pause
 The cell counts yield us estimates of
 \begin{enumerate}
-\item Accuracy: $\frac{1001}{1001+17}\approx 0.99$
-\item Precision(ham): $\frac{1001}{1001+0}\approx 1.0$
-\item Recall(ham): $\frac{1001}{1001+17}\approx 0.99$
-\item $F_1$(ham): $\frac{2 \cdot 1 \cdot 0.99}{0.99 + 1}\approx 0.99$
+\item Accuracy: $\frac{1001}{1018}\approx 0.983$
+\item Precision(ham): $\frac{1001}{1001+17}\approx 0.983$
+\item Recall(ham): $\frac{1001}{1001+0}=1$
+\item $F_1$(ham): $\frac{2\cdot1001}{2\cdot1001+17}\approx 0.992$
 \pause
-\item $F_1$ for spam: $\frac{2 \cdot 0 \cdot 0}{0 + 0}$ Not defined.
-\item And Specificity is 0!
+\item Precision(spam) is undefined: no predicted spam.
+\item $F_1$(spam): $\frac{2TP}{2TP+FP+FN}=\frac{0}{17}=0$.
+\item Taking ham as positive, specificity is $0/17=0$.
 \end{enumerate}
 
 \end{frame}
