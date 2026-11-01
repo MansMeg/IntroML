@@ -527,17 +527,11 @@ where $L(y,x)$ is the loss function.
 \end{frame}
 
 
-\begin{frame}{Multiple Use of Test Set for Model Assesment}
-
+\begin{frame}{Model selection and final assessment}
 \begin{itemize}
-%\item Say that we have $\hat{L}(\mathcal{T})$ an estimate of the loss on the test set given a training set
-%\item Lets say that we have $i \in \{1,...,M\}$ be models trained on $M$ independent training sets $\mathcal{T}_i$ but they all have the same underlying error $L^*$
-%\item Then we can assume that
-%\[
-%\hat{L}_i(\mathcal{T}_i) \sim N(L^*, \sigma)
-%\]
-\item What happens if we use the test set to pick the model?
-
+\item Selecting the lowest validation error also selects favourable evaluation noise: the winning score is optimistic.
+\item Use validation data or CV to choose models and hyperparameters.
+\item Assess the selected procedure on an untouched test set.
 \end{itemize}
 
 \end{frame}
