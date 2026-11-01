@@ -1,24 +1,22 @@
+% Optional replacement for Jonas Wallin's guest lecture.
+% Disable by commenting out \input{L1b_regularisation.tex} in L1b.tex.
 \section{Regularisation}
 \frame{\sectionpage}
 
-\begin{frame}{Regression and GLM}
+% Replace each framed placeholder with an \includegraphics command.
+% Page references below match the supplied Bishop & Bishop (2024) PDF.
+\begin{frame}{Why regularise?}
 \begin{itemize}
-\item Linear regression and logistic regression are examples of {\color{uured}generalised linear models}, GLMs.\\[3mm]\pause
-\item Both use maximum likelihood estimation for fitting the model, where the likelihood function $L(\beta)$ is maximised.
+\item Many or highly correlated predictors can give unstable or non-unique coefficient estimates.
+\item Different coefficients may fit the training data equally well but predict differently on new observations (Assignment 1).
+\item Regularisation favours some solutions over others to improve generalisation.
 \end{itemize}
-\end{frame}
-
-\begin{frame}{Regularised regression models}
-\begin{itemize}
-\item In some situations, for instance when the predictors are highly collinear, when there are too many predictors or when there is complete separation in the data, maximum likelihood estimation is unstable.\pause
-\begin{itemize}
-\item Either the solution is not unique, or minuscule changes in the data can change the solution completely.\pause
-\item Such datasets are increasingly common in e.g. genomics, finance, astronomy and image analysis.\\[3mm]\pause
-\end{itemize}
-
-\item In such cases, {\color{uured}regularisation/shrinkage methods} can be used instead.\\[3mm]\pause
-\item In a regularized GLM, it is not the likelihood $L(\beta)$ that is maximized, but a {\color{uured}regularised} function $L(\beta) \cdot p(\beta)$, where $p$ is a penalty function that typically forces the resulting estimates to be closer to 0, which leads to a stable solution.
-\end{itemize}
+\begin{center}
+\fbox{\parbox[c][0.25\textheight][c]{0.88\textwidth}{\centering
+Figure placeholder: polynomial fits with two penalty strengths\\
+Bishop \& Bishop (2024), Fig. 1.9\\
+Printed p. 13; PDF p. 33}}
+\end{center}
 \end{frame}
 
 \begin{frame}{Regularised regression models}
