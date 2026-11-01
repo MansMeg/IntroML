@@ -1,0 +1,127 @@
+\section{Regularisation}
+\frame{\sectionpage}
+
+\begin{frame}{Regression and GLM}
+\begin{itemize}
+\item Linear regression and logistic regression are examples of {\color{uured}generalised linear models}, GLMs.\\[3mm]\pause
+\item Both use maximum likelihood estimation for fitting the model, where the likelihood function $L(\beta)$ is maximised.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Regularised regression models}
+\begin{itemize}
+\item In some situations, for instance when the predictors are highly collinear, when there are too many predictors or when there is complete separation in the data, maximum likelihood estimation is unstable.\pause
+\begin{itemize}
+\item Either the solution is not unique, or minuscule changes in the data can change the solution completely.\pause
+\item Such datasets are increasingly common in e.g. genomics, finance, astronomy and image analysis.\\[3mm]\pause
+\end{itemize}
+
+\item In such cases, {\color{uured}regularisation/shrinkage methods} can be used instead.\\[3mm]\pause
+\item In a regularized GLM, it is not the likelihood $L(\beta)$ that is maximized, but a {\color{uured}regularised} function $L(\beta) \cdot p(\beta)$, where $p$ is a penalty function that typically forces the resulting estimates to be closer to 0, which leads to a stable solution.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Regularised regression models}
+Regularised linear regression models increase the {\color{uured}bias} of the estimates, but lowers their {\color{uured}variance}, thereby potentially decreasing the MSE.
+\end{frame}
+
+\begin{frame}{Connection to Bayesian estimation}
+In Bayesian estimation, a {\color{uured}prior distribution} $p(\beta)$ for the parameters $\beta_i$ is chosen.\\[3mm]\pause
+The estimates are then computed from the conditional distribution of the $\beta_i$ given the data, called the {\color{uured}posterior distribution}.\\[3mm]\pause
+Using Bayes' theorem, we find that
+$$P(\beta|\mathbf{x})\propto L(\beta)\cdot p(\beta),$$
+i.e. that the posterior distribution is proportional to the likelihood times the prior.\\[3mm]
+A special type of Bayesian estimator is the {\color{uured}maximum a posteriori (MAP)} estimator, which is found by maximizing the above expression (i.e. finding the mode of the posterior).\\[3mm]
+This is equivalent to the estimates from a regularised frequentist model with penalty function $p(\beta)$!
+\end{frame}
+
+\begin{frame}{Inference and invariance}
+\begin{itemize}
+\item Regularised regression models are not invariant under linear rescaling of the predictors.\pause
+\begin{itemize}
+\item If a predictor is multiplied by a scalar $a\neq 0$, this can change the entire model.\pause
+\item A model with measurements in inches might yield completely different results from a model with measurements in cm.\\[3mm]\pause
+\end{itemize}
+\item For this reason, it is widely agreed that the predictors should be standardized to have mean 0 and variance 1 before a regularised model is fitted.\pause
+\begin{itemize}
+\item With this approach we choose a particular (natural?) scaling, among all possible scalings.\pause
+\item All predictors are on the same scale and are therefore treated equally by the penalty function.\pause
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Inference and invariance}
+\begin{itemize}
+\item Hypothesis tests are available (e.g. Lockhart et al. (2014), A significance test for the lasso, \emph{Annals of Statistics}), but I advise against using them.\\[3mm]\pause
+\item Note that the hypothesis tests will be conditioned on the choice of scaling.\pause
+\begin{itemize}
+\item Because of this, regularised models are not appropriate for hypothesis testing -- the p-values could change completely if we rescaled the data!\\[3mm]\pause
+\end{itemize}
+\item Regularised regression models are however very useful for {\color{uured}predictive modelling}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{$L_q$-penalties}
+The most popular penalty terms correspond to common {\color{uured}$L_q$-norms}. \pause On a log-scale, the function to be maximized is
+$$\ell(\beta)+\lambda\sum_{i=1}^p|\beta_i|^q,$$
+where $\ell(\beta)$ is the loglikelihood of $\beta$ and $\sum_{i=1}^p|\beta_i|^q$ is the $L_q$-norm, with $q\geq 0$.\\[3mm]\pause
+This is equivalent to maximizing $\ell(\beta)$ under the constraint that $\sum_{i=1}^p|\beta_i|^q\leq\frac{1}{h(\lambda)}$, for some increasing positive function $h$.\pause
+\begin{itemize}
+\item Relies on the {\color{uured}sparsity} assumption that most $\beta$ are 0.\\[3mm]\pause
+\end{itemize}
+$\lambda\geq 0$ is a {\color{uured}smoothing parameter}:
+\begin{itemize}
+\item When $\lambda=0$, we are back at the standard ML-estimate.
+\item The $\hat{\beta}$ are forced to be closer to 0 when $\lambda$ increases.
+\item $\lambda$ is usually chosen using cross-validation.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Ridge regression}
+When the $L_2$ penalty is used, the regularised model is called {\color{uured}ridge regression}, for which we maximize
+$$\ell(\beta)+\lambda\sum_{i=1}^p\beta_i^2.$$
+\begin{itemize}
+\item Invented and reinvented by several authors, from the 1940's onwards.\\[3mm]\pause
+\item In a linear model, the OLS estimate is $\hat{\beta}=(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}$, whereas the ridge estimate is $\hat{\beta}=(\mathbf{X}^T\mathbf{X}+\lambda \mathbf{I})^{-1}\mathbf{X}^T\mathbf{y}$. The $\lambda \mathbf{I}$ is the 'ridge'.\\[3mm]\pause
+\item The $\beta_i$ can become very small, but are never pushed all the way down to 0.\\[3mm]\pause
+\item In a Bayesian context, this corresponds to putting a standard normal prior on the $\beta_i$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Lasso}
+When the $L_1$ penalty is used, the regularised model is called the {\color{uured}lasso} (Least Absolute Shrinkage and Selection Operator), for which we maximize
+$$\ell(\beta)+\lambda\sum_{i=1}^p|\beta_i|.$$
+\begin{itemize}
+\item Introduced by Robert Tibshirani in 1996.\\[3mm]\pause
+\item As $\lambda$ increases, more and more $\beta_i$ become 0.\pause
+\begin{itemize}
+\item Simultaneously performs estimation and variable selection!\\[3mm]\pause
+\end{itemize}
+\item In a Bayesian context, this corresponds to putting a standard Laplace prior on the $\beta_i$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Examples in R}
+Functions for regularised generalized linear models (linear, logistic, Poisson, multinomial, and more) are available e.g. in the \texttt{glmnet} package for R.\\[3mm]\pause
+The syntax used is somewhat different from that for \texttt{glm} and \texttt{lm}.\\[3mm]
+\end{frame}
+
+
+\begin{frame}{Generalizations}
+Regularised models have been a hot research topics in the last 20 years. Some additional important models are:\pause
+\begin{itemize}
+\item {\color{uured}Elastic net:} a compromise between ridge and lasso, in which $$\ell(\beta)+\lambda_1\sum_{i=1}^p|\beta_i|+\lambda_2\sum_{i=1}^p\beta_i^2$$ is maximized.\pause
+\begin{itemize}
+\item Introduced by Zou and Hastie in 2005.\pause
+\item Is better than the lasso at handling correlated predictors.\pause
+\item Has two smoothing parameters that we need to choose.\pause
+\item Available in the \texttt{glmnet} package.\\[3mm]\pause
+\end{itemize}
+\item {\color{uured}Group lasso:} a version of the lasso in which variables can be grouped before fitting the model. The group lasso then selects groups of variables rather than individual variables.\pause
+\begin{itemize}
+\item Introduced by Yuan and Lin in 2006.\pause
+\item Useful e.g. when we have dummies for categorical variables (in contrast, the lasso may choose to only include the dummies for some of the categories).
+\end{itemize}
+\end{itemize}
+\end{frame}
