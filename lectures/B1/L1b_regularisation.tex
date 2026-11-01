@@ -74,34 +74,40 @@ For the same linear prediction model, minimise
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Why does lasso produce zeros?}
+Equivalent constrained views, for suitable bounds $c$:
+\[
+\text{Lasso: }\sum_j|\beta_j|\leq c,
+\qquad
+\text{Ridge: }\sum_j\beta_j^2\leq c.
+\]
+\begin{center}
+\includegraphics[width=0.92\textwidth,height=0.36\textheight,keepaspectratio]{figs/BB_fig9_6.png}
 
-\begin{frame}{Ridge regression}
-When the $L_2$ penalty is used, the regularised model is called {\color{uured}ridge regression}, for which we maximize
-$$\ell(\beta)+\lambda\sum_{i=1}^p\beta_i^2.$$
-\begin{itemize}
-\item Invented and reinvented by several authors, from the 1940's onwards.\\[3mm]\pause
-\item In a linear model, the OLS estimate is $\hat{\beta}=(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}$, whereas the ridge estimate is $\hat{\beta}=(\mathbf{X}^T\mathbf{X}+\lambda \mathbf{I})^{-1}\mathbf{X}^T\mathbf{y}$. The $\lambda \mathbf{I}$ is the 'ridge'.\\[3mm]\pause
-\item The $\beta_i$ can become very small, but are never pushed all the way down to 0.\\[3mm]\pause
-\item In a Bayesian context, this corresponds to putting a standard normal prior on the $\beta_i$.
-\end{itemize}
+{\scriptsize Bishop \& Bishop (2024), Fig. 9.6}
+\end{center}
 \end{frame}
 
-\begin{frame}{Lasso}
-When the $L_1$ penalty is used, the regularised model is called the {\color{uured}lasso} (Least Absolute Shrinkage and Selection Operator), for which we maximize
-$$\ell(\beta)+\lambda\sum_{i=1}^p|\beta_i|.$$
+\begin{frame}{What does $\lambda$ do?}
+\begin{columns}[c]
+\begin{column}{0.57\textwidth}
+\centering
+\includegraphics[width=\textwidth,height=0.70\textheight,keepaspectratio]{figs/BB_fig4_7.png}
+
+{\scriptsize Bishop \& Bishop (2024), Fig. 4.7}
+\end{column}
+\begin{column}{0.41\textwidth}
+\small
 \begin{itemize}
-\item Introduced by Robert Tibshirani in 1996.\\[3mm]\pause
-\item As $\lambda$ increases, more and more $\beta_i$ become 0.\pause
-\begin{itemize}
-\item Simultaneously performs estimation and variable selection!\\[3mm]\pause
+\item $\lambda=0$: no penalty. Larger $\lambda$: stronger shrinkage.
 \end{itemize}
-\item In a Bayesian context, this corresponds to putting a standard Laplace prior on the $\beta_i$.
-\end{itemize}
+%{\small Left: fits to different training datasets. Right: average fit (red) and true function (green).}
+\end{column}
+\end{columns}
 \end{frame}
 
-\begin{frame}{Examples in R}
-Functions for regularised generalized linear models (linear, logistic, Poisson, multinomial, and more) are available e.g. in the \texttt{glmnet} package for R.\\[3mm]\pause
-The syntax used is somewhat different from that for \texttt{glm} and \texttt{lm}.\\[3mm]
+\begin{frame}{Pair discussion: ridge or lasso?}
+\uured{Pairs, 1--2 minutes:} Would you favour ridge or lasso if many predictors have small effects? What if only a few are useful?
 \end{frame}
 
 
