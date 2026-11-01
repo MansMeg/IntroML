@@ -74,7 +74,7 @@ The word "AI" is often used quite loosely:
 \begin{frame}{What is Artificial Intelligence?}
 Artificial intelligence (AI), sometimes called machine intelligence, is intelligence demonstrated by machines, unlike the natural intelligence displayed by humans and animals. -- Wikipedia
 \pause
-Artificial intelligence (AI), the ability of a digital computer or computer-controlled robot to perform tasks commonly associated with intelligent beings. -- Encyclopedia Brittanica
+Artificial intelligence (AI), the ability of a digital computer or computer-controlled robot to perform tasks commonly associated with intelligent beings. -- Encyclopedia Britannica
 \end{frame}
 
 
@@ -313,7 +313,7 @@ Exact dates and details; see the course page.
 \item Each assignment has an extra (VG) task worth 1 VG point.\pause
 \item The mini-project is worth 2 VG-points (if it is passed with distinction).
 \item Ph.D. students: I suggest you get VG to pass the course. Make the project a potential paper.
-\item Reassesment of grades (supply form to course admin)
+\item Reassessment of grades (supply form to course admin)
 \item Failing the course: You will need to redo all assignments, oral exam and mini-project.
 \end{itemize}
 
@@ -435,7 +435,7 @@ Exact dates and details; see the course page.
 \item Hastie, Tibshirani \& Friedman (2009). \emph{Elements of Statistical Learning}.
 \item Sutton and Barto (2020) \emph{Reinforcement learning: An introduction}
 \item Chollet \& Allaire (2018) \emph{Deep Learning with R} (optional)
-\item Additional articles, tuturials, videos etc. posted on course (github) homepage
+\item Additional articles, tutorials, videos etc. posted on course (github) homepage
 \item Reading priorities: see the block reading instructions.
 \end{itemize}
 \pause
@@ -480,7 +480,7 @@ Questions?
 \begin{frame}{Supervised learning}
 
 \begin{figure}[h]
-\caption{Relationship between appartment size and price (\href{https://www.data-to-viz.com/story/TwoNum.html}{source})}
+\caption{Relationship between apartment size and price (\href{https://www.data-to-viz.com/story/TwoNum.html}{source})}
 \centering
 \includegraphics[width=0.8\textwidth]{figs/scatter_apartment.png}
 \end{figure}
@@ -521,7 +521,7 @@ Questions?
 \item Is this e-mail message spam or not?\pause
 %\item Sequence to sequence (NLP) - machine translation?
 \item Image recognition/classification\pause
-\item Image object traction (position in a video)\pause
+\item Image object tracking (position in a video)\pause
 \item Will this patient recover from their illness or not?\pause
 \item Does this fingerprint belong to an employee or not?\pause
 \item Does this customer have stable finances or not?\pause
@@ -587,7 +587,7 @@ $$\pi_i=\frac{\exp\Big(\beta_0+\sum_{j=1}^p\beta_jx_{ij}\Big)}{1+\exp\Big(\beta_
 
 
 \begin{figure}[h]
-\caption{Decision boundry with two covariates (Hastie et al, 2009, Figure 2.1) }
+\caption{Decision boundary with two covariates (Hastie et al, 2009, Figure 2.1) }
 \centering
 \includegraphics[width=0.7\textwidth]{figs/decision_fig_2_1.png}
 \end{figure}
@@ -628,13 +628,13 @@ Questions?
 
 \begin{enumerate}
 \item Training is usually done by minimizing the objective/loss/cost function $L(\theta)$ for $\theta \in \mathbf{R}^P$.
-\item Example: Logistic regression, here we can use the {\color{uured} negative} log-likelihood as loss function:
+\item Example: Logistic regression, here we can use the {\color{uured} negative} mean log-likelihood as loss function:
 \[
-L(\theta, \mathbf{y}, \mathbf{X}) = - \log \prod^N_{i=1} p_i^{y_i} (1 - p_i)^{1-y_i} \,,
+L(\theta, \mathbf{y}, \mathbf{X}) = - \frac{1}{N} \log \prod^N_{i=1} p_i^{y_i} (1 - p_i)^{1-y_i} \,,
 \]
 where
 \[
-\log \frac{p_i}{1-p_i} = \mathbf{x}_i \theta  \,,
+\log \frac{p_i}{1-p_i} = \mathbf{x}_i^T \theta  \,,
 \]\pause
 \item In Machine Learning: $P$ and $N$ might be very large...
 \end{enumerate}
@@ -644,7 +644,7 @@ where
 
 
 
-\begin{frame}{Gradient Decent}
+\begin{frame}{Gradient Descent}
 
 \begin{enumerate}
 \item The workhorse of Machine Learning
@@ -656,6 +656,7 @@ where
 \[
 \nabla f(p)=\begin{bmatrix}{\frac {\partial f}{\partial x_{1}}}(p)\\\vdots \\{\frac {\partial f}{\partial x_{n}}}(p)\end{bmatrix}
 \]
+\item $\nabla L$ is the full training-objective gradient (no sampling).
 \item $L(\theta)$ needs to be differentiable
 \end{enumerate}
 
@@ -694,7 +695,7 @@ where
 \begin{itemize}
 \item Gradient Descent is a poor algorithm \\ (Newtons method, Iteratively Reweighted Least Squares are 'better')
 \item So why is gradient descent relevant?\pause
-\item The two benefits with Gradient Descent:
+\item Two benefits of gradient descent:
 \begin{enumerate}
 \item Only uses the gradient---scales to large $P$
 \item Can scale to large data with Stochastic Gradient Descent---scales to large $N$
@@ -708,13 +709,13 @@ where
 
 
 \begin{itemize}
-\item Many loss functions (and gradients) are a sum over $N$ observations (e.g. log-likelihoods).
+\item Use the mean observation loss: $L(\theta)=\frac{1}{N}\sum_{i=1}^N\ell_i(\theta)$.
 \pause
-\item We can estimate $\nabla L(\theta, X_{i}, y_{i})$ by choosing a random observation (with index $i$)
+\item Let $\ell_i$ be observation $i$'s loss. Sample $i_t$ uniformly from $\{1,\ldots,N\}$:
 \[
-E(\nabla L(\theta, X_{i}, y_{i})) = \frac{1}{Z} \nabla L(\theta, \mathbf{X}, \mathbf{y})\,,
+\widehat{\nabla L}_t(\theta)=\nabla\ell_{i_t}(\theta),\qquad E_{i_t}[\widehat{\nabla L}_t(\theta)]=\nabla L(\theta)\,,
 \]
-for some constant $Z$.
+The hat denotes a sampling estimate of the full gradient. Each observation gradient is computed exactly.
 \end{itemize}
 
 
@@ -725,11 +726,11 @@ for some constant $Z$.
 
 
 \begin{itemize}
-\item This give us the following algorithm:
+\item This gives the following algorithm:
 \[
-\theta_t = \theta_{t-1} - \eta_t \hat{\nabla} L(\theta_{t-1}, X_{i}, y_{i})\,,
+\theta_t = \theta_{t-1} - \eta_t \widehat{\nabla L}_t(\theta_{t-1})\,,
 \]
-where $i$ is random sampled index.
+where $\widehat{\nabla L}_t$ uses a uniformly sampled observation at each update.
 \item \emph{Note!} \\We need to have an unbiased estimator for $\nabla L(\theta, \mathbf{X}, \mathbf{y})$
 \pause
 \item \uured{What is an iteration?}\pause
@@ -743,10 +744,10 @@ where $i$ is random sampled index.
 
 
 \begin{itemize}
-\item Learning rate $\eta_t$ is important
+\item Learning rate $\eta_t$ matters; constant rates are also used in finite training.
 \item \uured{Will it converge to an optimum?}\pause
-\item We need to reduce $\eta_t$ over time\pause
-\item Robbins–Monro (1951) conditions:
+\item For asymptotic convergence with persistent gradient noise, use decreasing step sizes.\pause
+\item Robbins--Monro (1951) step-size conditions:
 \begin{enumerate}
 \item $\eta_t \geq 0$ $\forall t \geq 0$
 \item $\sum^\infty_t \eta_t = \infty$
@@ -754,10 +755,11 @@ where $i$ is random sampled index.
 \end{enumerate}
 \pause
 \vspace{4mm}
-A simple solution is:
+One choice satisfying these conditions is:
 \[
 \eta_t = \frac{1}{t}, \qquad (t \ge 1)
 \]
+\item Also require regularity, controlled gradient noise, and stable iterates; nonconvex losses need not reach a global optimum.
 \end{itemize}
 
 \end{frame}
@@ -767,11 +769,15 @@ A simple solution is:
 
 \begin{itemize}
 \item Can we estimate the gradient in a better way?\pause
-\item We take a mini-batch of size $B$:
+\item Take a uniformly sampled batch $S_t$ of $B$ indices:
 \[
-\theta_t = \theta_{t-1} - \eta_t \nabla L(\theta, \mathbf{X}_{\mathcal(S)_i}, y_{\mathcal(S)_i})\,,
+\widehat{\nabla L}_t(\theta)=\frac{1}{B}\sum_{i\in S_t}\nabla\ell_i(\theta),
+\qquad E_{S_t}[\widehat{\nabla L}_t(\theta)]=\nabla L(\theta).
 \]
-where $\mathcal(S)_i$ is a set of random sample (without replacement) indices and $|\mathcal(S)_i| = B$.
+\[
+\theta_t = \theta_{t-1} - \eta_t\widehat{\nabla L}_t(\theta_{t-1}).
+\]
+Sample without replacement within each fresh batch. In practice, one often shuffles data and processes batches once per epoch.
 \pause
 \item $B$ is usually set to optimize hardware
 \end{itemize}
@@ -783,10 +789,10 @@ where $\mathcal(S)_i$ is a set of random sample (without replacement) indices an
 
 \begin{itemize}
 \item SGD can be slow to converge due to 'jumping' behaviour \pause
-\item Can improve behaviour using momentum -- the rolling mean of gradients \pause
-\item Additional hyperparemeter $\alpha$ to control the momentum
+\item Momentum accumulates exponentially weighted, learning-rate-scaled gradients. Aligned directions reinforce movement.\pause
+\item $0\leq\alpha<1$ controls momentum; initialize $m_0=0$.
 \[
-m_t = \alpha m_{t-1} + \eta_t \hat{\nabla} L(\theta_{t-1}, X_{i}, y_{i})\,,
+m_t = \alpha m_{t-1} + \eta_t \widehat{\nabla L}_t(\theta_{t-1})\,,
 \]
 \[
 \theta_t = \theta_{t-1} - m_t,
@@ -825,15 +831,15 @@ Example of SGD with momentum \href{https://distill.pub/2017/momentum/}{here}.
 \begin{itemize}
 \item Adapt $\eta_t$ to individual parameters
 \begin{align*}
-m_t =& \beta_1 m_{t-1} + (1-\beta_1) \hat{\nabla} L(\theta_{t-1}, X_{i}, y_{i}) \\
-v_t =& \beta_2 v_{t-1} + (1-\beta_2) \hat{\nabla} L(\theta_{t-1}, X_{i}, y_{i})^2
+m_t =& \beta_1 m_{t-1} + (1-\beta_1) \widehat{\nabla L}_t(\theta_{t-1}) \\
+v_t =& \beta_2 v_{t-1} + (1-\beta_2) \widehat{\nabla L}_t(\theta_{t-1})^2
 \end{align*}
 \item Bias correction \\(due to initialization at 0)
 \begin{align*}
 \hat{m}_t =& \frac {m_{t}}{1-\beta_1^{t}}\\
 \hat{v}_t =& \frac {v_{t}}{1-\beta_2^{t}}
 \end{align*}
-\item Update
+\item Update (squares, roots, and division act componentwise)
 \[
 \theta_t = \theta_{t-1} - \frac{\eta}{\sqrt{\hat{v}_t} + \epsilon} \hat{m}_t,
 \]
@@ -848,10 +854,10 @@ v_t =& \beta_2 v_{t-1} + (1-\beta_2) \hat{\nabla} L(\theta_{t-1}, X_{i}, y_{i})^
 \begin{figure}[h]
 \caption{The Adam Optimizer (Kingma and Ba, 2014)}
 \centering
-\includegraphics[width=0.6\textwidth]{figs/ADAM}
+\includegraphics[width=0.48\textwidth]{figs/ADAM}
 \end{figure}
 
-For convergence proofs, see:\\
+Convergence guarantees require assumptions and depend on the variant. See:\\
 Defossez et al (2020) "A Simple Convergence Proof of Adam and Adagrad"
 
 \end{frame}
@@ -859,13 +865,6 @@ Defossez et al (2020) "A Simple Convergence Proof of Adam and Adagrad"
 
 
 
-
-
-\end{document}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \end{document}
