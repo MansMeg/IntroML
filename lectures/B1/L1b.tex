@@ -561,18 +561,17 @@ Questions?
 
 \begin{frame}{Bias and Variance}
 
-Assume we have the following data generating process:
-\[
-Y = f(X) + \epsilon\,,
-\]
-where $\E(\epsilon)=0$ and $V(\epsilon)=\sigma_\epsilon$.
+Assume $Y_0=f(X_0)+\epsilon_0$, with
+$\E[\epsilon_0\mid X_0]=0$ and $V(\epsilon_0\mid X_0)=\sigma_\epsilon^2$.
 
-We have an estimated model $\hat{f}$ and want to predict a new, unseen, observation $x_0$. The error can then be decomposed into:
-
+The test observation is independent of training data $\mathcal T$.
+At a fixed input $x_0$, averaging over training data and new test noise:
 \begin{align*}
-\text{Err}(x_0) &= \E\{(Y-\hat{f}(x_0))^2 | X = x_0\} \\
-  &= \sigma^2_\epsilon + \{\E(\hat{f}(x_0)) - f(x_0)\}^2 + \E\{\hat{f}(x_0) - \E(\hat{f}(x_0))\}^2 \\
-  &= \sigma^2_\epsilon + \text{Bias}^2(\hat{f}(x_0)) + V(\hat{f}(x_0))
+\text{Err}(x_0)
+ &= \E_{\mathcal T,Y_0}\!\left[(Y_0-\hat f_{\mathcal T}(x_0))^2\mid X_0=x_0\right] \\
+ &= \sigma_\epsilon^2
+ +\underbrace{\big(\E_{\mathcal T}[\hat f_{\mathcal T}(x_0)]-f(x_0)\big)^2}_{\text{bias}^2}
+ +\underbrace{V_{\mathcal T}(\hat f_{\mathcal T}(x_0))}_{\text{variance}}.
 \end{align*}
 \pause
 \begin{itemize}
@@ -586,23 +585,21 @@ We have an estimated model $\hat{f}$ and want to predict a new, unseen, observat
 
 \begin{frame}{Bias and Variance: Linear regression}
 
-In linear regression we have:
-\[
-\hat{f}(x_i) = \hat{\beta} x_i
-\]
+For ordinary least squares, $\hat f(x_i)=x_i^T\hat\beta$.
+Assume a fixed, full-rank design $X$, independent errors with zero mean and variance $\sigma_\epsilon^2$.
 
-This give us the following error decomposition:
-
+Averaging test error at the \emph{training inputs} (with fresh outcomes):
 \[
-\frac{1}{N} \sum_{i=1}^{N} \text{Err}(x_i)
-=
-\underbrace{\sigma_{\epsilon}^2}_{\text{irreducible}}
-+
-\underbrace{\frac{1}{N} \sum_{i=1}^{N} \big(f(x_i) - \mathbb{E}[\hat{f}(x_i)]\big)^2}_{\text{bias}^2}
-+
-\underbrace{\frac{p}{N} \sigma_{\epsilon}^2}_{\text{variance}}
+\frac{1}{N}\sum_{i=1}^N\text{Err}(x_i)
+=\underbrace{\sigma_\epsilon^2}_{\text{irreducible}}
++\underbrace{\frac{1}{N}\sum_{i=1}^N
+\big(f(x_i)-\E[\hat f(x_i)]\big)^2}_{\text{bias}^2}
++\underbrace{\frac{p}{N}\sigma_\epsilon^2}_{\text{variance}}.
 \]
-where $N$ is the number of observations and $p$ the number of covariates.
+Here $p$ counts fitted coefficients, including the intercept. Expectations are over new training responses at fixed $X$.
+
+At a new input $x_0$, prediction variance is instead
+$\sigma_\epsilon^2 x_0^T(X^TX)^{-1}x_0$.
 
 \end{frame}
 
@@ -618,7 +615,7 @@ where $N$ is the number of observations and $p$ the number of covariates.
 \begin{itemize}
 \item High Bias: \uured{Underfit}
 \item High Variance: \uured{Overfit}
-\item High Irreducible error: No model is good
+\item High irreducible error: limits achievable prediction accuracy
 \end{itemize}
 
 \end{frame}
