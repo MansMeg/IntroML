@@ -702,7 +702,7 @@ Questions?
 \frame{\sectionpage}
 
 
-\begin{frame}{Cross-Valdidation}
+\begin{frame}{Cross-Validation}
 
 
 
@@ -721,41 +721,41 @@ Questions?
 \item Conceptually easy to understand
 \item Easy to implement
 \item No need for rules-of-thumbs to verify that it is applicable
-\item Equally useful for many different type of models
+\item Applicable to many different types of models
 \item Flexible for the use case at hand
 \end{enumerate}
 \pause
-\item Common approach to \uured{learn hyper parameters}\\(that is a model choice)
+\item Common approach to \uured{choose hyperparameters}\\(that is a model choice)
 \end{itemize}
 
 \end{frame}
 
 
-\begin{frame}{The Cross-Valdidation Algorithm}
+\begin{frame}{The Cross-Validation Algorithm}
 
 \begin{figure}[h]
 \caption{Cross-Validation (Hastie et al, 2009, p. 222, 242)}
 \centering
-\includegraphics[width=0.6\textwidth]{figs/ESL_test_train_val.png}
-\includegraphics[width=0.6\textwidth]{figs/ESL_cross_val.png}
+\includegraphics[width=0.48\textwidth]{figs/ESL_test_train_val.png}
+\includegraphics[width=0.48\textwidth]{figs/ESL_cross_val.png}
 \end{figure}
 
 \begin{enumerate}
 \item Split data in $K$ folds
 \item For each fold $k=1,2,...,K$
 \begin{enumerate}
-\item Use all samples except those in $k$ to train $\hat{f}(x)$
-\item Use the model and predict the observations in fold $k$
+\item Fit $\hat f^{(-k)}$ using all observations outside fold $k$
+\item Predict observations in fold $k$; fit preprocessing and feature selection using training folds only
 \end{enumerate}
 \end{enumerate}
 \[
-\widehat{\text{Err}}_{CV}(\hat{f}) = \frac{1}{N}\sum^N_{i=1} L(y_i,\hat{f}_{\kappa(i)}(x))
+\widehat{\text{Err}}_{CV} = \frac{1}{N}\sum^N_{i=1} L(y_i,\hat f^{(-k(i))}(x_i))
 \]
-where $\kappa(i)$ is the set of observations where $i$ is held-out.
+where $k(i)$ is the fold containing observation $i$. Any tuning assessed by a held-out fold must use only its training data.
 
 \end{frame}
 
-\begin{frame}{The Bias of Cross-Valdidaton}
+\begin{frame}{The Bias of Cross-Validation}
 
 \begin{itemize}
 \item Cross-validation estimation of \uured{$\text{Err}$} will be biased
@@ -774,8 +774,8 @@ where $\kappa(i)$ is the set of observations where $i$ is held-out.
 \begin{frame}{K-fold Cross Validation}
 
 \begin{itemize}
-\item Common $K$ are: $K=\{2,5,10\}$
-\item Smaller $K$ gives larger bias
+\item Common choices are $K\in\{2,5,10\}$
+\item Smaller $K$ often increases training-size bias; this is not universal
 \item Larger $K$ is computationally more costly
 \item $K=10$ is a common approach
 \end{itemize}
@@ -789,13 +789,13 @@ where $\kappa(i)$ is the set of observations where $i$ is held-out.
 \item When $K=N$
 \item Benefits
 \begin{itemize}
-\item Almost unbiased estimate of $\text{Err}$
+\item Often small training-size bias: each fit uses $N-1$ observations
 \item Sometimes we only need to train our model once
 \end{itemize}
 \item Drawbacks
 \begin{itemize}
 \item Higher Variance in estimate of $\text{Err}$
-\item Can be more computationally very costly (naive implementation)
+\item Can be computationally costly (naive implementation)
 \item Can be unstable/less robust in some settings
 \end{itemize}
 \end{itemize}
@@ -842,9 +842,9 @@ where $\kappa(i)$ is the set of observations where $i$ is held-out.
 \item The (naive) assumption: independence
 \item Things that can go wrong:
 \begin{itemize}
-\item temporal leak/concept drift
+\item temporal leakage or concept drift
 \item duplicated observations
-\item non-randomized data
+\item unrepresentative sampling or distribution shift
 \end{itemize}
 \pause
 %\item Example: Evaluating prediction models for Elections
@@ -859,12 +859,13 @@ where $\kappa(i)$ is the set of observations where $i$ is held-out.
 
 \begin{itemize}
 \item We want to predict the next election
-\item We know that there are "\uured{concept drift}"
-\item Solution in Frölander and Uddhammar (2021) and Olsson and Ölfvingsson (2021)
+\item The relationship may change over time (\uured{concept drift})
+\item Example in Frölander and Uddhammar (2021) and Olsson and Ölfvingsson (2021)
 \begin{enumerate}
 \item LOO-CV on the elections 1973-2014
-\item The elections 2018 as the final validation set
+\item The 2018 election held out for later assessment
 \end{enumerate}
+\item LOO may train on later elections. For forecasting, use forward/rolling splits: train only on earlier elections.
 
 
 \end{itemize}
@@ -872,7 +873,7 @@ where $\kappa(i)$ is the set of observations where $i$ is held-out.
 \begin{figure}[h]
 \caption{Predictive distr. (Olsson and Ölfvingsson, 2021, Fig. 6)}
 \centering
-\includegraphics[width=1\textwidth]{figs/elections}
+\includegraphics[width=0.8\textwidth,height=0.28\textheight,keepaspectratio]{figs/elections}
 \end{figure}
 
 \end{frame}
@@ -897,15 +898,15 @@ where $\kappa(i)$ is the set of observations where $i$ is held-out.
 
 Further, assume the true model is
 \[
-y_i = \mathbf{x}^T \theta + \epsilon_i
+y_i = \mathbf{x}_i^T \theta + \epsilon_i
 \]
 where $\epsilon_i \sim N(0,\sigma^2)$.
 
 \begin{figure}[h]
-\caption{MSE and misscoverage with $\text{Err}_{XY} = \text{Err}_\mathcal{T}$ (Bates et al, 2022)}
+\caption{MSE and miscoverage with $\text{Err}_{XY} = \text{Err}_\mathcal{T}$ (Bates et al., arXiv:2104.00673)}
 \vspace{-5mm}
 \centering
-\includegraphics[width=0.75\textwidth]{figs/bales2021}
+\includegraphics[width=0.65\textwidth,height=0.35\textheight,keepaspectratio]{figs/bales2021}
 \vspace{-5mm}
 \end{figure}
 \pause
@@ -914,7 +915,7 @@ Two take-aways:
 \begin{enumerate}
 \item CV is estimating $\text{Err}$ (see Bates et al, 2022)
 \pause
-\item Naive SE of CV estimators underestimate the true SE (see Bengio and Goodfellow, 2004)
+\item Fold errors are dependent: naive SEs can underestimate uncertainty (Bengio and Grandvalet, 2004).
 \end{enumerate}
 
 
