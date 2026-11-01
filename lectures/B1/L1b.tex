@@ -137,7 +137,7 @@ where $L(y,x)$ is a \uured{loss function} (e.g. $L(x,y) = (x-y)^2$)
 L(y_0,\hat{f}(x_0))
 \]
 \pause
-\item This is quite general and we choose based $L$ based on what we want the model perform well on.\pause
+\item Choose $L$ according to what we want the model to perform well on.\pause
 \item Examples:
 \begin{itemize}
 \item Regression problems (squared loss/error):
@@ -170,7 +170,7 @@ L(y_0, \hat{p}) = - [ (y_0 \log{\hat{p}}) + (1 - y_0) \log{(1- \hat{p})} ]
 % Bernoulli negative log-likelihood?
 \pause
 \item Maximizing the likelihood is the same as minimizing the cross-entropy. \pause
-\item Multi class cross-entroy over $M$ classes
+\item Multi class cross-entropy over $M$ classes
 \[
 L(\mathbf{y}_0, \hat{\mathbf{p}}) = - \sum^M_{j=1} y_{0,j} \log{\hat{p}_j}
 \]
@@ -189,7 +189,7 @@ L(\mathbf{y}_0, \hat{\mathbf{p}}) = - \sum^M_{j=1} y_{0,j} \log{\hat{p}_j}
   & Prediction &  \\
   Actual & Positive & Negative \\
   Positive & True Positive (TP) & False Negative (FN) \\
-  Negative & False Positive (FP) & True Negative ((TN)
+  Negative & False Positive (FP) & True Negative (TN)
 \end{tabular}
 
 
@@ -260,7 +260,7 @@ Of all the predicted positives, how many are \uured{actually positive}?
 \]
 or
 \[
-\text{Precision}_a = \frac{(T_a)}{T_a + F_{ba} + F_{ca})}
+\text{Precision}_a = \frac{(T_a)}{T_a + F_{ba} + F_{ca}}
 \]
 
 All \uured{predicted} $a$: $T_a + F_{ba} + F_{ca}$
@@ -285,12 +285,12 @@ Of all \uured{positives}, how many are predicted correctly (recalled)?\pause
 \]
 and
 \[
-\text{Recall}_a =  \frac{(T_a)}{T_a + F_{ab} + F_{ac})}
+\text{Recall}_a =  \frac{(T_a)}{T_a + F_{ab} + F_{ac}}
 \]
 
 All \uured{true/actual} $a$: $T_a + F_{ab} + F_{ac}$
 
-If we want one precision estimate for all classes:
+If we want one recall estimate for all classes:
 \begin{enumerate}
 \item Macro-average ($\text{Recall}_a, ..., \text{Recall}_c$)
 \item Micro-average (use Table 2)
@@ -320,13 +320,13 @@ Harmonic mean of Precision and Recall.
 
 % F1: Both good precision and recall
 \[
-\text{F}_1 = \frac{2}{\text{Precision}^{-1} + \text{Recall}^{-1}} = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{\text{Precision} + \text{Recall}}}
+\text{F}_1 = 2\frac{\text{Precision}\cdot\text{Recall}}{\text{Precision}+\text{Recall}}
 \]
-\uured{Question}: What happens if Precision or Recalls goes toward zero/one?
+\uured{Question}: What happens if Precision or Recall goes toward zero/one?
 \pause
 Very common performance measurement in practice.
 
-If we want one precision estimate for all classes:
+If we want one F1 estimate for all classes:
 \begin{enumerate}
 \item Macro-average ($\text{F}_{1a}, ..., \text{F}_{1c}$)
 \item Micro-average (use Table 2)
@@ -452,13 +452,13 @@ Questions?
 \item The main error of interest - \uured{generalization error}
 \item Conditional Test Error \\(Performance for the model trained on \uured{actual} training data):
 \[
-\text{Err}_\mathcal{T} = \E_{p(X_0,Y_0)}(L(Y_0,\hat{f}(X_0) | \mathcal{T})
+\text{Err}_{\mathcal T}=\E_{X_0,Y_0}\!\left[L(Y_0,\hat f_{\mathcal T}(X_0))\mid\mathcal T\right]
 \]
 \item Expected Test Error \\(Model performance over \uured{different} training datasets):
 \[
-\text{Err} = \E_{p(X,Y)}(L(Y_0,\hat{f}(X_0)))
+\text{Err}=\E_{\mathcal T}[\text{Err}_{\mathcal T}]
 \]
-\item Conditional Test Error is more difficult to estimate than the Expected Test Error (Bates, Hastie, and Tibshiriani, 2021)
+\item The outer expectation averages over training datasets of the same size, for a fixed learning procedure.
 \end{itemize}
 
 \end{frame}
@@ -467,7 +467,7 @@ Questions?
 \begin{frame}{Training Error}
 
 \begin{itemize}
-\item Training error: The loss the algorithm try to \uured{minimize}
+\item Training error: The loss the algorithm tries to \uured{minimize}
 \item The Error in the training data:
 \[
 \overline{\text{err}} = \frac{1}{N} \sum_{i=1}^N L(y_i,\hat{f}(x_i))
@@ -511,12 +511,12 @@ where $L(y,x)$ is the loss function.
 
 \section{Estimating the test error}
 
-\begin{frame}{How to estimate the Test Error (Model Assesment)}
+\begin{frame}{How to estimate the Test Error (Model Assessment)}
 
 \begin{itemize}
 \item We set aside a \uured{test set} from the data
 \item Use as the last step to \uured{estimate} the \uured{generalization error}
-\item Should only be used \uured{ONCE} (or a few times)\pause
+\item Keep untouched until final assessment; do not adapt model choices to its results.\pause
 \item Size of testset:
 \begin{itemize}
 \item Common suggestion is 10\%, but
