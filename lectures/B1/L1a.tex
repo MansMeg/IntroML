@@ -489,6 +489,17 @@ Questions?
 
 \end{frame}
 
+\begin{frame}{Pair discussion: apartment prices}
+We want to predict an apartment's final selling price when it is first listed for sale.
+
+\uured{Pairs, 1--2 minutes:}
+\begin{enumerate}
+\item What is the outcome, and what are two usable predictors?
+\item Name one tempting predictor that would be unavailable at prediction time. Why would using it mislead us?
+\end{enumerate}
+\end{frame}
+
+
 
 
 \begin{frame}{Supervised learning}
@@ -581,6 +592,17 @@ $$\pi_i=\frac{\exp\Big(\beta_0+\sum_{j=1}^p\beta_jx_{ij}\Big)}{1+\exp\Big(\beta_
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Pair discussion: probabilities and decisions}
+Two emails have predicted spam probabilities 0.6 and 0.9. We classify an email as spam if its predicted probability is at least 0.5.
+
+\uured{Pairs, 1--2 minutes:}
+\begin{enumerate}
+\item What information is lost if we report only the predicted classes?
+\item Suppose discarding a legitimate email is much more costly than letting spam through. Would you raise or lower the threshold? Why?
+\end{enumerate}
+\end{frame}
+
+
 
 
 \begin{frame}{Logistic regression: Example}
@@ -661,6 +683,18 @@ where
 \end{enumerate}
 
 \end{frame}
+
+\begin{frame}{Pair discussion: choosing a step size}
+Consider $L(\theta)=\theta^2$, starting at $\theta_0=1$.\\[2mm]
+One update is $\theta_1=\theta_0-\eta L\prime(\theta_0)$, with $L\prime(\theta)=2\theta$.
+
+\uured{Pairs, 1--2 minutes:}
+\begin{enumerate}
+\item Calculate $\theta_1$ for $\eta=0.1$ and $\eta=1.1$.
+\item Compare $L(\theta_1)$ with $L(\theta_0)$. Does moving against the gradient always reduce the loss?
+\end{enumerate}
+\end{frame}
+
 
 
 \begin{frame}{Gradient Descent Analogy}
@@ -783,6 +817,17 @@ Sample without replacement within each fresh batch. In practice, one often shuff
 \end{itemize}
 
 \end{frame}
+
+\begin{frame}{Pair discussion: iterations and epochs}
+We have 1,000 training observations and mini-batches of 100. Each epoch visits every observation once; each batch gives one parameter update.
+
+\uured{Pairs, 1--2 minutes:}
+\begin{enumerate}
+\item How many updates are made in one epoch?
+\item Why do these updates generally differ from one full-data gradient update, even if we choose the learning rates carefully?
+\end{enumerate}
+\end{frame}
+
 
 
 \begin{frame}{SGD with momentum}
