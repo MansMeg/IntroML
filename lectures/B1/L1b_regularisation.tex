@@ -6,41 +6,16 @@
 % Replace each framed placeholder with an \includegraphics command.
 % Page references below match the supplied Bishop & Bishop (2024) PDF.
 \begin{frame}{Why regularise?}
-\begin{itemize}
-\item Many or highly correlated predictors can give unstable or non-unique coefficient estimates.
-\item Different coefficients may fit the training data equally well but predict differently on new observations (Assignment 1).
-\item Regularisation favours some solutions over others to improve generalisation.
-\end{itemize}
 \begin{center}
-\fbox{\parbox[c][0.25\textheight][c]{0.88\textwidth}{\centering
-Figure placeholder: polynomial fits with two penalty strengths\\
-Bishop \& Bishop (2024), Fig. 1.9\\
-Printed p. 13; PDF p. 33}}
+\includegraphics[width=0.95\textwidth,height=0.31\textheight,keepaspectratio]{figs/BB_fig1_9.png}
+{\scriptsize Same degree-9 polynomial, two penalty strengths. Stronger regularisation can underfit. Bishop \& Bishop (2024), Fig. 1.9.}
 \end{center}
-\end{frame}
-
-\begin{frame}{Regularised regression models}
-Regularised linear regression models increase the {\color{uured}bias} of the estimates, but lowers their {\color{uured}variance}, thereby potentially decreasing the MSE.
-\end{frame}
-
-\begin{frame}{Connection to Bayesian estimation}
-In Bayesian estimation, a {\color{uured}prior distribution} $p(\beta)$ for the parameters $\beta_i$ is chosen.\\[3mm]\pause
-The estimates are then computed from the conditional distribution of the $\beta_i$ given the data, called the {\color{uured}posterior distribution}.\\[3mm]\pause
-Using Bayes' theorem, we find that
-$$P(\beta|\mathbf{x})\propto L(\beta)\cdot p(\beta),$$
-i.e. that the posterior distribution is proportional to the likelihood times the prior.\\[3mm]
-A special type of Bayesian estimator is the {\color{uured}maximum a posteriori (MAP)} estimator, which is found by maximizing the above expression (i.e. finding the mode of the posterior).\\[3mm]
-This is equivalent to the estimates from a regularised frequentist model with penalty function $p(\beta)$!
-\end{frame}
-
-\begin{frame}{Inference and invariance}
 \begin{itemize}
-\item Regularised regression models are not invariant under linear rescaling of the predictors.\pause
-\begin{itemize}
-\item If a predictor is multiplied by a scalar $a\neq 0$, this can change the entire model.\pause
-\item A model with measurements in inches might yield completely different results from a model with measurements in cm.\\[3mm]\pause
+\item Many or highly correlated predictors can give unstable or non-unique coefficient estimates.\pause
+\item Different coefficients may fit the training data equally well but predict differently on new observations.\pause
+\item Regularisation favours some solutions over others to \uured{improve generalisation}.
 \end{itemize}
-\item For this reason, it is widely agreed that the predictors should be standardized to have mean 0 and variance 1 before a regularised model is fitted.\pause
+\end{frame}
 \begin{itemize}
 \item With this approach we choose a particular (natural?) scaling, among all possible scalings.\pause
 \item All predictors are on the same scale and are therefore treated equally by the penalty function.\pause
