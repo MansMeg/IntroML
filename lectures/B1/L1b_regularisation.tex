@@ -3,8 +3,6 @@
 \section{Regularisation}
 \frame{\sectionpage}
 
-% Replace each framed placeholder with an \includegraphics command.
-% Page references below match the supplied Bishop & Bishop (2024) PDF.
 \begin{frame}{Why regularise?}
 \begin{center}
 \includegraphics[width=0.95\textwidth,height=0.31\textheight,keepaspectratio]{figs/BB_fig1_9.png}
@@ -16,37 +14,63 @@
 \item Regularisation favours some solutions over others to \uured{improve generalisation}.
 \end{itemize}
 \end{frame}
+
+\begin{frame}{Regularisation controls effective complexity}
+\[
+\hat\theta_\lambda=\arg\min_\theta\left\{
+\frac{1}{N}\sum_{i=1}^N\ell_i(\theta)
++\lambda\Omega(\theta)\right\},\qquad\lambda\geq0.
+\]
 \begin{itemize}
-\item With this approach we choose a particular (natural?) scaling, among all possible scalings.\pause
-\item All predictors are on the same scale and are therefore treated equally by the penalty function.\pause
+\item $\theta$ is fitted to training data; $\lambda$ is a \uured{hyperparameter}.\pause
+\item Stronger penalties typically reduce variance at the cost of bias.\pause
+\item Effective flexibility changes without removing available predictors. Too much regularisation can underfit.
 \end{itemize}
-\end{itemize}
+\begin{center}
+\includegraphics[width=0.70\textwidth,height=0.33\textheight,keepaspectratio]{figs/BB_fig4_8.png}
+
+{\scriptsize Bishop \& Bishop (2024), Fig. 4.8}
+\end{center}
 \end{frame}
 
-\begin{frame}{Inference and invariance}
+\begin{frame}{Ridge regression}
+For $\hat y_i=\beta_0+\mathbf{x}_i^T\beta$, minimise
+\[
+\frac{1}{2N}\sum_{i=1}^N(y_i-\beta_0-\mathbf{x}_i^T\beta)^2
++\frac{\lambda}{2}\sum_{j=1}^p\beta_j^2.
+\]
+\begin{columns}[c]
+\begin{column}{0.49\textwidth}
+\small
 \begin{itemize}
-\item Hypothesis tests are available (e.g. Lockhart et al. (2014), A significance test for the lasso, \emph{Annals of Statistics}), but I advise against using them.\\[3mm]\pause
-\item Note that the hypothesis tests will be conditioned on the choice of scaling.\pause
-\begin{itemize}
-\item Because of this, regularised models are not appropriate for hypothesis testing -- the p-values could change completely if we rescaled the data!\\[3mm]\pause
+\item Shrinks coefficients \uured{close} to zero.
+\item The intercept $\beta_0$ is not penalised.
 \end{itemize}
-\item Regularised regression models are however very useful for {\color{uured}predictive modelling}.
-\end{itemize}
+\end{column}
+\begin{column}{0.49\textwidth}
+\begin{center}
+\includegraphics[width=\textwidth,height=0.46\textheight,keepaspectratio]{figs/BB_fig9_3.png}
+
+{\scriptsize Bishop \& Bishop (2024), Fig. 9.3}
+\end{center}
+\end{column}
+\end{columns}
+% Optional: after centring X and y, the solution is
+% beta_hat = (X^T X + N lambda I)^{-1} X^T y for this mean-loss scaling.
 \end{frame}
 
-\begin{frame}{$L_q$-penalties}
-The most popular penalty terms correspond to common {\color{uured}$L_q$-norms}. \pause On a log-scale, the function to be maximized is
-$$\ell(\beta)+\lambda\sum_{i=1}^p|\beta_i|^q,$$
-where $\ell(\beta)$ is the loglikelihood of $\beta$ and $\sum_{i=1}^p|\beta_i|^q$ is the $L_q$-norm, with $q\geq 0$.\\[3mm]\pause
-This is equivalent to maximizing $\ell(\beta)$ under the constraint that $\sum_{i=1}^p|\beta_i|^q\leq\frac{1}{h(\lambda)}$, for some increasing positive function $h$.\pause
+\begin{frame}{Lasso regression}
+For the same linear prediction model, minimise
+\[
+\frac{1}{2N}\sum_{i=1}^N(y_i-\beta_0-\mathbf{x}_i^T\beta)^2
++\lambda\sum_{j=1}^p|\beta_j|.
+\]
 \begin{itemize}
-\item Relies on the {\color{uured}sparsity} assumption that most $\beta$ are 0.\\[3mm]\pause
-\end{itemize}
-$\lambda\geq 0$ is a {\color{uured}smoothing parameter}:
-\begin{itemize}
-\item When $\lambda=0$, we are back at the standard ML-estimate.
-\item The $\hat{\beta}$ are forced to be closer to 0 when $\lambda$ increases.
-\item $\lambda$ is usually chosen using cross-validation.
+\item An absolute-value ($L_1$) penalty can set coefficients exactly to zero.\pause
+\item This gives a sparse model: some predictors are excluded.\pause
+\item Correlated predictors may lead to unstable variable selection.\pause
+\item A selected predictor is not necessarily a causal or ``true'' variable.\pause
+\item As with ridge, leave the intercept unpenalised.
 \end{itemize}
 \end{frame}
 
