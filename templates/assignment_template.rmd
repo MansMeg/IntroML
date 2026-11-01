@@ -30,13 +30,17 @@ For every assignment, include one possible oral exam question of your own togeth
 - **Short model answer**: [Write your own model answer here.]
 - **Permission for future use**: [State **Yes** or **No**: may the course staff use or adapt your question and answer in a future oral exam?]
 
+\newpage
+
 # LLM use and integrity
 
 You may use large language models (LLMs), such as ChatGPT, like you may discuss with fellow students: to learn, ask for explanations, and get feedback. You may not use LLMs to produce the solution you submit. You must be able to explain every part of your own assignment at the oral exam, including your code, results, and reasoning, even when it is not covered by the published oral exam questions. If course staff have concerns about your understanding or the authorship of any part of your submission, you may be asked to explain that part at the oral exam.
 
 Where an exercise explicitly asks you to run an LLM and report its output, you may do so for that experiment. Your explanations and analysis must be your own. This permission does not apply to the oral exam question contribution, for which LLM use is prohibited entirely.
 
-Do not copy or upload the full assignment text into an LLM.
+For optional LLM study support, start a new conversation by uploading or pasting the [AI tutor instructions](https://raw.githubusercontent.com/MansMeg/IntroML/master/AI_TUTOR.md) and asking the tool to follow them. You may then upload the full **teacher-provided assignment instructions**, including supplied example code. Ask for explanations, incremental hints, and separate practice examples, not completed solutions.
+
+Do not upload your own report, answers, or assessed code. You remain responsible for following the course rules even if the tool offers a solution. Do not ask the tutor to help with the original oral-exam-question contribution, even though its instructions appear in the assignment.
 
 # Introduction
 

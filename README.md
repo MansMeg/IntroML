@@ -108,7 +108,7 @@ Teaching assistant: Hannes Waldetoft
 The course consists of rougly 8 blocks (weeks) of material. Each week consists of the following (expected workload in parenthesis):
 - Two lectures/computer labs (approx. 3h per week)
 - Online video material and reading assignments (approx. 4h per week)
-- An individual computer assignment (approx. 13 h per week)
+- An individual computer assignment (approx. 14–16 hours per week)
 
 ### Computer assignments
 Each week an individual computer assignment is done with a focus on implementing the main part of the material. Each assignment is completed individually and should follow the computer assignment template.
@@ -116,6 +116,10 @@ Each week an individual computer assignment is done with a focus on implementing
 Every assignment report must also include **one oral exam question of your own and a short model answer**. The question should concern the assignment or its associated reading or lectures, be suitable for a 2–4 minute oral answer, and test conceptual understanding rather than only calculation or code. It must not already be in the oral exam question list or be very close to an existing question, for example by only changing numbers. **You are not allowed to use large language models, such as ChatGPT, at all for this contribution.** State **Yes** or **No** to whether course staff may use or adapt your question and answer in a future oral exam. See the assignment instructions and [report template](templates/assignment_template.rmd) for the required format.
 
 You may use large language models (LLMs), such as ChatGPT, like you may discuss with fellow students: to learn, ask for explanations, and get feedback. You may not use LLMs to produce the solution you submit. You must be able to explain every part of your own assignment at the oral exam, including your code, results, and reasoning, even when it is not covered by the published oral exam questions. If course staff have concerns about your understanding or the authorship of any part of your submission, you may be asked to explain that part at the oral exam.
+
+For optional study support, start a new conversation by uploading or pasting the [AI tutor instructions](AI_TUTOR.md) and asking the tool to follow them. You may then upload the full **teacher-provided assignment instructions**, including supplied example code, and ask for explanations, incremental hints, and separate practice examples. Do not upload your own report, answers, or assessed code. Loading the tutor instructions does not guarantee that the tool will follow them: you remain responsible for keeping your submitted work your own. Do not ask the tutor to help with the original oral-exam-question contribution, even though its instructions appear in the assignment.
+
+Where an exercise explicitly asks you to run an LLM and report its output, you may do so for that experiment. Your explanations and analysis must be your own. This permission does not apply to the oral-exam-question contribution.
 
 Students should return the computer assignments no later than **Sunday 23.59 each week**. For a detailed list of deadlines, see the [rough course plan](https://docs.google.com/spreadsheets/d/1HC_QN2mCq9bkCPzmkP8RaR3RokFQCWo9oPuU7rFyR8Y/edit?usp=sharing).
 
