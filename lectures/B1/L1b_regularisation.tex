@@ -111,20 +111,63 @@ Equivalent constrained views, for suitable bounds $c$:
 \end{frame}
 
 
-\begin{frame}{Generalizations}
-Regularised models have been a hot research topics in the last 20 years. Some additional important models are:\pause
+
+
+\begin{frame}{Scaling and the intercept}
 \begin{itemize}
-\item {\color{uured}Elastic net:} a compromise between ridge and lasso, in which $$\ell(\beta)+\lambda_1\sum_{i=1}^p|\beta_i|+\lambda_2\sum_{i=1}^p\beta_i^2$$ is maximized.\pause
+\item Changing a predictor from metres to centimetres divides its coefficient by 100, changing its penalty despite identical predictions.
+\item Standardisation puts predictors on comparable scales:
+\[
+ z_{ij}=\frac{x_{ij}-\bar x_j}{s_j}.
+\]
+\item Usually do not penalise the intercept. It sets the overall level, rather than the effects of predictors.
+\item Penalty strength depends on loss scaling: a sum and a mean require different numerical $\lambda$ values.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{A probabilistic interpretation: MAP}
+\[
+\hat\theta_{\mathrm{MAP}}=\arg\min_\theta
+\big\{-\log p(\mathbf y\mid X,\theta)-\log p(\theta)\big\}.
+\]
+\pause
 \begin{itemize}
-\item Introduced by Zou and Hastie in 2005.\pause
-\item Is better than the lasso at handling correlated predictors.\pause
-\item Has two smoothing parameters that we need to choose.\pause
-\item Available in the \texttt{glmnet} package.\\[3mm]\pause
+\item Independent zero-mean Gaussian priors give quadratic penalties (ridge).\pause
+\item Independent zero-centred Laplace priors give absolute-value penalties (lasso).\pause
+\item Stronger concentration around zero means stronger shrinkage.
 \end{itemize}
-\item {\color{uured}Group lasso:} a version of the lasso in which variables can be grouped before fitting the model. The group lasso then selects groups of variables rather than individual variables.\pause
+\end{frame}
+
+\begin{frame}{Logistic ridge and gradient descent}
+With intercept first, $\theta=(\theta_1,\ldots,\theta_P)^T$:
+\[
+L_\lambda(\theta)=\underbrace{\frac{1}{N}\sum_i\ell_i(\theta)}_{\text{mean negative log-likelihood}}
++\frac{\lambda}{2}\sum_{j=2}^P\theta_j^2.
+\]
+\[
+\nabla L_\lambda(\theta)=\nabla L(\theta)+\lambda(0,\theta_2,\ldots,\theta_P)^T.
+\]
 \begin{itemize}
-\item Introduced by Yuan and Lin in 2006.\pause
-\item Useful e.g. when we have dummies for categorical variables (in contrast, the lasso may choose to only include the dummies for some of the categories).
+\item For mini-batches, estimate the data gradient. Add the exact penalty gradient at every update.\pause
+\item The intercept receives no shrinkage term. \pause
+\item This is Assignment 1's optional VG logistic ridge task.
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Choosing $\lambda$ in practice}
+\begin{itemize}
+\item In \texttt{glmnet}, \texttt{alpha = 0} selects ridge and \texttt{alpha = 1} selects lasso; \texttt{lambda} controls penalty strength.
+\item Compare candidate $\lambda$ values using the same validation folds.
+\item Assignment 1 asks for the mean of ten fold RMSEs.\pause
+\item Refit with the selected $\lambda$ on all training data. Assess once on the untouched test set.
 \end{itemize}
+\begin{center}
+\includegraphics[width=0.70\textwidth,height=0.25\textheight,keepaspectratio]{figs/BB_fig1_10.png}
+
+{\scriptsize Bishop \& Bishop (2024), Fig. 1.10. Horizontal axis should read $\ln\lambda$.}
+\end{center}
+%{\small The test curve illustrates the principle; use validation/CV to select $\lambda$.}
+
+\uured{How do we choose $\lambda$ without using the test set?}
+
 \end{frame}
