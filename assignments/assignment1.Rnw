@@ -480,7 +480,7 @@ Here $t$ counts mini-batch updates of the whole parameter vector. With 400 obser
 
 A boilerplate for the algorithm can be found here.
 <<echo=TRUE,eval=FALSE>>=
-adam <- function(y, X, sample_size, eta, beta1, beta2, epochs){
+adam <- function(y, X, batch_size, eta, beta1, beta2, epochs){
   # Setup output matrix
   results <- matrix(0.0, ncol = ncol(X) + 2L, nrow = epochs)
   colnames(results) <- c("epoch", "nll", colnames(X))
@@ -510,7 +510,7 @@ mark_my_assignment(tasks = "adam")
 For example, run the baseline as follows:
 <<echo=TRUE,eval=FALSE>>=
 set.seed(4711)
-baseline <- adam(y, X, sample_size = 10, eta = 0.01,
+baseline <- adam(y, X, batch_size = 10, eta = 0.01,
                  beta1 = 0.9, beta2 = 0.999, epochs = 500)
 @
 \item Print the function once in your report. \textbf{Demonstration (1p, included in 5a).} Use the input settings and actual results from the three runs in 5c to demonstrate your implementation, with a brief explanation. No extra runs are required.
