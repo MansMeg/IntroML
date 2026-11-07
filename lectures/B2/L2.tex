@@ -143,7 +143,7 @@ where $M$ is the total number of regions and $I(x \in R_m)$ is an indicator vari
 \end{figure}
 
 \begin{itemize}
-\item The \texttt{Hitters dataset}: log Salaries of Baseball players.
+\item The textbook tree predicts log salary. Assignment 2 uses \texttt{Salary} directly, so its leaf values are on a different scale.
 \item Each leaf displays its predicted log salary: the mean log salary of the training observations in that leaf.
 \end{itemize}
 }
@@ -151,17 +151,22 @@ where $M$ is the total number of regions and $I(x \in R_m)$ is an indicator vari
 
 
 \begin{frame}{Pair discussion: read the Hitters tree}
+\setlength{\parskip}{1mm}
 A baseball player has six years in the league and 100 hits.
-\begin{center}
-\includegraphics[width=0.52\textwidth,height=0.40\textheight,keepaspectratio]{fig/ISL_8_1_tree.png}
+{\centering
+\includegraphics[width=0.52\textwidth,height=0.31\textheight,keepaspectratio]{fig/ISL_8_1_tree.png}
 
-{\scriptsize James et al. (2013), Fig. 8.1. Take the left branch when the condition is true.}
-\end{center}
+{\scriptsize James et al. (2013), Fig. 8.1. Go left if the condition is true.}
+\par}
 \uured{Pairs, 1--2 minutes:}
 \begin{enumerate}
 \item Which branches does the player follow? What is the prediction?
 \item What does the number in that leaf represent?
 \end{enumerate}
+\pause
+\begin{block}{Answer}
+\small Right at \texttt{Years}, then left at \texttt{Hits}: $6.00$, the mean log salary of the training players in that leaf.
+\end{block}
 \end{frame}
 
 \frame{\frametitle{Regression Trees}
@@ -192,24 +197,23 @@ where $N_m$ is the number of observations in region $R_m$.\pause
 
 
 
-\frame{\frametitle{How to do a split?}
-
-Here we try to compute Eq. (9.12-9.14) in ESL:
-
+\begin{frame}{How to do a split?}
+Let $S$ be the set of training row indices in the current node. For predictor $j$ and threshold $s$, form
 \[
-R_1(j,s) = \{X|X_j\leq s \}\text{ and } R_2(j,s) = \{X|X_j > s \}
+R_1(j,s)=\{i\in S:x_{ij}\leq s\},\qquad
+R_2(j,s)=\{i\in S:x_{ij}>s\}.
 \]
-
+A valid split has $|R_1|\geq l$ and $|R_2|\geq l$.
+For each valid split, predict the child means
+$\hat c_m=|R_m|^{-1}\sum_{i\in R_m}y_i$.
 \[
-\min_{j,s} \left(\min_{c_1} \sum_{x_i \in R_1(j,s)} (y_i - c_1)^2 + \min_{c_2} \sum_{x_i \in R_2(j,s)} (y_i - c_2)^2\right)
+\text{Choose } (j,s) \text{ to minimise }\quad
+\sum_{i\in R_1}(y_i-\hat c_1)^2+\sum_{i\in R_2}(y_i-\hat c_2)^2.
 \]
+Assignment 2 tests observed values. A midpoint between consecutive values yields the same training split as the lower value, but can route new values differently.
 
-Inner minimization is solved by:
-\[
-\hat{c}_m = \frac{1}{N_m} \sum_{x_i \in R_m}^{N_m} y_i\,,
-\]
-
-}
+{\small Adapted from ESL, Eqs.\ (9.12--9.14), with the minimum child size used in Assignment 2.}
+\end{frame}
 
 \begin{frame}{Worked example: scoring a split}
 \small
@@ -244,6 +248,7 @@ Skip any split with fewer than two rows in either child. Choose $s=3$: its total
 \end{frame}
 
 \begin{frame}{Pair discussion: score a candidate split}
+\small
 Consider this node with one predictor:
 \[
 \begin{array}{c|rrrr}
@@ -336,25 +341,17 @@ It is zero for a pure node and largest when the proportions are equal.
 
 %\subsection{CART}
 
-\frame{\frametitle{CART}
-
+\begin{frame}{CART}
+CART stands for Classification and Regression Trees.
 \begin{itemize}
-\item The algorithm is a simplified "teaching" version of the Classification and Regression Trees algorithm \pause
-\item CART:
-
-\begin{itemize}
-\item Uses the same greedy splitting idea.\pause
-\item Splits are chosen using impurity/loss reduction (e.g., Gini, entropy, SSE).\pause
-\item Tree growth is usually depth-first.\pause
-\item Output is a recursive binary tree object rather than the 'j, s, y' lists.\pause
-\item CART includes \uured{cost-complexity pruning}
+\item Grow a binary tree by greedily choosing splits: reduce SSE for regression or impurity for classification.
+\pause
+\item Use stopping rules to limit growth, for example by requiring a minimum child size.
+\pause
+\item In the grow-then-prune approach, start with a large tree and use \uured{cost-complexity pruning} to select a smaller subtree.
 \end{itemize}
-
-\end{itemize}
-
-
-}
-
+Assignment 2 implements greedy splitting and a minimum child size; it does not require post-pruning.
+\end{frame}
 
 \begin{frame}{Controlling tree size: regularisation}
 \begin{itemize}
@@ -438,7 +435,7 @@ Simulated example (Prize academy, see ESL):
 
 'Individual' = a single weak learner/member
 
-'Consensus' = the aggregated majority vote of many learners/members
+'Consensus' = the nominee with the most votes
 
 }
 
@@ -577,6 +574,11 @@ One predictor is so strong that almost every tree uses it at the root.
 \item Why might averaging many more trees help less than you expect?
 \item What might happen if that predictor is sometimes unavailable when choosing a split? Think about both the individual trees and the ensemble.
 \end{enumerate}
+\pause
+\begin{block}{Answer}
+Trees that make similar errors leave less room for averaging to help.
+Sampling predictors can make trees more diverse, so their errors may cancel more. It can also weaken individual splits by hiding a strong predictor.
+\end{block}
 \end{frame}
 
 \subsection{Random forests}
@@ -706,6 +708,21 @@ f_b(x)=f_{b-1}(x)+\nu T_b(x),\qquad 0<\nu\leq1.
 Fitting to residuals targets the stagewise loss
 $\sum_{i=1}^N L\big(y_i,f_{b-1}(x_i)+T_b(x_i)\big)$
 before applying the learning rate $\nu$.
+\end{frame}
+
+\begin{frame}{Pair discussion: take one boosting step}
+Two observations have outcomes $8$ and $3$. The current model predicts $5$ for both. Use squared loss.
+
+\uured{Pairs, 1--2 minutes:}
+\begin{enumerate}
+\item What residual targets should the next tree fit?
+\item If the tree predicts those targets exactly and the learning rate is $0.5$, what are the updated predictions?
+\end{enumerate}
+\pause
+\begin{block}{Answer}
+The residual targets are $8-5=3$ and $3-5=-2$.
+Add half of each correction: $5+0.5(3)=6.5$ and $5+0.5(-2)=4$.
+\end{block}
 \end{frame}
 
 \begin{frame}{Gradient Boosting Trees: general loss}
