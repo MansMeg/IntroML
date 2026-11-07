@@ -702,27 +702,24 @@ Tree boosting can instead optimise a separate update in each leaf.
 }
 
 
-\frame{\frametitle{XGBoost}
-
+\begin{frame}{XGBoost}
+XGBoost implements gradient tree boosting with a penalty for each tree:
+\[
+\sum_{i=1}^N L\bigl(y_i,f_{\mathrm{boost}}(x_i)\bigr)
++ \sum_{b=1}^B \Omega(T_b).
+\]
+\pause
+For example, use the penalty
+\[
+\Omega(T_b)=\lambda_1 Q_b+\frac{\lambda_2}{2}\|\boldsymbol{\gamma}_b\|_2^2,
+\qquad \lambda_1,\lambda_2\geq 0.
+\]
+Here $Q_b$ is the number of leaves and $\boldsymbol{\gamma}_b$ is the vector of leaf scores in tree $b$.
 \begin{itemize}
-
-\item State of the Art method\pause
-\item Use gradient boosting trees with regularization
-\[
-L(y, f_\text{boost}(x)) + \sum_b \Omega(\hat{T} (x_i | \Theta_b))
-\]
-\pause
-where
-\[
-\Omega(\hat{T} (x_i | \Theta_b)) = \lambda_1 Q_b + \lambda_2 ||\gamma_b||_2^2
-\]
-where $Q_b$ is the number of leafs in tree $b$ and $||\cdot||_2$ is the Euclidian/$L^2$ norm.
-\pause
-\item Is scalable to very large data
+\item The first term penalises extra leaves.
+\item The second shrinks large leaf scores, as in ridge regularisation.
 \end{itemize}
-
-}
-
-
+{\small Chen and Guestrin (2016), Section 2.1.}
+\end{frame}
 
 \end{document}
