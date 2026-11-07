@@ -610,34 +610,26 @@ With $m=p$, this reduces to bagging under the same tree-growing rules.
 }
 
 
-\frame{\frametitle{Boosting (AdaBoost)}
-
+\begin{frame}{Boosting (binary AdaBoost)}
+\small
+Use labels and base predictions $y_i,h_b(x_i)\in\{-1,+1\}$.
+Start with score $F_0(x)=0$ and weights $w_i=1/N$.
 \begin{enumerate}
-\item Initialize weight for all observations as $w_i = n^{-1}$
-\item Repeat $B$ times
-\begin{enumerate}
-\item Fit a simple classifier $h_b(x)$ using $w_i$s
-\item Compute the weighted error (between 0-1) as
+\item At round $b$, fit $h_b$ using the weights and compute its weighted error:
 \[
-e_b = \frac{\sum w_i I(y_i \neq h_b(x_i))}{\sum w_i}
+e_b=\frac{\sum_i w_i I(y_i\ne h_b(x_i))}{\sum_i w_i}.
 \]
-\item Compute the importance of the classifier as
-\[
-\alpha_b = \log((1-e_b)/e_b) = \text{logit}(1-e_b)
-\]
-\item Add the classifier to the ensemble
-\[
-\hat{f}_b(x) = \hat{f}_{b-1}(x) + \alpha_b h_b(x)
-\]
-\item Update weights so that badly classified observations is weighted more
-\[
-w_i \leftarrow w_i \exp (\alpha_b I(y_i \neq h_b(x_i)) )
-\]
+\item If $e_b=0$, stop and use the perfect training learner (the infinite-weight limit).
+If $e_b\geq 1/2$, discard the learner and stop.
+\item Otherwise, add the learner and upweight misclassified observations:
+\begin{align*}
+\alpha_b &= \log\frac{1-e_b}{e_b},\\
+F_b(x) &= F_{b-1}(x)+\alpha_b h_b(x),\\
+w_i &\leftarrow w_i\exp\!\big(\alpha_b I(y_i\ne h_b(x_i))\big).
+\end{align*}
+\item Predict the sign of the final score; break zero-score ties in favour of $+1$.
 \end{enumerate}
-\item Output the final ensemble $\hat{f}_B(x)$
-\end{enumerate}
-
-}
+\end{frame}
 
 \frame{\frametitle{Boosting example}
 
@@ -650,51 +642,40 @@ w_i \leftarrow w_i \exp (\alpha_b I(y_i \neq h_b(x_i)) )
 }
 
 
-\frame{\frametitle{Boosting trees}
-
-\begin{itemize}
-\item A more general approach is \uured{(gradient) boosting trees}
-\pause
-\item Let
-\[
-f_\text{gb}(x) = \sum^B_b \hat{T} (x | \Theta_b)
-\]
-\pause
-\item We want to minimize the loss
-\[
-L(y, f_\text{gb}(x))
-\]
-\pause
-\item This means finding
-\[
-\Theta_b = \arg \min \sum^N_i L(y_i, f_{b-1}(x_i) + \hat{T} (x | \Theta_b))
-\]
-\end{itemize}
-
-}
-
-
-\frame{\frametitle{Gradient Boosting Trees}
-
+\begin{frame}{Boosting trees: start with squared loss}
+For $L(y,f)=\tfrac12(y-f)^2$, start at the mean response $f_0(x)=\bar y$.
+At round $b$:
 \begin{enumerate}
-\item Initialize $f_{0}(x)$
-\item Repeat $B$ times
-\begin{enumerate}
-\item For $i=1,2,...,N$ compute
+\item Compute residuals $r_{ib}=y_i-f_{b-1}(x_i)$.
+\item Fit a shallow regression tree $T_b$ to $(x_i,r_{ib})$.
+\item Add a fraction of its prediction:
 \[
-r_{ib} = - \frac{\partial L(y_i,f(x_i))}{\partial f(x_i)}
-\]
-\\(its the residuls using a squared loss function)
-\item Compute a regression tree $\hat{T} (x | \Theta_b)$ on $r_{bi}$s
-\item Add the classifier to the ensemble
-\[
-\hat{f}_b(x) = \hat{f}_{b-1}(x) + \hat{T} (x | \Theta_b)
+f_b(x)=f_{b-1}(x)+\nu T_b(x),\qquad 0<\nu\leq1.
 \]
 \end{enumerate}
-\item Output the final ensemble $\hat{f}_B(x)$
-\end{enumerate}
+\pause
+Fitting to residuals targets the stagewise loss
+$\sum_{i=1}^N L\big(y_i,f_{b-1}(x_i)+T_b(x_i)\big)$
+before applying the learning rate $\nu$.
+\end{frame}
 
-}
+\begin{frame}{Gradient Boosting Trees: general loss}
+Start with the constant minimising the training loss. At each round:
+\begin{enumerate}
+\item Compute pseudo-responses from the negative loss gradient:
+\[
+r_{ib}=-\left.\frac{\partial L(y_i,z)}{\partial z}\right|_{z=f_{b-1}(x_i)}.
+\]
+For half squared error these are the ordinary residuals.
+\item Fit a regression tree $T_b$ to $(x_i,r_{ib})$.
+\item Choose a step for the original loss, for example by minimising
+\[
+\sum_{i=1}^N L\big(y_i,f_{b-1}(x_i)+aT_b(x_i)\big)
+\]
+over $a$. Then set $f_b(x)=f_{b-1}(x)+\nu aT_b(x)$.
+Tree boosting can instead optimise a separate update in each leaf.
+\end{enumerate}
+\end{frame}
 
 \frame{\frametitle{Comparisons}
 
