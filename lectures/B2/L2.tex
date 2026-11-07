@@ -525,9 +525,9 @@ error = bias^2 + variance + bayes error.
 \begin{itemize}
 \item A bagging ensemble method, but...
 \pause
-\item Sample of $N$ observations and $K$ covariates/features
+\item Each split considers $m$ of the $p$ available predictors.
 \pause
-\item It is common to use $k=\sqrt{K}$ (rounded down) for classification and $k=K/3$ for regression. But these are only rules of thumb: $k$ is a \textit{tuning parameter}.
+\item Common starting values are $m=\lfloor\sqrt{p}\rfloor$ for classification and $m=\max(1,\lfloor p/3\rfloor)$ for regression. Treat $m$ as a tuning parameter.
 \end{itemize}
 }
 
@@ -536,16 +536,16 @@ error = bias^2 + variance + bayes error.
 \frame{\frametitle{Random Forest: Algorithm}
 
 \begin{enumerate}
-\item Draw, \textit{with replacement}, a random sample of $N$ units from the original sample
-\item \textbf{Draw,  \textit{without replacement}, a random subset of $k$ covariates/features}
-\item Fit a prediction model (e.g., a decision tree)
-\item Repeat step 1-3 $B$ times
-\item Weight together the predictions from the B models into a final ensemble prediction
+\item For each of $B$ trees, draw $N$ training observations with replacement.
+\item Grow the tree on that bootstrap sample. At \textbf{each node, including the root}, draw a fresh subset of $m$ predictors without replacement.
+\item Search for the best valid split among those predictors. If there is no valid split, make a leaf.
+\item For regression, average the $B$ tree predictions:
 \[
-\hat{f}_\text{rf}(x_i) = \frac{1}{B}\sum_b \hat{T} (x_i | \Theta_b)
+\hat{f}_\text{rf}(x) = \frac{1}{B}\sum_{b=1}^B \hat{T}(x \mid \Theta_b).
 \]
 \end{enumerate}
 
+With $m=p$, this reduces to bagging under the same tree-growing rules.
 
 }
 
