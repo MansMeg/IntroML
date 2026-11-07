@@ -178,38 +178,6 @@ where $N_m$ is the number of observations in region $R_m$.\pause
 
 
 
-\frame{\frametitle{Growing a Decision Tree: Greedy Algorithm}
-\small
-\setlength{\parskip}{1.5mm}
-
-Input: $\mathbf{X}$ with $N$ rows, $\mathbf{y}$, and $l$. Each child must contain at least $l$ observations.
-Let \texttt{S[[m]]} store original data row indices for node $m$.
-
-\begin{enumerate}
-\item Initialise \texttt{S[[1]] = 1:N}, \texttt{M = 1}, \texttt{m = 1}.
-\item While \texttt{m <= M}:
-\begin{enumerate}
-\item Set \texttt{r = S[[m]]} and call\\
-\texttt{split = tree\_split(}\\
-\quad\texttt{X[r, , drop = FALSE], y[r], l)}.
-\item If \texttt{split} is not \texttt{NULL}:
-\begin{itemize}
-\item Store \texttt{split\$j} and \texttt{split\$s} at node $m$.
-\item Set \texttt{S[[M+1]] = r[split\$R1]} and\\
-\texttt{S[[M+2]] = r[split\$R2]}; link these children to node $m$.
-\item Set \texttt{M = M + 2}.
-\end{itemize}
-\item Otherwise, create a leaf with $\hat{\gamma}_m = \operatorname{mean}(\mathbf{y}[r])$.
-This also handles an unsplittable root.
-\item Always set \texttt{m = m + 1}, including after creating a leaf.
-\end{enumerate}
-\end{enumerate}
-
-Output: split variables, thresholds, child links, and leaf predictions.
-Having $2l$ observations is not sufficient: constant or repeated predictor values can prevent a valid split.
-
-}
-
 \frame{\frametitle{How to do a split?}
 
 Here we try to compute Eq. (9.12-9.14) in ESL:
@@ -287,6 +255,38 @@ SS_{k,j} = \sum_{i \in R_1}(y_i-\hat{c}_1)^2
 
 }
 
+
+\frame{\frametitle{Growing a Decision Tree: Greedy Algorithm}
+\small
+\setlength{\parskip}{1.5mm}
+
+Input: $\mathbf{X}$ with $N$ rows, $\mathbf{y}$, and $l$. Each child must contain at least $l$ observations.
+Let \texttt{S[[m]]} store original data row indices for node $m$.
+
+\begin{enumerate}
+\item Initialise \texttt{S[[1]] = 1:N}, \texttt{M = 1}, \texttt{m = 1}.
+\item While \texttt{m <= M}:
+\begin{enumerate}
+\item Set \texttt{r = S[[m]]} and call\\
+\texttt{split = tree\_split(}\\
+\quad\texttt{X[r, , drop = FALSE], y[r], l)}.
+\item If \texttt{split} is not \texttt{NULL}:
+\begin{itemize}
+\item Store \texttt{split\$j} and \texttt{split\$s} at node $m$.
+\item Set \texttt{S[[M+1]] = r[split\$R1]} and\\
+\texttt{S[[M+2]] = r[split\$R2]}; link these children to node $m$.
+\item Set \texttt{M = M + 2}.
+\end{itemize}
+\item Otherwise, create a leaf with $\hat{\gamma}_m = \operatorname{mean}(\mathbf{y}[r])$.
+This also handles an unsplittable root.
+\item Always set \texttt{m = m + 1}, including after creating a leaf.
+\end{enumerate}
+\end{enumerate}
+
+Output: split variables, thresholds, child links, and leaf predictions.
+Having $2l$ observations is not sufficient: constant or repeated predictor values can prevent a valid split.
+
+}
 
 \begin{frame}{Decision trees: Classification Trees}
 \begin{itemize}
