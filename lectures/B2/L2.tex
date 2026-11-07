@@ -229,6 +229,38 @@ Inner minimization is solved by:
 
 }
 
+\begin{frame}{Worked example: scoring a split}
+\small
+One predictor, six observations in the current node, and minimum child size $l=2$:
+\[
+\begin{array}{c|rrrrrr}
+x_i & 1 & 2 & 3 & 4 & 5 & 6\\
+y_i & 1 & 3 & 2 & 7 & 9 & 8
+\end{array}
+\]
+For $x\leq 3$ versus $x>3$, the child means are $2$ and $8$.
+\[
+\begin{aligned}
+\text{Left SSE}  &= (1-2)^2+(3-2)^2+(2-2)^2=2,\\
+\text{Right SSE} &= (7-8)^2+(9-8)^2+(8-8)^2=2.
+\end{aligned}
+\]
+\pause
+\begin{center}
+\begin{tabular}{c|c|l}
+Threshold $s$ & Child sizes & Total child SSE\\ \hline
+$1$ & $(1,5)$ & Invalid\\
+$2$ & $(2,4)$ & $31$\\
+$3$ & $(3,3)$ & $4$\\
+$4$ & $(4,2)$ & $21.25$
+\\
+$5$ & $(5,1)$ & Invalid\\
+$6$ & $(6,0)$ & Invalid
+\end{tabular}
+\end{center}
+Skip any split with fewer than two rows in either child. Choose $s=3$: its total SSE of $2+2=4$ is the lowest among valid splits.
+\end{frame}
+
 \frame{\frametitle{How to do a split? Pseudo-code}
 \small
 \setlength{\parskip}{1.5mm}
