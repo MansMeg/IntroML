@@ -256,27 +256,25 @@ SS_{k,j} = \sum_{i \in R_1}(y_i-\hat{c}_1)^2
 }
 
 
-\frame{\frametitle{Decision trees: Classification Trees}
-
+\begin{frame}{Decision trees: Classification Trees}
 \begin{itemize}
 \item \uured{How do we do if we have a classification tree?}\pause
-\item We just change the loss function $L(\theta)$.\pause
-\item Let $p(j|t)$ be the fraction of observations in class $j$ at the node $t$ and let $J$ be the number of classes.\pause
-\item The {\color{uured}Gini} for node $t$ is defined as
+\item Let $p(j\mid t)$ be the training proportion of class $j$ in node $t$.
+\item \uured{Gini impurity} for $J$ classes is
 \[
-Gini(t)=1-\sum_{j=1}^J p(j|t)^2
-\]\pause
-\item Gini is a measure of ''impurity''. If all observations belong to the same class, then
+G(t)=1-\sum_{j=1}^J p(j\mid t)^2.
+\]
+It is zero for a pure node and largest when the proportions are equal.
+\pause
+\item Choose the valid split that minimises the size-weighted child impurity:
 \[
-Gini(t)=1-1^2-0-\ldots-0=0.
-\]\pause
-\item The Gini is maximized when all classes have the same number of observations at $t$.\\[2mm]\pause
-\item One criterion for splitting could be to minimize the Gini in the next level of the tree. That way we will get ''purer'' nodes.
+\frac{n_L}{n}G(t_L)+\frac{n_R}{n}G(t_R),
+\qquad n=n_L+n_R.
+\]
+\pause
+\item At a leaf, report the class proportions or predict the most frequent class.
 \end{itemize}
-
-
-}
-
+\end{frame}
 
 %\subsection{CART}
 
