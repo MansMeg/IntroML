@@ -315,6 +315,21 @@ It is zero for a pure node and largest when the proportions are equal.
 }
 
 
+\begin{frame}{Controlling tree size: regularisation}
+\begin{itemize}
+\item \uured{Depth}: the maximum number of splits on a path from the root to a leaf.
+\item \uured{Leaf size}: the number of training observations in a leaf.
+\end{itemize}
+Deep trees with small leaves can fit noise and vary substantially across training datasets.
+\pause
+\begin{itemize}
+\item \uured{Stop during growth}: limit depth or require a minimum child size. In Assignment 2, a split is allowed only if both children contain at least $l$ observations.
+\item \uured{Prune after growth}: grow a large tree, then remove branches. CART's cost-complexity penalty charges for each leaf.
+\end{itemize}
+\pause
+As in L1b, use validation performance to choose how much complexity to allow.
+\end{frame}
+
 \begin{frame}{Cost-Complexity Pruning}
 
 \textbf{Goal:} Reduce overfitting by shrinking a large tree into a simpler subtree.
@@ -357,28 +372,11 @@ $\alpha \ge 0$ controls the penalty:
     \[
         T_0 \supset T_1 \supset T_2 \supset \cdots \supset T_K
     \]
-    \item Use cross-validation to choose $\alpha$, then take its subtree from the full training tree.
+    \item Grow and prune on each CV training fold; compare $\alpha$ values on the held-out folds. Use the selected $\alpha$ to prune the tree grown on all training data.
 \end{enumerate}
 
 \end{frame}
 
-
-\frame{\frametitle{Important concepts in trees}
-\begin{itemize}
-\item {\color{uured}Tree depth:} the length of the longest path from the root to a leaf (i.e. greatest number of questions that the tree can ask).\\[2mm]\pause
-\item {\color{uured}Leaf size:} the number of observations in a leaf.\\[2mm]\pause
-\end{itemize}
-Decision trees can become quite large, which may lead to:
-\begin{itemize}
-\item Overfitting (high variance)
-\item Difficulties interpreting the tree\\[2mm]\pause
-\end{itemize}
-Two ways to control tree size:
-\begin{itemize}
-\item {\color{uured}Stopping rules (pre-pruning):} limit growth using a maximum depth or minimum leaf size.\pause
-\item {\color{uured}Post-pruning:} grow a large tree, then remove branches, e.g. cost-complexity pruning.
-\end{itemize}
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -499,7 +497,7 @@ Both methods can affect bias and variance.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.9\textwidth]{fig/bagging_esl_8_9}
+\includegraphics[width=0.9\textwidth,height=0.57\textheight,keepaspectratio]{fig/bagging_esl_8_9}
 \caption{Bagging trees, Fig. 8.9 (ESL)}
 \end{figure}
 
@@ -634,7 +632,7 @@ w_i &\leftarrow w_i\exp\!\big(\alpha_b I(y_i\ne h_b(x_i))\big).
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.9\textwidth]{fig/esl_10_2_adaboost}
+\includegraphics[width=0.9\textwidth,height=0.65\textheight,keepaspectratio]{fig/esl_10_2_adaboost}
 \caption{Boosting example (using stumps as $h_b$), Fig. 10.2 (ESL)}
 \end{figure}
 
@@ -676,12 +674,22 @@ Tree boosting can instead optimise a separate update in each leaf.
 \end{enumerate}
 \end{frame}
 
+\begin{frame}{Bagging, random forests, and boosting}
+\begin{description}
+\item[\uured{Bagging}] Fit each tree separately on a bootstrap sample of rows. All predictors are eligible at each split. Average the tree predictions for regression.
+\pause
+\item[\uured{Random forests}] Fit trees on bootstrap samples too, but draw a fresh subset of candidate predictors at each node. Average the tree predictions for regression.
+\pause
+\item[\uured{Boosting}] Fit trees sequentially. Each tree targets what the current ensemble gets wrong, and its prediction is added as a correction.
+\end{description}
+\end{frame}
+
 \frame{\frametitle{Comparisons}
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.9\textwidth]{fig/esl_15_1_compare}
-\caption{Comparing bagging, random forests and boosting, Fig. 15.1 (ESL)}
+\includegraphics[width=0.9\textwidth,height=0.63\textheight,keepaspectratio]{fig/esl_15_1_compare}
+\caption{Test error on one spam dataset (ESL, Fig. 15.1). The ranking can differ on other datasets.}
 \end{figure}
 
 }
