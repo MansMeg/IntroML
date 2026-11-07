@@ -83,7 +83,9 @@
 }
 
 \frame{\frametitle{Decision trees: basic idea}
-{\small
+New observation: a \uured{Komodo dragon}. What class does the tree predict?
+
+{\small\setlength{\tabcolsep}{4.5pt}
 \begin{table}[ht]
 \begin{tabular}{l| l|l|l|l}
 {\bf Name} & {\bf Body temp}& {\bf Live birth}& {\bf Legs}& {\bf Class} \\
@@ -93,7 +95,6 @@ Whale & warm-blooded & yes & no & mammal\\
 Cat & warm-blooded & yes & yes & mammal\\
 Cow & warm-blooded & yes & yes & mammal\\\hline
 Python & cold-blooded & no & no & reptile\\
-Komodo dragon & cold-blooded & no & yes & reptile\\
 Turtle & cold-blooded & no & yes & reptile\\\hline
 Salmon & cold-blooded & no & no & fish\\
 Eel & cold-blooded & no & no & fish\\\hline
@@ -101,14 +102,13 @@ Pigeon & warm-blooded & no & yes & bird\\
 Penguin & warm-blooded & no & yes & bird
 \end{tabular}
 \end{table}}
-%\pause
-
 \begin{enumerate}
 \item Does it give live birth? \pause (\uured{No!})
 \item Is it warm-blooded? \pause (\uured{No!})
-\item Does it have legs? \pause (\uured{Yes!}) $\rightarrow$ \uured{Reptile}
+\item Does it have legs? \pause (\uured{Yes!})
 \end{enumerate}
-\uured{Komodo dragon}!
+\pause
+\uured{Predicted class: reptile.}
 }
 
 
