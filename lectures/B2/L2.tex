@@ -150,6 +150,20 @@ where $M$ is the total number of regions and $I(x \in R_m)$ is an indicator vari
 
 
 
+\begin{frame}{Pair discussion: read the Hitters tree}
+A baseball player has six years in the league and 100 hits.
+\begin{center}
+\includegraphics[width=0.52\textwidth,height=0.40\textheight,keepaspectratio]{fig/ISL_8_1_tree.png}
+
+{\scriptsize James et al. (2013), Fig. 8.1. Take the left branch when the condition is true.}
+\end{center}
+\uured{Pairs, 1--2 minutes:}
+\begin{enumerate}
+\item Which branches does the player follow? What is the prediction?
+\item What does the number in that leaf represent?
+\end{enumerate}
+\end{frame}
+
 \frame{\frametitle{Regression Trees}
 
 \begin{figure}[h]
@@ -227,6 +241,33 @@ $6$ & $(6,0)$ & Invalid
 \end{tabular}
 \end{center}
 Skip any split with fewer than two rows in either child. Choose $s=3$: its total SSE of $2+2=4$ is the lowest among valid splits.
+\end{frame}
+
+\begin{frame}{Pair discussion: score a candidate split}
+Consider this node with one predictor:
+\[
+\begin{array}{c|rrrr}
+x_i & 1 & 2 & 3 & 4\\
+y_i & 2 & 4 & 8 & 9
+\end{array}
+\]
+Compare $s=1.5$ and $s=2.5$. Send $x_i\leq s$ left and $x_i>s$ right.
+Predict each child's mean and add the squared errors from both children.
+
+\uured{Pairs, 1--2 minutes:}
+\begin{enumerate}
+\item Which threshold has lower total child SSE?
+\item Which of these thresholds is valid if each child needs at least two observations?
+\end{enumerate}
+\pause
+\begin{block}{Answer}
+\small
+$s=1.5$: child means $2$ and $7$; SSE $=0+9+1+4=14$. Child sizes $(1,3)$.
+
+$s=2.5$: child means $3$ and $8.5$; SSE $=1+1+0.25+0.25=2.5$. Child sizes $(2,2)$.
+
+Choose $s=2.5$: it has lower SSE and is the only valid split.
+\end{block}
 \end{frame}
 
 \frame{\frametitle{How to do a split? Pseudo-code}
@@ -526,6 +567,17 @@ Both methods can affect bias and variance.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Pair discussion: why randomise the predictors?}
+Suppose you fit many trees to different bootstrap samples.
+One predictor is so strong that almost every tree uses it at the root.
+
+\uured{Pairs, 1--2 minutes:}
+\begin{enumerate}
+\item Why might averaging many more trees help less than you expect?
+\item What might happen if that predictor is sometimes unavailable when choosing a split? Think about both the individual trees and the ensemble.
+\end{enumerate}
+\end{frame}
 
 \subsection{Random forests}
 \frame{\subsectionpage}
