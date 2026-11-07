@@ -139,12 +139,12 @@ where $M$ is the total number of regions and $I(x \in R_m)$ is an indicator vari
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.5\textwidth]{fig/ISL_8_1_tree.png}
-\caption{Regression Tree (Garreth et al, 2013, Fig. 8.1.)}
+\caption{Regression Tree (James et al., 2013, Fig. 8.1)}
 \end{figure}
 
 \begin{itemize}
 \item The \texttt{Hitters dataset}: log Salaries of Baseball players.
-\item The end of the tree contain the observations.
+\item Each leaf displays its predicted log salary: the mean log salary of the training observations in that leaf.
 \end{itemize}
 }
 
@@ -155,7 +155,7 @@ where $M$ is the total number of regions and $I(x \in R_m)$ is an indicator vari
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.8\textwidth]{fig/ISL_8_2_tree.png}
-\caption{\texttt{Hitters} data and regression tree regions (Garreth et al, 2013, Fig. 8.2.)}
+\caption{\texttt{Hitters} data and regression tree regions (James et al., 2013, Fig. 8.2)}
 \end{figure}
 
 }
@@ -412,7 +412,7 @@ y=\alpha_4 + \beta_4X_4 + \epsilon_4
 \end{align*}
 and then use the mean of their predictions
 \begin{equation}
-\hat{y}_{ensemble}=\frac{1}{4}\sum_{i=1}^4 \hat{y}=\frac{1}{4}\sum_{i=1}^4(\hat{\alpha}_i + \hat{\beta}_iX_i)
+\hat{y}_{\mathrm{ensemble}}=\frac{1}{4}\sum_{b=1}^4 \hat{y}_b=\frac{1}{4}\sum_{b=1}^4(\hat{\alpha}_b + \hat{\beta}_bX_b).
 \end{equation}
 
 }
@@ -451,26 +451,23 @@ and then use the mean of their predictions
 
 
 %\section{Bagging and Boosting}
-\frame{\frametitle{Bagging and Boosting}
-
-Remember, the error of a prediction/classification can be decomposed as
-\begin{equation}
-error = bias^2 + variance + bayes error.
-\end{equation}
+\begin{frame}{Bagging and Boosting}
+Recall the decomposition for expected squared prediction error:
+\[
+\text{Expected squared error} = \text{bias}^2+\text{variance}+\text{irreducible error}.
+\]
 \pause
 \begin{itemize}
-\item \uured{Complex models/strong learners} (with many parameters) tend to have small bias and large variance (tend to be overfitted)\pause
-\item \uured{Shallow models/weak learners} (with few parameters) tend to have small variance and large bias
+\item A deep tree can fit complex patterns, but may change substantially when the training data change.
+\item A shallow tree may be more stable, but can miss important patterns.
 \end{itemize}
 \pause
+\uured{Bagging:} Averaging unstable trees often reduces variance.
 
+\uured{Boosting:} Adding corrections from shallow trees can reduce bias.
 
-\uured{Bagging:} Ensemble methods that aim to decrease the variance of complex/strong learners with low bias and large variance\\~\\
-\uured{Boosting:} Ensemble methods that aim to decrease the bias of shallow/weak learners with low variance and large bias
-
-%That is: Either choose models with small bias and reduce the variance with bagging, or choose models with small variance and reduce bias with boosting
-}
-
+Both methods can affect bias and variance.
+\end{frame}
 
 \subsection{Bagging}
 \frame{\subsectionpage}
@@ -547,52 +544,37 @@ With $m=p$, this reduces to bagging under the same tree-growing rules.
 
 }
 
-\frame{\frametitle{Random Forest variance reduction}
-\begin{itemize}
-\item Consider each tree to be an i.i.d. random variable with variance $\sigma^2$.
-\item The average of these trees then have variance
-\begin{align*}
-\V (\hat{f}(x) = \frac{1}{B}\sigma^2.
-\end{align*}
-	\pause
-\item Trees constructed from the same set of covariates will be correlated and therefore \uured{not independent}.
-\item The variance of the average of these correlated trees then becomes
-	\begin{align*}
-	\V (\hat{f}(x)) = \rho\sigma^2+\dfrac{1-\rho}{B}\sigma^2.
-	\end{align*}
-\end{itemize}
-
-}
-
-\frame{\frametitle{Random Forest variance reduction}
-\begin{itemize}
-\item The variance of the average of correlated trees:
-	\begin{align*}
-	\V (\hat{f}(x)) = \rho\sigma^2+\dfrac{1-\rho}{B}\sigma^2.
-	\end{align*}
-	\item The second term will \uured{vanish with increasing $B$} leaving just the first term left: a function of the \uured{correlation between the trees}
-	\pause
-	\item The remaining part of the variance is minimized by only consider a subset of the covariates when constructing trees - \uured{reducing the correlation} between trees.
-\end{itemize}
-
-}
-
-\frame{
-\frametitle{Bagging vs. Random forest}
-\begin{itemize}
-\item In bagging, the trees are often highly correlated
-\begin{itemize}
-\item If some covariates are strong predictors of the outcome (in the training data), many trees in the `bag' will us the same covariates in their decisions
-\end{itemize}
+\begin{frame}{Random forest variance: an illustration}
+At a fixed input $x$, suppose each tree prediction has variance $\sigma^2$
+and each pair has correlation $\rho$, across training datasets and tree draws.
+\[
+\V\bigl(\hat f_{\mathrm{rf}}(x)\bigr)
+=\sigma^2\left[\rho+\frac{1-\rho}{B}\right].
+\]
 \pause
-\item In a random forest, trees can be less correlated because only a random subset of predictors is eligible at each node.
-\pause
-\item Intuition: A random forest (with many trees) uses the predictive ability of all covariates rather than just a few $\rightarrow$ improved out of sample performance.
+\begin{itemize}
+\item If $\rho=0$, averaging $B$ trees reduces the variance to $\sigma^2/B$.
+\item If $\rho>0$, variance approaches $\rho\sigma^2$ as $B$ grows.
 \end{itemize}
-}
+\end{frame}
 
+\begin{frame}{Why can tree predictions be correlated?}
+\begin{itemize}
+\item Given a fixed training dataset, independently randomised trees give independent predictions at a fixed $x$.
+\item Across repeated training datasets, predictions can move together: all trees in a forest are built from the same underlying dataset.
+\end{itemize}
+\end{frame}
 
-
+\begin{frame}{Bagging vs. Random forest}
+\begin{itemize}
+\item When a predictor is particularly strong, many bagged trees may choose it near the root.
+\pause
+\item Sampling candidate predictors at each node can make forest trees less similar and reduce correlation.
+\pause
+\item Smaller $m$ can improve diversity, but may hide useful predictors at a split and make individual trees less accurate.
+\item Choose $m$ based on predictive performance, not correlation alone.
+\end{itemize}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
