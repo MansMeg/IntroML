@@ -137,7 +137,7 @@ For SGD and mini-batch updates, evaluate \texttt{nll\_grad()} on the current obs
 \begin{enumerate}[label=\textbf{\thesubsection\alph*.}, ref=\thesubsection\alph*, leftmargin=*]
 \item (1p) Fit logistic regression using \texttt{glm()} with \texttt{family = "binomial"}, and save the model as \texttt{glm\_fit}. Print the three maximum-likelihood parameter estimates.
 
-\emph{Hint!} The design matrix \texttt{X} already includes an intercept so you need to remove that either from \texttt{X} or from the R formula using \texttt{y \~ -1 + X}.
+\emph{Hint!} The design matrix \texttt{X} already includes an intercept so you need to remove that either from \texttt{X} or from the R formula using \texttt{y $\sim$ -1 + X}.  %\texttt{y \~ -1 + X}.
 \item (6p) \textbf{Implementation (4p).} Implement \texttt{gradient\_descent()} as \emph{one} function. Use the arguments shown in the scaffold below and the gradient of the mean NLL \citep[see][for algorithm descriptions]{ruder2016overview}. The batch size determines the method:
 \begin{itemize}
 \item \texttt{batch\_size = nrow(X)} gives ordinary full/batch gradient descent;
@@ -312,7 +312,7 @@ rmse(pred_y_valfold, y_valfold)
 \emph{Check:} \verb|mark_my_assignment(tasks = "glmnet_cv")|
 
 \item (1p) Now, compute the RMSE for $\lambda=1$ using 10-fold cross-validation.
-\item (2p) Test different values for the hyper parameter $\lambda$. What is the best RMSE you can get with 10-fold cross-validation? What is the $\lambda$ for this value?
+\item (2p) Test different values for the hyperparameter $\lambda$. What is the best RMSE you can get with 10-fold cross-validation? What is the $\lambda$ for this value?
 \item (1p) Refit the model with the selected $\lambda$ on all training observations, then report its RMSE on the test set. Use the test set only for this final evaluation.
 \end{enumerate}
 
@@ -438,7 +438,7 @@ gradient_descent_reg <- function(y, X, batch_size, eta, epochs, lambda){
 \textbf{Demonstration (1p).} Run this function with batch sizes $n$ and 10 for full GD and mini-batch GD, respectively. Reuse these runs in the next task, and include a short extract of the returned matrix with the input settings and a brief explanation in your report.
 
 \emph{Check:} \verb|mark_my_assignment(tasks = "gradient_descent_reg")|
-\item (2p) Try different learning parameters $\eta$ and $\lambda$. When does the algorithm converge or diverge? Visualize the epochs (x-axis) and the penalized loss $\text{NLL}_r$ evaluated on all observations (y-axis). Show at least one plot per algorithm that converges.
+\item (2p) Try different hyperparameters $\eta$ and $\lambda$. When does the algorithm converge or diverge? Visualize the epochs (x-axis) and the penalized loss $\text{NLL}_r$ evaluated on all observations (y-axis). Show at least one plot per algorithm that converges.
 \end{enumerate}
 
 \newpage
@@ -461,9 +461,9 @@ y <- binary$admit
 @
 \begin{enumerate}[label=\textbf{\thesection\alph*.}, ref=\thesection\alph*, leftmargin=*]
 
-\item (3p) \textbf{Implementation (2p).} Implement the Adam mini-batch gradient descent algorithm \citep[see][for details and psuedo-code]{ruder2016overview} and \citep[][ for details]{kingma2014adam} as an R function. Not that in \citet{kingma2014adam}, the stepsize is denoted by $\alpha$.
+\item (3p) \textbf{Implementation (2p).} Implement the Adam mini-batch gradient descent algorithm \citep[see][for details and psuedo-code]{ruder2016overview} and \citep[][ for details]{kingma2014adam} as an R function. Note that in \citet{kingma2014adam}, the stepsize is denoted by $\alpha$.
 
-\emph{Note!} Each epoch should include all data points. A tip is to order the data points randomly in each iteration.
+\emph{Note!} Each epoch should include all data points. A tip is to order the data points randomly in each epoch.
 
 Use the numerical constant $\epsilon=10^{-8}$ in the denominator. Retain the first and second moments across epochs, and advance the bias-correction step once per mini-batch update.
 
@@ -480,7 +480,7 @@ Here $t$ counts mini-batch updates of the whole parameter vector. With 400 obser
 
 A boilerplate for the algorithm can be found here.
 <<echo=TRUE,eval=FALSE>>=
-adam <- function(y, X, sample_size, eta, beta1, beta2, epochs){
+adam <- function(y, X, batch_size, eta, beta1, beta2, epochs){
   # Setup output matrix
   results <- matrix(0.0, ncol = ncol(X) + 2L, nrow = epochs)
   colnames(results) <- c("epoch", "nll", colnames(X))
@@ -510,10 +510,10 @@ mark_my_assignment(tasks = "adam")
 For example, run the baseline as follows:
 <<echo=TRUE,eval=FALSE>>=
 set.seed(4711)
-baseline <- adam(y, X, sample_size = 10, eta = 0.01,
+baseline <- adam(y, X, batch_size = 10, eta = 0.01,
                  beta1 = 0.9, beta2 = 0.999, epochs = 500)
 @
-\item Print the function once in your report. \textbf{Demonstration (1p, included in 4a).} Use the input settings and actual results from the three runs in 4c to demonstrate your implementation, with a brief explanation. No extra runs are required.
+\item Print the function once in your report. \textbf{Demonstration (1p, included in 5a).} Use the input settings and actual results from the three runs in 5c to demonstrate your implementation, with a brief explanation. No extra runs are required.
 \item Run these three settings using fresh calls with batch size 10 and 500 epochs. Set the seed to 4711 before each call.
 \begin{center}
 \begin{tabular}{lccc}
