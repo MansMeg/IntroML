@@ -332,13 +332,17 @@ $\alpha \ge 0$ controls the penalty:
 
 \begin{enumerate}
     \item Grow a large tree $T_0$.
-    \item For each internal node, compute the increase in $R_\alpha(T)$ caused by pruning its children.
-    \item Prune the branch that increases $R_\alpha(T)$ the least.
-    \item Repeat to produce a sequence:
+    \item For each internal node $t$, compare its current subtree $T_t$ with replacing it by a single leaf:
+    \[
+        g(t) = \frac{R(t)-R(T_t)}{|T_t|-1}.
+    \]
+    Here $R(t)$ is the training SSE after replacement. The ratio is the extra SSE per leaf removed.
+    \item At $\alpha=\min_t g(t)$, prune the branches attaining this minimum.
+    \item Recompute the ratios and repeat to get nested subtrees:
     \[
         T_0 \supset T_1 \supset T_2 \supset \cdots \supset T_K
     \]
-    \item Use cross-validation to choose the optimal $\alpha$ and corresponding subtree $T$.
+    \item Use cross-validation to choose $\alpha$, then take its subtree from the full training tree.
 \end{enumerate}
 
 \end{frame}
