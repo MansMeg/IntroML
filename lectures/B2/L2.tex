@@ -587,7 +587,7 @@ With $m=p$, this reduces to bagging under the same tree-growing rules.
 \item If some covariates are strong predictors of the outcome (in the training data), many trees in the `bag' will us the same covariates in their decisions
 \end{itemize}
 \pause
-\item In a random forest, the trees are less similar/correlated since all covariates are not available when each tree is constructed.
+\item In a random forest, trees can be less correlated because only a random subset of predictors is eligible at each node.
 \pause
 \item Intuition: A random forest (with many trees) uses the predictive ability of all covariates rather than just a few $\rightarrow$ improved out of sample performance.
 \end{itemize}
