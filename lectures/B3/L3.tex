@@ -851,20 +851,14 @@ h_1 &= \operatorname{ReLU}(z_1) = \begin{bmatrix}0 & 4\end{bmatrix},\\
 \frame{\frametitle{Problems: Plateaus and Saddle Points}
 % 8.2.3
 \begin{itemize}
-\item In a saddle point the Hessian is \uured{indefinite}, both positive and negative eigenvalues \pause
-\item A local minimum: Hessian is \uured{positive definite}, only positive eigen values \pause
-\item In random functions of \uured{high dimension}: \uured{most points are saddle points}
-\item \uured{Intuition}: In random functions the sign of the eigen values of the Hessian is random \pause
-\item In random functions: eigen values become more positive in regions of lower cost. I.e. local minima more probable in low cost regions. Saddle points more common in high-cost regions\pause
-\item The problem of saddle points:
-\begin{itemize}
-\item Probably a reason why second order methods (using the Hessian) has not succeed
-\item Empirically, (stochastic) gradient descent seem to escape saddle points
-\end{itemize}
+\item At a stationary point, an \uured{indefinite Hessian} implies a saddle: there are directions of positive and negative curvature.\pause
+\item At a twice-differentiable local minimum, the Hessian is \uured{positive semidefinite}. Zero eigenvalues can also occur at saddle points.\pause
+\item In some high-dimensional random landscapes, \uured{most stationary points are saddle points}, especially at higher objective values.\pause
+\item Intuition: with many directions, it can be unlikely that every direction has nonnegative curvature.\pause
+\item Stochastic gradient noise can help the optimizer move away from a saddle.
 \end{itemize}
 
 }
-
 
 \subsection{Cliffs, exploding and vanishing gradients}
 % 8.2.4-8.2.5
