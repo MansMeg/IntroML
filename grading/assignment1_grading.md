@@ -135,7 +135,7 @@ In 3d, is the ten-fold lasso cross-validation implementation included and correc
 
 ### 3d - 1 point
 
-Are the inputs, call and actual lambda = 1 result included and briefly explained as a demonstration of the cross-validation function? Reuse 2e.
+Are the inputs, call and actual lambda = 1 result included and briefly explained as a demonstration of the cross-validation function? Reuse 3e.
 
 - Missing or incorrect (0p)
 - Partly complete or correct (0.5p)
@@ -167,7 +167,7 @@ In 3g, is the selected model refitted on all training data and its test RMSE rep
 
 ## Exercise 4 *
 
-Only relevant for students seeking VG who submitted the ridge option. This section totals 12 points and is assessed separately from Exercise 4.
+Only relevant for students seeking VG who submitted the ridge option. This section totals 12 points.
 
 ### 4a - 2 points
 
@@ -227,7 +227,7 @@ In 4e, is `gradient_descent_reg` included and correct, using the penalised loss/
 
 ### 4e - 1 point
 
-Are full and mini-batch runs demonstrated with input settings, a short actual history extract and a brief explanation? Reuse the runs in 3f.
+Are full and mini-batch runs demonstrated with input settings, a short actual history extract and a brief explanation? Reuse the runs in 4f.
 
 - Missing or incorrect (0p)
 - Partly complete or correct (0.5p)
@@ -243,11 +243,11 @@ In 4f, are learning rates and penalties explored, with a sensible explanation of
 
 ## Exercise 5 *
 
-Only relevant for students seeking VG who submitted the Adam option. This section totals 5 points and is assessed separately from Exercise 3.
+Only relevant for students seeking VG who submitted the Adam option. This section totals 5 points.
 
 ### 5a - 2 points
 
-In 5a, is `adam` included and correct, with complete mini-batch epochs, persistent moments, update-based bias correction, the specified epsilon and required history? Printing the function in 4b is included here.
+In 5a, is `adam` included and correct, with complete mini-batch epochs, persistent moments, update-based bias correction, the specified epsilon and required history? Printing the function in 5b is included here.
 
 - Missing or fundamentally incorrect (0p)
 - Substantially correct, with minor errors (1p)
@@ -255,7 +255,7 @@ In 5a, is `adam` included and correct, with complete mini-batch epochs, persiste
 
 ### 5a - 1 point
 
-Do the reported settings and actual results from the three specified runs demonstrate the student's `adam` implementation, with a brief explanation? Reuse 4c; no extra runs are needed.
+Do the reported settings and actual results from the three specified runs demonstrate the student's `adam` implementation, with a brief explanation? Reuse 5c; no extra runs are needed.
 
 - Missing or incorrect (0p)
 - Partly complete or correct (0.5p)
