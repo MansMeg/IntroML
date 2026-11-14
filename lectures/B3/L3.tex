@@ -914,29 +914,17 @@ h_1 &= \operatorname{ReLU}(z_1) = \begin{bmatrix}0 & 4\end{bmatrix},\\
 \end{itemize}
 }
 
-\frame{\frametitle{Problems: Explodig and vanishing gradients}
-% 8.2.3
+\frame{\frametitle{Problems: Exploding and vanishing gradients}
 \begin{itemize}
-\item In deep neural networks, gradients can \uured{vanish or explode}
-\item As an example: We want to compute the gradient for a situation where the weights are multiplied $t$ times. Then using eigendecomposition
-\[
-W^t = V \text{diag}(\lambda)^t V^T
-\]
-\item The gradient is scaled wrt $\text{diag}(\lambda)^t$\pause
-\item Cliffs is an example of gradient explosion
-\item \uured{Mitigation for graident explosion:} Gradient clipping\pause
-\item Common problem in \uured{Recurrent neural networks}
+\item Backpropagation multiplies derivatives across layers, or across time steps in a recurrent network.
+\item In a scalar example, if every step has derivative $a$, the gradient is multiplied by $a^t$ after $t$ steps.\pause
+\item If $|a|<1$, the gradient vanishes as $t$ grows. If $|a|>1$, it can explode.\pause
+\item With vector-valued layers, the corresponding factors are Jacobian matrices.\pause
+\item \uured{Gradient clipping} limits large gradients. Vanishing gradients require other remedies.
 \end{itemize}
 }
 
-%\subsection{Inexact and difficult gradients}
-% 8.2.6
-% TODO
-
-
-
 \subsection{Parameter initialization}
-% 8.4
 
 \frame{\frametitle{Initial values}
 \begin{itemize}
