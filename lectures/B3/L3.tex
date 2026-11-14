@@ -224,7 +224,7 @@ Layers\pause, neurons\pause, input\pause, output\pause, weights\pause, bias\paus
 
 In mathematical notation:
 \[
-y_i = \mathbf{w}^T \underbrace{g(\mathbf{W}^T\mathbf{x}_i + \mathbf{b}_1)}_{\mathbf{h}} + \mathbf{b}_2
+\hat y_i = \underbrace{g(x_i W + b_1)}_{h}\, w + b_2
 \]
 
 }
@@ -233,105 +233,42 @@ y_i = \mathbf{w}^T \underbrace{g(\mathbf{W}^T\mathbf{x}_i + \mathbf{b}_1)}_{\mat
 \frame{\frametitle{The Feed-Forward Network}
 
 \[
-y_i = \mathbf{w}^T g(\mathbf{W}^T\mathbf{x}_i + \mathbf{b}_1) + \mathbf{b}_2
+\hat y_i = g(x_i W + b_1)\,w + b_2
 \]
 \pause
-\begin{equation*}
-W =
-\begin{pmatrix}
-1 & 1 \\
-1 & 1 \\
-\end{pmatrix}
-\,,w =
-\begin{pmatrix}
-1 \\
--2 \\
-\end{pmatrix}\,,
-b_1 =
-\begin{pmatrix}
-1 \\
--1 \\
-\end{pmatrix}\,,
-b_2 =
-\begin{pmatrix}
-0 \\
-\end{pmatrix},
-x_i =
-\begin{pmatrix}
-0 \\
-0 \\
-\end{pmatrix}\,.
-\end{equation*}
-
-\pause
-
-\begin{equation*}
-g(z) = \text{ReLU}(z) = \max(0,z)
-\end{equation*}
-
-\pause
-
 \begin{align*}
-y_i &=
-\begin{pmatrix}
-1 \\
--2
-\end{pmatrix}^T
-\operatorname{ReLU}\left(
-\begin{pmatrix}
-0 \\
-0
-\end{pmatrix}
-+
-\begin{pmatrix}
-1 \\
--1
-\end{pmatrix}
-\right)
-+
-\begin{pmatrix}
-0
-\end{pmatrix}
-\\
-%\pause
-&=
-\begin{pmatrix}
-1 \\
--2
-\end{pmatrix}^T
-\begin{pmatrix}
-1 \\
-0
-\end{pmatrix}
-+
-\begin{pmatrix}
-0
-\end{pmatrix}
-= 1
+W &= \begin{pmatrix}1 & 1 \\ 1 & 1\end{pmatrix},
+& w &= \begin{pmatrix}1 \\ -2\end{pmatrix},\\
+x_i &= \begin{pmatrix}0 & 0\end{pmatrix},
+& b_1 &= \begin{pmatrix}1 & -1\end{pmatrix},
+& b_2 &= 0.
 \end{align*}
-
+\pause
+Apply $g(z)=\operatorname{ReLU}(z)=\max(0,z)$ elementwise.
+\pause
+\[
+h=\operatorname{ReLU}\!\begin{pmatrix}1 & -1\end{pmatrix}
+ =\begin{pmatrix}1 & 0\end{pmatrix},
+\qquad \hat y_i=hw+b_2=1.
+\]
 
 }
 
-
-
 \frame{\frametitle{The Feed-Forward Network}
 
-A feed-forward network for one observation ($x_i$).
-
-\begin{align*}
-\underbrace{\mathbf{h}_1}_{1 \times k_1} &= g_1(\underbrace{\mathbf{x}^{T}}_{1 \times p}\underbrace{\mathbf{W}_1}_{p \times k_1} + \underbrace{\mathbf{b}_1}_{1 \times k_1}) \\
-& \vdots \\
-\underbrace{\mathbf{h}_l}_{1 \times k_l}  &=  g_l(\underbrace{\mathbf{h}_{l-1}^{T}}_{1 \times k_{l-1}}\underbrace{\mathbf{W}_l}_{k_{l-1} \times k_l} + \underbrace{\mathbf{b}_l}_{1 \times k_l}) \\
-& \vdots \\
-\underbrace{\hat{\mathbf{y}}}_{1 \times m} &= g_{L}(\underbrace{\mathbf{h}^{T}_{{L-1}}}_{1 \times k_{l-1}}\underbrace{\mathbf{W}_{L}}_{k_{l-1} \times m} + \underbrace{\mathbf{b}_{L}}_{1 \times m})
-\end{align*}
-
+For one observation, let $h_0=x_i$ be a row vector. At layer $l$,
 \[
-\hat{y} = f_L(f_{L-1}(...f_1(x)...))
+\underbrace{z_l}_{1 \times k_l}
+= \underbrace{h_{l-1}}_{1 \times k_{l-1}}
+  \underbrace{W_l}_{k_{l-1} \times k_l}
+  + \underbrace{b_l}_{1 \times k_l},
+\qquad h_l = g_l(z_l).
 \]
-
-% TODO Fix mathbf
+Here $k_0=p$ is the number of input features and $k_L=m$ is the number of outputs.
+\[
+\underbrace{\hat y_i}_{1 \times m}
+= h_L = g_L(h_{L-1}W_L+b_L).
+\]
 
 }
 
@@ -344,18 +281,19 @@ A feed-forward network for one observation ($x_i$).
 \item \uured{Depend on the data} $y$\pause
 \item Linear units for regression
 \[
-\hat{y} = \mathbf{w} \mathbf{h} + \mathbf{b}
+\hat{y} = hW_L+b_L
 \]
 \pause
 \item Bernoulli units for binary classification
 \[
-\hat{y} = \sigma(\mathbf{w} \mathbf{h} + \mathbf{b})\,,
+\hat{y} = \sigma(hW_L+b_L)\,,
 \]
 where
 \[
 \sigma(z) = \frac{1}{1+\exp(-z)}\,,
 \]
-i.e. the \uured{logistic} or \uured{sigmoid} function.
+i.e. the \uured{logistic} or \uured{sigmoid} function. The output estimates
+$P(Y=1\mid x)$. Apply a threshold to predict a class.
 \end{itemize}
 
 }
@@ -366,13 +304,14 @@ i.e. the \uured{logistic} or \uured{sigmoid} function.
 \begin{itemize}
 \item Multinoulli units for multi-class classification
 \[
-\hat{\mathbf{y}} = \text{softmax}(\mathbf{w} \mathbf{h} + \mathbf{b})\,,
+\hat{\mathbf{y}} = \text{softmax}(hW_L+b_L)\,,
 \]
 where
 \[
 \text{softmax}(\mathbf{z})_i = \frac{\exp(z_i)}{\sum_j \exp(z_j)}\,.
 \]
 \pause
+\item The outputs estimate class probabilities. Predict the class with the largest probability.
 \item Other situations: Use the \uured{negative log-likelihood}, e.g. Poisson, ordinal logit, survival models
 \end{itemize}
 
