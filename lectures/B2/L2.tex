@@ -139,7 +139,7 @@ For a new input $x$, the indicator $I(x\in R_m)$ is 1 if $x$ belongs to region $
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.5\textwidth]{fig/ISL_8_1_tree.png}
-\caption{Regression Tree (James et al., 2013, Fig. 8.1)}
+\caption{\texttt{Hitters} regression tree. Gareth James et al., \textit{An Introduction to Statistical Learning} (2013), Fig.~8.1.}
 \end{figure}
 
 \begin{itemize}
@@ -765,6 +765,7 @@ Tree boosting can instead optimise a separate update in each leaf.
 
 
 \begin{frame}{XGBoost}
+\setlength{\parskip}{1.5mm}
 XGBoost implements gradient tree boosting with a penalty for each tree:
 \[
 \sum_{i=1}^N L\bigl(y_i,f_{\mathrm{boost}}(x_i)\bigr)
@@ -782,6 +783,8 @@ Here $Q_b$ is the number of leaves and $\boldsymbol{\gamma}_b$ is the vector of 
 \item The second shrinks large leaf scores, as in ridge regularisation.
 \end{itemize}
 {\small Chen and Guestrin (2016), Section 2.1.}
+
+{\small \textbf{Assignment 2:} Compare a single tree, a random forest, and XGBoost on the same held-out rows, using RMSE on the original salary scale. Explain the ranking you observe; it can differ on another dataset.}
 \end{frame}
 
 \end{document}
