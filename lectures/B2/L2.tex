@@ -313,14 +313,50 @@ SS_{k,j} = \sum_{i \in R_1}(y_i-\hat{c}_1)^2
 Each queue entry holds \uured{original data rows} $r$, a \uured{parent tree row}, and the pointer to fill (\texttt{R1\_i} or \texttt{R2\_i}).
 
 \begin{enumerate}
-\item Call \texttt{tree\_split(X, y, l)} at the root. If it returns \texttt{NULL}, return one leaf with prediction $\operatorname{mean}(y)$. Otherwise, write tree row 1 with both pointers set to $-1$, then queue its left and right children.
-\item Repeat steps 2--4 until the queue is empty: remove the first entry and call\\
+\setlength{\itemsep}{0pt}
+\item Split the root. If \texttt{NULL}, return one leaf predicting $\operatorname{mean}(y)$.
+Otherwise, write row 1 with both pointers set to $-1$ and queue the left and right children.
+\item Repeat steps 2--4 until the queue is empty. Take the first entry and call\\
 \texttt{split = tree\_split(X[r, , drop = FALSE], y[r], l)}.
-\item Append a new tree row $k$. Store the split variable and threshold, or, for \texttt{NULL}, store a leaf with prediction $\operatorname{mean}(y[r])$. Set the parent pointer from the queue entry to $k$ in either case.
-\item If the node splits, set its two child pointers to $-1$ (not yet written). Append \texttt{r[split\$R1]} and \texttt{r[split\$R2]} to the back of the queue, with parent $k$ and their respective pointer names.
+\item Append tree row $k$: store the split variable and threshold, or, for \texttt{NULL}, a leaf predicting $\operatorname{mean}(y[r])$. Set the parent pointer to $k$.
+\item If the node splits, initialise its child pointers to $-1$. Queue \texttt{r[split\$R1]} and \texttt{r[split\$R2]} at the back, with parent $k$ and their pointer names.
 \end{enumerate}
 
-\textbf{Example ($l=1$):} For data rows $(4,9,15)$, local split indices $(1,3)$ and $(2)$ map to $(4,15)$ and $(9)$. If this is the root's left child and is written as tree row 2, set \texttt{R1\_i[1] = 2}. The root's pending right child stays ahead of both new entries.
+\textbf{To predict:} Start at tree row 1. Follow \texttt{R1\_i} if $x_j\leq s$, otherwise \texttt{R2\_i}. Return \texttt{gamma} at the leaf.
+\end{frame}
+
+\begin{frame}{Worked example: growing a decision tree}
+\small
+\setlength{\parskip}{1mm}
+
+One predictor and minimum child size $l=2$. The queue holds groups of data rows, oldest first.
+\[
+\begin{array}{c|rrrrrr}
+\text{Data row} & 1 & 2 & 3 & 4 & 5 & 6\\
+x & 3 & 5 & 1 & 4 & 2 & 6\\
+y & 4 & 9 & 1 & 5 & 2 & 10
+\end{array}
+\]
+
+\textbf{Tree row 1.} Split at $x\leq4$. Queue: $[\{1,3,4,5\},\{2,6\}]$.
+
+\pause
+\textbf{Tree row 2.} Take the first group and split at $x\leq2$. Local positions
+$(2,4)$ and $(1,3)$ map back to data rows $\{3,5\}$ and $\{1,4\}$.
+Set \texttt{R1\_i[1] = 2}. Queue: $[\{2,6\},\{3,5\},\{1,4\}]$.
+
+\pause
+\textbf{Tree rows 3--5.} Each pending group is too small to split. Write the leaves in queue order and fill in their parent pointers.
+
+{\centering
+\begin{tabular}{c|c|cc|c}
+Tree row & Split & \texttt{R1\_i} & \texttt{R2\_i} & \texttt{gamma}\\ \hline
+1 & $x\leq4$ & 2 & 3 & --\\
+2 & $x\leq2$ & 4 & 5 & --\\
+3 & -- & -- & -- & 9.5\\
+4 & -- & -- & -- & 1.5\\
+5 & -- & -- & -- & 4.5
+\end{tabular}\par}
 \end{frame}
 
 \begin{frame}{Decision trees: Classification Trees}
@@ -458,7 +494,7 @@ Simulated example (Prize academy, see ESL):
 
 
 \frame{\frametitle{General idea of ensembles}
-The idea of an ensemble is simple: If it difficult to find one really good model perhaps we can find \uured{several weaker models} and \uured{combine their predictions}.\\~\\ \pause
+If it is difficult to find one good model, we can fit \uured{several models} and \uured{combine their predictions}.\\~\\ \pause
 %
 \uured{A simple example}: Say you have one outcome $Y$ and 4 covariates $X_1,X_2,X_3,X_4$. The goal is to predict $Y$. A possible ensemble would be to fit
 \begin{align*}
@@ -497,7 +533,7 @@ and then use the mean of their predictions
 
 
 
-\frame{\frametitle{Ensambles of decision trees}
+\frame{\frametitle{Ensembles of decision trees}
 \begin{itemize}
 \item A common type of ensembles is ensembles of decision trees.
 \item We will focus on this case, \uured{but note that any type of model can be included in an ensemble} in principle.\\~\\
@@ -552,7 +588,7 @@ Both methods can affect bias and variance.
 \item Draw, \textit{with replacement}, a random sample of $N$ units from the original sample
 \item Fit a prediction model (e.g., a \uured{deep} decision tree)
 \item Repeat steps 1-2 $B$ times
-\item Weight together the predictions from the B models into a final ensemble prediction as
+\item For regression, average the predictions from the $B$ models:
 \[
 \hat{f}_\text{bag}(x_i)=\frac{1}{B}\sum_b \hat{f}^b (x_i) = \frac{1}{B}\sum_b \hat{T} (x_i | \Theta_b)
 \]
