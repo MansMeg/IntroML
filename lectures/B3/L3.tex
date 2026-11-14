@@ -929,34 +929,52 @@ h_1 &= \operatorname{ReLU}(z_1) = \begin{bmatrix}0 & 4\end{bmatrix},\\
 
 \frame{\frametitle{Initial values}
 \begin{itemize}
-\item We need to have \uured{starting values} for gradient descent\pause
-\item Initialization can be seen as a hyperparameter\pause
-\item Bad initial values might
-\begin{itemize}
-\item Bad convergence (local optimum)
-\item Numerical problems
-\end{itemize}\pause
-\item We want to \uured{break symmetry} between layers
-\begin{itemize}
-\item Otherwise the same units will be updated in the same way (deterministically)
+\item Gradient descent needs starting values. Initialization can affect how quickly and stably the network trains.\pause
+\item Random weights \uured{break symmetry between units in the same layer}. With identical incoming and outgoing weights and biases, two units can receive identical updates and keep learning the same feature.\pause
+\item Choose the scale of the initial weights based on layer width and activation. Common examples are He initialization for ReLU and Glorot initialization for tanh.\pause
+\item Biases can usually start at zero when the random weights already break symmetry.
 \end{itemize}
-\pause
-\item Good practice
-\begin{itemize}
-\item Initialize values randomly close to zero (uniform or normal)
-\end{itemize}
-\end{itemize}
-
 }
 
-% TODO
-%\frame{\frametitle{Batch normalization}
-%
-%\begin{itemize}
-%\item A way to simplify the optimization
-%\end{itemize}
-% TODO: Fix this part - add information here on batch normalization
-%}
+\subsection{Batch normalisation}
+
+\begin{frame}{Batch normalisation: training}
+Rescale each hidden feature using statistics from the current mini-batch. This can make optimisation more stable.
+
+For one hidden unit, let $z_1,\ldots,z_m$ be its inputs to the batch normalisation layer:
+\[
+\mu_B = \frac{1}{m}\sum_{i=1}^{m} z_i,
+\qquad
+\sigma_B^2 = \frac{1}{m}\sum_{i=1}^{m}(z_i-\mu_B)^2.
+\]
+\[
+\widehat{z}_i = \frac{z_i-\mu_B}{\sqrt{\sigma_B^2+\epsilon}},
+\qquad
+\widetilde{z}_i = \gamma\widehat{z}_i+\beta.
+\]
+\begin{itemize}
+\item $\epsilon>0$ provides numerical stability.
+\item Learn a separate scale $\gamma$ and shift $\beta$ for each unit, together with the network weights.
+\end{itemize}
+{\footnotesize Reading: Bishop and Bishop (2024), Section 7.4.2.}
+\end{frame}
+
+\begin{frame}{Batch normalisation at prediction time}
+\begin{itemize}
+\item During \uured{training}, use the current mini-batch mean and variance. Also maintain moving averages of these statistics.
+\item During \uured{validation and prediction}, use the stored moving averages from training.
+\item Dropout is inactive in these modes. Batch normalisation still transforms activations.
+\item Keras selects the appropriate behaviour in \texttt{fit()}, \texttt{evaluate()} and \texttt{predict()}.
+\end{itemize}
+\begin{block}{In Assignment 3}
+Add \texttt{layer\_batch\_normalization()} after each hidden ReLU layer and before dropout:
+\[
+\text{Dense(ReLU)}\;\longrightarrow\;\text{BatchNorm}\;\longrightarrow\;\text{Dropout}.
+\]
+Compare validation accuracy with and without batch normalisation.
+\end{block}
+{\footnotesize Implementation: \href{https://keras3.posit.co/reference/layer_batch_normalization.html}{Keras 3 batch normalisation documentation}.}
+\end{frame}
 
 \section{Neural Networks in Practice}
 \frame{\sectionpage}
@@ -996,19 +1014,14 @@ h_1 &= \operatorname{ReLU}(z_1) = \begin{bmatrix}0 & 4\end{bmatrix},\\
 
 }
 
-\frame{\frametitle{Keras}
-
+\begin{frame}{Keras and TensorFlow in Assignment 3}
 \begin{itemize}
-\item Syntax for 'building' Neural Networks
-\item Available both in R and Python
-\item TensorFlow or Torch as backend
+\item Use the R package \texttt{keras3} to define and train your model. The assignment uses TensorFlow as the backend. Keras 3 also supports JAX and PyTorch.
+\item For local work, follow the course R setup guide. For Google Colab, use the course R setup notebook and run its training check before starting.
+\item Both setup links are in Assignment 3. Start early so you can use a Zoom session if you need help with setup.
 \end{itemize}
-
-% TODO: Add an image of KERAS here and how to read a model
-
 \centering
 \includegraphics[width=0.2\textwidth]{fig/Keras_logo.png}
-
-}
+\end{frame}
 
 \end{document}
