@@ -91,9 +91,9 @@ image(1:28, 1:28, im, col=gray((0:255)/255), xlab = "", ylab = "",
 
 Call \texttt{set\_random\_seed(123)} before constructing the model. Train with SGD, learning rate 0.05, no momentum, 3 epochs, batch size 128, and 30\% validation data. Keep the epoch count, batch size, and validation split fixed for the next task.
 \begin{enumerate}
-\item How many parameters do your model have in total?
-\item How many parameters does the input layer have?
-\item How many parameters does the output layer have?
+\item How many trainable parameters does your model have in total?
+\item How many trainable parameters are in the first Dense layer? Explain how you counted its weights and biases.
+\item How many trainable parameters are in the output Dense layer?
 \item\label{q:a3:baseline-curves} Report the final epoch's validation accuracy and validation loss. Include the training and validation accuracy and loss curves produced by \texttt{plot(history)}.
 
 \emph{Hint!} With these settings, the final validation accuracy should be roughly 0.84. Small differences between runs and software versions are expected.

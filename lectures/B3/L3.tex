@@ -62,14 +62,6 @@
 \end{frame}
 
 
-\begin{frame}{On this weeks assignment}
-\begin{itemize}
-\item It can be tricky to get Tensorflow and R to work. \uured{Start early and use the zoom sessions}.
-\item Don't run Tensorflow in markdown.
-\end{itemize}
-\end{frame}
-
-
 \section{Introduction}
 \frame{\sectionpage}
 
@@ -89,44 +81,10 @@ nus one and human performance at zero. (Kiela et al., 2021)}
 }
 
 
-\begin{frame}{The Hype: Large Language Models}
-
-\begin{itemize}
-    \item \uured{GPT-3 (2020)}
-    175B parameters; breakthrough in general language capabilities.
-\pause
-    \item \uured{2021–2022: Scaling + Instruction Tuning : ChatGPT}
-    \begin{itemize}
-        \item Models such as GPT-3.5, Gopher, Chinchilla, PaLM.
-        \item Emergence of instruction-following (ChatGPT)
-    \end{itemize}
-    \pause
-
-    \item \uured{2023: GPT-4 Era}
-    \begin{itemize}
-        \item Multimodal models (image+text)
-        \item Open models: LLaMA, Falcon
-        \item Focus on safety and alignment
-    \end{itemize}
-    \pause
-
-    \item \uured{2024: Open-Weights Explosion}
-    \begin{itemize}
-        \item LLaMA-2/3, Mistral, Mixtral (MoE)
-        \item Efficient inference and training.
-        \item Training data reached internet-size.
-    \end{itemize}
-    \pause
-
-    \item \uured{2025: Multimodal Models}
-    \begin{itemize}
-        \item Native multimodal architectures (audio–vision–text).
-        \item Agents: reasoning + planning + tool execution.
-        \item GPT-5 released
-    \end{itemize}
-
-\end{itemize}
-
+\begin{frame}{Neural Networks and Language Models}
+Large language models use neural networks to learn representations of text.
+Today we start with feed-forward networks, a building block of the architectures
+we will study in the language-model lectures.
 \end{frame}
 
 \frame{\frametitle{The Hype}
@@ -410,6 +368,50 @@ where $\alpha$ is commonly set to 1.
 
 }
 
+\begin{frame}{Pair discussion: Counting MNIST parameters}
+
+\uured{Pairs, 1--2 minutes}
+
+A $28\times28$ image goes through Flatten, then a Dense layer with 16 units,
+then a Dense output layer with 10 units. Each Dense unit has one bias.
+
+How many trainable parameters does each layer have? Does Flatten learn anything?
+
+\pause
+\begin{itemize}
+\item Flatten only reshapes the image into 784 values, so it learns 0 parameters.
+\item The first Dense layer learns $784\times16$ weights and 16 biases, for $12{,}560$ parameters.
+\item The output layer learns $16\times10$ weights and 10 biases, for $170$ parameters.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{MNIST: From pixels to class probabilities}
+
+The Assignment 3 baseline maps a $28\times28$ image to probabilities for digits 0--9.
+
+\begin{center}
+\small
+\begin{tabular}{@{}lrr@{}}
+\hline
+Layer & Outputs per image & Trainable params. \\
+\hline
+Flatten & $784$ & $0$ \\
+Dense (sigmoid) & $16$ & $784\times16+16=12{,}560$ \\
+Dense (softmax) & $10$ & $16\times10+10=170$ \\
+\hline
+Total & & $12{,}730$ \\
+\hline
+\end{tabular}
+\end{center}
+
+In $z=xW+b$, each of the 16 hidden units has one weight per pixel and one bias.
+The same weights and biases are used for every image.
+
+Use \texttt{summary(model)} in Keras to see the output shapes and parameter counts.
+
+\end{frame}
+
 \begin{frame}{Universal Approximation Theorem}
 
 \begin{itemize}
@@ -502,6 +504,10 @@ where $\alpha$ is commonly set to 1.
 \includegraphics[width=0.6\textwidth]{fig/random_search.png}
 \caption{Grid search and random search (Goodfellow et al, 2017, Fig. 11.2)}
 \end{figure}
+
+Trying 3 values each for 5 irrelevant hyperparameters takes $3^5=243$ fits
+per setting of the relevant hyperparameters. Random search can explore more
+distinct values of the hyperparameters that matter within the same budget.
 
 }
 
@@ -635,8 +641,8 @@ w \leftarrow & (1 - 2\alpha \epsilon)w - \epsilon \nabla_w J(w)
 \frame{\frametitle{Early Stopping}
 
 \begin{itemize}
-\item \uured{Stop optimization early} based on validation error\pause
-\item Use the best iteration (hyperparameter)
+\item Track validation loss after each epoch and save the weights whenever it reaches a new low.\pause
+\item Stop after a chosen number of epochs without improvement. The epoch with the lowest validation loss may come before the stopping epoch.
 \end{itemize}
 
 \begin{figure}[h]
@@ -646,8 +652,7 @@ w \leftarrow & (1 - 2\alpha \epsilon)w - \epsilon \nabla_w J(w)
 \end{figure}
 
 \begin{itemize}
-\item Can be shown to be equivalent (under strict assumptions) to $L_2$ regularization (see Goodfellow et al, 2017)
-\item Efficient regularization
+\item Restore the weights from the best epoch before evaluating the model.
 \end{itemize}
 }
 
@@ -656,9 +661,39 @@ w \leftarrow & (1 - 2\alpha \epsilon)w - \epsilon \nabla_w J(w)
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.8\textwidth]{fig/early_stopping_L2.png}
-\caption{Early Stopping (Goodfellow et al, 2017, Fig. 7.4)}
+\caption{Early stopping and $L_2$ regularization can have a similar effect under specific assumptions (Goodfellow et al., 2017, Fig. 7.4).}
 \end{figure}
 }
+
+\begin{frame}{Early stopping in Assignment 3}
+\begin{itemize}
+\item Monitor \texttt{val\_loss}. Lower is better.
+\item In Keras, set \texttt{restore\_best\_weights = TRUE} to retain the weights from the best epoch.
+\item Re-evaluate the retained model on the validation data. The last row in the training history can describe a different set of weights.
+\item Use the validation results to select the model. Evaluate the selected model once on the test set.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Pair discussion: Which weights should we keep?}
+
+\uured{Pairs, 1--2 minutes}
+
+Training loss keeps falling. Here is the validation loss after each epoch:
+\[
+\begin{array}{c|cccc}
+\text{Epoch} & 1 & 2 & 3 & 4\\ \hline
+\text{Validation loss} & 0.50 & 0.40 & 0.38 & 0.41
+\end{array}
+\]
+
+If training stops after epoch 4 and you restore the best weights,
+which epoch's weights do you keep? When should you use the test set?
+
+\pause
+Keep epoch 3's weights because its validation loss is lowest.
+Use the test set once, after model selection, to evaluate the selected model.
+
+\end{frame}
 
 \subsection{Drop-out}
 % 7.12
