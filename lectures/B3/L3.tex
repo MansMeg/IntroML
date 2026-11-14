@@ -358,12 +358,12 @@ g_\text{ReLU}(z)=\max({0,z})
 
 }
 
-\frame{\frametitle{Activation functions ($g_l$): GeLU}
+\frame{\frametitle{Activation functions ($g_l$): GELU}
 
 \[
-g_\text{GeLU}(z)=z \Phi(z)
+g_\text{GELU}(z)=z \Phi(z)
 \]
-where $\Phi(z)$ is a standard Gaussian.
+where $\Phi$ is the standard normal cumulative distribution function.
 
 \begin{figure}[h]
 \centering
@@ -415,14 +415,15 @@ where $\alpha$ is commonly set to 1.
 \begin{itemize}
 
     \item A feed-forward neural network with \uured{one hidden layer} and a
-    \uured{non-polynomial activation} (e.g., sigmoid, tanh, ReLU) can approximate
+    \uured{continuous, non-polynomial activation} (e.g., sigmoid, tanh, ReLU)
+    and a linear output layer can approximate
     \uured{any continuous function} on a compact set $K \subset \mathbb{R}^n$.
     % A compact set is a finite, closed, “well-behaved" region in space.
     \pause
     \item Formally, for any continuous function $f : K \to \mathbb{R}^m$
     and any $\varepsilon > 0$, there exists a one-hidden-layer network
     \[
-        g(x) = C\,\sigma(Ax + b)
+        g(x) = \sigma(xA + b)\,C
     \]
     such that
     \[
@@ -431,7 +432,7 @@ where $\alpha$ is commonly set to 1.
 
     \pause
 
-    \item Interpretation: The \uured{worst-case error} between the network $g$ and the
+    \item For this network, the \uured{worst-case error} between the network $g$ and the
     target function $f$ on the entire set $K$ can be made \uured{arbitrarily small}
     by using enough hidden units.
 
@@ -487,7 +488,7 @@ where $\alpha$ is commonly set to 1.
 \item Grid search (combinatorial explosion)
 \begin{itemize}
 \item Really bad if many hyperparameters has a little effect
-\item If we have 5 irrelevant parameters we try 3 values for: 125 training per relevant run
+\item Trying 3 values each for 5 irrelevant hyperparameters takes $3^5=243$ fits per setting of the relevant hyperparameters.
 \end{itemize}
 \item Instead use...\pause \uured{Random search}
 \end{itemize}
@@ -513,7 +514,7 @@ where $\alpha$ is commonly set to 1.
 \frame{\frametitle{Regularization of Neural Networks}
 
 \begin{itemize}
-\item Reduce training error but \uured{improve generalization error}\pause
+\item Regularization can \uured{reduce generalization error} even if the unpenalized training loss increases.\pause
 \item Neural Networks are extremely flexible / high model capacity\pause
 \item Regularization is important for good generalizability
 \end{itemize}
@@ -530,7 +531,10 @@ where $\alpha$ is commonly set to 1.
 \[
 \tilde{J}(\theta) = J(\theta) + \alpha \Omega(\theta)\,,
 \]
-where $J(\theta)$ is the cost function, $\theta$ all weights and biases, and $\alpha \Omega(\theta)$ is the penalty for the weight matrices and where $\alpha$ is the strength of the penalty.
+Here $J(\theta)=\frac{1}{N}\sum_{i=1}^{N} L(y_i,\hat y_i)$ is the mean
+training loss. The parameters $\theta$ include weights and biases.
+The penalty $\Omega(\theta)$ here applies only to the weight matrices, and
+$\alpha\geq 0$ controls its strength.
 \end{itemize}
 
 }
@@ -540,16 +544,16 @@ where $J(\theta)$ is the cost function, $\theta$ all weights and biases, and $\a
 \begin{itemize}
 \item Let
 \[
-\Omega_1 (\theta) = \sum_i \sum_j |\theta|_{i,j}\,,
+\Omega_1(W) = \sum_{i,j}|W_{ij}|\,,
 \]
 and
 \[
-\Omega_2 (\theta) = \sum_i \sum_j \theta^2_{i,j}\,,
+\Omega_2(W) = \sum_{i,j}W_{ij}^2\,,
 \]
 be the $L_1$ and $L_2$ regularization respectively.
 \item We can then get the cost function
 \[
-\tilde{J}(\theta) = J(\theta) + \sum_l \alpha_l \Omega_2(\theta_l)\,,
+\tilde{J}(\theta) = J(\theta) + \sum_l \alpha_l \Omega_2(W_l)\,,
 \]
 \end{itemize}
 
@@ -568,7 +572,7 @@ be the $L_1$ and $L_2$ regularization respectively.
 \begin{align*}
 \nabla_w \tilde{J}(w) &= \nabla_w J(w) + 2\alpha w
 \end{align*}
-\item To update our weights with gradient descent
+\item With plain gradient descent and learning rate $\epsilon$,
 \begin{align*}
 w \leftarrow & w - \epsilon( \nabla_w J(w) + 2\alpha w)
 \end{align*}
@@ -576,6 +580,7 @@ w \leftarrow & w - \epsilon( \nabla_w J(w) + 2\alpha w)
 \begin{align*}
 w \leftarrow & (1 - 2\alpha \epsilon)w - \epsilon \nabla_w J(w)
 \end{align*}
+\item This equivalence holds for plain gradient descent. Adam rescales the penalty gradient along with the data gradient. AdamW applies weight decay separately.
 \end{itemize}
 
 }
@@ -661,21 +666,13 @@ w \leftarrow & (1 - 2\alpha \epsilon)w - \epsilon \nabla_w J(w)
 \frame{\frametitle{Dropout}
 
 \begin{itemize}
-\item In each iteration:
-\begin{itemize}
-\item Sample an indicator $I_i$ for each node $i$
-\item Set the value $h_i$ to 0 with probability $p$
-\end{itemize}
-\item The dropout probability (dropout rate) is typically 0.2 for input nodes and 0.5 for hidden nodes
-\item Forces the network to
-\begin{itemize}
-\item not rely on individual nodes
-\item spread out the weights over more nodes
-\end{itemize}
-\item Can be seen as an ensemble method
+\item During training, independently set each activation $h_i$ to zero with probability $p$. Keras scales retained activations by $1/(1-p)$.
+\item In Assignment 3, use $p=0.2$ in both hidden layers.
+\item Dropout changes how the weights are learned. The network learns to use signals from different subsets of units, reducing reliance on any one unit.
+\item During validation and prediction, all units are active and dropout leaves their activations unchanged.
+\item Training with many masks can be viewed as training an ensemble of subnetworks with shared weights.
 \end{itemize}
 }
-
 
 \frame{\frametitle{Dropout}
 
@@ -704,9 +701,9 @@ The best regularizer is... \pause \uured{to get more data}.
 \item Usually, a lot of data and many parameters ($\theta = (W, b)$)\pause
 \item We usually minimize our training cost function
 \[
-J(\theta) = \sum_i^N L(\text{NN}(x_i|\theta),y_i) + \Omega(\theta)\,,
+\tilde J(\theta) = \frac{1}{N}\sum_{i=1}^N \ell_i(\theta) + \alpha\Omega(\theta),\qquad \ell_i(\theta)=L(y_i,\hat y_i),
 \]
-where $L$ is the observation level loss, $\text{NN}()$ is our neural network and $\Omega$ is the regularization term. \pause
+where $\hat y_i$ is the network prediction and $\alpha\Omega(\theta)$ is the weight penalty. \pause
 \item \uured{Learning Target}: Find $\hat{\theta}$ that minimize the \uured{generalization} error
 \end{itemize}
 
@@ -718,16 +715,16 @@ where $L$ is the observation level loss, $\text{NN}()$ is our neural network and
 \begin{itemize}
 \item Stochastic Gradient Descent methods
 \[
-\theta_t = \theta_{t-1} - \eta_t \, \hat{\nabla} J(\theta_{t-1}),
+\theta_t = \theta_{t-1} - \eta_t \, \widehat{\nabla \tilde J}_t(\theta_{t-1}),
 \]
-where $\eta_t$ denotes the learning rate at iteration $t$ and $\hat{\nabla} J(\theta_{t-1})$ is an estimate of the gradient of the objective function.
+where $\eta_t$ denotes the learning rate at iteration $t$ and $\widehat{\nabla \tilde J}_t(\theta_{t-1})$ is an estimate of the gradient of the objective function.
 \pause
 \item In practice, better optimizers are used:
 \begin{itemize}
 \item Adam (the main optimizer today)
 \item RMSprop
 \end{itemize}\pause
-\item To compute $\hat{\nabla} J(\theta_{t-1})$:
+\item To compute $\widehat{\nabla \tilde J}_t(\theta_{t-1})$:
 \begin{itemize}
 \item \uured{Backpropagation} algorithm (chain-rule for derivatives)
 \end{itemize}
@@ -737,180 +734,83 @@ where $\eta_t$ denotes the learning rate at iteration $t$ and $\hat{\nabla} J(\t
 
 }
 
-\begin{frame}{Backpropagation}
+\begin{frame}{Backpropagation for one observation}
+
+Write $\ell=L(y,\hat y)$ for the observation's data loss.
 \begin{itemize}
-
-    \item Backpropagation provides an efficient procedure for computing all
-    parameter gradients $\nabla J(\theta)$ in a feed-forward neural network.
-
-    \item Uses the chain rule to propagate the error backward through layers:
-    \[
-        \frac{\partial J}{\partial W_l}
-        = h_{l-1}^\top \, \delta_l,
-    \qquad
-        \frac{\partial J}{\partial b_l}
-        = \delta_l,
-    \]
-    where $\delta_l$ is the error signal at layer $l$.
-
-    \item The algorithm consists of two passes:
-    \begin{itemize}
-        \item \textbf{Forward pass:} compute
-        \[
-            h_l = g_l(h_{l-1}^\top W_l + b_l)
-        \]
-        for each layer $l$.
-
-        \item \textbf{Backward pass:} compute error signals
-        \[
-            \delta_l = \bigl(\delta_{l+1} W_{l+1}^\top \bigr) \odot g_l'(z_l),
-        \qquad
-            z_l = h_{l-1}^\top W_l + b_l,
-        \]
-        starting from the output layer.
-    \end{itemize}
-
-    \pause
-
-    \item Enables efficient gradient-based optimization even for networks
-    with many layers and millions of parameters.
-
+\item \textbf{Forward pass:} compute $z_l=h_{l-1}W_l+b_l$ and $h_l=g_l(z_l)$ layer by layer from $h_0=x$ to $h_L=\hat y$.
+\item \textbf{Output error:} define $\delta_l=\partial\ell/\partial z_l$.
+For an elementwise output activation,
+\[
+\delta_L = \frac{\partial \ell}{\partial\hat y}\odot g'_L(z_L).
+\]
+Softmax couples the outputs. With categorical cross-entropy and a one-hot target, the combined derivative is $\delta_L=\hat y-y$.
+\item \textbf{Backward pass:} for elementwise hidden activations, propagate toward the input using
+\[
+\delta_l=(\delta_{l+1}W_{l+1}^\top)\odot g'_l(z_l).
+\]
+Here $\odot$ denotes elementwise multiplication.
 \end{itemize}
+
+\end{frame}
+
+\begin{frame}{From error signals to parameter updates}
+
+For one observation, the parameter gradients at layer $l$ are
+\[
+\frac{\partial\ell}{\partial W_l}=h_{l-1}^\top\delta_l,
+\qquad
+\frac{\partial\ell}{\partial b_l}=\delta_l.
+\]
+
+When observations are processed independently, average the data-loss gradients
+for the mini-batch $S_t$ of size $B$ and
+add the penalty gradient once:
+\[
+\widehat{\nabla \tilde J}_t(\theta)
+=\frac{1}{B}\sum_{i\in S_t}\nabla\ell_i(\theta)
++\alpha\nabla\Omega(\theta).
+\]
+The hat denotes an estimate of the full training objective's gradient.
+With batch normalization during training, differentiate through the batch statistics as well.
+
 \end{frame}
 
 \begin{frame}{Forward Pass: Simple Example}
-\begin{itemize}
 
-\item Consider a network with one hidden layer ($2$ units, we skip biases for simplicity) and ReLU activation:
-    \[
-        h_1 = g_1(x^\top W_1), \qquad
-        \hat{y} = w^\top h_1.
-    \]
-    \item Let
-    \[
-        x =
-        \begin{bmatrix}
-        1 \\ 2
-        \end{bmatrix},
-        \quad
-        W_1 =
-        \begin{bmatrix}
-        1 & 2 \\
-        -1 & 1
-        \end{bmatrix},
-        \quad
-%        b_1 =
-%        \begin{bmatrix}
-%        0 \\ 1
-%        \end{bmatrix},
-        \quad
-        w =
-        \begin{bmatrix}
-        1 \\ -2
-        \end{bmatrix}.
-%        \quad
-%        b_2 = 0.
-    \]
+One hidden layer with two ReLU units and a linear output. Omit biases for simplicity.
+\[
+x=\begin{bmatrix}1 & 2\end{bmatrix},\qquad
+W_1=\begin{bmatrix}1 & 2\\-1 & 1\end{bmatrix},\qquad
+w=\begin{bmatrix}1\\-2\end{bmatrix}.
+\]
+\begin{align*}
+z_1 &= xW_1 = \begin{bmatrix}-1 & 4\end{bmatrix},\\
+h_1 &= \operatorname{ReLU}(z_1) = \begin{bmatrix}0 & 4\end{bmatrix},\\
+\hat y &= h_1w = -8.
+\end{align*}
 
-    \item Compute hidden pre-activation:
-    \[
-        z_1 = x^\top W_1
-        =
-        \begin{bmatrix}
-        -1 \\ 4
-        \end{bmatrix}.
-    \]
-
-    \item Apply ReLU:
-    \[
-        h_1 = g_\text{ReLU}(z_1) = \max(0, z_1)
-        =
-        \begin{bmatrix}
-        0 \\ 4
-        \end{bmatrix}.
-    \]
-
-    \item Output:
-    \[
-        \hat{y} = w^\top h_1 = -8.
-    \]
-
-\end{itemize}
 \end{frame}
-
 
 \begin{frame}{Backward Pass: Simple Example}
 \begin{itemize}
-
-    \item Loss (squared error):
-    \[
-        J = \tfrac{1}{2}(\hat{y} - y)^2,
-        \qquad y = 0,
-        \qquad
-        \frac{\partial J}{\partial \hat{y}} = \hat{y} - y = -8.
-    \]
-
-    \item Output layer gradients:
-    \[
-        \frac{\partial J}{\partial w}
-        = \frac{\partial J}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial w}
-        = h_1 (\hat{y} - y)
-        =
-        \begin{bmatrix}
-        0 \\ -40
-        \end{bmatrix}.
-    \]
-
-    \item Backpropagated error signal:
+\item With the squared-error loss $\ell=\tfrac12(\hat y-y)^2$ and $y=0$, the linear output gives $\delta_2=\hat y-y=-8$.
+\item Output weight gradient:
 \[
-\delta_1
-:=
-\frac{\partial J}{\partial z_1}
-=
-\frac{\partial J}{\partial \hat{y}}
-\cdot
-\frac{\partial \hat{y}}{\partial h_1}
-\cdot
-\frac{\partial h_1}{\partial z_1}
-=
-(\hat{y} - y)\, w \;\odot\; g'_{\text{ReLU}}(z_1).
+\frac{\partial\ell}{\partial w}=h_1^\top\delta_2
+=\begin{bmatrix}0\\-32\end{bmatrix}.
 \]
-
+\item Hidden error signal:
 \[
-(\hat{y}-y)\, w =
-\begin{bmatrix}
--8 \\ 16
-\end{bmatrix},
-\qquad
-g'_{\text{ReLU}}(z_1) =
-\begin{bmatrix}
-0 \\ 1
-\end{bmatrix},
-\qquad
-\delta_1
-=
-\begin{bmatrix}
-0 \\ 16
-\end{bmatrix}.
+\delta_1=(\delta_2w^\top)\odot g'_{\text{ReLU}}(z_1)
+=\begin{bmatrix}-8 & 16\end{bmatrix}\odot\begin{bmatrix}0 & 1\end{bmatrix}
+=\begin{bmatrix}0 & 16\end{bmatrix}.
 \]
-    \item Gradients for first layer:
-    \[
-        \frac{\partial J}{\partial W_1}
-        = \frac{\partial J}{\partial \hat{y}}
-\cdot
-\frac{\partial \hat{y}}{\partial h_1}
-\cdot
-\frac{\partial h_1}{\partial z_1}
-\cdot
-\frac{\partial z_1}{\partial W_1}
-        = x \, \delta_1^\top
-        =
-        \begin{bmatrix}
-        0 & 16 \\
-        0 & 32
-        \end{bmatrix}.
-    \]
-
+\item Hidden weight gradient:
+\[
+\frac{\partial\ell}{\partial W_1}=x^\top\delta_1
+=\begin{bmatrix}0 & 16\\0 & 32\end{bmatrix}.
+\]
 \end{itemize}
 \end{frame}
 
@@ -922,20 +822,13 @@ g'_{\text{ReLU}}(z_1) =
 \subsection{Local minima}
 
 \frame{\frametitle{Problems: Local Minima}
-% 8.2.2
 \begin{itemize}
-\item Neural Networks cost function $J(\theta)$ are (usually) \uured{not a convex} function
-\item We can have local minima
-\item \uured{When will this be a problem?}\pause
-\item A problem if local optima has a \uured{high cost/bad performance}\pause
-\item \uured{Good thing:} This is probably not the situation!\pause
-\item Many practitioners believe this is a problem\pause
-\item \uured{Diagnosis:} Plot the gradient norm, $\mathbf{g}^T \mathbf{g}$, where $\mathbf{g} = \hat{\nabla} J(\theta)$ \pause
+\item Neural network objectives are typically nonconvex, so they can have local minima.\pause
+\item \uured{When is a local minimum a problem?} \pause When it has a much higher objective value than other solutions we could reach.\pause
+\item Plot the \uured{squared gradient norm} $\|g\|_2^2=g^\top g$, where $g$ is the estimated gradient.\pause
+\item A small norm can occur near a minimum, near a saddle point, or on a plateau.
 \end{itemize}
-
 }
-
-
 
 \subsection{Plateaus and Saddle Points}
 % 8.2.3
