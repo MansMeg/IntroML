@@ -183,11 +183,15 @@ A baseball player has six years in the league and 100 hits.
 \frame{\frametitle{Estimating a Decision Tree}
 
 \begin{enumerate}
-\item A tree has two groups of parameters $\Theta = (\gamma, R)$ that we need to learn.\pause
-\item We want a tree that minimize $L(\theta) = \sum_i^N (y_i - T_\Theta(x_i))^2$, here the squared loss\pause
-\item Usually we estimate $\gamma_m$ as the mean of $y_i$ in the region as:
+\item A tree is described by its regions and leaf predictions, $\Theta=(\gamma,R)$.\pause
+\item For training pairs $(x_i,y_i)$, we want to minimise the sum of squared errors:
 \[
-\hat{\gamma}_m = \frac{1}{N_m} \sum_{x_i \in R_m}^{N_m} y_i\,,
+L(\Theta)=\sum_{i=1}^{N}\bigl(y_i-T_\Theta(x_i)\bigr)^2.
+\]
+\pause
+\item For a fixed leaf $R_m$, the mean minimises squared error:
+\[
+\hat{\gamma}_m=\frac{1}{N_m}\sum_{i:x_i\in R_m}y_i,
 \]
 where $N_m$ is the number of observations in region $R_m$.\pause
 \item Learning $R_m$ exact is generally computationally infeasable so we use a \uured{greedy} heuristic.
@@ -304,7 +308,7 @@ SS_{k,j} = \sum_{i \in R_1}(y_i-\hat{c}_1)^2
 
 \begin{frame}{Growing a Decision Tree: Greedy Algorithm}
 \small
-\setlength{\parskip}{1.5mm}
+\setlength{\parskip}{1mm}
 
 Each queue entry holds \uured{original data rows} $r$, a \uured{parent tree row}, and the pointer to fill (\texttt{R1\_i} or \texttt{R2\_i}).
 
