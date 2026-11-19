@@ -34,48 +34,48 @@ Are the evaluation questions answered and the hours spent on reading and the ass
 
 ### Q2d - fail/pass
 
-Is an original oral exam question connected to this assignment included, with a short model answer and a clear future-use Yes/No statement? It must not duplicate or closely resemble an existing question. Students must not use LLMs at all for this contribution. If missing or clearly not serious, fail and resubmit.
+Is an original oral exam question (Section 1) connected to this assignment included, with a short model answer and a clear future-use Yes/No statement? It must not duplicate or closely resemble an existing question. Students must not use LLMs at all for this contribution. If missing or clearly not serious, fail and resubmit.
 
 - No
 - Yes
 
-## Exercise 1
+## Exercise 2
 
-Task 1.1 (preparing the data and setting aside the first 30 complete-case observations) has no separate points.
+Task 2.1 (preparing the data and setting aside the first 30 complete-case observations) has no separate points.
 
-### Q3a - 2 points
+### 2.2a - 2 points
 
-In 1.2, is `tree_split` included and correct, minimising within-child squared errors, respecting the minimum child size and returning the required split information or `NULL`?
+In 2.2, is `tree_split` included and correct, minimising within-child squared errors, respecting the minimum child size and returning the required split information or `NULL`?
 
 - Missing or fundamentally incorrect (0p)
 - Substantially correct, with errors or omissions (1p)
 - Correct (2p)
 
-### Q3b - 1 point
+### 2.2b - 1 point
 
-Are the inputs, call and actual `tree_split` output included and briefly explained? Reuse a supplied example or the first split in 1.3; accept valid ties.
+Are the inputs, call and actual `tree_split` output included and briefly explained? Reuse a supplied example or the first split in 2.3; accept valid ties.
 
 - Missing or incorrect (0p)
 - Partly complete or correct (0.5p)
 - Yes (1p)
 
-### Q4 - 2 points
+### 2.3 - 2 points
 
-In 1.3, are the first split's predictor, threshold and SS correctly reported from one training-data call with l = 5?
+In 2.3, are the first split's predictor, threshold and SS correctly reported from one training-data call with l = 5?
 
 - Missing or incorrect (0p)
 - Predictor and threshold correct, but SS missing or incorrect, or vice versa (1p)
 - Yes (2p)
 
-### Q5a - 2 points
+### 2.4a - 2 points
 
-In 1.4, is `grow_tree` included and correct, with repeated splitting, correct stopping and leaf means, and consistent observation indices and tree references? Accept equivalent representations.
+In 2.4, is `grow_tree` included and correct, with repeated splitting, correct stopping and leaf means, and consistent observation indices and tree references? Accept equivalent representations.
 
 - Missing or fundamentally incorrect (0p)
 - Substantially correct, with errors or omissions (1p)
 - Correct (2p)
 
-### Q5b - 1 point
+### 2.4b - 1 point
 
 Are the inputs, call and compact actual tree output included and briefly explained as a demonstration of `grow_tree`?
 
@@ -83,87 +83,87 @@ Are the inputs, call and compact actual tree output included and briefly explain
 - Partly complete or correct (0.5p)
 - Yes (1p)
 
-### Q6a - 2 points
+### 2.5a - 2 points
 
-In 1.5, is `predict_with_tree` included and correct, following each observation to a leaf and returning one prediction per row in the original order?
+In 2.5, is `predict_with_tree` included and correct, following each observation to a leaf and returning one prediction per row in the original order?
 
 - Missing or fundamentally incorrect (0p)
 - Substantially correct, with errors or omissions (1p)
 - Correct (2p)
 
-### Q6b - 1 point
+### 2.5b - 1 point
 
-Are the inputs, call and actual predictions included and briefly explained? Reuse the supplied example or the test predictions from 1.6.
+Are the inputs, call and actual predictions included and briefly explained? Reuse the supplied example or the test predictions from 2.6.
 
 - Missing or incorrect (0p)
 - Partly complete or correct (0.5p)
 - Yes (1p)
 
-### Q7 - 1 point
+### 2.6 - 1 point
 
-In 1.6, is the own tree fitted on all training data with l = 5 and its held-out RMSE reported in the comparison table?
+In 2.6, is the own tree fitted on all training data with l = 5 and its held-out RMSE reported in the comparison table?
 
 - Missing or incorrect (0p)
 - Partly correct (0.5p)
 - Yes (1p)
 
-## Exercise 2
+## Exercise 3
 
-Task 2.1 (the supplied random-forest fit) has no separate points.
+Task 3.1 (the supplied random-forest fit) has no separate points.
 
-### Q8 - 1 point
+### 3.2 - 1 point
 
-In 2.2, is the number of candidate predictors per random-forest split correctly reported and explained?
+In 3.2, is the number of candidate predictors per random-forest split correctly reported and explained?
 
 - Missing or incorrect (0p)
 - Number correct, but explanation incomplete (0.5p)
 - Yes (1p)
 
-### Q9 - 1 point
+### 3.3 - 1 point
 
-In 2.3, is the fitted random forest used to predict the held-out observations, with test RMSE in the comparison table?
-
-- Missing or incorrect (0p)
-- Partly correct (0.5p)
-- Yes (1p)
-
-### Q10 - 1 point
-
-In 2.4, is the boosted regression tree fitted with `xgboost` using the specified training data and settings?
+In 3.3, is the fitted random forest used to predict the held-out observations, with test RMSE in the comparison table?
 
 - Missing or incorrect (0p)
 - Partly correct (0.5p)
 - Yes (1p)
 
-### Q11 - 1 point
+### 3.4 - 1 point
 
-In 2.5, is the boosting test RMSE correctly reported in the same comparison table?
+In 3.4, is the boosted regression tree fitted with `xgboost` using the specified training data and settings?
 
 - Missing or incorrect (0p)
 - Partly correct (0.5p)
 - Yes (1p)
 
-### Q12 - 1 point
+### 3.5 - 1 point
 
-In 2.6, does the comparison cover all three models, identify the lowest observed test RMSE and give a brief plausible explanation? Accept other rankings and ties supported by the results.
+In 3.5, is the boosting test RMSE correctly reported in the same comparison table?
+
+- Missing or incorrect (0p)
+- Partly correct (0.5p)
+- Yes (1p)
+
+### 3.6 - 1 point
+
+In 3.6, does the comparison cover all three models, identify the lowest observed test RMSE and give a brief plausible explanation? Accept other rankings and ties supported by the results.
 
 - Missing or incorrect (0p)
 - Partly correct or incomplete (0.5p)
 - Yes (1p)
 
-## Exercise 3 *
+## Exercise 4 *
 
-Only relevant for students seeking VG who submitted this option. Both bagging and random-forest work are required; together they total 10 points. Section 3 restarts its task numbering, so the references below distinguish Bagging and RF.
+Only relevant for students seeking VG who submitted this option. Both bagging and random-forest work are required; together they total 10 points. Section 4 restarts its task numbering, so the references below distinguish Bagging and RF.
 
-### Q13a - 1 point
+### 4 Bagging.1a - 1 point
 
-In 3 Bagging.1, is `train_bagged_trees` included and correct, returning B trees grown from independent size-n bootstrap samples with replacement?
+In 4 Bagging.1, is `train_bagged_trees` included and correct, returning B trees grown from independent size-n bootstrap samples with replacement?
 
 - Missing or fundamentally incorrect (0p)
 - Substantially correct, with minor errors (0.5p)
 - Correct (1p)
 
-### Q13b - 1 point
+### 4 Bagging.1b - 1 point
 
 Are the inputs, call, seed and compact actual ensemble output included and briefly explained? Reuse the bagging experiment and report the number of returned trees.
 
@@ -171,15 +171,15 @@ Are the inputs, call, seed and compact actual ensemble output included and brief
 - Partly complete or correct (0.5p)
 - Yes (1p)
 
-### Q14a - 1 point
+### 4 Bagging.2a - 1 point
 
-In 3 Bagging.2, is `predict_with_bagged_trees` included and correct, averaging predictions across trees for each new observation?
+In 4 Bagging.2, is `predict_with_bagged_trees` included and correct, averaging predictions across trees for each new observation?
 
 - Missing or fundamentally incorrect (0p)
 - Substantially correct, with minor errors (0.5p)
 - Correct (1p)
 
-### Q14b - 1 point
+### 4 Bagging.2b - 1 point
 
 Are the inputs, call and an extract of actual bagged predictions included and briefly explained? Reuse the bagging experiment.
 
@@ -187,23 +187,23 @@ Are the inputs, call and an extract of actual bagged predictions included and br
 - Partly complete or correct (0.5p)
 - Yes (1p)
 
-### Q15 - 1 point
+### 4 Bagging.3 - 1 point
 
-In 3 Bagging.3, are test RMSEs reported for B = 1, 10, 100, 500 and 1000 using the own implementation? RMSE need not decrease monotonically; one 1000-tree ensemble may be reused.
+In 4 Bagging.3, are test RMSEs reported for B = 1, 10, 100, 500 and 1000 using the own implementation? RMSE need not decrease monotonically; one 1000-tree ensemble may be reused.
 
 - Missing or incorrect (0p)
 - Partly correct or some settings missing (0.5p)
 - Yes (1p)
 
-### Q16a - 1 point
+### 4 RF.1a - 1 point
 
-In 3 RF.1, is `grow_tree_m` included and correct, sampling a fresh subset of m predictors at every split, including the root, and retaining original predictor indices?
+In 4 RF.1, is `grow_tree_m` included and correct, sampling a fresh subset of m predictors at every split, including the root, and retaining original predictor indices?
 
 - Missing or fundamentally incorrect (0p)
 - Substantially correct, with minor errors (0.5p)
 - Correct (1p)
 
-### Q16b - 1 point
+### 4 RF.1b - 1 point
 
 Are the inputs, call, seed and compact actual tree output included and briefly explained as a demonstration of `grow_tree_m`?
 
@@ -211,25 +211,25 @@ Are the inputs, call, seed and compact actual tree output included and briefly e
 - Partly complete or correct (0.5p)
 - Yes (1p)
 
-### Q17a - 1 point
+### 4 RF.2a - 1 point
 
-In 3 RF.2, is `random_forest` included and correct, returning B bootstrap-grown `grow_tree_m` trees in a format compatible with the bagged prediction function?
+In 4 RF.2, is `random_forest` included and correct, returning B bootstrap-grown `grow_tree_m` trees in a format compatible with the bagged prediction function?
 
 - Missing or fundamentally incorrect (0p)
 - Substantially correct, with minor errors (0.5p)
 - Correct (1p)
 
-### Q17b - 1 point
+### 4 RF.2b - 1 point
 
-Are the inputs, call, seed and compact actual random-forest output included and briefly explained? Reuse 3 RF.3; no extra large ensemble is needed.
+Are the inputs, call, seed and compact actual random-forest output included and briefly explained? Reuse 4 RF.3; no extra large ensemble is needed.
 
 - Missing or incorrect (0p)
 - Partly complete or correct (0.5p)
 - Yes (1p)
 
-### Q18 - 1 point
+### 4 RF.3 - 1 point
 
-In 3 RF.3, are the l = 5, m = 1, B = 100 settings, seed, returned tree count, prediction extract and test RMSE reported? Allow valid random variation.
+In 4 RF.3, are the l = 5, m = 1, B = 100 settings, seed, returned tree count, prediction extract and test RMSE reported? Allow valid random variation.
 
 - Missing or incorrect (0p)
 - Partly correct or incomplete (0.5p)

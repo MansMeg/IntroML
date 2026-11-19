@@ -83,7 +83,7 @@ The predictor objects \texttt{X\_train}, \texttt{X\_test}, and the example predi
 
 \item (3p) \textbf{Implementation (2p).} Implement an R function to split observations binary greedily. Use the complete-case data prepared above; additional missing-value handling is not required. Here we use the \citet[][Eq. 9.12-9.14]{hastie2009elements}, but with the addition that each child node must contain at least $l$ observations. The function should take a design matrix \texttt{X}, an \texttt{y} variable and a minimal leaf size \texttt{l}. The function should return a list with the index set of the observations in \texttt{R1}, \texttt{R2}, the split value \texttt{s} and the covariate used for the split \texttt{j}, or \texttt{NULL} if no valid split exists. Below is a rough sketch how you can implement the function.
 
-\textbf{Demonstration (1p).} Reuse one of the example calls below or the first split in Task 1.3, and briefly explain the actual output from your function.
+\textbf{Demonstration (1p).} Reuse one of the example calls below or the first split in Task 2.3, and briefly explain the actual output from your function.
 
 <<echo=TRUE, eval=FALSE>>=
 tree_split <- function(X, y, l){
@@ -333,7 +333,7 @@ predict_with_tree <- function(new_data, tree){
 }
 @
 
-\textbf{Demonstration (1p).} Show a reproducible call and actual predictions, with a brief explanation. Reuse the example below or the test predictions from Task 1.6.
+\textbf{Demonstration (1p).} Show a reproducible call and actual predictions, with a brief explanation. Reuse the example below or the test predictions from Task 2.6.
 
 To use the tree to predict new observations $X_{new}$ as follows.
 
